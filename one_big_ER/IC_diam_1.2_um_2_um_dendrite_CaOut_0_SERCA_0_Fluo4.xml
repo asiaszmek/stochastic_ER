@@ -58,6 +58,7 @@
   <ConcentrationSet region="dend">
     <NanoMolarity specieID="CaER"         value="0.8e5"     />
     <NanoMolarity specieID="IP3R"      value="200"     />
+    <NanoMolarity specieID="CaLeakER"      value="20"     />
    
 
     <NanoMolarity       specieID="CRTP" value="86774"/>
