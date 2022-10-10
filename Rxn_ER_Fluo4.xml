@@ -152,14 +152,14 @@
     <Reactant specieID="Buf"/>
     <Reactant specieID="CaOutAnn"/>
     <Product specieID="CaOutAnnB"/>
-    <forwardRate>1e-04</forwardRate>
+    <forwardRate>1e-05</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
 
     <Reaction name = "CaOutInj3" id="CaOutInj3">
     <Reactant specieID="CaOut"/>
     <Reactant specieID="CaOutAnnB"/>
-    <forwardRate>1e-04</forwardRate>
+    <forwardRate>1e-05</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
 
