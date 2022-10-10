@@ -184,8 +184,7 @@ def get_concentrations(my_file, trial, out):
     concentrations = np.zeros((data.shape[0], len(regions), len(species)))
     numbers = np.zeros_like(concentrations)
     region_indices = get_region_indices(my_file)
-    print(volume_dict)
-    print(grid_list)
+
     for i, reg in enumerate(regions):
         # get numbers
         numbers[:, i, :] = data[:, region_indices[reg], :].sum(axis=1)
