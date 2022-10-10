@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Morphology>
+  <Segment id="seg1" region="dend1">
+    <start x="0.0" y="1.0" z="0.0" r="0.6"/>
+    <end x="1.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg2" region="dend2">
+    <start on="seg1" at="end" r="0.6"/>
+    <end x="2.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg3" region="dend3">
+    <start on="seg2" at="end" r="0.6"/>
+    <end x="3.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg4" region="dend4">
+    <start on="seg3" at="end" r="0.6"/>
+    <end x="4.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg5" region="dend5">
+    <start on="seg4" at="end" r="0.6"/>
+    <end x="5.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg6" region="dend6">
+    <start on="seg5" at="end" r="0.6"/>
+    <end x="6.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg7" region="dend7">
+    <start on="seg6" at="end" r="0.6"/>
+    <end x="7.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg8" region="dend8">
+    <start on="seg7" at="end" r="0.6"/>
+    <end x="8.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg9" region="dend9">
+    <start on="seg8" at="end" r="0.6"/>
+    <end x="9.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+  <Segment id="seg10" region="dend10">
+    <start on="seg9" at="end" r="0.6"/>
+    <end x="10.0" y="1.0" z="0.0" r="0.6"/>
+  </Segment>
+
+</Morphology>
+
