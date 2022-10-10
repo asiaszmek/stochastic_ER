@@ -64,7 +64,7 @@
     
     <NanoMolarity       specieID="Cyt_SERCA"       value="183340"     />
     <NanoMolarity       specieID="Cyt_SERCA_Ca"       value="136400"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="501000"     />
+    <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="51000"     />
     <NanoMolarity       specieID="ER_SERCA"       value="11000"     />
     <NanoMolarity       specieID="ER_SERCA_Ca"       value="5500"     />
     <NanoMolarity       specieID="ER_SERCA_Ca2"       value="574"     />
