@@ -32,10 +32,9 @@
     <PicoSD specieID="pmcaCa" value="180"/>
     <PicoSD specieID="ncx" value="14000"/>
     <PicoSD specieID="ncxCa" value="1000"/>
-
-    <PicoSD  specieID="Plc"  value="200"    />
+    <PicoSD  specieID="Plc"  value="220"    />
     <PicoSD  specieID="PlcCa"  value="20"    />
-    <PicoSD  specieID="PlcCaPip2"  value="26"    />
+    <PicoSD  specieID="PlcCaPip2"  value="12"    />
     <PicoSD  specieID="PlcCaGqaGTP"  value="1"    />
     <PicoSD  specieID="Pip2" value="10000"  />
     <PicoSD  specieID="PIkinase"   value="300"  />
@@ -48,7 +47,8 @@
     <PicoSD specieID="GqaGTP" value="8"/>
     <PicoSD specieID="GqaGDP" value="8"/>
     
-    <PicoSD specieID="PIkinase"           value="280"  />
+    <PicoSD specieID="PIkinase"           value="274"  />
+   
     <PicoSD specieID="IP3degPIk"          value="0"  />
     <PicoSD specieID="IP3degrad"          value="0"  />
     <PicoSD specieID="OraiSTIM_2"          value="150"  />
@@ -58,7 +58,7 @@
   <ConcentrationSet region="dend">
     <NanoMolarity specieID="CaER"         value="0.8e5"     />
     <NanoMolarity specieID="IP3R"      value="150"     />
-    <NanoMolarity specieID="CaLeakER"      value="20"     />
+    <NanoMolarity specieID="CaLeakER"      value="400"     />
    
 
     <NanoMolarity       specieID="CRTP" value="86774"/>

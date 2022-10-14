@@ -34,7 +34,7 @@
   <Specie name="CaOutLeak" id="CaOutLeak" kdiff="0"
 	  kdiffunit="mu2/s" />
   <Specie name="Leak" id="Leak" kdiff="0" kdiffunit="mu2/s" />
-  <Specie name="LeakER" id="LeakER" kdiff="0" kdiffunit="mu2/s" />
+
   <Specie name="CaLeakER" id="CaLeakER" kdiff="0" kdiffunit="mu2/s" />
 
   <Specie name="Fura2" id="Fura2" kdiff="83" kdiffunit="mu2/s" />
@@ -735,20 +735,12 @@ avoids the need to generate Gqbg, and have them react-->
   
 <!-- ER Ca leak -    CaER+ LeakER <-> CaERLeak-->
  <Reaction name = "Ca_leakER1" id="Ca_leakaER1">
-  <Reactant specieID="CaER" p="2"/>
-  <Reactant specieID="LeakER" />
+  <Reactant specieID="CaER" />
+  <Reactant specieID="CaLeakER" />
   <Product specieID="CaLeakER"/>
+  <Product specieID="Ca"/>
 
-    <forwardRate>1.8e-4</forwardRate>
-    <reverseRate>1.8e-4</reverseRate>
-    <Q10>0.2</Q10>
-  </Reaction>
-
-  <Reaction name = "Ca_leakER2" id="Ca_leakaER2">
-  <Reactant specieID="CaLeakER"/>
-  <Product specieID="LeakER" />
-  <Product specieID="Ca" p="2"/>
-    <forwardRate>0.5e-3</forwardRate>
+    <forwardRate>1.8e-7</forwardRate>
     <Q10>0.2</Q10>
   </Reaction>
 
