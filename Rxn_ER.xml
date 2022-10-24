@@ -188,16 +188,16 @@
     <Product specieID="OraiSTIM_8" />
     <Product specieID="Ca" />
     
-    <forwardRate>1e-7</forwardRate>
-    <reverseRate>1e-7</reverseRate>
+    <forwardRate>1.5e-7</forwardRate>
+    <reverseRate>1.5e-7</reverseRate>
   </Reaction>
   <Reaction name = "SOCE2" id="SOCE2">
     <Reactant specieID="CaOut" />
     <Reactant specieID="OraiSTIM_6" />
     <Product specieID="OraiSTIM_6" />
     <Product specieID="Ca" />
-    <forwardRate>5e-8</forwardRate>
-    <reverseRate>5e-8</reverseRate>
+    <forwardRate>1e-7</forwardRate>
+    <reverseRate>1e-7</reverseRate>
   </Reaction>
 
 

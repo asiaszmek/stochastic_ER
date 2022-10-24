@@ -46,14 +46,13 @@
   <ConcentrationSet region="dend">
     <NanoMolarity specieID="CaER"         value="0.8e5"     />
     <NanoMolarity specieID="IP3R"      value="75"     />
-    <NanoMolarity specieID="CaLeakER"      value="25"     />
-    
-    <NanoMolarity       specieID="Cyt_SERCA"       value="10404"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca"       value="8172"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="3240"     />
-    <NanoMolarity       specieID="ER_SERCA"       value="960"     />
-    <NanoMolarity       specieID="ER_SERCA_Ca"       value="384"     />
-    <NanoMolarity       specieID="ER_SERCA_Ca2"       value="48"     />
+    <NanoMolarity specieID="CaLeakER"      value="60"     />
+    <NanoMolarity       specieID="Cyt_SERCA"       value="31212"     />
+    <NanoMolarity       specieID="Cyt_SERCA_Ca"       value="24516"     />
+    <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="9720"     />
+    <NanoMolarity       specieID="ER_SERCA"       value="2880"     />
+    <NanoMolarity       specieID="ER_SERCA_Ca"       value="1152"     />
+    <NanoMolarity       specieID="ER_SERCA_Ca2"       value="144"     />
 
  
     <NanoMolarity       specieID="CRTP" value="8.8054e+4"/>

@@ -151,7 +151,7 @@
     <Reactant specieID="CaOutBuf"/>
     <Product specieID="Buf"/>
     <Product specieID="CaOut"/>
-    <forwardRate>2e-03</forwardRate>
+    <forwardRate>1e-03</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
 
@@ -159,14 +159,14 @@
     <Reactant specieID="Buf"/>
     <Reactant specieID="CaOutAnn"/>
     <Product specieID="CaOutAnnB"/>
-    <forwardRate>1e-05</forwardRate>
+    <forwardRate>1e-06</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
 
     <Reaction name = "CaOutInj3" id="CaOutInj3">
     <Reactant specieID="CaOut"/>
     <Reactant specieID="CaOutAnnB"/>
-    <forwardRate>1e-05</forwardRate>
+    <forwardRate>1e-06</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
 
@@ -237,8 +237,8 @@
     <Reactant specieID="OraiSTIM_8" />
     <Product specieID="OraiSTIM_8" />
     <Product specieID="Ca" />
-    <forwardRate>1e-7</forwardRate>
-    <reverseRate>1e-7</reverseRate>
+    <forwardRate>1.5e-7</forwardRate>
+    <reverseRate>1.5e-7</reverseRate>
   </Reaction>
 
 
@@ -248,8 +248,8 @@
     <Product specieID="OraiSTIM_6" />
     <Product specieID="Ca" />
   
-    <forwardRate>5e-8</forwardRate>
-    <reverseRate>5e-8</reverseRate>
+    <forwardRate>1e-7</forwardRate>
+    <reverseRate>1e-7</reverseRate>
   </Reaction>
 
  
