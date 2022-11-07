@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InitialConditions>
+  <ConcentrationSet>
+    <NanoMolarity specieID="Ca" value="75"/>
+    <NanoMolarity specieID="GluOut" value="1000000"/>
+    <NanoMolarity specieID="Glu" value="40"/>
+    <!-- total calbindin = 160 uM -->
+    <NanoMolarity specieID="Calbin" value="134400"/>
+    <NanoMolarity specieID="CalbinC" value="15600"/>
+    <NanoMolarity specieID="fixedbuffer" value="1996760"/>
+    <NanoMolarity specieID="fixedbufferCa" value="3230"/>
+
+    <NanoMolarity specieID="CaM" value="8100"/>
+    <NanoMolarity specieID="CaMCa2C" value="400"/>
+    <NanoMolarity specieID="CaMCa2N" value="55"/>
+    <NanoMolarity specieID="CaMCa4" value="3"/>
+    <NanoMolarity specieID="NgCaM" value="17250"/>
+    <NanoMolarity specieID="Ng" value="2750"/>
+    <NanoMolarity specieID="IP3" value="26"/>
+    <NanoMolarity specieID="IP3degPIk" value="6"/>
+    <NanoMolarity specieID="IP3degrad" value="17"/>
+   <NanoMolarity specieID="Fluo4" value="400"/>
+    <NanoMolarity specieID="Fluo4Ca" value="100"/>
+
+
+    </ConcentrationSet>
+
+
+  <SurfaceDensitySet region="dend">
+    <PicoSD specieID="Leak" value="5"/>
+    <PicoSD specieID="CaOutLeak" value="6000"/>
+    <PicoSD specieID="pmca" value="420"/>
+    <PicoSD specieID="pmcaCa" value="180"/>
+    <PicoSD specieID="ncx" value="14000"/>
+    <PicoSD specieID="ncxCa" value="1000"/>
+
+    <PicoSD  specieID="Plc"  value="220"    />
+    <PicoSD  specieID="PlcCa"  value="20"    />
+    <PicoSD  specieID="PlcCaPip2"  value="12"    />
+    <PicoSD  specieID="PlcCaGqaGTP"  value="1"    />
+    <PicoSD  specieID="Pip2" value="10000"  />
+    <PicoSD  specieID="PIkinase"   value="300"  />
+    <PicoSD  specieID="MgluR" value="107"  />
+    <PicoSD  specieID="GluMgluR" value="2"  />
+    <PicoSD specieID="Gqabg" value="5315"/>
+    <PicoSD specieID="GluMgluRdesens" value="33"/>
+    <PicoSD specieID="MgluRGq" value="330"/>
+    <PicoSD specieID="GluMgluRGq" value="13"/>
+    <PicoSD specieID="GqaGTP" value="8"/>
+    <PicoSD specieID="GqaGDP" value="8"/>
+    
+    <PicoSD specieID="PIkinase"           value="274"  />
+    <PicoSD specieID="IP3degPIk"          value="0"  />
+    <PicoSD specieID="IP3degrad"          value="0"  />
+    <PicoSD specieID="Orai"          value="114"  />
+    <PicoSD specieID="OraiSTIM_2"          value="160"  />
+    <PicoSD specieID="OraiSTIM_4"          value="26"  />
+  </SurfaceDensitySet>
+
+  <ConcentrationSet region="dend">
+    <NanoMolarity specieID="CaER"         value="0.9e5"     />
+    <NanoMolarity specieID="IP3R"      value="150"     />
+    <NanoMolarity       specieID="CRTP" value="89000"/>
+    <NanoMolarity       specieID="CRT" value="11000"/>
+    <NanoMolarity specieID="STIMCaER" value="4240" />
+    <NanoMolarity specieID="STIM" value="300" />
+    <NanoMolarity specieID="STIM_2" value="10" />
+   
+  </ConcentrationSet>
+</InitialConditions>
