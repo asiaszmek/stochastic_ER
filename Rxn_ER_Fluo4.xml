@@ -239,8 +239,8 @@
     <Product specieID="OraiSTIM_6" />
     <Product specieID="Ca" />
   
-    <forwardRate>1e-7</forwardRate>
-    <reverseRate>1e-7</reverseRate>
+    <forwardRate>1.5e-8</forwardRate>
+    <reverseRate>1.5e-8</reverseRate>
   </Reaction>
 
   <!-- <Reaction name = "SOCE3" id="SOCE3"> -->
@@ -748,7 +748,8 @@ avoids the need to generate Gqbg, and have them react-->
   <Product specieID="Ca"/>
   <Product specieID="CaLeakER"/>
 
-    <forwardRate>1.8e-7</forwardRate>
+  <forwardRate>1.8e-8</forwardRate>
+  <reverseRate>1.8e-8</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
 
