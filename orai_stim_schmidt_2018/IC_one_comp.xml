@@ -8,16 +8,18 @@
     
 
   <SurfaceDensitySet region="dend">
-    <PicoSD specieID="Orai"          value="400"  />
+  
     <PicoSD specieID="OraiSTIM_4"          value="0"  />
     <PicoSD specieID="Orai2STIM_4"          value="0"  />
     <PicoSD specieID="Orai3STIM_4"          value="0"  />
-    <PicoSD specieID="PMJ" value="2000"  />
+    <PicoSD specieID="PMJ" value="6"  />
+    <PicoSD specieID="Orai"          value="300"  />
   </SurfaceDensitySet>
  
   <ConcentrationSet region="dend">
+    
     <NanoMolarity specieID="CaER"         value="8e5"     />
-    <NanoMolarity specieID="STIM_2" value="700" />
+    <NanoMolarity specieID="STIM_2" value="400" />
 
   </ConcentrationSet>
   
