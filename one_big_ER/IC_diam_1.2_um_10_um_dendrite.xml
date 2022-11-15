@@ -17,11 +17,6 @@
     <NanoMolarity specieID="CaMCa4" value="3"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
-    <NanoMolarity specieID="IP3" value="0"/>
-    <NanoMolarity specieID="IP3degPIk" value="6"/>
-    <NanoMolarity specieID="IP3degrad" value="17"/>
-
-
     </ConcentrationSet>
 
 

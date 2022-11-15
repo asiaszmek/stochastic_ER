@@ -16,9 +16,7 @@
     <NanoMolarity specieID="CaMCa2N" value="100"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
-    <NanoMolarity specieID="IP3" value="0"/>
-    <NanoMolarity specieID="IP3degrad" value="8"/>
-    
+   
     <NanoMolarity specieID="Fura2"         value="3600"     />  
     <NanoMolarity specieID="Fura2Ca"         value="1400"     />  
   </ConcentrationSet>
