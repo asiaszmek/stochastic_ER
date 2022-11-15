@@ -778,8 +778,8 @@ avoids the need to generate Gqbg, and have them react-->
     <Product  specieID="IP3RO"               />
     <Product  specieID="Ca"               />
 
-    <forwardRate> 0.00016 </forwardRate>
-    <reverseRate>  0.00016      </reverseRate>
+    <forwardRate> 0.000016 </forwardRate>
+    <reverseRate>  0.000016      </reverseRate>
     <Q10>         0.2           </Q10>
     </Reaction>
 
