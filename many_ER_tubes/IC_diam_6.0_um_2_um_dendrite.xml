@@ -17,10 +17,8 @@
     <NanoMolarity specieID="CaMCa4" value="3"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
-    <NanoMolarity specieID="IP3" value="26"/>
-    <NanoMolarity specieID="IP3degPIk" value="6"/>
-    <NanoMolarity specieID="IP3degrad" value="17"/>
-
+    <NanoMolarity specieID="Fluo4" value="400"/>
+    <NanoMolarity specieID="Fluo4Ca" value="100"/>
 
     </ConcentrationSet>
 
@@ -28,8 +26,8 @@
   <SurfaceDensitySet region="dend">
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
-    <PicoSD specieID="pmca" value="2100"/>
-    <PicoSD specieID="pmcaCa" value="900"/>
+    <PicoSD specieID="pmca" value="2310"/>
+    <PicoSD specieID="pmcaCa" value="990"/>
     <PicoSD specieID="ncx" value="14000"/>
     <PicoSD specieID="ncxCa" value="1000"/>
 
@@ -63,7 +61,7 @@
   <ConcentrationSet region="dend">
     <NanoMolarity specieID="CaER"         value="0.75e5"     />
     <NanoMolarity specieID="IP3R"      value="25"     />
-    <NanoMolarity specieID="CaLeakER"      value="80"     />
+    <NanoMolarity specieID="CaLeakER"      value="70"     />
     <NanoMolarity       specieID="Cyt_SERCA"       value="1265"     />
     <NanoMolarity       specieID="Cyt_SERCA_Ca"       value="1100"     />
     <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="550"     /> 
