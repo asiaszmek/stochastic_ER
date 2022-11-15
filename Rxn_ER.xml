@@ -28,19 +28,20 @@
   <Specie name="CaOutLeak" id="CaOutLeak" kdiff="0"
 	  kdiffunit="mu2/s" />
   <Specie name="Leak" id="Leak" kdiff="0" kdiffunit="mu2/s" />
-
   <Specie name="CaLeakER" id="CaLeakER" kdiff="0" kdiffunit="mu2/s" />
 
-  <Specie name="OraiSTIM_8" id="OraiSTIM_8" kdiff="0" kdiffunit="mu2/s" />
-  <Specie name="OraiSTIM_6" id="OraiSTIM_6" kdiff="0" kdiffunit="mu2/s" />
+  <Specie name="PMJ" id="PMJ" kdiff="0." kdiffunit="mu2/s" />
+  <Specie name="PMJ_STIM_4" id="PMJ_STIM_4" kdiff="0." kdiffunit="mu2/s" />
+    
+  <Specie name="Orai3STIM_4" id="Orai3STIM_4" kdiff="0" kdiffunit="mu2/s" />
+  <Specie name="Orai2STIM_4" id="Orai2STIM_4" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="OraiSTIM_4" id="OraiSTIM_4" kdiff="0" kdiffunit="mu2/s" />
-  <Specie name="OraiSTIM_2" id="OraiSTIM_2" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="Orai" id="Orai" kdiff="0" kdiffunit="mu2/s" />
 
-  <Specie name="STIM_2" id="STIM_2" kdiff="0.05" kdiffunit="mu2/s" />
-  <Specie name="STIM" id="STIM" kdiff="0.1" kdiffunit="mu2/s" />
-  <Specie name="STIMCaER" id="STIMCaER" kdiff="0" kdiffunit="mu2/s" />
-  
+  <Specie name="STIM_4" id="STIM_4" kdiff="0.05" kdiffunit="mu2/s" />
+  <Specie name="STIM_2" id="STIM_2" kdiff="0.1" kdiffunit="mu2/s" />
+  <Specie name="STIM_2CaER" id="STIM_2CaER" kdiff="0" kdiffunit="mu2/s" />
+
   <Specie name="fixedbuffer" id="fixedbuffer" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="fixedbufferCa" id="fixedbufferCa" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Calbin" id="Calbin" kdiff="9.3" kdiffunit="mu2/s" />
@@ -184,8 +185,8 @@
 
   <Reaction name = "SOCE1" id="SOCE1">
     <Reactant specieID="CaOut" />
-    <Reactant specieID="OraiSTIM_8" />
-    <Product specieID="OraiSTIM_8" />
+    <Reactant specieID="Orai3STIM_4" />
+    <Product specieID="Orai3STIM_4" />
     <Product specieID="Ca" />
     
     <forwardRate>1.5e-7</forwardRate>
@@ -193,65 +194,79 @@
   </Reaction>
   <Reaction name = "SOCE2" id="SOCE2">
     <Reactant specieID="CaOut" />
-    <Reactant specieID="OraiSTIM_6" />
-    <Product specieID="OraiSTIM_6" />
+    <Reactant specieID="Orai2STIM_4" />
+    <Product specieID="Orai2STIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-8</forwardRate>
-    <reverseRate>1.5e-8</reverseRate>
+    <forwardRate>1.5e-9</forwardRate>
+    <reverseRate>1.5e-9</reverseRate>
   </Reaction>
 
-
+ <Reaction name = "SOCE3" id="SOCE3">
+    <Reactant specieID="CaOut" />
+    <Reactant specieID="OraiSTIM_4" />
+    <Product specieID="OraiSTIM_4" />
+    <Product specieID="Ca" />
+    <forwardRate>1.5e-11</forwardRate>
+    <reverseRate>1.5e-11</reverseRate>
+  </Reaction>
    
 
   <Reaction name = "STIM_dim_1" id="STIM_dim_1">
-    <Reactant specieID="STIM" power="2" />
-    <Product specieID="STIM_2" />
-    <forwardRate>1e-6</forwardRate>
-    <reverseRate>1e-2</reverseRate>
+    <Reactant specieID="STIM_2" power="2" />
+    <Product specieID="STIM_4" />
+    <forwardRate>4.8e-7</forwardRate>
+    <reverseRate>11e-5</reverseRate>
   </Reaction>
   
 
   <Reaction name = "STIMCaER_1" id="STIMCaER_1">
-    <Reactant specieID="STIM" />
+    <Reactant specieID="STIM_2" />
     <Reactant specieID="CaER" />
-    <Product specieID="STIMCaER"/>
+    <Product specieID="STIM_2CaER"/>
     <forwardRate>4e-7</forwardRate>
     <reverseRate>2e-3</reverseRate>
   </Reaction>
 
-  <Reaction name = "STIM_Orai" id="STIM_Orai">
-    <Reactant specieID="STIM_2" />
+  <Reaction name = "STIM_PMJ" id="STIM_PMJ">
+    <Reactant specieID="STIM_4" />
+    <Reactant specieID="PMJ" />
+    <Product specieID="PMJ_STIM_4"/>
+    <Product specieID="PMJ" />
+    <forwardRate>1.8e-4</forwardRate>
+    <reverseRate>3e-4</reverseRate>
+  </Reaction>
+
+  <Reaction name = "STIM_PMJ_Orai" id="STIM_PMJ_Orai">
     <Reactant specieID="Orai" />
-    <Product specieID="OraiSTIM_2"/>
-    <forwardRate>1.5e-4</forwardRate>
-    <reverseRate>8e-4</reverseRate>
+    <Reactant specieID="PMJ_STIM_4" />
+    <Product specieID="OraiSTIM_4"/>
+    <forwardRate>1.5e-04</forwardRate>
+    <reverseRate>8e-3</reverseRate>
   </Reaction>
 
   <Reaction name = "STIM_Orai2" id="STIM_Orai2">
-    <Reactant specieID="OraiSTIM_2" />
-    <Reactant specieID="STIM_2" />
-    <Product specieID="OraiSTIM_4"/>
-    <forwardRate>3e-5</forwardRate>
-    <reverseRate>16e-4</reverseRate>
-  </Reaction>
-
-  <Reaction name = "STIM_Orai3" id="STIM_Orai3">
-    <Reactant specieID="OraiSTIM_4" />
-    <Reactant specieID="STIM_2" />
-    <Product specieID="OraiSTIM_6"/>
-    <forwardRate>6e-6</forwardRate>
-    <reverseRate>32e-4</reverseRate>
+    <Reactant specieID="OraiSTIM_4" power="2" />
+    <Product specieID="Orai2STIM_4"/>
+    <forwardRate>3.75e-5</forwardRate>
+    <reverseRate>2e-3</reverseRate>
   </Reaction>
 
   <Reaction name = "STIM_Orai4" id="STIM_Orai4">
-    <Reactant specieID="OraiSTIM_6" />
-    <Reactant specieID="STIM_2" />
-    <Product specieID="OraiSTIM_8"/>
-    <forwardRate>1.2e-6</forwardRate>
-    <reverseRate>64e-4</reverseRate>
+    <Reactant specieID="Orai2STIM_4" />
+    <Reactant specieID="OraiSTIM_4" />
+    <Product specieID="Orai3STIM_4"/>
+    <forwardRate>9.375e-06</forwardRate>
+    <reverseRate>5e-4</reverseRate>
   </Reaction>
 
-  
+  <Reaction name = "STIM_Orai4" id="STIM_Orai4">
+    <Reactant specieID="Orai3STIM_4" />
+    <Reactant specieID="OraiSTIM_4" />
+    <Product specieID="Orai2STIM_4" power="2"/>
+    <forwardRate>9.375e-06</forwardRate>
+
+  </Reaction>
+
   
   <!-- vii: Ca Buffer    Ca + Calbindin <-> calbinC  SAME-->
   <Reaction name = "Ca_buffer" id="Ca_Buffer">
@@ -681,14 +696,14 @@ avoids the need to generate Gqbg, and have them react-->
   </Reaction>
 
   
-<!-- Neymotin et al. 2015 Ca wave rescaled -->
- <!-- ER Ca leak -    CaER+ LeakER <-> CaERLeak-->
 
+ <!-- ER Ca leak -    CaER+ LeakER <-> CaERLeak-->
  <Reaction name = "Ca_leakER1" id="Ca_leakaER1">
   <Reactant specieID="CaER" />
   <Reactant specieID="CaLeakER" />
-  <Product specieID="CaLeakER"/>
   <Product specieID="Ca"/>
+  <Product specieID="CaLeakER"/>
+
   <forwardRate>1.8e-8</forwardRate>
   <reverseRate>1.8e-8</reverseRate>
     <Q10>0.2</Q10>
