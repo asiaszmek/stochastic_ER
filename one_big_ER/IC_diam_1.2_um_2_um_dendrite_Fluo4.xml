@@ -60,7 +60,7 @@
     <NanoMolarity specieID="CaER"         value="0.75e5"     />
     <NanoMolarity specieID="IP3R"      value="25"     />
    
-    <NanoMolarity specieID="CaLeakER"      value="0"     />
+    <NanoMolarity specieID="CaLeakER"      value="10"     />
     
   
     <NanoMolarity       specieID="Cyt_SERCA"       value="1265"     />
