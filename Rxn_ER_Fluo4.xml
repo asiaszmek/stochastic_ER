@@ -157,7 +157,7 @@
     <Reaction name = "CaOutInj3" id="CaOutInj3">
     <Reactant specieID="CaOut"/>
     <Reactant specieID="CaOutAnnB"/>
-    <forwardRate>1e-06</forwardRate>
+    <forwardRate>1e-02</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
 
