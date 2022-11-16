@@ -26,7 +26,7 @@ results (also, 3D may not work yet...)  -->
 
     <discretization>
       <defaultMaxElementSide>1.0</defaultMaxElementSide>
-      <surfaceLayers>0.2</surfaceLayers>
+      <!-- <surfaceLayers>0.2</surfaceLayers> -->
 	<!-- default largest size for elements in bulk volumes (dendrites), microns -->	
 
 	<spineDeltaX>0.1</spineDeltaX>
