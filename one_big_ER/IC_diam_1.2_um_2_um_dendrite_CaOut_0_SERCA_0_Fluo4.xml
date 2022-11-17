@@ -52,16 +52,13 @@
     <PicoSD specieID="OraiSTIM_4"          value="15"  />
     <PicoSD specieID="Orai2STIM_4"          value="15"  />
     <PicoSD specieID="Orai3STIM_4"          value="2"  />
-
   </SurfaceDensitySet>
+
   <ConcentrationSet region="dend">
     <NanoMolarity specieID="CaER"         value="0.75e5"     />
     <NanoMolarity specieID="IP3R"      value="25"     />
-   
     <NanoMolarity specieID="CaLeakER"      value="10"     />
-    
-  
- 
+
     <NanoMolarity       specieID="CRTP" value="89000"/>
     <NanoMolarity       specieID="CRT" value="11000"/>
     <NanoMolarity specieID="STIM_2CaER" value="750" />
@@ -69,7 +66,6 @@
     <NanoMolarity specieID="STIM_4" value="15" />
     <NanoMolarity specieID="STIM_2" value="50" />
 
+   
   </ConcentrationSet>
-  
-
 </InitialConditions>

@@ -699,13 +699,13 @@ avoids the need to generate Gqbg, and have them react-->
 
  <!-- ER Ca leak -    CaER+ LeakER <-> CaERLeak-->
  <Reaction name = "Ca_leakER1" id="Ca_leakaER1">
-  <Reactant specieID="CaER" />
+  <Reactant specieID="CaER" power="2"/>
   <Reactant specieID="CaLeakER" />
-  <Product specieID="Ca"/>
+  <Product specieID="Ca" power="2"/>
   <Product specieID="CaLeakER"/>
 
-  <forwardRate>1.8e-8</forwardRate>
-  <reverseRate>1.8e-8</reverseRate>
+  <forwardRate>1e-12</forwardRate>
+  <reverseRate>1e-12</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
 

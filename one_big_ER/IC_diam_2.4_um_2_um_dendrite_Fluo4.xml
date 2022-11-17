@@ -42,17 +42,17 @@
     <PicoSD specieID="OraiSTIM_4"          value="10"  />
     <PicoSD specieID="Orai2STIM_4"          value="6"  />
     <PicoSD specieID="Orai3STIM_4"          value="1"  />
-
+  
   </SurfaceDensitySet>
   <ConcentrationSet region="dend">
     <NanoMolarity specieID="CaER"         value="0.75e5"     />
     <NanoMolarity specieID="IP3R"      value="12.5"     />
-    <NanoMolarity specieID="CaLeakER"      value="15"     />
-    <NanoMolarity       specieID="Cyt_SERCA"       value="632"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca"       value="550"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="275"     /> 
-    <NanoMolarity       specieID="ER_SERCA"       value="55"     />
-    <NanoMolarity       specieID="ER_SERCA_Ca"       value="27"     />
+    <NanoMolarity specieID="CaLeakER"      value="7"     />
+    <NanoMolarity       specieID="Cyt_SERCA"       value="1264"     />
+    <NanoMolarity       specieID="Cyt_SERCA_Ca"       value="1100"     />
+    <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="550"     /> 
+    <NanoMolarity       specieID="ER_SERCA"       value="110"     />
+    <NanoMolarity       specieID="ER_SERCA_Ca"       value="54"     />
     <NanoMolarity       specieID="ER_SERCA_Ca2"       value="0"     /> 
 
     <NanoMolarity       specieID="CRTP" value="8.8054e+4"/>
@@ -60,7 +60,6 @@
     <NanoMolarity specieID="STIM_2CaER" value="450" />
     <NanoMolarity specieID="STIM_4" value="5" />
     <NanoMolarity specieID="STIM_2" value="25" />
-
   </ConcentrationSet>
   
 
