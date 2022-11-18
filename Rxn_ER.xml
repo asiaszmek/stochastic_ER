@@ -704,8 +704,8 @@ avoids the need to generate Gqbg, and have them react-->
   <Product specieID="Ca" power="2"/>
   <Product specieID="CaLeakER"/>
 
-  <forwardRate>1e-12</forwardRate>
-  <reverseRate>1e-12</reverseRate>
+  <forwardRate>1e-14</forwardRate>
+  <reverseRate>1e-14</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
 
