@@ -29,7 +29,8 @@
 	  kdiffunit="mu2/s" />
   <Specie name="Leak" id="Leak" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="CaLeakER" id="CaLeakER" kdiff="0" kdiffunit="mu2/s" />
-
+  <Specie name="LeakER" id="LeakER" kdiff="0" kdiffunit="mu2/s" />
+ 
   <Specie name="PMJ" id="PMJ" kdiff="0." kdiffunit="mu2/s" />
   <Specie name="PMJ_STIM_4" id="PMJ_STIM_4" kdiff="0." kdiffunit="mu2/s" />
     
@@ -695,23 +696,26 @@ avoids the need to generate Gqbg, and have them react-->
     <Q10>0.2</Q10>
   </Reaction>
 
-  
-
- <!-- ER Ca leak -    CaER+ LeakER <-> CaERLeak-->
+  <!-- ER Ca leak -    CaER+ LeakER <-> CaERLeak-->
  <Reaction name = "Ca_leakER1" id="Ca_leakaER1">
-  <Reactant specieID="CaER" power="2"/>
-  <Reactant specieID="CaLeakER" />
-  <Product specieID="Ca" power="2"/>
+  <Reactant specieID="CaER" p="2"/>
+  <Reactant specieID="LeakER" />
   <Product specieID="CaLeakER"/>
 
-  <forwardRate>1e-14</forwardRate>
-  <reverseRate>1e-14</reverseRate>
+    <forwardRate>1.8e-4</forwardRate>
+    <reverseRate>1.8e-4</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
 
+  <Reaction name = "Ca_leakER2" id="Ca_leakaER2">
+  <Reactant specieID="CaLeakER"/>
+  <Product specieID="LeakER" />
+  <Product specieID="Ca" p="2"/>
+    <forwardRate>0.5e-3</forwardRate>
+    <Q10>0.2</Q10>
+  </Reaction>
 
-  
-  <!-- higher affinity lower capacity CRT-Ca binding,
+   <!-- higher affinity lower capacity CRT-Ca binding,
        Baksh and Michalak, J Biol Chem 1991-->
   <Reaction name = "CRTP_bind" id="CRTP_bind">
     <Reactant specieID="CRT"/>
