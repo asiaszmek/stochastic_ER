@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StimulationSet>
+
+  <!-- the injectionSite must match a regionLabel deefined in the morphology -->
+  
+  <InjectionStim specieID="CaOut" injectionSite="dend:submembrane">
+    <onset>1800000</onset>
+    <duration>4000</duration>
+    <rate>3000</rate>
+    <end>1810000</end> 
+  </InjectionStim>
+
+   
+
+</StimulationSet>
