@@ -14,18 +14,18 @@
   </InjectionStim>
   
   <InjectionStim specieID="CaOutAnn" injectionSite="dend:submembrane">
-    <onset>345000</onset>
+    <onset>425000</onset>
     <duration>1000</duration>
-    <rate>90000</rate>
-    <end>345000</end> 
+    <rate>60000</rate>
+    <end>425000</end> 
   </InjectionStim>
 
   
   <InjectionStim specieID="CaOutBuf" injectionSite="dend:submembrane">
-    <onset>320000</onset>
+    <onset>420000</onset>
     <duration>1000</duration>
-    <rate>90000</rate>
-    <end>322000</end> 
+    <rate>60000</rate>
+    <end>422000</end> 
   </InjectionStim>
 
 </StimulationSet>
