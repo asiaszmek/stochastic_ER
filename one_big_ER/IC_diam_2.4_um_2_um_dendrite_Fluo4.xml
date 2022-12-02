@@ -22,16 +22,18 @@
     </ConcentrationSet>
 
 
-  <SurfaceDensitySet region="dend">
+  
+    <SurfaceDensitySet region="dend">
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
     <PicoSD specieID="pmca" value="820"/>
     <PicoSD specieID="pmcaCa" value="180"/>
     <PicoSD specieID="ncx" value="14000"/>
     <PicoSD specieID="ncxCa" value="1000"/>
-    <PicoSD  specieID="Plc"  value="220"    />
+    <PicoSD  specieID="Plc"  value="870"    />
+    <PicoSD  specieID="PlcCa"  value="80"    />
     <PicoSD  specieID="Pip2" value="10000"  />
-    <PicoSD  specieID="PIkinase"   value="280"  />
+    <PicoSD  specieID="PIkinase"   value="300"  />
     <PicoSD  specieID="MgluR" value="117"  />
     <PicoSD specieID="Gqabg" value="5325"/>
     <PicoSD specieID="GluMgluRdesens" value="31"/>
@@ -61,7 +63,10 @@
     <NanoMolarity specieID="STIM_2CaER" value="450" />
     <NanoMolarity specieID="STIM_4" value="5" />
     <NanoMolarity specieID="STIM_2" value="25" />
+    <NanoMolarity specieID="IP3K" value="900" />
+    <NanoMolarity specieID="IP5P" value="1000" />
+    
   </ConcentrationSet>
-  
+
 
 </InitialConditions>

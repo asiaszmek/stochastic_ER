@@ -113,7 +113,12 @@
   <Specie name="IP3RC3"                  id="IP3RC3"           kdiff="0"     kdiffunit="mu2/s"/>
 
   <Specie name="IP3RC4"          id="IP3RC4"          kdiff="0"     kdiffunit="mu2/s"/>
-  <Specie name="IP3"            id="IP3"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP3"            id="IP3"           kdiff="220." kdiffunit="mu2/s"/>
+  <Specie name="IP3K"            id="IP3K"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP5P"            id="IP5P"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP3K_Ca2"            id="IP3K_Ca2"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP5P_IP3"            id="IP5P_IP3"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP3K_Ca2_IP3"            id="IP3K_Ca2_IP3"           kdiff="10." kdiffunit="mu2/s"/>
 
   <!--Hindered cytoplasmic diffusion of
 	  inositol trisphosphate restricts its cellular range of
@@ -467,16 +472,55 @@ These rates interact with PIkinase quantity. Affinity started at 1 uM
 Discovered mistake!!! specified PIkinase as product, not reactant!-->
 
 <!--  IP3    <-> IP3degrad          Degraded IP3-->
-<Reaction name = "IP3--IP3degrad" id="IP3--IP3degrad">
-     <Reactant specieID="IP3"            />
-    <Product  specieID="IP3degrad"        />
+<!--IP3 degradation taken from Mahajan and Nadkarni 2019 -->
+<Reaction name = "IP3--IP5P" id="IP3--IP5P">
+  <Reactant specieID="IP3"            />
+  <Reactant specieID="IP5P"            />
+  <Product  specieID="IP5P_IP3"        />
 
-    <forwardRate> 0.66e-03      </forwardRate>
-    <reverseRate> 0.0e-03      </reverseRate>
+    <forwardRate> 9e-06      </forwardRate>
+    <reverseRate> 72e-03      </reverseRate>
     <Q10>         0.2           </Q10>
 </Reaction>
 
-   <Reaction name = "IP3degrad + PIkinase -- IP3degPIkinase" id="PIkinase1">
+<Reaction name = "IP3--IP5P-degrad" id="IP3--IP5P-degrad">
+  <Reactant specieID="IP5P_IP3"            />
+  <Product  specieID="IP5P"        />
+  <Product specieID="IP3degrad"            />
+    <forwardRate> 18e-03      </forwardRate>
+    <Q10>         0.2           </Q10>
+</Reaction>
+
+<Reaction name = "IP3K--2Ca" id="IP3K--2Ca">
+  <Reactant specieID="IP3K"            />
+  <Reactant specieID="Ca"   power="2"         />
+  <Product  specieID="IP3K_Ca2"        />
+
+    <forwardRate> 1111e-09      </forwardRate>
+    <reverseRate> 100e-03      </reverseRate>
+    <Q10>         0.2           </Q10>
+</Reaction>
+
+<Reaction name = "IP3K2Ca--IP3" id="IP3K2Ca--IP3">
+  <Reactant specieID="IP3K_Ca2"            />
+  <Reactant specieID="IP3"        />
+  <Product  specieID="IP3K_Ca2_IP3"        />
+
+    <forwardRate> 100e-06      </forwardRate>
+    <reverseRate> 80e-03      </reverseRate>
+    <Q10>         0.2           </Q10>
+</Reaction>
+
+<Reaction name = "IP3K2CaIP3" id="IP3K2CaIP3">
+  <Reactant specieID="IP3K_Ca2_IP3"            />
+  <Product specieID="IP3degrad"        />
+  <Product  specieID="IP3K_Ca2"        />
+
+    <forwardRate> 20e-03      </forwardRate>
+    <Q10>         0.2           </Q10>
+</Reaction>
+
+<Reaction name = "IP3degrad + PIkinase -- IP3degPIkinase" id="PIkinase1">
     <Reactant specieID="IP3degrad"            />   
     <Reactant specieID="PIkinase"               />
     <Product  specieID="IP3degPIk"            />
