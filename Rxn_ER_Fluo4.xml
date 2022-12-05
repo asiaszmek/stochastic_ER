@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <ReactionScheme>
-
-  
-  <!-- IP3R Model based on Fraiman D, Dawson SP (2004) A model of IP3 receptor with a luminal
+<!--this part should be identical for all reaction files-->
+    <!-- IP3R Model based on Fraiman D, Dawson SP (2004) A model of IP3 receptor with a luminal
        calcium binding site: stochastic simulations and analysis. Cell
        Calcium 35: 403-413, 2004 -->
   
@@ -25,18 +24,12 @@
   <!--TODO add bAR desensitization!-->
   <Specie name="Ca" id="Ca" kdiff="174.3" kdiffunit="mu2/s" />
   <Specie name="CaOut" id="CaOut" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutBuf" id="CaOutBuf" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="Buf" id="Buf" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="Fluro4" id="Fluo4" kdiff="83" kdiffunit="mu2/s" />
-  <Specie name="Fluro4Ca" id="Fluo4Ca" kdiff="83" kdiffunit="mu2/s" />
   <Specie name="CaOutLeak" id="CaOutLeak" kdiff="0"
 	  kdiffunit="mu2/s" />
   <Specie name="Leak" id="Leak" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="CaLeakER" id="CaLeakER" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="LeakER" id="LeakER" kdiff="0" kdiffunit="mu2/s" />
-  
+ 
   <Specie name="PMJ" id="PMJ" kdiff="0." kdiffunit="mu2/s" />
   <Specie name="PMJ_STIM_4" id="PMJ_STIM_4" kdiff="0." kdiffunit="mu2/s" />
     
@@ -48,7 +41,7 @@
   <Specie name="STIM_4" id="STIM_4" kdiff="0.05" kdiffunit="mu2/s" />
   <Specie name="STIM_2" id="STIM_2" kdiff="0.1" kdiffunit="mu2/s" />
   <Specie name="STIM_2CaER" id="STIM_2CaER" kdiff="0" kdiffunit="mu2/s" />
-   
+
   <Specie name="fixedbuffer" id="fixedbuffer" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="fixedbufferCa" id="fixedbufferCa" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Calbin" id="Calbin" kdiff="9.3" kdiffunit="mu2/s" />
@@ -66,6 +59,7 @@
   <Specie name="ER_SERCA_Ca2" id="ER_SERCA_Ca2" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="ER_SERCA_Ca" id="ER_SERCA_Ca" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="ER_SERCA" id="ER_SERCA" kdiff="0" kdiffunit="mu2/s"/>
+  
   <!--calreticulin-->
   <Specie name="CRT" id="CRT" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="CRTP" id="CRTP" kdiff="0" kdiffunit="mu2/s"/>
@@ -122,9 +116,8 @@
   <Specie name="IP3K"            id="IP3K"           kdiff="10." kdiffunit="mu2/s"/>
   <Specie name="IP5P"            id="IP5P"           kdiff="10." kdiffunit="mu2/s"/>
   <Specie name="IP3K_Ca2"            id="IP3K_Ca2"           kdiff="10." kdiffunit="mu2/s"/>
-   <Specie name="IP5P_IP3"            id="IP5P_IP3"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP5P_IP3"            id="IP5P_IP3"           kdiff="10." kdiffunit="mu2/s"/>
   <Specie name="IP3K_Ca2_IP3"            id="IP3K_Ca2_IP3"           kdiff="10." kdiffunit="mu2/s"/>
-  
 
   <!--Hindered cytoplasmic diffusion of
 	  inositol trisphosphate restricts its cellular range of
@@ -135,40 +128,6 @@
   Now, the reactions themselves   SAME means params are same in both files
   **************************************************************************-->
   <!--I. *********** Ca pump and buffer rxns  ************* -->
-
-  <Reaction name = "Fluo4_r" id="Fluo4_r">
-    <Reactant specieID="Ca"/>
-    <Reactant specieID="Fluo4"/>
-    <Product specieID="Fluo4Ca"/>
-
-    <forwardRate>6.27e-8</forwardRate>
-    <reverseRate>2.1e-5</reverseRate>
-  </Reaction>
-
- <Reaction name = "CaOutInj" id="CaOutInj">
-    <Reactant specieID="CaOutBuf"/>
-    <Product specieID="Buf"/>
-    <Product specieID="CaOut"/>
-    <forwardRate>1e-03</forwardRate>
-    <reverseRate>0</reverseRate>
-  </Reaction>
-
-  <Reaction name = "CaOutInj2" id="CaOutInj2">
-    <Reactant specieID="Buf"/>
-    <Reactant specieID="CaOutAnn"/>
-    <Product specieID="CaOutAnnB"/>
-    <forwardRate>1e-06</forwardRate>
-    <reverseRate>0</reverseRate>
-  </Reaction>
-
-    <Reaction name = "CaOutInj3" id="CaOutInj3">
-    <Reactant specieID="CaOut"/>
-    <Reactant specieID="CaOutAnnB"/>
-    <forwardRate>1e-02</forwardRate>
-    <reverseRate>0</reverseRate>
-  </Reaction>
-
-
   <!-- i: Ca pump high affinity -    Ca + pmca <-> pmcaCa  SAME-->
   <Reaction name = "Ca_pump1a" id="Ca_pump1a">
     <Reactant specieID="Ca"/>
@@ -227,6 +186,7 @@
     <forwardRate>1.1e-3</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
+
 
   <Reaction name = "SOCE1" id="SOCE1">
     <Reactant specieID="CaOut" />
@@ -311,7 +271,7 @@
     <forwardRate>9.375e-06</forwardRate>
 
   </Reaction>
-  
+
   
   <!-- vii: Ca Buffer    Ca + Calbindin <-> calbinC  SAME-->
   <Reaction name = "Ca_buffer" id="Ca_Buffer">
@@ -439,7 +399,8 @@
 
 <!-- PlcCa + GqaGTP    <->   PlcCaGqaGTP  100 nM-->
 <!--decrease these rates Nov 30 (same affinity) by 3x -->
-<!--Kf is 10x lower for Plc - GqaGTP than Jan31 reac --> <!--Tuomo: used rates from Kim et al. 2013-->
+<!--Kf is 10x lower for Plc - GqaGTP than Jan31 reac -->
+<!--Tuomo: used rates from Kim et al. 2013-->
 <Reaction name = "PlcCa+GqaGTP--PlcCaGqaGTP" id="PlcCa+GqaGTP--PlcCaGqaGTP">
     <Reactant specieID="GqaGTP"           />
     <Reactant specieID="PlcCa"              />
@@ -527,7 +488,6 @@ Discovered mistake!!! specified PIkinase as product, not reactant!-->
   <Product  specieID="IP5P"        />
   <Product specieID="IP3degrad"            />
     <forwardRate> 18e-03      </forwardRate>
-
     <Q10>         0.2           </Q10>
 </Reaction>
 
@@ -646,6 +606,7 @@ avoids the need to generate Gqbg, and have them react-->
   	<Q10>0.2</Q10>
   </Reaction>
 
+  
    <!--0b. GluMgluR <==> Desensitized, needed for prolonged DHPG application -->
       <Reaction name = "Glu+MgluR--GluMgluRdesens" id="Glu+MgluR--GluMgluRdesens">
         <Reactant specieID="GluMgluR"              />
@@ -715,10 +676,12 @@ avoids the need to generate Gqbg, and have them react-->
         <Q10>         0.2           </Q10>
     </Reaction>
   
- <!--Add endoplasmic reticulum and IP3R from the never used growth cone model-->
+
+<!--Add endoplasmic reticulum and IP3R from the never used growth cone model-->
 <!-- try out sneyd's model - not appropriate, does not pump, just buffers-->
      <!--https://pubmed.ncbi.nlm.nih.gov/6244305/ -->
-    <!-- Serca - modified from Griffiths 2006  and Bartol 2015 to account 
+     
+  <!-- Serca - modified from Griffiths 2006  and Bartol 2015 to account 
        for higher affinity of SERCA2b for Ca, k_2 (rev rate of Cyt_SERCA_1c)
        adjusted as well-->
   <Reaction name = "Cyt_SERCA_1a" id="Cyt_SERCA_1a">
@@ -796,8 +759,7 @@ avoids the need to generate Gqbg, and have them react-->
     <Q10>0.2</Q10>
   </Reaction>
 
-
-  <!-- higher affinity lower capacity CRT-Ca binding,
+   <!-- higher affinity lower capacity CRT-Ca binding,
        Baksh and Michalak, J Biol Chem 1991-->
   <Reaction name = "CRTP_bind" id="CRTP_bind">
     <Reactant specieID="CRT"/>
@@ -871,8 +833,9 @@ avoids the need to generate Gqbg, and have them react-->
     <Q10>         0.2           </Q10>
     </Reaction>
 
+ 
 
- <Reaction name = "IP3R_Ob-flux_Ia" id="IP3R_Ob-fluxa">
+   <Reaction name = "IP3R_Ob-flux_Ia" id="IP3R_Ob-fluxa">
     <Reactant specieID="IP3RO"           />
     <Reactant specieID="CaER"           />
     <Product  specieID="IP3RO"               />
@@ -883,5 +846,44 @@ avoids the need to generate Gqbg, and have them react-->
     <Q10>         0.2           </Q10>
     </Reaction>
 
-  
+<!-- specific for Fluo4 experiments -->
+  <Specie name="Fluro4" id="Fluo4" kdiff="83" kdiffunit="mu2/s" />
+  <Specie name="Fluro4Ca" id="Fluo4Ca" kdiff="83" kdiffunit="mu2/s" />
+  <Reaction name = "Fluo4_r" id="Fluo4_r">
+    <Reactant specieID="Ca"/>
+    <Reactant specieID="Fluo4"/>
+    <Product specieID="Fluo4Ca"/>
+
+    <forwardRate>6.27e-8</forwardRate>
+    <reverseRate>2.1e-5</reverseRate>
+  </Reaction>
+
+  <Specie name="CaOutBuf" id="CaOutBuf" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="Buf" id="Buf" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="174." kdiffunit="mu2/s" />
+ 
+ <Reaction name = "CaOutInj" id="CaOutInj">
+    <Reactant specieID="CaOutBuf"/>
+    <Product specieID="Buf"/>
+    <Product specieID="CaOut"/>
+    <forwardRate>1e-03</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
+
+  <Reaction name = "CaOutInj2" id="CaOutInj2">
+    <Reactant specieID="Buf"/>
+    <Reactant specieID="CaOutAnn"/>
+    <Product specieID="CaOutAnnB"/>
+    <forwardRate>1e-06</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
+
+    <Reaction name = "CaOutInj3" id="CaOutInj3">
+    <Reactant specieID="CaOut"/>
+    <Reactant specieID="CaOutAnnB"/>
+    <forwardRate>1e-02</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
+
 </ReactionScheme>

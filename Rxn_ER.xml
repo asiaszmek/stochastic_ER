@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ReactionScheme>
 
-  
+<!--this part should be identical for all reaction files-->
   <!-- IP3R Model based on Fraiman D, Dawson SP (2004) A model of IP3 receptor with a luminal
        calcium binding site: stochastic simulations and analysis. Cell
        Calcium 35: 403-413, 2004 -->
@@ -400,7 +400,8 @@
 
 <!-- PlcCa + GqaGTP    <->   PlcCaGqaGTP  100 nM-->
 <!--decrease these rates Nov 30 (same affinity) by 3x -->
-<!--Kf is 10x lower for Plc - GqaGTP than Jan31 reac --> <!--Tuomo: used rates from Kim et al. 2013-->
+<!--Kf is 10x lower for Plc - GqaGTP than Jan31 reac -->
+<!--Tuomo: used rates from Kim et al. 2013-->
 <Reaction name = "PlcCa+GqaGTP--PlcCaGqaGTP" id="PlcCa+GqaGTP--PlcCaGqaGTP">
     <Reactant specieID="GqaGTP"           />
     <Reactant specieID="PlcCa"              />
