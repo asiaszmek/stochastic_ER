@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Morphology>
+  <Segment id="seg1" region="dend">
+    <start x="0.0" y="1.0" z="0.0" r="3."/>
+    <end x="5.0" y="1.0" z="0.0" r="3"/>
+  </Segment>
+  <Segment id="seg2" region="dend2">
+    <start on="seg1"  at="end"/>
+    <end x="9.0" y="-2.0" z="0.0" r="1.2"/>
+  </Segment>
+  <Segment id="seg3" region="dend3">
+    <start on="seg1"  at="end"/>
+    <end x="9.0" y="4.0" z="0.0" r="1.2"/>
+  </Segment>
+
+</Morphology>
+
