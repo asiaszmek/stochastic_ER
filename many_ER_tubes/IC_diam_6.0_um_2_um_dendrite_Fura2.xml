@@ -28,8 +28,9 @@
     </ConcentrationSet>
 
 
-  <SurfaceDensitySet region="dend">
-    <PicoSD specieID="Leak" value="5"/>
+  
+   <SurfaceDensitySet region="dend">
+      <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
     <PicoSD specieID="ncx" value="14000"/>
     <PicoSD specieID="ncxCa" value="1000"/>
@@ -52,9 +53,7 @@
     <PicoSD specieID="OraiSTIM_4"          value="15"  />
     <PicoSD specieID="Orai2STIM_4"          value="15"  />
     <PicoSD specieID="Orai3STIM_4"          value="2"  />
-  </SurfaceDensitySet>
-
-  <SurfaceDensitySet region="dend">
+  
     <PicoSD specieID="pmca" value="1600"/>
     <PicoSD specieID="pmcaCa" value="700"/>
   </SurfaceDensitySet>

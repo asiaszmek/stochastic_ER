@@ -28,9 +28,8 @@
     <NanoMolarity specieID="IP5P" value="1000" />
     </ConcentrationSet>
 
-
-  <SurfaceDensitySet>
-    <PicoSD specieID="Leak" value="5"/>
+    <SurfaceDensitySet region="dend">
+      <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
    
     <PicoSD specieID="ncx" value="14000"/>
@@ -51,10 +50,6 @@
     <PicoSD specieID="Orai2STIM_4"          value="0"  />
     <PicoSD specieID="Orai3STIM_4"          value="0"  />
     <PicoSD specieID="PMJ"          value="6"  />
-
-  </SurfaceDensitySet>
-
-  <SurfaceDensitySet region="dend">
     <PicoSD specieID="pmca" value="420"/>
     <PicoSD specieID="pmcaCa" value="180"/>
   </SurfaceDensitySet>

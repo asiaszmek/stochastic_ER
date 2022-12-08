@@ -26,7 +26,7 @@
     </ConcentrationSet>
 
 
-  <SurfaceDensitySet>
+  <SurfaceDensitySet region="dend">
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
    
@@ -49,9 +49,6 @@
     <PicoSD specieID="Orai3STIM_4"          value="0"  />
     <PicoSD specieID="PMJ"          value="6"  />
 
-  </SurfaceDensitySet>
-
-  <SurfaceDensitySet region="dend">
     <PicoSD specieID="pmca" value="420"/>
     <PicoSD specieID="pmcaCa" value="180"/>
   </SurfaceDensitySet>
