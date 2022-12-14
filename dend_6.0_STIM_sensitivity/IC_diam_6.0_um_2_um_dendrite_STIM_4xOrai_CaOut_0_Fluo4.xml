@@ -19,6 +19,7 @@
     <NanoMolarity specieID="Fluo4Ca" value="100"/>
     <NanoMolarity specieID="IP3K" value="900" />
     <NanoMolarity specieID="IP5P" value="1000" />
+    <NanoMolarity specieID="CaER" value="7.5e5" />
 
     </ConcentrationSet>
 

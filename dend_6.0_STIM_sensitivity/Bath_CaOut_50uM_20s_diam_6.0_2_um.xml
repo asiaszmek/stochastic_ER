@@ -2,24 +2,29 @@
 <StimulationSet>
 
   <!-- the injectionSite must match a regionLabel deefined in the morphology -->
-   
+  <InjectionStim specieID="CaOutAnnB" injectionSite="dend:submembrane">
+    <onset>1</onset>
+    <duration>50000</duration>
+    <rate>1</rate>
+    <end>50000</end> 
+  </InjectionStim>
   
   <!-- Train I -->
     
   
   <InjectionStim specieID="CaOutAnn" injectionSite="dend:submembrane">
-    <onset>140000</onset>
+    <onset>1040000</onset>
     <duration>10000</duration>
     <rate>30000</rate>
-    <end>150000</end> 
+    <end>1050000</end> 
   </InjectionStim>
 
 
   <InjectionStim specieID="CaOutBuf" injectionSite="dend:submembrane">
-    <onset>120000</onset>
+    <onset>1020000</onset>
     <duration>1000</duration>
     <rate>300000</rate>
-    <end>125000</end> 
+    <end>1025000</end> 
   </InjectionStim>
   
 
