@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <ReactionScheme>
 <!--this part should be identical for all reaction files-->
-  <!-- IP3R Model based on Fraiman D, Dawson SP (2004) A model of IP3 receptor with a luminal
+    <!-- IP3R Model based on Fraiman D, Dawson SP (2004) A model of IP3 receptor with a luminal
        calcium binding site: stochastic simulations and analysis. Cell
        Calcium 35: 403-413, 2004 -->
   
@@ -38,8 +38,8 @@
   <Specie name="OraiSTIM_4" id="OraiSTIM_4" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="Orai" id="Orai" kdiff="0" kdiffunit="mu2/s" />
 
-  <Specie name="STIM_4" id="STIM_4" kdiff="0.05" kdiffunit="mu2/s" />
-  <Specie name="STIM_2" id="STIM_2" kdiff="0.1" kdiffunit="mu2/s" />
+  <Specie name="STIM_4" id="STIM_4" kdiff="0" kdiffunit="mu2/s" />
+  <Specie name="STIM_2" id="STIM_2" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="STIM_2CaER" id="STIM_2CaER" kdiff="0" kdiffunit="mu2/s" />
 
   <Specie name="fixedbuffer" id="fixedbuffer" kdiff="0" kdiffunit="mu2/s"/>
@@ -119,6 +119,13 @@
   <Specie name="IP5P_IP3"            id="IP5P_IP3"           kdiff="10." kdiffunit="mu2/s"/>
   <Specie name="IP3K_Ca2_IP3"            id="IP3K_Ca2_IP3"           kdiff="10." kdiffunit="mu2/s"/>
 
+
+
+  <Specie name="RyRO1"            id="RyRO1"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyRO2"            id="RyRO2"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyRC1"            id="RyRC1"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyRC2"            id="RyRC2"           kdiff="0" kdiffunit="mu2/s"/>  
+
   <!--Hindered cytoplasmic diffusion of
 	  inositol trisphosphate restricts its cellular range of
 	  action     George D. Dickinson1,*, Kyle L. Ellefsen1,
@@ -194,16 +201,16 @@
     <Product specieID="Orai3STIM_4" />
     <Product specieID="Ca" />
     
-    <forwardRate>1.5e-7</forwardRate>
-    <reverseRate>1.5e-7</reverseRate>
+    <forwardRate>1.5e-6</forwardRate>
+    <reverseRate>1.5e-6</reverseRate>
   </Reaction>
   <Reaction name = "SOCE2" id="SOCE2">
     <Reactant specieID="CaOut" />
     <Reactant specieID="Orai2STIM_4" />
     <Product specieID="Orai2STIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-9</forwardRate>
-    <reverseRate>1.5e-9</reverseRate>
+    <forwardRate>1.5e-7</forwardRate>
+    <reverseRate>1.5e-7</reverseRate>
   </Reaction>
 
  <Reaction name = "SOCE3" id="SOCE3">
@@ -211,8 +218,8 @@
     <Reactant specieID="OraiSTIM_4" />
     <Product specieID="OraiSTIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-11</forwardRate>
-    <reverseRate>1.5e-11</reverseRate>
+    <forwardRate>1.5e-8</forwardRate>
+    <reverseRate>1.5e-8</reverseRate>
   </Reaction>
    
 
@@ -812,27 +819,27 @@ avoids the need to generate Gqbg, and have them react-->
     <Q10>         0.2           </Q10>
   </Reaction>
 
- <Reaction name = "IP3RC2+Ca" id="IP3C2+Ca">
-  <Reactant specieID="IP3RC2"           />
-      <Reactant specieID="Ca"              />
-
+  <Reaction name = "IP3RC2+Ca" id="IP3C2+Ca">
+    <Reactant specieID="IP3RC2"           />
+    <Reactant specieID="Ca"              />
+    
     <Product  specieID="IP3RC3"               />
-
+    
     <forwardRate> 6.66e-6   </forwardRate>
     <reverseRate> 15e-3       </reverseRate>
     <Q10>         0.2           </Q10>
-    </Reaction>
-<Reaction name = "IP3RC3+Ca" id="IP3C3+Ca">
-  <Reactant specieID="IP3RC3"           />
-      <Reactant specieID="Ca"              />
-
+  </Reaction>
+  <Reaction name = "IP3RC3+Ca" id="IP3C3+Ca">
+    <Reactant specieID="IP3RC3"           />
+    <Reactant specieID="Ca"              />
+    
     <Product  specieID="IP3RC4"               />
-
+    
     <forwardRate> 8.88e-6   </forwardRate>
     <reverseRate> 20e-3       </reverseRate>
     <Q10>         0.2           </Q10>
-    </Reaction>
-
+  </Reaction>
+  
  
 
    <Reaction name = "IP3R_Ob-flux_Ia" id="IP3R_Ob-fluxa">
@@ -841,121 +848,48 @@ avoids the need to generate Gqbg, and have them react-->
     <Product  specieID="IP3RO"               />
     <Product  specieID="Ca"               />
 
-    <forwardRate> 0.0016 </forwardRate>
-    <reverseRate>  0.0016      </reverseRate>
-    <Q10>         0.2           </Q10>
-    </Reaction>
-
-
-  
-<!--specific for Fura2 experiments -->  
-<Specie name="Fura2" id="Fura2" kdiff="83" kdiffunit="mu2/s" />
-<Specie name="Fura2Ca" id="Fura2Ca" kdiff="83" kdiffunit="mu2/s" />
-  <Reaction name = "Fura2_r" id="Fura2_r">
-    <Reactant specieID="Ca"/>
-    <Reactant specieID="Fura2"/>
-    <Product specieID="Fura2Ca"/>
-
-    <forwardRate>1e-3</forwardRate>
-    <reverseRate>185e-3</reverseRate>
-  </Reaction>
-
-
-
-  <Specie name="CaOutBuf" id="CaOutBuf" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="Buf" id="Buf" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="174." kdiffunit="mu2/s" />
-  <Reaction name = "CaOutInj" id="CaOutInj">
-    <Reactant specieID="CaOutBuf"/>
-    <Product specieID="Buf"/>
-    <Product specieID="CaOut"/>
-    <forwardRate>1e-03</forwardRate>
-    <reverseRate>0</reverseRate>
-  </Reaction>
-
-  <Reaction name = "CaOutInj2" id="CaOutInj2">
-    <Reactant specieID="Buf"/>
-    <Reactant specieID="CaOutAnn"/>
-    <Product specieID="CaOutAnnB"/>
-    <forwardRate>1e-06</forwardRate>
-    <reverseRate>0</reverseRate>
-  </Reaction>
-
-    <Reaction name = "CaOutInj3" id="CaOutInj3">
-    <Reactant specieID="CaOut"/>
-    <Reactant specieID="CaOutAnnB"/>
-    <forwardRate>1e-06</forwardRate>
-    <reverseRate>0</reverseRate>
-  </Reaction>
-
-
-  <Specie name="TG" id="TG" kdiff="100" kdiffunit="mu2/s"/>
-  <Specie name="TG_SERCA" id="TG_SERCA" kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="TG_SERCA_Ca" id="TG_SERCA_Ca" kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="TG_SERCA_Ca2" id="TG_SERCA_Ca2" kdiff="0" kdiffunit="mu2/s"/>
-  <Reaction name = "TG_SERCA_1a" id="TG_SERCA_1a">
-    <Reactant specieID="TG" />
-    <Reactant specieID="Cyt_SERCA"/>
-    <Product specieID="TG_SERCA"/>
-    <forwardRate>2.6e-05</forwardRate>
-    <reverseRate>0</reverseRate>    
-    <Q10>0.2</Q10>
-  </Reaction>
-
-
-  
-  <Reaction name = "TG_SERCA_1b" id="TG_SERCA_1b">
-    <Reactant specieID="TG" />
-    <Reactant specieID="Cyt_SERCA_Ca"/>
-    <Product specieID="TG_SERCA_Ca"/>
+    <forwardRate> 1e-4 </forwardRate>
+    <reverseRate> 1e-4      </reverseRate>
+    <Q10>   0.2   </Q10>
+   </Reaction>
     
-    <forwardRate>2.6e-05</forwardRate>
-    <reverseRate>0</reverseRate>
-    <Q10>0.2</Q10>
-  </Reaction>
- 
 
-  <Reaction name = "TG_SERCA_1c" id="TG_SERCA_1c">
-    <Reactant specieID="Cyt_SERCA_Ca2"/>
-    <Reactant specieID="TG"/>
-    <Product specieID="TG_SERCA_Ca2" />
-  
-    <forwardRate>2.6e-05</forwardRate>
-    <reverseRate>0</reverseRate>
-    <Q10>0.2</Q10>
+   <Reaction name = "RyRa" id="RyRa">
+    <Reactant specieID="RyRC1"/>
+    <Reactant specieID="Ca" power="4"/>
+    <Product specieID="RyRO1"/>
+    <forwardRate>1.5e-12</forwardRate>
+    <reverseRate>18.8e-3</reverseRate>
   </Reaction>
-
-  <Reaction name = "TG_SERCA_1d" id="TG_SERCA_1e">
-    <Reactant specieID="TG" />
-    <Reactant specieID="ER_SERCA_Ca"/>
-    <Product specieID="TG_SERCA_Ca"/>
+  <Reaction name = "RyRb" id="RyRb">
+    <Reactant specieID="RyRO1"/>
+    <Reactant specieID="Ca" power="3"/>
+    <Product specieID="RyRO2"/>
+    <forwardRate>1.5e-12</forwardRate>
+    <reverseRate>386e-3</reverseRate>
+  </Reaction>
+  <Reaction name = "RyRc" id="RyRc">
+    <Reactant specieID="RyRO1"/>
+    <Product specieID="RyRC2"/>
+    <forwardRate>1.75e-3</forwardRate>
+    <reverseRate>0.1e-3</reverseRate>
+  </Reaction>
+   <Reaction name = "RyRflux1" id="RyRflux1">
+     <Reactant specieID="RyRO1"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRO1"/>
+     <Product specieID="Ca"/>
+    <forwardRate>2e-4</forwardRate>
+    <reverseRate>2e-4</reverseRate>
+  </Reaction>
+  <Reaction name = "RyRflux2" id="RyRflux2">
+     <Reactant specieID="RyRO2"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRO2"/>
+     <Product specieID="Ca"/>
+    <forwardRate>2e-4</forwardRate>
+    <reverseRate>2e-4</reverseRate>
+  </Reaction>
     
-    <forwardRate>2.6e-05</forwardRate>
-    <reverseRate>0</reverseRate>
-    <Q10>0.2</Q10>
-  </Reaction>
- 
 
-  <Reaction name = "TG_SERCA_1e" id="TG_SERCA_1e">
-    <Reactant specieID="ER_SERCA_Ca2"/>
-    <Reactant specieID="TG"/>
-    <Product specieID="TG_SERCA_Ca2" />
-  
-    <forwardRate>2.6e-05</forwardRate>
-    <reverseRate>0</reverseRate>
-    <Q10>0.2</Q10>
-  </Reaction>
-
-
-  <Reaction name = "TG_SERCA_1f" id="TG_SERCA_1f">
-    <Reactant specieID="TG" />
-    <Reactant specieID="ER_SERCA"/>
-    <Product specieID="TG_SERCA"/>
-    <forwardRate>2.6e-05</forwardRate>
-    <reverseRate>0</reverseRate>    
-    <Q10>0.2</Q10>
-  </Reaction>
-
-  
 </ReactionScheme>
