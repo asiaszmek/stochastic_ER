@@ -227,7 +227,8 @@ def save_concentrations(my_file, fname_base, output, trial='trial0'):
         save_single_file(times, concentrations[:, i, :], species, fname)
     if len(regions) > 1:
         totals = get_concentrations_region_list(my_file, regions, trial, output)
-        save_single_file(times, totals, species, '%s_%s%s_%s.txt' % (fname_base, add, trial, 'total'))
+        save_single_file(times, totals, species,
+                         '%s_%s%s_%s.txt' % (fname_base, add, trial, 'total'))
         spines_dict = get_spines(regions)
         for spine_name in spines_dict.keys():
             spine_reg = spines_dict[spine_name]
@@ -246,10 +247,12 @@ if __name__ == '__main__':
         output_dict = get_output_regions(my_file)
         for trial in my_file.keys():
             if trial != 'model':
-                save_concentrations(my_file, fname[:-3], '__main__', trial=trial)
+                save_concentrations(my_file, fname[:-3], '__main__',
+                                    trial=trial)
                 for out in output_dict:
                     if output_dict[out] is None:
-                        save_concentrations(my_file, fname[:-3], out, trial=trial)
+                        save_concentrations(my_file, fname[:-3], out,
+                                            trial=trial)
                     
     print('Done')
 
