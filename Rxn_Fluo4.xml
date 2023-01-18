@@ -27,8 +27,6 @@
   <Specie name="CaOutLeak" id="CaOutLeak" kdiff="0"
 	  kdiffunit="mu2/s" />
   <Specie name="Leak" id="Leak" kdiff="0" kdiffunit="mu2/s" />
-  <Specie name="CaLeakER" id="CaLeakER" kdiff="0" kdiffunit="mu2/s" />
-  <Specie name="LeakER" id="LeakER" kdiff="0" kdiffunit="mu2/s" />
  
   <Specie name="PMJ" id="PMJ" kdiff="0." kdiffunit="mu2/s" />
   <Specie name="PMJ_STIM_4" id="PMJ_STIM_4" kdiff="0." kdiffunit="mu2/s" />
@@ -38,8 +36,8 @@
   <Specie name="OraiSTIM_4" id="OraiSTIM_4" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="Orai" id="Orai" kdiff="0" kdiffunit="mu2/s" />
 
-  <Specie name="STIM_4" id="STIM_4" kdiff="0.05" kdiffunit="mu2/s" />
-  <Specie name="STIM_2" id="STIM_2" kdiff="0.1" kdiffunit="mu2/s" />
+  <Specie name="STIM_4" id="STIM_4" kdiff="0" kdiffunit="mu2/s" />
+  <Specie name="STIM_2" id="STIM_2" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="STIM_2CaER" id="STIM_2CaER" kdiff="0" kdiffunit="mu2/s" />
 
   <Specie name="fixedbuffer" id="fixedbuffer" kdiff="0" kdiffunit="mu2/s"/>
@@ -60,6 +58,8 @@
   <Specie name="ER_SERCA_Ca" id="ER_SERCA_Ca" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="ER_SERCA" id="ER_SERCA" kdiff="0" kdiffunit="mu2/s"/>
   
+  <Specie name="LeakER" id="LeakER" kdiff="0" kdiffunit="mu2/s" />
+ 
   <!--calreticulin-->
   <Specie name="CRT" id="CRT" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="CRTP" id="CRTP" kdiff="0" kdiffunit="mu2/s"/>
@@ -201,16 +201,16 @@
     <Product specieID="Orai3STIM_4" />
     <Product specieID="Ca" />
     
-    <forwardRate>1.5e-7</forwardRate>
-    <reverseRate>1.5e-7</reverseRate>
+    <forwardRate>1.5e-6</forwardRate>
+    <reverseRate>1.5e-6</reverseRate>
   </Reaction>
   <Reaction name = "SOCE2" id="SOCE2">
     <Reactant specieID="CaOut" />
     <Reactant specieID="Orai2STIM_4" />
     <Product specieID="Orai2STIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-9</forwardRate>
-    <reverseRate>1.5e-9</reverseRate>
+    <forwardRate>1.5e-7</forwardRate>
+    <reverseRate>1.5e-7</reverseRate>
   </Reaction>
 
  <Reaction name = "SOCE3" id="SOCE3">
@@ -218,8 +218,8 @@
     <Reactant specieID="OraiSTIM_4" />
     <Product specieID="OraiSTIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-11</forwardRate>
-    <reverseRate>1.5e-11</reverseRate>
+    <forwardRate>1.5e-8</forwardRate>
+    <reverseRate>1.5e-8</reverseRate>
   </Reaction>
    
 
@@ -235,7 +235,7 @@
     <Reactant specieID="STIM_2" />
     <Reactant specieID="CaER" />
     <Product specieID="STIM_2CaER"/>
-    <forwardRate>4e-7</forwardRate>
+    <forwardRate>8e-7</forwardRate>
     <reverseRate>2e-3</reverseRate>
   </Reaction>
 
@@ -747,24 +747,6 @@ avoids the need to generate Gqbg, and have them react-->
     <Q10>0.2</Q10>
   </Reaction>
 
-  <!-- ER Ca leak -    CaER+ LeakER <-> CaERLeak-->
- <Reaction name = "Ca_leakER1" id="Ca_leakaER1">
-  <Reactant specieID="CaER" p="2"/>
-  <Reactant specieID="LeakER" />
-  <Product specieID="CaLeakER"/>
-
-    <forwardRate>1.8e-4</forwardRate>
-    <reverseRate>1.8e-4</reverseRate>
-    <Q10>0.2</Q10>
-  </Reaction>
-
-  <Reaction name = "Ca_leakER2" id="Ca_leakaER2">
-  <Reactant specieID="CaLeakER"/>
-  <Product specieID="LeakER" />
-  <Product specieID="Ca" p="2"/>
-    <forwardRate>0.5e-3</forwardRate>
-    <Q10>0.2</Q10>
-  </Reaction>
 
    <!-- higher affinity lower capacity CRT-Ca binding,
        Baksh and Michalak, J Biol Chem 1991-->
@@ -848,9 +830,9 @@ avoids the need to generate Gqbg, and have them react-->
     <Product  specieID="IP3RO"               />
     <Product  specieID="Ca"               />
 
-    <forwardRate> 1e-4 </forwardRate>
-    <reverseRate>  1e-4      </reverseRate>
-    <Q10>         0.2           </Q10>
+    <forwardRate> 0.5e-5 </forwardRate>
+    <reverseRate> 0.5e-5      </reverseRate>
+    <Q10>   0.2   </Q10>
    </Reaction>
     
 
@@ -879,18 +861,31 @@ avoids the need to generate Gqbg, and have them react-->
      <Reactant specieID="CaER"/>
      <Product specieID="RyRO1"/>
      <Product specieID="Ca"/>
-    <forwardRate>1.25e-4</forwardRate>
-    <reverseRate>1.25e-4</reverseRate>
+    <forwardRate>2e-4</forwardRate>
+    <reverseRate>2e-4</reverseRate>
   </Reaction>
   <Reaction name = "RyRflux2" id="RyRflux2">
      <Reactant specieID="RyRO2"/>
      <Reactant specieID="CaER"/>
      <Product specieID="RyRO2"/>
      <Product specieID="Ca"/>
-    <forwardRate>1.25e-4</forwardRate>
-    <reverseRate>1.25e-4</reverseRate>
+    <forwardRate>2e-5</forwardRate>
+    <reverseRate>2e-5</reverseRate>
   </Reaction>
     
+ <Reaction name = "Ca_leakER1" id="Ca_leakaER1">
+  <Reactant specieID="CaER"/>
+  <Reactant specieID="LeakER" />
+  <Product specieID="LeakER"/>
+  <Product specieID="Ca" />
+
+    <forwardRate>1.8e-7</forwardRate>
+    <reverseRate>1.8e-7</reverseRate>
+    <Q10>0.2</Q10>
+ </Reaction>
+
+
+
 <!-- specific for Fluo4 experiments -->
   <Specie name="Fluro4" id="Fluo4" kdiff="83" kdiffunit="mu2/s" />
   <Specie name="Fluro4Ca" id="Fluo4Ca" kdiff="83" kdiffunit="mu2/s" />

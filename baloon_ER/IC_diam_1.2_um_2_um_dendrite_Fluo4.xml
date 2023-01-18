@@ -19,19 +19,22 @@
     <NanoMolarity specieID="Ng" value="2750"/>
     <NanoMolarity specieID="Fluo4" value="400"/>
     <NanoMolarity specieID="Fluo4Ca" value="100"/>
-    <NanoMolarity specieID="CaER"         value="0.75e5"     />
+
+    <NanoMolarity specieID="CaER"         value="0.8e5"     />
     <NanoMolarity       specieID="CRTP" value="89000"/>
     <NanoMolarity       specieID="CRT" value="11000"/>
-    <NanoMolarity specieID="IP3K" value="900" />
-    <NanoMolarity specieID="IP5P" value="1000" />  
+    <NanoMolarity specieID="IP3K" value="200" />
+    <NanoMolarity specieID="IP5P" value="220" />  
   </ConcentrationSet>
 
 
   <SurfaceDensitySet>
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
-    <PicoSD specieID="ncx" value="14000"/>
-    <PicoSD specieID="ncxCa" value="1000"/>
+    <PicoSD specieID="ncx" value="2800"/>
+    <PicoSD specieID="ncxCa" value="200"/>
+    <PicoSD specieID="pmca" value="4500"/> 
+    <PicoSD specieID="pmcaCa" value="2000"/>
 
     <PicoSD  specieID="Plc"  value="870"    />
     <PicoSD  specieID="PlcCa"  value="80"    />
@@ -46,30 +49,22 @@
     <PicoSD specieID="GqaGTP" value="8"/>
     <PicoSD specieID="GqaGDP" value="8"/>
     <PicoSD specieID="PMJ" value="6"  />
-    <PicoSD specieID="Orai"          value="150"  />
-    <PicoSD specieID="OraiSTIM_4"          value="15"  />
-    <PicoSD specieID="Orai2STIM_4"          value="15"  />
-    <PicoSD specieID="Orai3STIM_4"          value="2"  />
-  </SurfaceDensitySet>
+   
+    
+ 
+    <PicoSD specieID="IP3R"      value="30"     />
+    <PicoSD specieID="RyRC1"      value="5"    />
+    <PicoSD specieID="LeakER"      value="16"     />
+    <!-- Bartol et al 2015 2 mast cells"-->
+    <PicoSD specieID="Cyt_SERCA_Ca2"       value="3400"     />
+    <PicoSD specieID="Cyt_SERCA_Ca"       value="10111"     />
+    <PicoSD specieID="Cyt_SERCA"       value="15500"     />
+    <PicoSD specieID="ER_SERCA_Ca2"       value="20"     />
+    <PicoSD specieID="ER_SERCA_Ca"       value="120"     />
+    <PicoSD specieID="ER_SERCA"       value="200"     />
+    <PicoSD specieID="Orai"          value="200"  />
+    <PicoSD specieID="STIM_2CaER" value="350"/>
+    <PicoSD specieID="STIM_2" value="50"/>
 
-  <SurfaceDensitySet region="dend">
-    <PicoSD specieID="pmca" value="1575"/>
-    <PicoSD specieID="pmcaCa" value="675"/>
   </SurfaceDensitySet>
-  
-  <ConcentrationSet region="dend">
-    <NanoMolarity specieID="IP3R"      value="120"     />
-    <NanoMolarity specieID="CaLeakER"      value="150"     />
-    <!-- Bartol et al 2015 -1/2 mast cells"-->   
-    <NanoMolarity       specieID="Cyt_SERCA"       value="5060"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca"       value="4600"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="2200"     /> 
-    <NanoMolarity       specieID="ER_SERCA"       value="440"     />
-    <NanoMolarity       specieID="ER_SERCA_Ca"       value="220"     />
-    <NanoMolarity       specieID="ER_SERCA_Ca2"       value="0"     /> 
-
-    <NanoMolarity specieID="STIM_2CaER" value="750" />
-    <NanoMolarity specieID="STIM_4" value="15" />
-    <NanoMolarity specieID="STIM_2" value="50" />
-  </ConcentrationSet>
-</InitialConditions>
+</InitialConditions> 

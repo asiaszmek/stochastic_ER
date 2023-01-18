@@ -199,6 +199,11 @@ def get_concentrations(my_file, trial, out):
         else:
             concentrations[:, i, :] = nano_molarity(numbers[:, i, :],
                                                     volume_dict[reg])
+
+    # for i, specie in enumerate(species):
+    #     if "SERCA" in specie:
+    #         print(specie, numbers[0, 0, i])
+        
     return concentrations
 
 
