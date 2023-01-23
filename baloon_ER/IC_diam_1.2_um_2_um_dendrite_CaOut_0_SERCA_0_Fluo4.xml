@@ -52,7 +52,7 @@
  
     <PicoSD specieID="IP3R"      value="30"     />
     <PicoSD specieID="RyRC1"      value="5"    />
-    <PicoSD specieID="LeakER"      value="16"     />
+    <PicoSD specieID="LeakER"      value="18"     />
     <!-- Bartol et al 2015 2 mast cells"-->
     <PicoSD specieID="Orai"          value="200"  />
     <PicoSD specieID="STIM_2CaER" value="350"/>
