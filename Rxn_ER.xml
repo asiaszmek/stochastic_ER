@@ -57,10 +57,7 @@
   <Specie name="ER_SERCA_Ca2" id="ER_SERCA_Ca2" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="ER_SERCA_Ca" id="ER_SERCA_Ca" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="ER_SERCA" id="ER_SERCA" kdiff="0" kdiffunit="mu2/s"/>
-
- 
   <Specie name="LeakER" id="LeakER" kdiff="0" kdiffunit="mu2/s" />
-
   <!--calreticulin-->
   <Specie name="CRT" id="CRT" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="CRTP" id="CRTP" kdiff="0" kdiffunit="mu2/s"/>
@@ -169,16 +166,16 @@
     <Product specieID="Orai3STIM_4" />
     <Product specieID="Ca" />
     
-    <forwardRate>1.5e-6</forwardRate>
-    <reverseRate>1.5e-6</reverseRate>
+    <forwardRate>1.5e-7</forwardRate>
+    <reverseRate>1.5e-7</reverseRate>
   </Reaction>
   <Reaction name = "SOCE2" id="SOCE2">
     <Reactant specieID="CaOut" />
     <Reactant specieID="Orai2STIM_4" />
     <Product specieID="Orai2STIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-7</forwardRate>
-    <reverseRate>1.5e-7</reverseRate>
+    <forwardRate>1.5e-8</forwardRate>
+    <reverseRate>1.5e-8</reverseRate>
   </Reaction>
 
  <Reaction name = "SOCE3" id="SOCE3">
@@ -186,8 +183,8 @@
     <Reactant specieID="OraiSTIM_4" />
     <Product specieID="OraiSTIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-8</forwardRate>
-    <reverseRate>1.5e-8</reverseRate>
+    <forwardRate>1.5e-9</forwardRate>
+    <reverseRate>1.5e-9</reverseRate>
   </Reaction>
    
 
