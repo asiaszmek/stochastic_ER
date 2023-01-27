@@ -36,7 +36,7 @@
   <Specie name="OraiSTIM_4" id="OraiSTIM_4" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="Orai" id="Orai" kdiff="0" kdiffunit="mu2/s" />
 
-  <Specie name="STIM_4" id="STIM_4" kdiff="0" kdiffunit="mu2/s" />
+  <Specie name="STIM_4" id="STIM_4" kdiff="0.01" kdiffunit="mu2/s" />
   <Specie name="STIM_2" id="STIM_2" kdiff="0" kdiffunit="mu2/s" />
   <Specie name="STIM_2CaER" id="STIM_2CaER" kdiff="0" kdiffunit="mu2/s" />
 
@@ -199,16 +199,16 @@
     <Product specieID="Orai3STIM_4" />
     <Product specieID="Ca" />
     
-    <forwardRate>1.5e-9</forwardRate>
-    <reverseRate>1.5e-9</reverseRate>
+    <forwardRate>5e-8</forwardRate>
+    <reverseRate>5e-8</reverseRate>
   </Reaction>
   <Reaction name = "SOCE2" id="SOCE2">
     <Reactant specieID="CaOut" />
     <Reactant specieID="Orai2STIM_4" />
     <Product specieID="Orai2STIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-10</forwardRate>
-    <reverseRate>1.5e-10</reverseRate>
+    <forwardRate>1.5e-9</forwardRate>
+    <reverseRate>1.5e-9</reverseRate>
   </Reaction>
 
  <Reaction name = "SOCE3" id="SOCE3">
@@ -216,8 +216,8 @@
     <Reactant specieID="OraiSTIM_4" />
     <Product specieID="OraiSTIM_4" />
     <Product specieID="Ca" />
-    <forwardRate>1.5e-12</forwardRate>
-    <reverseRate>1.5e-12</reverseRate>
+    <forwardRate>1.5e-11</forwardRate>
+    <reverseRate>1.5e-11</reverseRate>
   </Reaction>
    
 

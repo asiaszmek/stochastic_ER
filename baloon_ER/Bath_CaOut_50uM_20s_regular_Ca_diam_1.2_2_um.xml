@@ -10,7 +10,7 @@
     <onset>440000</onset>
     <duration>1000</duration>
     <rate>40000</rate>
-    <end>445000</end> 
+    <end>45000</end> 
   </InjectionStim>
   
   <InjectionStim specieID="CaOutAnn" injectionSite="dend:submembrane">
