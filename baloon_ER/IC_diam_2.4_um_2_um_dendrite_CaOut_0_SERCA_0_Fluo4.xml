@@ -30,8 +30,8 @@
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
     <PicoSD specieID="LeakER" value="15"/>
-    <PicoSD  specieID="Plc"  value="870"    />
-    <PicoSD  specieID="PlcCa"  value="80"    />
+    <PicoSD  specieID="Plc"  value="1740"    />
+    <PicoSD  specieID="PlcCa"  value="160"    />
     <PicoSD  specieID="Pip2" value="10000"  />
     <PicoSD  specieID="PIkinase"   value="300"  />
     <PicoSD  specieID="MgluR" value="117"  />
