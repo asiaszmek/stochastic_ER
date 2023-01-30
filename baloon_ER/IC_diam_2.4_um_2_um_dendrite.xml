@@ -16,11 +16,12 @@
     <NanoMolarity specieID="CaMCa2N" value="100"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
-    <NanoMolarity specieID="CaER"         value="0.75e5"     />
+    <NanoMolarity specieID="CaER"         value="0.8e5"     />
     <NanoMolarity       specieID="CRTP" value="8.8054e+4"/>
     <NanoMolarity       specieID="CRT" value="1.1946e+4"/>
-    <NanoMolarity specieID="IP3K" value="300" />
-    <NanoMolarity specieID="IP5P" value="330" />
+    <NanoMolarity specieID="IP3" value="25" />
+    <NanoMolarity specieID="IP3K" value="200" />
+    <NanoMolarity specieID="IP5P" value="220" />
     
   </ConcentrationSet>
 
@@ -28,9 +29,8 @@
   <SurfaceDensitySet>
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
-    <PicoSD specieID="ncx" value="14000"/>
-    <PicoSD specieID="ncxCa" value="1000"/>
     <PicoSD  specieID="Plc"  value="870"    />
+    <PicoSD specieID="LeakER" value="15"/>
     <PicoSD  specieID="PlcCa"  value="80"    />
     <PicoSD  specieID="Pip2" value="10000"  />
     <PicoSD  specieID="PIkinase"   value="300"  />
@@ -41,20 +41,27 @@
     <PicoSD specieID="GluMgluRGq" value="12"/>
 
     <PicoSD specieID="PMJ" value="6"  />
-    <PicoSD specieID="Orai"          value="200"  />
-
   
-    <PicoSD specieID="pmca" value="820"/>
-    <PicoSD specieID="pmcaCa" value="180"/>
+    <PicoSD specieID="ncx" value="2800"/>
+    <PicoSD specieID="ncxCa" value="200"/>
+    <PicoSD specieID="pmca" value="5000"/> 
+    <PicoSD specieID="pmcaCa" value="2000"/>
+  
   
 
     <PicoSD specieID="IP3R"      value="30"     />
     <PicoSD specieID="RyRC1"      value="5"    />
-    <PicoSD specieID="CaLeakER"      value="140"     />
-    <PicoSD specieID="Cyt_SERCA_Ca2"       value="3000" />
-    <PicoSD specieID="Cyt_SERCA_Ca"       value="4500" />
-    <PicoSD specieID="Cyt_SERCA"       value="7500" />
-    <PicoSD specieID="STIM_2CaER" value="400" />
+
+   
+    <PicoSD specieID="Cyt_SERCA_Ca2"       value="3400"     />
+    <PicoSD specieID="Cyt_SERCA_Ca"       value="10111"     />
+    <PicoSD specieID="Cyt_SERCA"       value="15500"     />
+    <PicoSD specieID="ER_SERCA_Ca2"       value="20"     />
+    <PicoSD specieID="ER_SERCA_Ca"       value="120"     />
+    <PicoSD specieID="ER_SERCA"       value="200"     />
+    <PicoSD specieID="Orai"          value="200"  />
+    <PicoSD specieID="STIM_2CaER" value="376" />
+    <PicoSD specieID="STIM_2" value="24" />
 
 
     
