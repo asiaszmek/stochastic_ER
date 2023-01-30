@@ -51,12 +51,6 @@
     <!-- ER membrane - baloon -->
     <PicoSD specieID="IP3R"      value="30"     />
     <PicoSD specieID="RyRC1"      value="5"    />
-    <PicoSD specieID="Cyt_SERCA_Ca2"       value="3400"     />
-    <PicoSD specieID="Cyt_SERCA_Ca"       value="10111"     />
-    <PicoSD specieID="Cyt_SERCA"       value="15500"     />
-    <PicoSD specieID="ER_SERCA_Ca2"       value="20"     />
-    <PicoSD specieID="ER_SERCA_Ca"       value="120"     />
-    <PicoSD specieID="ER_SERCA"       value="200"     />
 
     <PicoSD specieID="Orai"          value="200"  />
     <PicoSD specieID="STIM_2CaER" value="388" />
