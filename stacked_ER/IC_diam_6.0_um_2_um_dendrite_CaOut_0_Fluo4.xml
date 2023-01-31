@@ -17,61 +17,51 @@
     <NanoMolarity specieID="Ng" value="2750"/>
     <NanoMolarity specieID="Fluo4" value="400"/>
     <NanoMolarity specieID="Fluo4Ca" value="100"/>
-    <NanoMolarity specieID="CaER"         value="0.75e5"     />
-    <NanoMolarity       specieID="CRTP" value="89000"/>
-    <NanoMolarity       specieID="CRT" value="11000"/>
-    <NanoMolarity specieID="IP3K" value="900" />
-    <NanoMolarity specieID="IP5P" value="1000" />
+   <NanoMolarity specieID="CaER"         value="0.8e5"     />
+    <NanoMolarity       specieID="CRTP" value="8.9e+4"/>
+    <NanoMolarity       specieID="CRT" value="1.1e+4"/>
+    <NanoMolarity specieID="IP3K" value="200" />
+    <NanoMolarity specieID="IP5P" value="220" />
+    <NanoMolarity specieID="IP3R"      value="11"     />
+    <NanoMolarity specieID="RyRC1"      value="2"    />
+    <NanoMolarity specieID="IP3"      value="25"     />
+    
+    <NanoMolarity specieID="Cyt_SERCA_Ca2"       value="7060"     />
+    <NanoMolarity specieID="Cyt_SERCA_Ca"       value="9130"     />
+    <NanoMolarity specieID="Cyt_SERCA"       value="10750"     />
+    <NanoMolarity specieID="ER_SERCA_Ca2"       value="40"     />
+    <NanoMolarity specieID="ER_SERCA_Ca"       value="335"     />
+    <NanoMolarity specieID="ER_SERCA"       value="800"     />
+   
+    <NanoMolarity specieID="STIM_2CaER" value="400" />
+    <NanoMolarity specieID="LeakER" value="35" />
 
-    </ConcentrationSet>
-
-
+  </ConcentrationSet>
 
   <SurfaceDensitySet region="dend">
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
-    <PicoSD specieID="ncx" value="14000"/>
-    <PicoSD specieID="ncxCa" value="1000"/>
+    <PicoSD specieID="ncx" value="2780"/>
+    <PicoSD specieID="ncxCa" value="220"/>
+    <PicoSD specieID="pmca" value="4066"/> 
+    <PicoSD specieID="pmcaCa" value="1560"/>
+   
+    <PicoSD  specieID="Plc"  value="4350"    />
+    <PicoSD  specieID="PlcCa"  value="400"    />
 
-    <PicoSD  specieID="Plc"  value="870"    />
-    <PicoSD  specieID="PlcCa"  value="80"    />
     <PicoSD  specieID="Pip2" value="10000"  />
     <PicoSD  specieID="PIkinase"   value="300"  />
-    <PicoSD  specieID="MgluR" value="107"  />
-    <PicoSD  specieID="GluMgluR" value="2"  />
-    <PicoSD specieID="Gqabg" value="5315"/>
-    <PicoSD specieID="GluMgluRdesens" value="33"/>
-    <PicoSD specieID="MgluRGq" value="330"/>
-    <PicoSD specieID="GluMgluRGq" value="13"/>
-    <PicoSD specieID="GqaGTP" value="8"/>
-    <PicoSD specieID="GqaGDP" value="8"/>
-    
-    <PicoSD specieID="PMJ" value="6"  />
-    <PicoSD specieID="Orai"          value="150"  />
-    <PicoSD specieID="OraiSTIM_4"          value="15"  />
-    <PicoSD specieID="Orai2STIM_4"          value="15"  />
-    <PicoSD specieID="Orai3STIM_4"          value="2"  />
-    
-    <PicoSD specieID="pmca" value="1600"/>
-    <PicoSD specieID="pmcaCa" value="700"/>
+    <PicoSD  specieID="MgluR" value="115"  />
+    <PicoSD specieID="Gqabg" value="5325"/>
+    <PicoSD specieID="GluMgluRdesens" value="31"/>
+    <PicoSD specieID="MgluRGq" value="332"/>
+    <PicoSD specieID="GluMgluRGq" value="15"/>
+ 
+    <PicoSD specieID="Orai"          value="200"  />
+    <PicoSD specieID="PMJ"          value="6"  />
+   
   </SurfaceDensitySet>
 
   
-  <ConcentrationSet region="dend">
 
-    <NanoMolarity specieID="IP3R"      value="120"     />
-    <NanoMolarity specieID="CaLeakER"      value="475"     />
-    <!-- Bartol et al 2015 -1/2 mast cells"-->   
-    <NanoMolarity       specieID="Cyt_SERCA"       value="5060"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca"       value="4600"     />
-    <NanoMolarity       specieID="Cyt_SERCA_Ca2"       value="2200"     /> 
-    <NanoMolarity       specieID="ER_SERCA"       value="440"     />
-    <NanoMolarity       specieID="ER_SERCA_Ca"       value="220"     />
-    <NanoMolarity       specieID="ER_SERCA_Ca2"       value="0"     /> 
-
-    <NanoMolarity specieID="STIM_2CaER" value="750" />
-    <NanoMolarity specieID="STIM_4" value="15" />
-    <NanoMolarity specieID="STIM_2" value="50" />
-   
-  </ConcentrationSet>
 </InitialConditions>
