@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ReactionScheme>
+  <Specie name="CaOutBuf" id="CaOutBuf" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="Buf" id="Buf" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="174." kdiffunit="mu2/s" />
+ 
+ <Reaction name = "CaOutInj" id="CaOutInj">
+    <Reactant specieID="CaOutBuf"/>
+    <Product specieID="Buf"/>
+    <Product specieID="CaOut"/>
+    <forwardRate>1e-03</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
+
+  <Reaction name = "CaOutInj2" id="CaOutInj2">
+    <Reactant specieID="Buf"/>
+    <Reactant specieID="CaOutAnn"/>
+    <Product specieID="CaOutAnnB"/>
+    <forwardRate>1e-06</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
+
+    <Reaction name = "CaOutInj3" id="CaOutInj3">
+    <Reactant specieID="CaOut"/>
+    <Reactant specieID="CaOutAnnB"/>
+    <forwardRate>1e-02</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
+</ReactionScheme>
