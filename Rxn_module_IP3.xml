@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<ReactionScheme>
+  <Specie name="Ca" id="Ca" kdiff="174.3" kdiffunit="mu2/s" />
+  <Specie name="Plc"             id="Plc"             kdiff="0"    kdiffunit = "mu2/s"/>
+  <Specie name="PlcCa"           id="PlcCa"           kdiff="0"    kdiffunit = "mu2/s"/>
+  <Specie name="Pip2"            id="Pip2"            kdiff="0"    kdiffunit = "mu2/s"/>
+  <Specie name="PlcCaPip2"       id="PlcCaPip2"       kdiff="0"    kdiffunit = "mu2/s"/>
+  <Specie name="PIkinase"      id="PIkinase"      kdiff="0"    kdiffunit = "mu2/s"/>
+  <Specie name="IP3degPIk"     id="IP3degPIk"   kdiff="0"    kdiffunit = "mu2/s"/>
+  
+  <Specie name="IP3degrad"  id="IP3degrad"           kdiff="10.6"    kdiffunit = "mu2/s"/>
+
+  <Specie name="IP3"            id="IP3"           kdiff="220." kdiffunit="mu2/s"/>
+  <Specie name="IP3K"            id="IP3K"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP5P"            id="IP5P"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP3K_Ca2"        id="IP3K_Ca2"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP5P_IP3"       id="IP5P_IP3"           kdiff="10." kdiffunit="mu2/s"/>
+  <Specie name="IP3K_Ca2_IP3"    id="IP3K_Ca2_IP3"           kdiff="10." kdiffunit="mu2/s"/>
+
+
+  <Reaction name = "Plc+Ca--PlcCa" id="Plc+Ca--PlcCa">
+    <Reactant specieID="Ca"           />
+    <Reactant specieID="Plc"              />
+    <Product  specieID="PlcCa"               />
+
+    <forwardRate> 0.0005e-03   </forwardRate>
+    <reverseRate> 1e-03        </reverseRate>
+    <Q10>         0.2           </Q10>
+  </Reaction>
+   <Reaction name = "PlcCa+Pip2--PlcCaPip2" id="PlcCa+Pip2--PlcCaPip2">
+    <Reactant specieID="PlcCa"               />
+    <Reactant specieID="Pip2"             />
+    <Product  specieID="PlcCaPip2"            />
+    
+    <forwardRate> 0.05e-06   </forwardRate>
+    <reverseRate> 1.8e-3   </reverseRate>
+    <Q10>         0.2           </Q10>
+  </Reaction>
+  <!-- PlcCaPip2      <-> PlcCaDag + IP3 -->  
+  <Reaction name = "PlcCaPip2--PlcCaDag+IP3" id="PlcCaPip2--PlcCaDag+IP3">
+    <Reactant specieID="PlcCaPip2"            />
+    <Product  specieID="PlcCa"               />
+    <Product  specieID="IP3"            />
+    
+    <forwardRate> 0.45e-03     </forwardRate>
+    <reverseRate> 0e-03    </reverseRate>
+    <Q10>         0.2           </Q10>
+  </Reaction>
+<!--  IP3    <-> IP3degrad          Degraded IP3-->
+  <!--IP3 degradation taken from Mahajan and Nadkarni 2019 -->
+  <Reaction name = "IP3--IP5P" id="IP3--IP5P">
+    <Reactant specieID="IP3"            />
+    <Reactant specieID="IP5P"            />
+    <Product  specieID="IP5P_IP3"        />
+    
+    <forwardRate> 9e-06      </forwardRate>
+    <reverseRate> 72e-03      </reverseRate>
+    <Q10>         0.2           </Q10>
+  </Reaction>
+
+  <Reaction name = "IP3--IP5P-degrad" id="IP3--IP5P-degrad">
+    <Reactant specieID="IP5P_IP3"            />
+    <Product  specieID="IP5P"        />
+    <Product specieID="IP3degrad"            />
+    <forwardRate> 18e-03      </forwardRate>
+    <Q10>         0.2           </Q10>
+  </Reaction>
+
+  <Reaction name = "IP3K--2Ca" id="IP3K--2Ca">
+    <Reactant specieID="IP3K"            />
+    <Reactant specieID="Ca"   power="2"         />
+    <Product  specieID="IP3K_Ca2"        />
+    
+    <forwardRate> 1111e-09      </forwardRate>
+    <reverseRate> 100e-03      </reverseRate>
+    <Q10>         0.2           </Q10>
+  </Reaction>
+
+  <Reaction name = "IP3K2Ca--IP3" id="IP3K2Ca--IP3">
+    <Reactant specieID="IP3K_Ca2"            />
+    <Reactant specieID="IP3"        />
+    <Product  specieID="IP3K_Ca2_IP3"        />
+
+    <forwardRate> 100e-06      </forwardRate>
+    <reverseRate> 80e-03      </reverseRate>
+    <Q10>         0.2           </Q10>
+  </Reaction>
+
+<Reaction name = "IP3K2CaIP3" id="IP3K2CaIP3">
+  <Reactant specieID="IP3K_Ca2_IP3"            />
+  <Product specieID="IP3degrad"        />
+  <Product  specieID="IP3K_Ca2"        />
+
+    <forwardRate> 20e-03      </forwardRate>
+    <Q10>         0.2           </Q10>
+</Reaction>
+
+<Reaction name = "IP3degrad + PIkinase -- IP3degPIkinase" id="PIkinase1">
+    <Reactant specieID="IP3degrad"            />   
+    <Reactant specieID="PIkinase"               />
+    <Product  specieID="IP3degPIk"            />
+
+    <forwardRate> 2.0e-6    </forwardRate>
+    <reverseRate> 1e-03    </reverseRate>
+    <Q10>         0.2           </Q10>
+</Reaction>
+
+<!-- Initial rate from PI5kinase from Falkenburger, increased to compensate for lower reactant quantity -->
+   <Reaction name = "IP3degPIkinase -- PIP2 + PIkinase" id="PIkinase2">
+    <Reactant specieID="IP3degPIk"            />
+    <Product  specieID="PIkinase"               />
+    <Product  specieID="Pip2"            />
+
+    <forwardRate> 1e-3  </forwardRate>
+    <reverseRate> 0e-03    </reverseRate>
+    <Q10>         0.2           </Q10>
+</Reaction>

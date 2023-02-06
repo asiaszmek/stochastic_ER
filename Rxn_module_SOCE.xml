@@ -92,7 +92,7 @@
     <reverseRate>5e-4</reverseRate>
   </Reaction>
 
-  <Reaction name = "STIM_Orai4" id="STIM_Orai4">
+  <Reaction name = "STIM_Orai8" id="STIM_Orai8">
     <Reactant specieID="Orai3STIM_4" />
     <Reactant specieID="OraiSTIM_4" />
     <Product specieID="Orai2STIM_4" power="2"/>

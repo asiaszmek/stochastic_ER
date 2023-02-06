@@ -48,7 +48,7 @@
   </Reaction>
  
 
-  <Reaction name = "TG_SERCA_1e" id="TG_SERCA_1e">
+  <Reaction name = "TG_SERCA_1g" id="TG_SERCA_1g">
     <Reactant specieID="ER_SERCA_Ca2"/>
     <Reactant specieID="TG"/>
     <Product specieID="TG_SERCA_Ca2" />
