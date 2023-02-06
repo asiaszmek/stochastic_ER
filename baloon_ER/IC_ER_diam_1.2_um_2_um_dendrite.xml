@@ -19,6 +19,8 @@
     <NanoMolarity       specieID="CRTP" value="89000"/>
     <NanoMolarity       specieID="CRT" value="11000"/>
     <NanoMolarity specieID="IP3" value="25" />
+    <NanoMolarity specieID="IP3K" value="200" />
+    <NanoMolarity specieID="IP5P" value="220" />
   </ConcentrationSet>
 
 
@@ -26,6 +28,10 @@
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
     <PicoSD specieID="LeakER" value="16"/>
+    <PicoSD  specieID="Plc"  value="870"    />
+    <PicoSD  specieID="PlcCa"  value="80"    />
+    <PicoSD  specieID="Pip2" value="10000"  />
+    <PicoSD  specieID="PIkinase"   value="300"  />
 
     <PicoSD specieID="ncx" value="2800"/>
     <PicoSD specieID="ncxCa" value="200"/>
