@@ -33,6 +33,21 @@ file_list_ER_no_mGLur_no_RyR = [
     "Rxn_module_SOCE.xml",
 
 ]
+#"For checking if adding SOCE help Ca wave propagation
+file_list_ER_no_IP3R = [
+    "Rxn_module_Ca.xml",
+    "Rxn_module_RyR.xml",
+    "Rxn_module_SERCA_ER.xml",
+    "Rxn_module_SOCE.xml",
+    ]
+
+#for reproducing Ca wave paper
+file_list_ER_no_IP3R_no_SOCE = [
+    "Rxn_module_Ca.xml",
+    "Rxn_module_RyR.xml",
+    "Rxn_module_SERCA_ER.xml",
+    ]
+
 def read_in_files(flist):
     roots = []
     species = set()
@@ -72,6 +87,11 @@ if __name__ == "__main__":
     my_rxn_f = read_in_files(file_list_ER_no_mGLur)
     f = open("Rxn_no_mGLuR.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
-    
+    my_rxn_f = read_in_files(file_list_ER_no_IP3R)
+    f = open("Rxn_no_IP3R.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+    my_rxn_f = read_in_files(file_list_ER_no_IP3R_no_SOCE)
+    f = open("Rxn_no_IP3R_no_SOCE.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     
                     
