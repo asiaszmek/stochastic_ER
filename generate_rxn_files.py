@@ -33,6 +33,12 @@ file_list_ER_no_mGLur_no_RyR = [
     "Rxn_module_SOCE.xml",
 
 ]
+file_list_ER_no_mGLur_no_RyR_no_SOCE = [
+    "Rxn_module_Ca.xml",
+    "Rxn_module_IP3R.xml",
+    "Rxn_module_IP3.xml",
+    "Rxn_module_SERCA_ER.xml",
+]
 #"For checking if adding SOCE help Ca wave propagation
 file_list_ER_no_IP3R = [
     "Rxn_module_Ca.xml",
@@ -84,6 +90,11 @@ if __name__ == "__main__":
     my_rxn_f = read_in_files(file_list_ER_no_mGLur_no_RyR)
     f = open("Rxn_no_mGLuR_no_RyR.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+
+    my_rxn_f = read_in_files(file_list_ER_no_mGLur_no_RyR_no_SOCE)    
+    f = open("Rxn_no_mGLuR_no_RyR_no_SOCE.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+
     my_rxn_f = read_in_files(file_list_ER_no_mGLur)
     f = open("Rxn_no_mGLuR.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
