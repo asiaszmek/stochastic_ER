@@ -17,7 +17,7 @@
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
 
-    <NanoMolarity specieID="CaER"         value="0.8e5"     />
+    <NanoMolarity specieID="CaER"         value="0.77e5"     />
     <NanoMolarity       specieID="CRTP" value="8.9e+4"/>
     <NanoMolarity       specieID="CRT" value="1.1e+4"/>
   </ConcentrationSet>
@@ -25,11 +25,11 @@
   <SurfaceDensitySet region="dend">
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
-    <PicoSD specieID="LeakER" value="18"/>
+    <PicoSD specieID="LeakER" value="20"/>
     <PicoSD specieID="ncx" value="2800"/>
     <PicoSD specieID="ncxCa" value="200"/>
     <PicoSD specieID="pmca" value="5000"/> 
-    <PicoSD specieID="pmcaCa" value="1000"/>
+    <PicoSD specieID="pmcaCa" value="500"/>
     <!-- ER membrane - baloon -->
     <PicoSD specieID="RyRC1"      value="5"    />
  
