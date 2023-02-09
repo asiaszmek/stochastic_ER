@@ -38,8 +38,8 @@
   
     <PicoSD specieID="ncx" value="2800"/>
     <PicoSD specieID="ncxCa" value="200"/>
-    <PicoSD specieID="pmca" value="5000"/> 
-    <PicoSD specieID="pmcaCa" value="500"/>
+    <PicoSD specieID="pmca" value="4000"/> 
+    <PicoSD specieID="pmcaCa" value="1500"/>
     <!-- ER membrane - baloon -->
     <PicoSD specieID="IP3R"      value="30"     />
     
