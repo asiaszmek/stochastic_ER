@@ -25,7 +25,7 @@
     <NanoMolarity specieID="ER_SERCA_Ca"       value="1150" />
     <NanoMolarity specieID="ER_SERCA"       value="2180" />
 
-    <NanoMolarity specieID="LeakER" value="75" />
+    <NanoMolarity specieID="LeakER" value="90" />
     <NanoMolarity specieID="STIM_2CaER" value="400" />
 
   </ConcentrationSet>
