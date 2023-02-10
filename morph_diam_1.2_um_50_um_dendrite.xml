@@ -4,7 +4,7 @@
      <Section width="0.05" at="0.00" label="stub"/>
      <Section width="0.05" at="0.02" label="pointI"/>
    </SpineType>
-   <SpineAllocation id="fake" spineType="spineTiny" region="dend06"
+   <SpineAllocation id="fake" spineType="spineTiny" region="dend26"
 		    lengthDensity="2."/>
   <Segment id="seg01" region="dend01">
     <start x="0.0" y="1.0" z="0.0" r="0.6"/>
