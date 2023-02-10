@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Morphology>
+    <SpineType id="spineTiny">
+     <Section width="0.05" at="0.00" label="stub"/>
+     <Section width="0.05" at="0.02" label="pointI"/>
+   </SpineType>
+   <SpineAllocation id="fake" spineType="spineTiny" region="dend06"
+		    lengthDensity="2."/>
+   
   <Segment id="seg01" region="dend01">
     <start x="0.0" y="1.0" z="0.0" r="1.2"/>
     <end x="1.0" y="1.0" z="0.0" r="1.2"/>
@@ -40,6 +47,9 @@
     <start on="seg09" at="end" r="1.2"/>
     <end x="10.0" y="1.0" z="0.0" r="1.2"/>
   </Segment>
-
+  <Segment id="seg11" region="dend11">
+    <start on="seg10" at="end" r="1.2"/>
+    <end x="11.0" y="1.0" z="0.0" r="1.2"/>
+  </Segment>
 </Morphology>
 

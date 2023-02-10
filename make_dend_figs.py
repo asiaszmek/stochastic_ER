@@ -75,8 +75,8 @@ def get_dynamics_in_region(my_file, specie, region, trial,
 
 
 if __name__ == '__main__':
-    specie_list = ["CaOut"]
-    specie = "CaOut"
+    specie_list = ["Ca"]
+    specie = "Ca"
     reg_list = ["dend", "dend1", "dend2", "dend3", "dend4", "dend5", "dend6",
                 "dend7", "dend8", "dend9", "dend10"]
     if len(sys.argv) == 1:
