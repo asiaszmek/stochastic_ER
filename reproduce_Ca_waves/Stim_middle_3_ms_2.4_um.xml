@@ -2,7 +2,7 @@
   <InjectionStim specieID="Ca" injectionSite="fake[0].pointI">
     <onset>3000</onset>
     <duration>400</duration>
-    <rate>400</rate>
+    <rate>200</rate>
     <end>3500</end>    
   </InjectionStim>
 </StimulationSet>
