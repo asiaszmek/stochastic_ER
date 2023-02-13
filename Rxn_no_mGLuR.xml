@@ -372,8 +372,8 @@
      <Reactant specieID="CaER"/>
      <Product specieID="RyRO2"/>
      <Product specieID="Ca"/>
-    <forwardRate>2e-5</forwardRate>
-    <reverseRate>2e-5</reverseRate>
+    <forwardRate>2e-4</forwardRate>
+    <reverseRate>2e-4</reverseRate>
   </Reaction>
     
 <Specie name="Cyt_SERCA" id="Cyt_SERCA" kdiff="0" kdiffunit="mu2/s"/>

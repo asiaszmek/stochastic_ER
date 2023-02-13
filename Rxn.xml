@@ -867,8 +867,8 @@ avoids the need to generate Gqbg, and have them react-->
      <Reactant specieID="CaER"/>
      <Product specieID="RyRO2"/>
      <Product specieID="Ca"/>
-    <forwardRate>2e-5</forwardRate>
-    <reverseRate>2e-5</reverseRate>
+    <forwardRate>2e-4</forwardRate>
+    <reverseRate>2e-4</reverseRate>
   </Reaction>
     
  <Reaction name = "Ca_leakER1" id="Ca_leakaER1">
