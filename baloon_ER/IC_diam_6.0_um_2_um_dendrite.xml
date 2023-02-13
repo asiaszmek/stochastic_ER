@@ -27,7 +27,7 @@
     <NanoMolarity specieID="IP5P" value="220" />
   </ConcentrationSet>
 
-  <SurfaceDensitySet region="dend">
+  <SurfaceDensitySet>
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
    

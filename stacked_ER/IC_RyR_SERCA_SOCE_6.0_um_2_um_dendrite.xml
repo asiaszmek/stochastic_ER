@@ -31,7 +31,7 @@
     <NanoMolarity specieID="STIM_2CaER" value="400" />
   </ConcentrationSet>
 
-  <SurfaceDensitySet region="dend">
+  <SurfaceDensitySet>
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
     <PicoSD specieID="ncx" value="2780"/>

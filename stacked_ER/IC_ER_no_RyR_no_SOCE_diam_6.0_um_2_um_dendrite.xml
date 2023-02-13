@@ -38,7 +38,7 @@
 
   </ConcentrationSet>
 
-  <SurfaceDensitySet region="dend">
+  <SurfaceDensitySet>
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
     <PicoSD  specieID="Plc"  value="4350"    />
