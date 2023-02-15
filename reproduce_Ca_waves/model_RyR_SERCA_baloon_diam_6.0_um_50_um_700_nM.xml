@@ -6,6 +6,7 @@
     <xi:include href="../morph_diam_6.0_um_50_um_dendrite.xml" />
     <xi:include href="../baloon_ER/IC_RyR_SERCA_6.0_um_2_um_dendrite.xml" />
     <xi:include href="Stim_middle_3_ms_700_nM_6.0_um.xml"/>
+    <xi:include href="IO_Ca.xml"/>
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the
 results (also, 3D may not work yet...)  -->
@@ -18,7 +19,7 @@ results (also, 3D may not work yet...)  -->
     <outputQuantity>NUMBER</outputQuantity>
 
     <!-- run time for the calculation, milliseconds -->
-    <runtime>30000</runtime>
+    <runtime>10000</runtime>
 
     <!-- set the seed to get the same spines each time testing -->
     <spineSeed>123</spineSeed>
@@ -43,7 +44,7 @@ results (also, 3D may not work yet...)  -->
     <!-- the tolerace is not used yet -->
     <tolerance>0.01</tolerance>
 
-    <outputInterval>50</outputInterval>
+    <outputInterval>500</outputInterval>
 
 
 

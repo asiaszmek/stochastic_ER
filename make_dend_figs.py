@@ -99,13 +99,12 @@ if __name__ == '__main__':
                 continue
             conc, voxels = get_dynamics_in_region(my_file,
                                                   specie_list,
-                                                  reg_list, trial, "__main__")
+                                                  reg_list, trial, "all")
             conc_dict[trial] = conc
             time = get_times(my_file, trial, "__main__")
             time_dict[trial] = time
         vmax = 0
         vmin = 1000000000
-
         for key in conc_dict:
             new_max = conc_dict[key].max()
             new_min =  conc_dict[key].min()
