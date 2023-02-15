@@ -104,12 +104,16 @@ if __name__ == '__main__':
             time = get_times(my_file, trial, "__main__")
             time_dict[trial] = time
         vmax = 0
+        vmin = 1000000000
 
         for key in conc_dict:
             new_max = conc_dict[key].max()
+            new_min =  conc_dict[key].min()
             if new_max > vmax:
                 vmax = new_max
-        for key in conc_dict:
+            if new_min < vmin:
+                vmin = new_min
+        for i, key in enumerate(conc_dict):
             fig, ax = plt.subplots(1, 1)
             time = time_dict[key]
             im = ax.imshow(conc_dict[key].T, aspect="auto",
@@ -118,8 +122,8 @@ if __name__ == '__main__':
                                                      time[-1]*1e-3,
                                                      voxels[0],
                                                      voxels[-1]],
-                           cmap=plt.get_cmap("Reds"), vmin=0, vmax=vmax)
+                           cmap=plt.get_cmap("Reds"), vmin=vmin, vmax=vmax)
             fig.colorbar(im)
-            ax.set_title("%s %s" % (specie, trial))
+            ax.set_title("%s trial %d %s" % (fname, i, specie))
     plt.show()
                           
