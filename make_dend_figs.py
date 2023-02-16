@@ -101,7 +101,7 @@ if __name__ == '__main__':
                                                   specie_list,
                                                   reg_list, trial, "all")
             conc_dict[trial] = conc
-            time = get_times(my_file, trial, "__main__")
+            time = get_times(my_file, trial, "all")
             time_dict[trial] = time
         vmax = 0
         vmin = 1000000000
