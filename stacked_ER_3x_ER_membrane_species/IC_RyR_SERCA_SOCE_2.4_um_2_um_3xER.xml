@@ -26,8 +26,9 @@
     <NanoMolarity specieID="ER_SERCA"       value="6540" />
 
     <NanoMolarity specieID="LeakER" value="285" />
-    <NanoMolarity specieID="STIM_2CaER" value="1200" />
-
+    <NanoMolarity specieID="STIM_2CaER" value="1100" />
+    <NanoMolarity specieID="STIM_2" value="50" />
+    <NanoMolarity specieID="STIM_2" value="15" />
   </ConcentrationSet>
 
 
@@ -39,8 +40,8 @@
     <PicoSD specieID="pmca" value="4090"/> 
     <PicoSD specieID="pmcaCa" value="1535"/>
     <PicoSD specieID="PMJ" value="6"/>
-    <PicoSD specieID="Orai" value="200"/>
-
+    <PicoSD specieID="Orai" value="190"/>
+    <PicoSD specieID="OraiSTIM_4" value="10"/>
   </SurfaceDensitySet>  
 
 </InitialConditions>
