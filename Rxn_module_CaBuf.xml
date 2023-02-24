@@ -9,7 +9,7 @@
     <Reactant specieID="CaBuf"/>
     <Product specieID="Buf"/>
     <Product specieID="Ca"/>
-    <forwardRate>1e-03</forwardRate>
+    <forwardRate>1e-02</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
 
