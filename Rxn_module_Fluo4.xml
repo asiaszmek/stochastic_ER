@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <ReactionScheme>
-  <Specie name="Ca" id="Ca" kdiff="174.3" kdiffunit="mu2/s" />
   <Specie name="Fluro4" id="Fluo4" kdiff="83" kdiffunit="mu2/s" />
   <Specie name="Fluro4Ca" id="Fluo4Ca" kdiff="83" kdiffunit="mu2/s" />
   <Reaction name = "Fluo4_r" id="Fluo4_r">

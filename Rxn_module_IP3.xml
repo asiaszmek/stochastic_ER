@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ReactionScheme>
-  <Specie name="Ca" id="Ca" kdiff="174.3" kdiffunit="mu2/s" />
+  <Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s" />
   <Specie name="Plc"             id="Plc"             kdiff="0"    kdiffunit = "mu2/s"/>
   <Specie name="PlcCa"           id="PlcCa"           kdiff="0"    kdiffunit = "mu2/s"/>
   <Specie name="Pip2"            id="Pip2"            kdiff="0"    kdiffunit = "mu2/s"/>

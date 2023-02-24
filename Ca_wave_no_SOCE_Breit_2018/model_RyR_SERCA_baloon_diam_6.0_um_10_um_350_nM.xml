@@ -5,7 +5,7 @@
     <xi:include href="../Rxn_no_IP3R_no_SOCE.xml" />
     <xi:include href="../morph_diam_6.0_um_10_um_dendrite.xml" />
     <xi:include href="../baloon_ER/IC_RyR_SERCA_6.0_um_2_um_dendrite.xml" />
-    <xi:include href="Stim_middle_3_ms_350_nM_6.0_um.xml"/>
+    <xi:include href="../Ca_wave_stim/Stim_middle_3_ms_350_nM_6.0_um.xml"/>
     <xi:include href="IO_Ca.xml"/>
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the

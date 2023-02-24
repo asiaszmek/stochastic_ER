@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ReactionScheme>
-  <Specie name="Ca" id="Ca" kdiff="174.3" kdiffunit="mu2/s" />
+  <Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s" />
  
   <!-- Add mGluRs from Blackwell's model -->
   <Specie name="Glu"            id="Glu"           kdiff="100"   kdiffunit="mu2/s"/>

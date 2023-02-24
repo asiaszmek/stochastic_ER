@@ -12,7 +12,8 @@ file_list_full_ER = [
     "Rxn_module_TG.xml"
 ]
 file_tg =  "Rxn_module_TG.xml"
-file_cabuf = "Rxn_module_CaOutBuf.xml"
+file_caoutbuf = "Rxn_module_CaOutBuf.xml"
+file_cabuf = "Rxn_module_CaBuf.xml"
 file_fluo = "Rxn_module_Fluo4.xml"
 file_fura ="Rxn_module_Fura2.xml"
 
@@ -42,6 +43,7 @@ file_list_ER_no_mGLur_no_RyR_no_SOCE = [
 #"For checking if adding SOCE help Ca wave propagation
 file_list_ER_no_IP3R = [
     "Rxn_module_Ca.xml",
+    "Rxn_module_CaBuf.xml",
     "Rxn_module_RyR.xml",
     "Rxn_module_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
@@ -50,6 +52,7 @@ file_list_ER_no_IP3R = [
 #for reproducing Ca wave paper
 file_list_ER_no_IP3R_no_SOCE = [
     "Rxn_module_Ca.xml",
+    "Rxn_module_CaBuf.xml",
     "Rxn_module_RyR.xml",
     "Rxn_module_SERCA_ER.xml",
     ]

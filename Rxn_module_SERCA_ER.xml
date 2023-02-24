@@ -22,7 +22,6 @@
   <!-- Suggested by avrama Ca kdiff=600 for helping fast decay on Feb.24th 2009-->
 
   <!--TODO add bAR desensitization!-->
-  <Specie name="Ca" id="Ca" kdiff="174.3" kdiffunit="mu2/s" />
   <Specie name="CaER" id="CaER" kdiff="10." kdiffunit="mu2/s"/>
   <Specie name="Cyt_SERCA" id="Cyt_SERCA" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Cyt_SERCA_Ca" id="Cyt_SERCA_Ca" kdiff="0" kdiffunit="mu2/s"/>
