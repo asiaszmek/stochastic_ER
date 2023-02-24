@@ -22,8 +22,8 @@
   <!-- Suggested by avrama Ca kdiff=600 for helping fast decay on Feb.24th 2009-->
 
   <!--TODO add bAR desensitization!-->
-  <Specie name="Ca" id="Ca" kdiff="174.3" kdiffunit="mu2/s" />
-  <Specie name="CaOut" id="CaOut" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s" />
+  <Specie name="CaOut" id="CaOut" kdiff="10" kdiffunit="mu2/s" />
   <Specie name="CaOutLeak" id="CaOutLeak" kdiff="0"
 	  kdiffunit="mu2/s" />
   <Specie name="Leak" id="Leak" kdiff="0" kdiffunit="mu2/s" />
@@ -898,10 +898,10 @@ avoids the need to generate Gqbg, and have them react-->
     <reverseRate>17e-3</reverseRate>
   </Reaction>
 
-  <Specie name="CaOutBuf" id="CaOutBuf" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="Buf" id="Buf" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="CaOutBuf" id="CaOutBuf" kdiff="10" kdiffunit="mu2/s" />
+  <Specie name="Buf" id="Buf" kdiff="10" kdiffunit="mu2/s" />
+  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="10" kdiffunit="mu2/s" />
+  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="10" kdiffunit="mu2/s" />
  
  <Reaction name = "CaOutInj" id="CaOutInj">
     <Reactant specieID="CaOutBuf"/>

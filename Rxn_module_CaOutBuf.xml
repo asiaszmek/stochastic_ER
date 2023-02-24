@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <ReactionScheme>
-  <Specie name="CaOutBuf" id="CaOutBuf" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="Buf" id="Buf" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="174." kdiffunit="mu2/s" />
-  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="174." kdiffunit="mu2/s" />
+  <Specie name="CaOutBuf" id="CaOutBuf" kdiff="10" kdiffunit="mu2/s" />
+  <Specie name="Buf" id="Buf" kdiff="10" kdiffunit="mu2/s" />
+  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="10" kdiffunit="mu2/s" />
+  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="10" kdiffunit="mu2/s" />
  
  <Reaction name = "CaOutInj" id="CaOutInj">
     <Reactant specieID="CaOutBuf"/>

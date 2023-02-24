@@ -1,5 +1,5 @@
 <ReactionScheme><Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s"/>
-  <Specie name="CaOut" id="CaOut" kdiff="174." kdiffunit="mu2/s"/>
+  <Specie name="CaOut" id="CaOut" kdiff="10" kdiffunit="mu2/s"/>
   <Specie name="CaOutLeak" id="CaOutLeak" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Leak" id="Leak" kdiff="0" kdiffunit="mu2/s"/>
 
@@ -136,6 +136,33 @@
     <Q10>0.2</Q10>
   </Reaction>
 
+<Specie name="CaBuf" id="CaBuf" kdiff="100." kdiffunit="mu2/s"/>
+  <Specie name="Buf" id="Buf" kdiff="10" kdiffunit="mu2/s"/>
+  <Specie name="CaOutAnn" id="CaOutAnn" kdiff="10" kdiffunit="mu2/s"/>
+  <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="10" kdiffunit="mu2/s"/>
+ 
+ <Reaction name="CaOutInj" id="CaOutInj">
+    <Reactant specieID="CaBuf"/>
+    <Product specieID="Buf"/>
+    <Product specieID="Ca"/>
+    <forwardRate>1e-03</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
+
+  <Reaction name="CaOutInj2" id="CaOutInj2">
+    <Reactant specieID="Buf"/>
+    <Reactant specieID="CaOutAnn"/>
+    <Product specieID="CaOutAnnB"/>
+    <forwardRate>1e-06</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
+
+    <Reaction name="CaOutInj3" id="CaOutInj3">
+    <Reactant specieID="CaOut"/>
+    <Reactant specieID="CaOutAnnB"/>
+    <forwardRate>1e-02</forwardRate>
+    <reverseRate>0</reverseRate>
+  </Reaction>
 <Specie name="CaER" id="CaER" kdiff="10." kdiffunit="mu2/s"/>
   <Specie name="RyRO1" id="RyRO1" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRO2" id="RyRO2" kdiff="0" kdiffunit="mu2/s"/>
