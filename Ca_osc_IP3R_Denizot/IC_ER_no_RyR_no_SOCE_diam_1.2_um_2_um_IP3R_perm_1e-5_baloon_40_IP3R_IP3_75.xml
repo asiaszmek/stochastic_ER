@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InitialConditions>
+  <ConcentrationSet>
+    <NanoMolarity specieID="Ca" value="75"/>
+    <NanoMolarity specieID="CaOut" value="2000000"/>
+    <!-- total calbindin = 160 uM -->
+    <NanoMolarity specieID="Calbin" value="134400"/>
+    <NanoMolarity specieID="CalbinC" value="15600"/>
+    <NanoMolarity specieID="fixedbuffer" value="1996760"/>
+    <NanoMolarity specieID="fixedbufferCa" value="3230"/>
+
+    <NanoMolarity specieID="CaM" value="8100"/>
+    <NanoMolarity specieID="CaMCa2C" value="400"/>
+    <NanoMolarity specieID="CaMCa2N" value="55"/>
+    <NanoMolarity specieID="CaMCa4" value="3"/>
+    <NanoMolarity specieID="NgCaM" value="17250"/>
+    <NanoMolarity specieID="Ng" value="2750"/>
+    <NanoMolarity specieID="CaER"         value="0.8e5"     />
+    <NanoMolarity       specieID="CRTP" value="89000"/>
+    <NanoMolarity       specieID="CRT" value="11000"/>
+    <NanoMolarity specieID="IP3" value="25" />
+    <NanoMolarity specieID="IP3K" value="200" />
+    <NanoMolarity specieID="IP5P" value="220" />
+  </ConcentrationSet>
+
+
+  <SurfaceDensitySet>
+    <PicoSD specieID="Leak" value="5"/>
+    <PicoSD specieID="CaOutLeak" value="6000"/>
+    <PicoSD specieID="LeakER" value="14"/>
+    <PicoSD  specieID="Plc"  value="2610"    />
+    <PicoSD  specieID="PlcCa"  value="240"    />
+    <PicoSD  specieID="Pip2" value="10000"  />
+    <PicoSD  specieID="PIkinase"   value="300"  />
+
+    <PicoSD specieID="ncx" value="2800"/>
+    <PicoSD specieID="ncxCa" value="200"/>
+    <PicoSD specieID="pmca" value="4000"/> 
+    <PicoSD specieID="pmcaCa" value="1500"/>
+
+    <PicoSD specieID="IP3R"      value="40"     />
+ 
+    <!-- Bartol et al 2015 2 mast cells"-->
+    <PicoSD specieID="Cyt_SERCA_Ca2"       value="4000"     />
+    <PicoSD specieID="Cyt_SERCA_Ca"       value="14000"     />
+    <PicoSD specieID="Cyt_SERCA"       value="13620"     />
+    <PicoSD specieID="ER_SERCA_Ca2"       value="60"     />
+    <PicoSD specieID="ER_SERCA_Ca"       value="435"     />
+    <PicoSD specieID="ER_SERCA"       value="835"     />
+  </SurfaceDensitySet>
+</InitialConditions> 
