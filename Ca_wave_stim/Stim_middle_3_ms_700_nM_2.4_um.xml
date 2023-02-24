@@ -3,13 +3,13 @@
     <onset>3000</onset>
     <duration>400</duration>
     <rate>400</rate>
-    <end>6000</end>    
+    <end>8000</end>    
   </InjectionStim>
   <InjectionStim specieID="CaOutAnn" injectionSite="dend06:submembrane">
-    <onset>4000</onset>
+    <onset>5000</onset>
     <duration>1600</duration>
-    <rate>100</rate>
-    <end>6000</end>    
+    <rate>50</rate>
+    <end>8000</end>    
   </InjectionStim>
 
 </StimulationSet>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ReactionScheme>
-  <Specie name="CaBuf" id="CaBuf" kdiff="100." kdiffunit="mu2/s" />
+  <Specie name="CaBuf" id="CaBuf" kdiff="10." kdiffunit="mu2/s" />
   <Specie name="Buf" id="Buf" kdiff="10" kdiffunit="mu2/s" />
   <Specie name="CaOutAnn" id="CaOutAnn" kdiff="10" kdiffunit="mu2/s" />
   <Specie name="CaOutAnnB" id="CaOutAnnB" kdiff="10" kdiffunit="mu2/s" />
