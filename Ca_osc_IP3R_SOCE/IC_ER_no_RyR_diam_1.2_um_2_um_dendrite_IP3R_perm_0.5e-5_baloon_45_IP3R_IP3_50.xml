@@ -27,7 +27,7 @@
   <SurfaceDensitySet>
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
-    <PicoSD specieID="LeakER" value="30"/>
+    <PicoSD specieID="LeakER" value="25"/>
     <PicoSD  specieID="Plc"  value="1740"    />
     <PicoSD  specieID="PlcCa"  value="160"    />
     <PicoSD  specieID="Pip2" value="10000"  />
@@ -40,7 +40,7 @@
 
     <PicoSD specieID="PMJ" value="6"  />
  
-    <PicoSD specieID="IP3R"      value="40"     />
+    <PicoSD specieID="IP3R"      value="45"     />
  
     <!-- Bartol et al 2015 2 mast cells"-->
     <PicoSD specieID="Cyt_SERCA_Ca2"       value="3400"     />
