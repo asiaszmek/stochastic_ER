@@ -6,7 +6,7 @@
     <end>8000</end>    
   </InjectionStim>
   
-  <InjectionStim specieID="CaOutAnn" injectionSite="dend26:submembrane">
+  <InjectionStim specieID="CaOutAnn" injectionSite="dend06:submembrane">
     <onset>5000</onset>
     <duration>1600</duration>
     <rate>75</rate>
