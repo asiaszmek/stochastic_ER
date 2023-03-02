@@ -2,59 +2,109 @@ from lxml import etree
 #import argparse
 import sys
 
-file_list_full_ER = [                 
-    "Rxn_module_Ca.xml",
-    "Rxn_module_IP3R.xml",
-    "Rxn_module_mGLuR.xml",
-    "Rxn_module_RyR.xml",
-    "Rxn_module_SERCA_ER.xml",
-    "Rxn_module_SOCE.xml",
-    "Rxn_module_TG.xml"
-]
+
 file_tg =  "Rxn_module_TG.xml"
 file_caoutbuf = "Rxn_module_CaOutBuf.xml"
 file_cabuf = "Rxn_module_CaBuf.xml"
 file_fluo = "Rxn_module_Fluo4.xml"
 file_fura ="Rxn_module_Fura2.xml"
 
-file_list_ER_no_mGLur = [
+file_list_full_ER_buf_SERCA = [                 
+    "Rxn_module_Ca.xml",
+    "Rxn_module_IP3R.xml",
+    "Rxn_module_mGLuR.xml",
+    "Rxn_module_RyR.xml",
+    "Rxn_module_buffering_SERCA_ER.xml",
+    "Rxn_module_SOCE.xml",
+    "Rxn_module_TG.xml"
+]
+file_list_ER_no_mGLur_buf_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_IP3R.xml",
     "Rxn_module_IP3.xml",
     "Rxn_module_RyR.xml",
-    "Rxn_module_SERCA_ER.xml",
+    "Rxn_module_buffering_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
 
 ]
-file_list_ER_no_mGLur_no_RyR = [
+file_list_ER_no_mGLur_no_RyR_buf_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_IP3R.xml",
     "Rxn_module_IP3.xml",
-    "Rxn_module_SERCA_ER.xml",
+    "Rxn_module_buffering_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
 
 ]
-file_list_ER_no_mGLur_no_RyR_no_SOCE = [
+file_list_ER_no_mGLur_no_RyR_no_SOCE_buf_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_IP3R.xml",
     "Rxn_module_IP3.xml",
-    "Rxn_module_SERCA_ER.xml",
+    "Rxn_module_buffering_SERCA_ER.xml",
 ]
 #"For checking if adding SOCE help Ca wave propagation
-file_list_ER_no_IP3R = [
+file_list_ER_no_IP3R_buf_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_CaBuf.xml",
     "Rxn_module_RyR.xml",
-    "Rxn_module_SERCA_ER.xml",
+    "Rxn_module_buffering_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
     ]
 
 #for reproducing Ca wave paper
-file_list_ER_no_IP3R_no_SOCE = [
+file_list_ER_no_IP3R_no_SOCE_buf_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_CaBuf.xml",
     "Rxn_module_RyR.xml",
-    "Rxn_module_SERCA_ER.xml",
+    "Rxn_module_buffering_SERCA_ER.xml",
+    ]
+
+file_list_full_ER_simple_SERCA = [                 
+    "Rxn_module_Ca.xml",
+    "Rxn_module_IP3R.xml",
+    "Rxn_module_mGLuR.xml",
+    "Rxn_module_RyR.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+    "Rxn_module_SOCE.xml",
+    "Rxn_module_TG.xml"
+]
+file_list_ER_no_mGLur_simple_SERCA = [
+    "Rxn_module_Ca.xml",
+    "Rxn_module_IP3R.xml",
+    "Rxn_module_IP3.xml",
+    "Rxn_module_RyR.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+    "Rxn_module_SOCE.xml",
+
+]
+file_list_ER_no_mGLur_no_RyR_simple_SERCA = [
+    "Rxn_module_Ca.xml",
+    "Rxn_module_IP3R.xml",
+    "Rxn_module_IP3.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+    "Rxn_module_SOCE.xml",
+
+]
+file_list_ER_no_mGLur_no_RyR_no_SOCE_simple_SERCA = [
+    "Rxn_module_Ca.xml",
+    "Rxn_module_IP3R.xml",
+    "Rxn_module_IP3.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+]
+#"For checking if adding SOCE help Ca wave propagation
+file_list_ER_no_IP3R_simple_SERCA = [
+    "Rxn_module_Ca.xml",
+    "Rxn_module_CaBuf.xml",
+    "Rxn_module_RyR.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+    "Rxn_module_SOCE.xml",
+    ]
+
+#for reproducing Ca wave paper
+file_list_ER_no_IP3R_no_SOCE_simple_SERCA = [
+    "Rxn_module_Ca.xml",
+    "Rxn_module_CaBuf.xml",
+    "Rxn_module_RyR.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
     ]
 
 def read_in_files(flist):
@@ -90,22 +140,41 @@ def read_in_files(flist):
 if __name__ == "__main__":
     
     # 1 no mGluR no RyR
-    my_rxn_f = read_in_files(file_list_ER_no_mGLur_no_RyR)
-    f = open("Rxn_no_mGLuR_no_RyR.xml", "w")
+    my_rxn_f = read_in_files(file_list_ER_no_mGLur_no_RyR_buf_SERCA)
+    f = open("Rxn_no_mGLuR_no_RyR_SERCA_buf.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
 
-    my_rxn_f = read_in_files(file_list_ER_no_mGLur_no_RyR_no_SOCE)    
-    f = open("Rxn_no_mGLuR_no_RyR_no_SOCE.xml", "w")
+    my_rxn_f = read_in_files(file_list_ER_no_mGLur_no_RyR_no_SOCE_buf_SERCA)    
+    f = open("Rxn_no_mGLuR_no_RyR_no_SOCE_SERCA_buf.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
 
-    my_rxn_f = read_in_files(file_list_ER_no_mGLur)
-    f = open("Rxn_no_mGLuR.xml", "w")
+    my_rxn_f = read_in_files(file_list_ER_no_mGLur_buf_SERCA)
+    f = open("Rxn_no_mGLuR_SERCA_buf.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
-    my_rxn_f = read_in_files(file_list_ER_no_IP3R)
-    f = open("Rxn_no_IP3R.xml", "w")
+    my_rxn_f = read_in_files(file_list_ER_no_IP3R_buf_SERCA)
+    f = open("Rxn_no_IP3R_SERCA_buf.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
-    my_rxn_f = read_in_files(file_list_ER_no_IP3R_no_SOCE)
-    f = open("Rxn_no_IP3R_no_SOCE.xml", "w")
+    my_rxn_f = read_in_files(file_list_ER_no_IP3R_no_SOCE_buf_SERCA)
+    f = open("Rxn_no_IP3R_no_SOCE_SERCA_buf.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+    
+                    
+    my_rxn_f = read_in_files(file_list_ER_no_mGLur_no_RyR_simple_SERCA)
+    f = open("Rxn_no_mGLuR_no_RyR_SERCA_simple.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+
+    my_rxn_f = read_in_files(file_list_ER_no_mGLur_no_RyR_no_SOCE_simple_SERCA)    
+    f = open("Rxn_no_mGLuR_no_RyR_no_SOCE_SERCA_simple.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+
+    my_rxn_f = read_in_files(file_list_ER_no_mGLur_simple_SERCA)
+    f = open("Rxn_no_mGLuR_SERCA_simple.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+    my_rxn_f = read_in_files(file_list_ER_no_IP3R_simple_SERCA)
+    f = open("Rxn_no_IP3R_SERCA_simple.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+    my_rxn_f = read_in_files(file_list_ER_no_IP3R_no_SOCE_simple_SERCA)
+    f = open("Rxn_no_IP3R_no_SOCE_SERCA_simple.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     
                     

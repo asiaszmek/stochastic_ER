@@ -2,7 +2,7 @@
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
     <!-- this file defines a single run of the calculation, using morphology and
 -	 reaction data brought in from other files --> 
-    <xi:include href="../Rxn_no_IP3R.xml" />
+    <xi:include href="../Rxn_no_IP3R_SERCA_buf.xml" />
     <xi:include href="../morph_diam_6.0_um_50_um_dendrite.xml" />
     <xi:include href="../baloon_ER/IC_RyR_SERCA_SOCE_6.0_um_2_um_dendrite.xml" />
     <xi:include href="../Ca_wave_stim/Stim_middle_3_ms_700_nM_6.0_um_50_um.xml"/>
