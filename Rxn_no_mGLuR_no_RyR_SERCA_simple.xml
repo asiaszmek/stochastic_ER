@@ -363,7 +363,7 @@
   <Reaction name="Cyt_SERCA_1d" id="Cyt_SERCA_1d">
     <Reactant specieID="Cyt_SERCA_Ca2"/>
     <Product specieID="CaER" power="2"/>
-    <Product specieID="Cyt_SERCA_Ca"/>
+    <Product specieID="Cyt_SERCA"/>
     <forwardRate>250e-3</forwardRate>
     <Q10>0.2</Q10>
   </Reaction>
