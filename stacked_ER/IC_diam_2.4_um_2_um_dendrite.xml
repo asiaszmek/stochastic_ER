@@ -21,8 +21,8 @@
     <NanoMolarity       specieID="CRT" value="1.1946e+4"/>
     <NanoMolarity specieID="IP3K" value="200" />
     <NanoMolarity specieID="IP5P" value="220" />
-    <NanoMolarity specieID="IP3R"      value="25"     />
-    <NanoMolarity specieID="RyRC1"      value="6"    />
+    <NanoMolarity specieID="IP3R"      value="75"     />
+    <NanoMolarity specieID="RyRC1"      value="18"    />
     <NanoMolarity specieID="Cyt_SERCA_Ca2"       value="7450" />
     <NanoMolarity specieID="Cyt_SERCA_Ca"       value="19810" />
     <NanoMolarity specieID="Cyt_SERCA"       value="26300" />

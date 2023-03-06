@@ -20,7 +20,7 @@
     <NanoMolarity specieID="IP3" value="25" />
     <NanoMolarity specieID="IP5P" value="220" />
     <NanoMolarity specieID="IP3K" value="200" />
-    <NanoMolarity specieID="IP3R"      value="25"     />
+    <NanoMolarity specieID="IP3R"      value="75"     />
 
     <NanoMolarity specieID="Cyt_SERCA_Ca2"       value="7450" />
     <NanoMolarity specieID="Cyt_SERCA_Ca"       value="19810" />
