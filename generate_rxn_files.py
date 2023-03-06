@@ -44,7 +44,7 @@ file_list_ER_no_mGLur_no_RyR_no_SOCE_buf_SERCA = [
 #"For checking if adding SOCE help Ca wave propagation
 file_list_ER_no_IP3R_buf_SERCA = [
     "Rxn_module_Ca.xml",
-    "Rxn_module_CaBuf.xml",
+    #    "Rxn_module_CaBuf.xml",
     "Rxn_module_RyR.xml",
     "Rxn_module_buffering_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
@@ -53,7 +53,7 @@ file_list_ER_no_IP3R_buf_SERCA = [
 #for reproducing Ca wave paper
 file_list_ER_no_IP3R_no_SOCE_buf_SERCA = [
     "Rxn_module_Ca.xml",
-    "Rxn_module_CaBuf.xml",
+    #    "Rxn_module_CaBuf.xml",
     "Rxn_module_RyR.xml",
     "Rxn_module_buffering_SERCA_ER.xml",
     ]
@@ -93,7 +93,7 @@ file_list_ER_no_mGLur_no_RyR_no_SOCE_simple_SERCA = [
 #"For checking if adding SOCE help Ca wave propagation
 file_list_ER_no_IP3R_simple_SERCA = [
     "Rxn_module_Ca.xml",
-    "Rxn_module_CaBuf.xml",
+    #"Rxn_module_CaBuf.xml",
     "Rxn_module_RyR.xml",
     "Rxn_module_simple_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
@@ -102,7 +102,7 @@ file_list_ER_no_IP3R_simple_SERCA = [
 #for reproducing Ca wave paper
 file_list_ER_no_IP3R_no_SOCE_simple_SERCA = [
     "Rxn_module_Ca.xml",
-    "Rxn_module_CaBuf.xml",
+    #"Rxn_module_CaBuf.xml",
     "Rxn_module_RyR.xml",
     "Rxn_module_simple_SERCA_ER.xml",
     ]

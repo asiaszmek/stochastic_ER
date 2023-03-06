@@ -1,15 +1,8 @@
 <StimulationSet>
-  <InjectionStim specieID="CaBuf" injectionSite="dend06:submembrane">
+  <InjectionStim specieID="Ca" injectionSite="dend06:submembrane">
     <onset>3000</onset>
     <duration>400</duration>
     <rate>800</rate>
-    <end>8000</end>    
-  </InjectionStim>
-
-  <InjectionStim specieID="CaOutAnn" injectionSite="dend06:submembrane">
-    <onset>5000</onset>
-    <duration>1600</duration>
-    <rate>100</rate>
     <end>8000</end>    
   </InjectionStim>
 </StimulationSet>
