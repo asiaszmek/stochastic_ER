@@ -85,6 +85,7 @@ def region_volumes(my_file):
     for cell in grid_list:
         key = get_key(cell)
         volumes[key] += float(cell[12])
+    print(volumes)
     return volumes
 
 
