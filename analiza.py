@@ -127,6 +127,7 @@ def region_surface(grid_list, direction=0):
                 surface[key] += depth * width
             else:
                 print('Unimplemented direction', direction)
+    print(surface)
     return surface
 
 
@@ -200,9 +201,12 @@ def get_concentrations(my_file, trial, out):
             concentrations[:, i, :] = nano_molarity(numbers[:, i, :],
                                                     volume_dict[reg])
 
-    # for i, specie in enumerate(species):
-    #     if "SERCA" in specie:
-    #         print(specie, numbers[0, 0, i])
+    for i, specie in enumerate(species):
+        if "SERCA" in specie or "RyR" in specie or "IP3R" in specie:
+            try:
+                print(specie, numbers[0, 0, i])
+            except IndexError:
+                pass
         
     return concentrations
 
