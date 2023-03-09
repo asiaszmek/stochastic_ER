@@ -99,7 +99,7 @@
   </Reaction>
   
  
-
+<!--     Hong Qi, Linxi Li & Jianwei Shuai 2015 gives 0.5e-3-->
    <Reaction name = "IP3R_Ob-flux_Ia" id="IP3R_Ob-fluxa">
     <Reactant specieID="IP3RO"           />
     <Reactant specieID="CaER"           />
