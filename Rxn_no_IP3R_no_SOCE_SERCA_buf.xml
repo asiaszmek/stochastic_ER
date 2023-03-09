@@ -195,7 +195,7 @@
     <Reactant specieID="Cyt_SERCA"/>
     <Product specieID="Cyt_SERCA_Ca"/>
     
-    <forwardRate>8e-4</forwardRate>
+    <forwardRate>2e-4</forwardRate>
     <reverseRate>83.7e-3</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
@@ -205,7 +205,7 @@
     <Reactant specieID="Cyt_SERCA_Ca"/>
     <Product specieID="Cyt_SERCA_Ca2"/>
         
-    <forwardRate>8e-4</forwardRate>
+    <forwardRate>1e-4</forwardRate>
     <reverseRate>167.4e-3</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
@@ -214,7 +214,7 @@
     <Reactant specieID="Cyt_SERCA_Ca2"/>
     <Product specieID="ER_SERCA_Ca2"/>
     <forwardRate>0.6e-3</forwardRate>
-    <reverseRate>34e-3</reverseRate>
+    <reverseRate>0.097e-3</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
 

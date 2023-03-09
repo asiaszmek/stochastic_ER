@@ -34,15 +34,13 @@
   <Specie name="CRT" id="CRT" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="CRTP" id="CRTP" kdiff="0" kdiffunit="mu2/s"/>
      
-  <!-- Serca - modified from Griffiths 2006  and Bartol 2015 to account 
-       for higher affinity of SERCA2b for Ca, k_2 (rev rate of Cyt_SERCA_1c)
-       adjusted as well-->
+  <!-- Serca - Bartol 2015 -->
   <Reaction name = "Cyt_SERCA_1a" id="Cyt_SERCA_1a">
     <Reactant specieID="Ca" />
     <Reactant specieID="Cyt_SERCA"/>
     <Product specieID="Cyt_SERCA_Ca"/>
     
-    <forwardRate>8e-4</forwardRate>
+    <forwardRate>2e-4</forwardRate>
     <reverseRate>83.7e-3</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
@@ -52,7 +50,7 @@
     <Reactant specieID="Cyt_SERCA_Ca"/>
     <Product specieID="Cyt_SERCA_Ca2"/>
         
-    <forwardRate>8e-4</forwardRate>
+    <forwardRate>1e-4</forwardRate>
     <reverseRate>167.4e-3</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
@@ -61,7 +59,7 @@
     <Reactant specieID="Cyt_SERCA_Ca2"/>
     <Product specieID="ER_SERCA_Ca2"/>
     <forwardRate>0.6e-3</forwardRate>
-    <reverseRate>34e-3</reverseRate>
+    <reverseRate>0.097e-3</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
 
