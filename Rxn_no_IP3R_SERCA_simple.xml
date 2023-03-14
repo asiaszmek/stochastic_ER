@@ -168,16 +168,16 @@
      <Reactant specieID="CaER"/>
      <Product specieID="RyRO1"/>
      <Product specieID="Ca"/>
-    <forwardRate>0.5e-3</forwardRate>
-    <reverseRate>0.5e-3</reverseRate>
+    <forwardRate>5e-4</forwardRate>
+    <reverseRate>5e-4</reverseRate>
   </Reaction>
   <Reaction name="RyRflux2" id="RyRflux2">
      <Reactant specieID="RyRO2"/>
      <Reactant specieID="CaER"/>
      <Product specieID="RyRO2"/>
      <Product specieID="Ca"/>
-    <forwardRate>0.5e-3</forwardRate>
-    <reverseRate>0.5e-3</reverseRate>
+    <forwardRate>5e-4</forwardRate>
+    <reverseRate>5e-4</reverseRate>
   </Reaction>
     
 <Specie name="Cyt_SERCA" id="Cyt_SERCA" kdiff="0" kdiffunit="mu2/s"/>
