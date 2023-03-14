@@ -99,15 +99,17 @@
   </Reaction>
   
  
-<!--     Hong Qi, Linxi Li & Jianwei Shuai 2015 gives 0.5e-3-->
+<!--     Hong Qi, Linxi Li & Jianwei Shuai 2015 gives 0.5e-3
+Breit et al 2018 has RyR permeability 30 x higher than IP3RO
+-->
    <Reaction name = "IP3R_Ob-flux_Ia" id="IP3R_Ob-fluxa">
     <Reactant specieID="IP3RO"           />
     <Reactant specieID="CaER"           />
     <Product  specieID="IP3RO"               />
     <Product  specieID="Ca"               />
 
-    <forwardRate> 0.5e-5 </forwardRate>
-    <reverseRate> 0.5e-5      </reverseRate>
+    <forwardRate> 1.667e-5 </forwardRate>
+    <reverseRate> 1.667e-5      </reverseRate>
     <Q10>   0.2   </Q10>
    </Reaction>
     
