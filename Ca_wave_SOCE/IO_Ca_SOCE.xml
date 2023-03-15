@@ -18,12 +18,14 @@
     "morph" (regions) and "model" (dt).
 -->
 
-  <OutputSet filename = "all"  dt="10.0">
+  <OutputSet filename = "all"  dt="1.0">
     <OutputSpecie name="Ca"/>
     <OutputSpecie name="CaER"/>
     <OutputSpecie name="CaOut"/>
     <OutputSpecie name="RyRO1"/>
     <OutputSpecie name="RyRO2"/>
+  </OutputSet>
+  <OutputSet filename = "RyR_Orai"  dt="10.0">
     <OutputSpecie name="RyRC1"/>
     <OutputSpecie name="RyRC2"/>
     <OutputSpecie name="STIM_2"/>
