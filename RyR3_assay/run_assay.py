@@ -58,10 +58,26 @@ def sum_volume(my_file, region_list):
             vol_sum += volumes[region]
     return vol_sum
 
+def get_all_closed(data, species, specie_list):
+    count = 0
+    sum_times = 0
+    out = []
+    for specie in specie_list:
+        specie_state = data[:, 0, species.index(specie)]
+        if "RyR" not in specie_list:
+            count += len(np.where((specie_state[1:] - specie_state[0:-1])==1)[0])
+    
+        sum_times += specie_state.sum()
+        print(specie_state.sum(), specie)
+        out.append(specie_state[-1])
+    return sum_times, count, out
+
 def get_numbers(my_file, output="all"):
     output_dict = get_output_regions(my_file)
     Ca_conc = []
     open_ryr3 = []
+    mean_c_t = []
+    mean_o_t = []
     for trial in my_file.keys():
         if trial == "model":
             continue
@@ -69,18 +85,37 @@ def get_numbers(my_file, output="all"):
         vol = sum_volume(my_file, ["dend"])
         species = get_all_species(my_file, output=output)
         data = get_populations(my_file, trial=trial, output=output)
-        exp_start = int(10/(times[1]-times[0]))
-        exp_len = int((times[-1]-10)/(times[1]-times[0]))
-        mean_ca = data[exp_start:, 0, species.index("Ca")].mean()*10/6.023/vol
-        ryr_basal = data[0, 0, species.index("RyRC1")]
-        open1_ryr = data[exp_start:, 0, species.index("RyRO1")].sum()
-        open2_ryr = data[exp_start:, 0, species.index("RyRO2")].sum()
-        p_open_ryr = (open1_ryr+open2_ryr)/ryr_basal/exp_len
+        dt = times[1]-times[0]
+        exp_len = int((times[-1])/dt)
+        mean_ca = data[:, 0, species.index("Ca")].mean()*10/6.023/vol
+        ryr_basal = data[0, 0, species.index("RyR")]
+        open_sum, tot_no, ends = get_all_closed(data, species, ["RyRO1", "RyRO2"])
+        if 1 in ends:
+            end_closed = False
+        else:
+            end_closed = True
+        p_open_ryr = open_sum/ryr_basal/exp_len
         Ca_conc.append(mean_ca)
         open_ryr3.append(p_open_ryr)
-    return Ca_conc, open_ryr3
 
+        if ryr_basal != 1:
+            continue
+        if tot_no > 0:
+            mean_o_t.append(dt*open_sum/tot_no)     
+        
+        sum_closed, tot_nc, ends  = get_all_closed(data, species, ["RyR", "RyRC1",
+                                                                   "RyRC2", "RyRC3",
+                                                                   "RyRC4", "RyRC5",
+                                                                   "RyRI"])
 
+        if end_closed:
+            tot_nc += 1
+        tot_nc += tot_no
+        print(tot_nc, tot_no)
+        if tot_nc > 0:
+            mean_c_t.append(dt*sum_closed/tot_nc)
+    print(mean_o_t, mean_c_t)
+    return Ca_conc, open_ryr3, mean_o_t, mean_c_t
 
 
 
@@ -103,7 +138,7 @@ results (also, 3D may not work yet...)  -->
     <outputQuantity>NUMBER</outputQuantity>
 
     <!-- run time for the calculation, milliseconds -->
-    <runtime>1100</runtime>
+    <runtime>143000</runtime>
 
     <!-- set the seed to get the same spines each time testing -->
     <spineSeed>123</spineSeed>
@@ -134,16 +169,18 @@ IC_text = """<?xml version="1.0" encoding="utf-8"?>
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
-    <NanoMolarity specieID="RyRC1"      value="10"    />
+    <NanoMolarity specieID="RyR"      value="0.1"    />
   </ConcentrationSet>
 </InitialConditions>
 """
 
 ca_conc_file = "po_pCa.csv"
+ryr_op_fname = "open_duration_pCa.csv"
+ryr_cl_fname = "closed_duration_pCa.csv"
 exp_res = np.loadtxt(ca_conc_file, skiprows=1, delimiter=',')
 ca_conc_list = exp_res[:, 0]
 output = np.zeros(exp_res.shape)
-
+mean_times = []
 for i, ca_conc in enumerate(ca_conc_list):
 
     ca_conc_nM = int(np.ceil(ca_conc*1e9))
@@ -159,21 +196,46 @@ for i, ca_conc in enumerate(ca_conc_list):
     process = subprocess.run(["/usr/lib/jvm/java-8-openjdk-amd64/bin/java",
                               "-jar",
                               "/home/jszmek/new_neurord/neurord-3.2.3-all-deps.jar",
-                              "-Dneurord.trials=30", model_name],
+                              "-Dneurord.trials=10", model_name],
                              capture_output=True)
-
     if not process.returncode:
         my_file = h5py.File(output_name, 'r')
-        c, p = get_numbers(my_file, output="all")
-        output[i, 0] = np.mean(c)
-        output[i, 1] = np.mean(p)
+        conc, po, t_o, t_c = get_numbers(my_file, output="all")
+        output[i, 0] = np.mean(conc)
+        output[i, 1] = np.mean(po)
         print(output[i])
-        
+        if len(t_o) == 0 or len(t_c) == 0:
+            continue
+        mean_times.append([np.mean(conc), np.mean(t_o), np.mean(t_c)])
+        print(mean_times[-1])
+            
+exp_open = np.loadtxt(ryr_op_fname, skiprows=1, delimiter=",")
+exp_closed = np.loadtxt(ryr_cl_fname, skiprows=1, delimiter=",")
+mean_times_a = np.array(mean_times)
+
 fig, ax = plt.subplots(1)
 ax.set_xscale('log')
-ax.plot(exp_res[:, 0], exp_res[:, 1], "db", label="experimental data")
-ax.plot(output[:, 0]*1e-9, output[:, 1], "dr", label="model data")
+ax.plot(exp_res[:, 0], exp_res[:, 1], "d", color="tab:blue", label="experimental data")
+ax.plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
 ax.legend()
 ax.set_xlabel("Concentration [M]")
 ax.set_ylabel("RyR3 open probability")
+
+fig, ax = plt.subplots(1)
+ax.set_xscale('log')
+ax.set_yscale('log')
+ax.plot(exp_open[:, 0], exp_open[:, 1], "d", color="tab:blue",
+        label="exp open")
+ax.plot(exp_closed[:, 0], exp_closed[:, 1], "d", color="tab:green",
+        label="exp closed")
+ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
+        label="model open", color="tab:cyan")
+ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 2], "d",
+        label="exp closed", color="tab:olive")
+
+ax.legend()
+ax.set_xlabel("Concentration [M]")
+ax.set_ylabel("Time [ms]")
+
+
 plt.show()
