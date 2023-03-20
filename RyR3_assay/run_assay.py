@@ -5,6 +5,11 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
+KL_list = ["RyR", "RyRC1",
+           "RyRC2", "RyRC3",
+           "RyRC4", "RyRC5",
+           "RyRI"]
+
 def get_key(cell):
     if cell[18]:
         return cell[15].decode('utf-8') + '_' + cell[18].decode('utf-8')
@@ -68,7 +73,6 @@ def get_all_closed(data, species, specie_list):
             count += len(np.where((specie_state[1:] - specie_state[0:-1])==1)[0])
     
         sum_times += specie_state.sum()
-        print(specie_state.sum(), specie)
         out.append(specie_state[-1])
     return sum_times, count, out
 
@@ -88,7 +92,7 @@ def get_numbers(my_file, output="all"):
         dt = times[1]-times[0]
         exp_len = int((times[-1])/dt)
         mean_ca = data[:, 0, species.index("Ca")].mean()*10/6.023/vol
-        ryr_basal = data[0, 0, species.index("RyR")]
+        ryr_basal = data[0, 0, species.index("RyRC1")]
         open_sum, tot_no, ends = get_all_closed(data, species, ["RyRO1", "RyRO2"])
         if 1 in ends:
             end_closed = False
@@ -103,18 +107,13 @@ def get_numbers(my_file, output="all"):
         if tot_no > 0:
             mean_o_t.append(dt*open_sum/tot_no)     
         
-        sum_closed, tot_nc, ends  = get_all_closed(data, species, ["RyR", "RyRC1",
-                                                                   "RyRC2", "RyRC3",
-                                                                   "RyRC4", "RyRC5",
-                                                                   "RyRI"])
+        sum_closed, tot_nc, ends  = get_all_closed(data, species, ["RyRC1", "RyRC2"] )
 
         if end_closed:
             tot_nc += 1
         tot_nc += tot_no
-        print(tot_nc, tot_no)
         if tot_nc > 0:
             mean_c_t.append(dt*sum_closed/tot_nc)
-    print(mean_o_t, mean_c_t)
     return Ca_conc, open_ryr3, mean_o_t, mean_c_t
 
 
@@ -122,7 +121,7 @@ def get_numbers(my_file, output="all"):
         
 model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
-    <xi:include href="../Rxn_module_RyR.xml" />
+    <xi:include href="../Rxn_module_RyR_KeizerLevine.xml" />
     <xi:include href="Morph.xml" />
     <xi:include href="%s" />
     <xi:include href="IO_Ca.xml"/>
@@ -165,15 +164,49 @@ results (also, 3D may not work yet...)  -->
 
 
 
-IC_text = """<?xml version="1.0" encoding="utf-8"?>
+IC_text_KL = """<?xml version="1.0" encoding="utf-8"?>
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
-    <NanoMolarity specieID="RyR"      value="0.1"    />
+    <NanoMolarity specieID="RyRC1"      value="0.1"    />
   </ConcentrationSet>
 </InitialConditions>
 """
 
+IO_KL = """
+<OutputScheme>
+  <OutputSet filename = "all"  dt=".1">
+    <OutputSpecie name="Ca"/>
+    <OutputSpecie name="RyRO1"/>
+    <OutputSpecie name="RyRO2"/>
+    <OutputSpecie name="RyRC1"/>
+    <OutputSpecie name="RyRC2"/>
+  </OutputSet>
+
+</OutputScheme>"""
+
+
+IO_Dura = """
+<OutputScheme>
+  <OutputSet filename = "all"  dt=".1">
+    <OutputSpecie name="Ca"/>
+    <OutputSpecie name="RyRO1"/>
+    <OutputSpecie name="RyRO2"/>
+    <OutputSpecie name="RyRC1"/>
+    <OutputSpecie name="RyRC2"/>
+    <OutputSpecie name="RyRC4"/>
+    <OutputSpecie name="RyRC5"/>
+    <OutputSpecie name="RyR"/>
+    <OutputSpecie name="RyRI"/>
+
+  </OutputSet>
+
+</OutputScheme>"""
+
+
+f = open("IO_Ca.xml", "w")
+f.write(IO_KL)
+f.close()
 ca_conc_file = "po_pCa.csv"
 ryr_op_fname = "open_duration_pCa.csv"
 ryr_cl_fname = "closed_duration_pCa.csv"
@@ -188,7 +221,7 @@ for i, ca_conc in enumerate(ca_conc_list):
     model_name = "RyR_model_Ca_%d.xml" % ca_conc_nM
     output_name = "RyR_model_Ca_%d.h5" % ca_conc_nM
     fic = open(IC_name, "w")
-    fic.write(IC_text % ca_conc_nM)
+    fic.write(IC_text_KL % ca_conc_nM)
     fic.close()
     fm = open(model_name, "w")
     fm.write(model_text % IC_name)
@@ -203,11 +236,10 @@ for i, ca_conc in enumerate(ca_conc_list):
         conc, po, t_o, t_c = get_numbers(my_file, output="all")
         output[i, 0] = np.mean(conc)
         output[i, 1] = np.mean(po)
-        print(output[i])
         if len(t_o) == 0 or len(t_c) == 0:
             continue
         mean_times.append([np.mean(conc), np.mean(t_o), np.mean(t_c)])
-        print(mean_times[-1])
+
             
 exp_open = np.loadtxt(ryr_op_fname, skiprows=1, delimiter=",")
 exp_closed = np.loadtxt(ryr_cl_fname, skiprows=1, delimiter=",")

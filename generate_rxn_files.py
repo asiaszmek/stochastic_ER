@@ -13,7 +13,7 @@ file_list_full_ER_buf_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_IP3R.xml",
     "Rxn_module_mGLuR.xml",
-    "Rxn_module_RyR.xml",
+    "Rxn_module_RyR_KeizerLevine.xml",
     "Rxn_module_buffering_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
     "Rxn_module_TG.xml"
@@ -22,7 +22,7 @@ file_list_ER_no_mGLur_buf_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_IP3R.xml",
     "Rxn_module_IP3.xml",
-    "Rxn_module_RyR.xml",
+    "Rxn_module_RyR_KeizerLevine.xml",
     "Rxn_module_buffering_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
 
@@ -45,7 +45,7 @@ file_list_ER_no_mGLur_no_RyR_no_SOCE_buf_SERCA = [
 file_list_ER_no_IP3R_buf_SERCA = [
     "Rxn_module_Ca.xml",
     #    "Rxn_module_CaBuf.xml",
-    "Rxn_module_RyR.xml",
+    "Rxn_module_RyR_KeizerLevine.xml",
     "Rxn_module_buffering_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
     ]
@@ -54,7 +54,7 @@ file_list_ER_no_IP3R_buf_SERCA = [
 file_list_ER_no_IP3R_no_SOCE_buf_SERCA = [
     "Rxn_module_Ca.xml",
     #    "Rxn_module_CaBuf.xml",
-    "Rxn_module_RyR.xml",
+    "Rxn_module_RyR_KeizerLevine.xml",
     "Rxn_module_buffering_SERCA_ER.xml",
     ]
 
@@ -62,7 +62,7 @@ file_list_full_ER_simple_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_IP3R.xml",
     "Rxn_module_mGLuR.xml",
-    "Rxn_module_RyR.xml",
+    "Rxn_module_RyR_KeizerLevine.xml",
     "Rxn_module_simple_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
     "Rxn_module_TG.xml"
@@ -71,7 +71,7 @@ file_list_ER_no_mGLur_simple_SERCA = [
     "Rxn_module_Ca.xml",
     "Rxn_module_IP3R.xml",
     "Rxn_module_IP3.xml",
-    "Rxn_module_RyR.xml",
+    "Rxn_module_RyR_KeizerLevine.xml",
     "Rxn_module_simple_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
 
@@ -94,7 +94,7 @@ file_list_ER_no_mGLur_no_RyR_no_SOCE_simple_SERCA = [
 file_list_ER_no_IP3R_simple_SERCA = [
     "Rxn_module_Ca.xml",
     #"Rxn_module_CaBuf.xml",
-    "Rxn_module_RyR.xml",
+    "Rxn_module_RyR_KeizerLevine.xml",
     "Rxn_module_simple_SERCA_ER.xml",
     "Rxn_module_SOCE.xml",
     ]
@@ -103,7 +103,7 @@ file_list_ER_no_IP3R_simple_SERCA = [
 file_list_ER_no_IP3R_no_SOCE_simple_SERCA = [
     "Rxn_module_Ca.xml",
     #"Rxn_module_CaBuf.xml",
-    "Rxn_module_RyR.xml",
+    "Rxn_module_RyR_KeizerLevine.xml",
     "Rxn_module_simple_SERCA_ER.xml",
     ]
 
@@ -149,13 +149,13 @@ if __name__ == "__main__":
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
 
     my_rxn_f = read_in_files(file_list_ER_no_mGLur_buf_SERCA)
-    f = open("Rxn_no_mGLuR_SERCA_buf.xml", "w")
+    f = open("Rxn_no_mGLuR_SERCA_buf_KL.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     my_rxn_f = read_in_files(file_list_ER_no_IP3R_buf_SERCA)
-    f = open("Rxn_no_IP3R_SERCA_buf.xml", "w")
+    f = open("Rxn_no_IP3R_SERCA_buf_KL.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     my_rxn_f = read_in_files(file_list_ER_no_IP3R_no_SOCE_buf_SERCA)
-    f = open("Rxn_no_IP3R_no_SOCE_SERCA_buf.xml", "w")
+    f = open("Rxn_no_IP3R_no_SOCE_SERCA_buf_KL.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     
                     
@@ -168,13 +168,13 @@ if __name__ == "__main__":
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
 
     my_rxn_f = read_in_files(file_list_ER_no_mGLur_simple_SERCA)
-    f = open("Rxn_no_mGLuR_SERCA_simple.xml", "w")
+    f = open("Rxn_no_mGLuR_SERCA_simple_KL.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     my_rxn_f = read_in_files(file_list_ER_no_IP3R_simple_SERCA)
-    f = open("Rxn_no_IP3R_SERCA_simple.xml", "w")
+    f = open("Rxn_no_IP3R_SERCA_simple_KL.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     my_rxn_f = read_in_files(file_list_ER_no_IP3R_no_SOCE_simple_SERCA)
-    f = open("Rxn_no_IP3R_no_SOCE_SERCA_simple.xml", "w")
+    f = open("Rxn_no_IP3R_no_SOCE_SERCA_simple_KL.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     
                     
