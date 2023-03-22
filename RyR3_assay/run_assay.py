@@ -60,7 +60,7 @@ IC_text = {
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
-    <NanoMolarity specieID="RyRC1"      value="0.1"    />
+    <NanoMolarity specieID="RyR"      value="0.1"    />
   </ConcentrationSet>
 </InitialConditions>
 """,
@@ -97,10 +97,12 @@ IO_text ={
     """<OutputScheme>
   <OutputSet filename = "all"  dt=".1">
     <OutputSpecie name="Ca"/>
+    <OutputSpecie name="RyR"/>
     <OutputSpecie name="RyRO1"/>
     <OutputSpecie name="RyRO2"/>
     <OutputSpecie name="RyRC1"/>
     <OutputSpecie name="RyRC2"/>
+    <OutputSpecie name="RyRC3"/>
   </OutputSet>
 </OutputScheme>""",
     "Dura":
@@ -143,7 +145,7 @@ Rxn_file = {
     "KL": "Rxn_module_RyR_KeizerLevine.xml",
     "Dura": "Rxn_module_RyR_Dura.xml",
     "Saftenku": "Rxn_module_RyR_Saftenku.xml",
-    "KLtuned": "Rxn_module_RyR_KLtuned.xml",
+    "KLtuned": "Rxn_module_RyR_KeizerSmith.xml",
 }
 
 
@@ -334,7 +336,7 @@ if __name__ == "__main__":
                                   "/home/jszmek/new_neurord/neurord-3.2.3-all-deps.jar",
                                   "-Dneurord.trials=10", model_name],
                                  capture_output=True)
-
+        print(process.returncode)
         if not process.returncode:
             my_file = h5py.File(output_name, 'r')
             conc, po, t_o, t_c = get_numbers(my_file, output="all")
@@ -373,7 +375,7 @@ if __name__ == "__main__":
     ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
             label="model open", color="tab:cyan")
     ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 2], "d",
-            label="exp closed", color="tab:olive")
+            label="model closed", color="tab:olive")
     
     ax.legend()
     ax.set_xlabel("Concentration [M]")
