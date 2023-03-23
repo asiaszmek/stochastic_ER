@@ -5,11 +5,18 @@
   <Specie name="RyR"            id="RyR"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRC1"            id="RyRC1"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRC2"            id="RyRC2"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="RyRC3"            id="RyRC3"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyRC3"            id="RyRC3"           kdiff="0" kdiffunit="mu2/s"/>  
   <Specie name="RyRO1"            id="RyRO1"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRO2"            id="RyRO2"           kdiff="0" kdiffunit="mu2/s"/>
  
-  
+  <Reaction name = "RyRe" id="RyRe">
+    <Reactant specieID="RyR"/>
+    <Reactant specieID="Ca" power="4"/>
+    <Product specieID="RyRC1"/>
+    <forwardRate>5e-11</forwardRate>
+    <reverseRate>2.5e2</reverseRate>
+ </Reaction>
+
   <Reaction name = "RyRa" id="RyRa">
     <Reactant specieID="RyRC1"/>
     <Reactant specieID="Ca" power="4"/>
@@ -42,14 +49,6 @@
     <forwardRate>5000e-15</forwardRate>
     <reverseRate>1.235e-3</reverseRate>
   </Reaction>
- 
-  <Reaction name = "RyRe" id="RyRe">
-    <Reactant specieID="RyR"/>
-    <Reactant specieID="Ca" power="4"/>
-    <Product specieID="RyRC1"/>
-    <forwardRate>5e-11</forwardRate>
-    <reverseRate>2.5e2</reverseRate>
- </Reaction>
 
   <Reaction name = "RyRf" id="RyRf">
     <Reactant specieID="RyRC2"/>

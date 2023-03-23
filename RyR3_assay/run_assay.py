@@ -80,7 +80,16 @@ IC_text = {
     <NanoMolarity specieID="RyR"      value="0.1"    />
     </ConcentrationSet>
     </InitialConditions>
-    """
+    """,
+    "Stern":     """<?xml version="1.0" encoding="utf-8"?>
+    <InitialConditions>
+    <ConcentrationSet>
+    <NanoMolarity specieID="Ca" value="%f"/>
+    <NanoMolarity specieID="RyR"      value="0.1"    />
+    </ConcentrationSet>
+    </InitialConditions>
+    """,
+
 }
 IO_text ={
     "KL":
@@ -137,8 +146,19 @@ IO_text ={
     <OutputSpecie name="RyR4H"/>
     <OutputSpecie name="RyRHO1"/>
     <OutputSpecie name="RyRHO2"/>
+    </OutputSet>
+    </OutputScheme>""",
+    "Stern":
+    """<OutputScheme>
+  <OutputSet filename = "all"  dt=".1">
+    <OutputSpecie name="Ca"/>
+    <OutputSpecie name="RyR"/>
+    <OutputSpecie name="RyRO"/>
+    <OutputSpecie name="RyRC"/>
+    <OutputSpecie name="RyRI"/>
   </OutputSet>
-</OutputScheme>"""
+</OutputScheme>""",
+
 }
 
 Rxn_file = {
@@ -146,6 +166,7 @@ Rxn_file = {
     "Dura": "Rxn_module_RyR_Dura.xml",
     "Saftenku": "Rxn_module_RyR_Saftenku.xml",
     "KLtuned": "Rxn_module_RyR_KeizerSmith.xml",
+    "Stern": "Rxn_module_RyR_Stern.xml",
 }
 
 
