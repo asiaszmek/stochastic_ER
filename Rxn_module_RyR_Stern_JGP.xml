@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--https://doi.org/10.3389/fphys.2012.00114 -->
+<!--https://doi.org/10.1085/jgp.110.4.415 -->
 <ReactionScheme>
   <Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s" />
   <Specie name="CaER" id="CaER" kdiff="10." kdiffunit="mu2/s"/>
@@ -8,13 +8,13 @@
   <Specie name="RyRO"            id="RyRO"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRI"            id="RyRI"           kdiff="0" kdiffunit="mu2/s"/>
  
-  
+  <!-- RyR is RyRCI-->
  <Reaction name = "RyRa" id="RyRa">
     <Reactant specieID="RyRC"/>
     <Reactant specieID="Ca" power="2"/>
     <Product specieID="RyRO"/>
-    <forwardRate>5e-9</forwardRate>
-    <reverseRate>1</reverseRate>
+    <forwardRate>1e-9</forwardRate>
+    <reverseRate>1e-3</reverseRate>
  </Reaction>
    
 
@@ -22,24 +22,24 @@
     <Reactant specieID="RyRC"/>
     <Reactant specieID="Ca" />
     <Product specieID="RyR" />
-    <forwardRate>7.5e-7</forwardRate>
-    <reverseRate>3e-3</reverseRate>
+    <forwardRate>2e-6</forwardRate>
+    <reverseRate>2e-3</reverseRate>
   </Reaction>
 
   <Reaction name = "RyRc" id="RyRc">
     <Reactant specieID="RyR"/>
     <Reactant specieID="Ca" power="2"/>
     <Product specieID="RyRI"/>
-      <forwardRate>5e-9</forwardRate>
-    <reverseRate>1</reverseRate>
+      <forwardRate>1e-9</forwardRate>
+    <reverseRate>1e-3</reverseRate>
   </Reaction>
 
   <Reaction name = "RyRd" id="RyRd">
     <Reactant specieID="RyRO"/>
     <Reactant specieID="Ca" />
     <Product specieID="RyRI" />
-    <forwardRate>7.5e-7</forwardRate>
-    <reverseRate>3e-3</reverseRate>
+    <forwardRate>2e-6</forwardRate>
+    <reverseRate>2e-3</reverseRate>
   </Reaction>
   
   <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->

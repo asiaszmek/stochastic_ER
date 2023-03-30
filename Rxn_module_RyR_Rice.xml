@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <ReactionScheme>
+  <!--Rice Jafri Winslow J Biophys 1999-->
+  <!-- Constants from https://doi.org/10.1016/S0006-3495(02)75301-0-->
+
   <Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s" />
   <Specie name="CaER" id="CaER" kdiff="10." kdiffunit="mu2/s"/>
   <Specie name="RyR"            id="RyR"           kdiff="0" kdiffunit="mu2/s"/>
@@ -8,70 +11,71 @@
   <Specie name="RyRC3"            id="RyRC3"           kdiff="0" kdiffunit="mu2/s"/>  
   <Specie name="RyRO1"            id="RyRO1"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRO2"            id="RyRO2"           kdiff="0" kdiffunit="mu2/s"/>
-   <Reaction name = "RyRe" id="RyRe">
+ 
+  <Reaction name = "RyRe" id="RyRe">
     <Reactant specieID="RyR"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRC1"/>
-    <forwardRate>10e-11</forwardRate>
-    <reverseRate>5e1</reverseRate>
+    <forwardRate>877.5e-10</forwardRate>
+    <reverseRate>2.5e2</reverseRate>
  </Reaction>
 
   <Reaction name = "RyRa" id="RyRa">
     <Reactant specieID="RyRC1"/>
-    <Reactant specieID="Ca" power="4"/>
+    <Reactant specieID="Ca" power="2"/>
     <Product specieID="RyRO1"/>
-    <forwardRate>5e-10</forwardRate>
-    <reverseRate>9600e-3</reverseRate>
+    <forwardRate>2.358e-4</forwardRate>
+    <reverseRate>9.6</reverseRate>
  </Reaction>
    
 
   <Reaction name = "RyRb" id="RyRb">
     <Reactant specieID="RyRO1"/>
-    <Reactant specieID="Ca" power="4"/>
+    <Reactant specieID="Ca" power="2"/>
     <Product specieID="RyRO2" />
-    <forwardRate>5e-11</forwardRate>
-    <reverseRate>13</reverseRate>
+    <forwardRate>1.415e-6</forwardRate>
+    <reverseRate>13.65</reverseRate>
   </Reaction>
 
    <Reaction name = "RyRc" id="RyRc">
-    <Reactant specieID="RyRC2"/>
-    <Reactant specieID="Ca" power="4"/>
-    <Product specieID="RyRO2" />
-    <forwardRate>3.3333e-15</forwardRate>
-    <reverseRate>66.667e-3</reverseRate>
+    <Reactant specieID="RyRO2"/>
+    <Product specieID="RyRC2" />
+    <Product specieID="Ca" power="2" />
+    <forwardRate>0.07</forwardRate>
+    <reverseRate>93.385e-12</reverseRate>
   </Reaction>
 
   <Reaction name = "RyRd" id="RyRd">
     <Reactant specieID="RyRC1"/>
-    <Reactant specieID="Ca" power="4"/>
+    <Reactant specieID="Ca" power="2"/>
     <Product specieID="RyRC2" />
-    <forwardRate>5000e-15</forwardRate>
+    <forwardRate>2.358e-6</forwardRate>
     <reverseRate>1.235e-3</reverseRate>
   </Reaction>
 
   <Reaction name = "RyRf" id="RyRf">
     <Reactant specieID="RyRC2"/>
-    <Reactant specieID="Ca" power="4"/>
+    <Reactant specieID="Ca" power="2"/>
     <Product specieID="RyRC3"/>
-    <forwardRate>5e-12</forwardRate>
-    <reverseRate>3e2</reverseRate>
+    <forwardRate>1.887e-5</forwardRate>
+    <reverseRate>30</reverseRate>
  </Reaction>
   <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
-  <!--  <Reaction name = "RyRflux1" id="RyRflux1"> -->
-  <!--    <Reactant specieID="RyRO1"/> -->
-  <!--    <Reactant specieID="CaER"/> -->
-  <!--    <Product specieID="RyRO1"/> -->
-  <!--    <Product specieID="Ca"/> -->
-  <!--   <forwardRate>5e-3</forwardRate> -->
-  <!--   <reverseRate>5e-3</reverseRate> -->
-  <!-- </Reaction> -->
-  <!-- <Reaction name = "RyRflux2" id="RyRflux2"> -->
-  <!--    <Reactant specieID="RyRO2"/> -->
-  <!--    <Reactant specieID="CaER"/> -->
-  <!--    <Product specieID="RyRO2"/> -->
-  <!--    <Product specieID="Ca"/> -->
-  <!--   <forwardRate>5e-3</forwardRate> -->
-  <!--   <reverseRate>5e-3</reverseRate> -->
-  <!-- </Reaction> -->
+   <Reaction name = "RyRflux1" id="RyRflux1">
+     <Reactant specieID="RyRO1"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRO1"/>
+     <Product specieID="Ca"/>
+    <forwardRate>5e-3</forwardRate>
+    <reverseRate>5e-3</reverseRate>
+  </Reaction>
+  <Reaction name = "RyRflux2" id="RyRflux2">
+     <Reactant specieID="RyRO2"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRO2"/>
+     <Product specieID="Ca"/>
+    <forwardRate>5e-3</forwardRate>
+    <reverseRate>5e-3</reverseRate>
+  </Reaction>
     
 </ReactionScheme>

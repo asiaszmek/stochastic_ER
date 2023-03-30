@@ -89,6 +89,22 @@ IC_text = {
     </ConcentrationSet>
     </InitialConditions>
     """,
+ "Stern_JGP":     """<?xml version="1.0" encoding="utf-8"?>
+    <InitialConditions>
+    <ConcentrationSet>
+    <NanoMolarity specieID="Ca" value="%f"/>
+    <NanoMolarity specieID="RyR"      value="0.1"    />
+    </ConcentrationSet>
+    </InitialConditions>
+    """,
+     "Rice":     """<?xml version="1.0" encoding="utf-8"?>
+    <InitialConditions>
+    <ConcentrationSet>
+    <NanoMolarity specieID="Ca" value="%f"/>
+    <NanoMolarity specieID="RyR"      value="0.1"    />
+    </ConcentrationSet>
+    </InitialConditions>
+    """,
 
 }
 IO_text ={
@@ -111,7 +127,7 @@ IO_text ={
     <OutputSpecie name="RyRO2"/>
     <OutputSpecie name="RyRC1"/>
     <OutputSpecie name="RyRC2"/>
-    <OutputSpecie name="RyRC3"/>
+  <!-- <OutputSpecie name="RyRC3"/>-->
   </OutputSet>
 </OutputScheme>""",
     "Dura":
@@ -150,6 +166,16 @@ IO_text ={
     </OutputScheme>""",
     "Stern":
     """<OutputScheme>
+    <OutputSet filename = "all"  dt=".1">
+    <OutputSpecie name="Ca"/>
+    <OutputSpecie name="RyR"/>
+    <OutputSpecie name="RyRO"/>
+    <OutputSpecie name="RyRC"/>
+    <OutputSpecie name="RyRI"/>
+  </OutputSet>
+</OutputScheme>""",
+    "Stern_JGP":
+    """<OutputScheme>
   <OutputSet filename = "all"  dt=".1">
     <OutputSpecie name="Ca"/>
     <OutputSpecie name="RyR"/>
@@ -158,15 +184,28 @@ IO_text ={
     <OutputSpecie name="RyRI"/>
   </OutputSet>
 </OutputScheme>""",
-
+    "Rice":  """<OutputScheme>
+  <OutputSet filename = "all"  dt=".1">
+    <OutputSpecie name="Ca"/>
+    <OutputSpecie name="RyR"/>
+    <OutputSpecie name="RyRO1"/>
+    <OutputSpecie name="RyRO2"/>
+    <OutputSpecie name="RyRC1"/>
+    <OutputSpecie name="RyRC2"/>
+    <OutputSpecie name="RyRC3"/>
+  </OutputSet>
+</OutputScheme>""",
+   
 }
 
 Rxn_file = {
     "KL": "Rxn_module_RyR_KeizerLevine.xml",
     "Dura": "Rxn_module_RyR_Dura.xml",
     "Saftenku": "Rxn_module_RyR_Saftenku.xml",
-    "KLtuned": "Rxn_module_RyR_KeizerSmith.xml",
+    "KLtuned": "Rxn_module_RyR_KLtuned.xml",
     "Stern": "Rxn_module_RyR_Stern.xml",
+    "Stern_JGP": "Rxn_module_RyR_Stern_JGP.xml",
+    "Rice": "Rxn_module_RyR_Rice_modified.xml", 
 }
 
 
@@ -225,38 +264,31 @@ def sum_volume(my_file, region_list):
     return vol_sum
 
 def get_all_closed(data, species):
-    count = 0
     sum_times = 0
-    out = []
-        
     for specie in species:
         if "O" in specie:
             continue
         if "RyR" not in specie:
             continue
         specie_state = data[:, 0, species.index(specie)]
-        count += len(np.where((specie_state[1:] - specie_state[0:-1])==1)[0])
         sum_times += specie_state.sum()
-        out.append(specie_state[-1])
-    return sum_times, count, out
+        print(specie, sum_times)
+    return sum_times
 
 
 def get_all_open(data, species):
-    count = 0
-    sum_times = 0
-    out = []
-        
+    state = np.zeros(data[:, 0, 0].shape)
     for specie in species:
         if "O" not in specie:
             continue
         if "RyR" not in specie:
             continue
 
-        specie_state = data[:, 0, species.index(specie)]
-        count += len(np.where((specie_state[1:] - specie_state[0:-1])==1)[0])
-        sum_times += specie_state.sum()
-        out.append(specie_state[-1])
-    return sum_times, count, out
+        state +=  data[:, 0, species.index(specie)]
+    count = len(np.where((state[1:] - state[0:-1])==1)[0])
+    sum_times = state.sum()
+    print(sum_times, count, state[-1])
+    return sum_times, count, state[-1]
 
 
 def get_numbers(my_file, output="all"):
@@ -271,6 +303,7 @@ def get_numbers(my_file, output="all"):
     sum_c = 0
  
     for trial in my_file.keys():
+ 
         if trial == "model":
             continue
         times = get_times(my_file, trial=trial, output=output)
@@ -292,7 +325,7 @@ def get_numbers(my_file, output="all"):
         
         
         open_sum, tot_no, ends = get_all_open(data, species)
-        if 1 in ends:
+        if ends:
             end_closed = False
         else:
             end_closed = True
@@ -305,14 +338,15 @@ def get_numbers(my_file, output="all"):
             no += tot_no
             sum_o += open_sum
         
-        sum_closed, tot_nc, ends  = get_all_closed(data, species)
-
+        sum_closed = get_all_closed(data, species)
+        tot_nc = tot_no
         if end_closed:
-            tot_nc += 1
-        tot_nc += tot_no
+            nc += 1
+
         if tot_nc > 0:
             sum_c +=sum_closed
-            nc += tot_nc
+            nc += no
+    print(sum_o, sum_c, no)
     if  nc != 0:
        mean_c_t = dt*sum_c/nc
     else:
@@ -355,7 +389,7 @@ if __name__ == "__main__":
         process = subprocess.run(["/usr/lib/jvm/java-8-openjdk-amd64/bin/java",
                                   "-jar",
                                   "/home/jszmek/new_neurord/neurord-3.2.3-all-deps.jar",
-                                  "-Dneurord.trials=10", model_name],
+                                  "-Dneurord.trials=20", model_name],
                                  capture_output=True)
         print(process.returncode)
         if not process.returncode:
