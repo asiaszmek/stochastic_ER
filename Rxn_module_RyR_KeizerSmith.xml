@@ -8,13 +8,14 @@
   <Specie name="RyRC3"            id="RyRC3"           kdiff="0" kdiffunit="mu2/s"/>  
   <Specie name="RyRO1"            id="RyRO1"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRO2"            id="RyRO2"           kdiff="0" kdiffunit="mu2/s"/>
- 
+<!-- Stochastic model for correct transitions need K=ker/kef= 0.001uM^4
+Keizer and Smith --> 
   <Reaction name = "RyRe" id="RyRe">
     <Reactant specieID="RyR"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRC1"/>
     <forwardRate>5e-11</forwardRate>
-    <reverseRate>2.5e2</reverseRate>
+    <reverseRate>50e-3</reverseRate>
  </Reaction>
 
   <Reaction name = "RyRa" id="RyRa">
@@ -30,7 +31,7 @@
     <Reactant specieID="RyRO1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRO2" />
-    <forwardRate>5e-11</forwardRate>
+    <forwardRate>5e-10</forwardRate>
     <reverseRate>13</reverseRate>
   </Reaction>
 
@@ -38,7 +39,7 @@
     <Reactant specieID="RyRC2"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRO2" />
-    <forwardRate>3.3333e-15</forwardRate>
+    <forwardRate>3.3333e-14</forwardRate>
     <reverseRate>66.667e-3</reverseRate>
   </Reaction>
 
@@ -54,8 +55,8 @@
     <Reactant specieID="RyRC2"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRC3"/>
-    <forwardRate>5e-11</forwardRate>
-    <reverseRate>3e3</reverseRate>
+    <forwardRate>1e-14</forwardRate>
+    <reverseRate>3</reverseRate>
  </Reaction>
   <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
    <Reaction name = "RyRflux1" id="RyRflux1">

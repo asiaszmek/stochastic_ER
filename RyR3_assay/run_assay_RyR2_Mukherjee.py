@@ -270,7 +270,6 @@ def get_all_closed(data, species):
             continue
         if "RyR" not in specie:
             continue
-        print(specie)
         specie_state = data[:, 0, species.index(specie)]
         sum_times += specie_state.sum()
     return sum_times
@@ -283,7 +282,6 @@ def get_all_open(data, species):
             continue
         if "RyR" not in specie:
             continue
-        print(specie)
         state +=  data[:, 0, species.index(specie)]
     count = len(np.where((state[1:] - state[0:-1])==1)[0])
     sum_times = state.sum()
@@ -368,7 +366,6 @@ if __name__ == "__main__":
     for i, ca_conc in enumerate(ca_conc_list):
 
         ca_conc_nM = int(np.ceil(ca_conc*1e9))
-        print(ca_conc_nM)
         IC_name = "Ca_%d.xml" % ca_conc_nM
         model_name = "RyR2_model_Ca_%d.xml" % ca_conc_nM
         output_name = "RyR2_model_Ca_%d.h5" % ca_conc_nM

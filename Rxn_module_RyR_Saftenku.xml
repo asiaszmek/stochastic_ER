@@ -23,63 +23,63 @@
 
 <!-- Low act RyR-->
   
- <!-- <Reaction name = "RyR1L2L" id="RyR1L2L"> -->
-<!--     <Reactant specieID="RyR1L"/> -->
-<!--     <Reactant specieID="Ca" /> -->
-<!--     <Product specieID="RyR2L"/> -->
-<!--     <forwardRate>1.24e-6</forwardRate> -->
-<!--     <reverseRate>13.6e-3</reverseRate> -->
-<!--  </Reaction> -->
+ <Reaction name = "RyR1L2L" id="RyR1L2L">
+    <Reactant specieID="RyR1L"/>
+    <Reactant specieID="Ca" />
+    <Product specieID="RyR2L"/>
+    <forwardRate>1.24e-6</forwardRate>
+    <reverseRate>13.6e-3</reverseRate>
+ </Reaction>
  
-<!--  <Reaction name = "RyR2L3L" id="RyR2L3L"> -->
-<!--     <Reactant specieID="RyR2L"/> -->
-<!--     <Reactant specieID="Ca" /> -->
-<!--     <Product specieID="RyR3L"/> -->
-<!--     <forwardRate>2.98e-5</forwardRate> -->
-<!--     <reverseRate>3867e-3</reverseRate> -->
-<!--  </Reaction>    -->
+ <Reaction name = "RyR2L3L" id="RyR2L3L">
+    <Reactant specieID="RyR2L"/>
+    <Reactant specieID="Ca" />
+    <Product specieID="RyR3L"/>
+    <forwardRate>2.98e-5</forwardRate>
+    <reverseRate>3867e-3</reverseRate>
+ </Reaction>
 
-<!--  <Reaction name = "RyR2L5L" id="RyR2L5L"> -->
-<!--     <Reactant specieID="RyR2L"/> -->
-<!--     <Product specieID="RyR5L"/> -->
-<!--     <forwardRate>1.81e-3</forwardRate> -->
-<!--     <reverseRate>3.63e-3</reverseRate> -->
-<!--  </Reaction> -->
+ <Reaction name = "RyR2L5L" id="RyR2L5L">
+    <Reactant specieID="RyR2L"/>
+    <Product specieID="RyR5L"/>
+    <forwardRate>1.81e-3</forwardRate>
+    <reverseRate>3.63e-3</reverseRate>
+ </Reaction>
  
-<!--  <Reaction name = "RyR3L1O" id="RyR3L1O"> -->
-<!--     <Reactant specieID="RyR3L"/> -->
-<!--     <Product specieID="RyRLO1"/> -->
-<!--     <forwardRate>731.2e-3</forwardRate> -->
-<!--     <reverseRate>4183e-3</reverseRate> -->
-<!--  </Reaction>    -->
+ <Reaction name = "RyR3L1O" id="RyR3L1O">
+    <Reactant specieID="RyR3L"/>
+    <Product specieID="RyRLO1"/>
+    <forwardRate>731.2e-3</forwardRate>
+    <reverseRate>4183e-3</reverseRate>
+ </Reaction>
 
-<!--  <Reaction name = "RyR3L2O" id="RyR3L2O"> -->
-<!--     <Reactant specieID="RyR3L"/> -->
-<!--     <Product specieID="RyRLO2"/> -->
-<!--     <forwardRate>24.5e-3</forwardRate> -->
-<!--     <reverseRate>156.5e-3</reverseRate> -->
-<!--  </Reaction>    -->
+ <Reaction name = "RyR3L2O" id="RyR3L2O">
+    <Reactant specieID="RyR3L"/>
+    <Product specieID="RyRLO2"/>
+    <forwardRate>24.5e-3</forwardRate>
+    <reverseRate>156.5e-3</reverseRate>
+ </Reaction>
 
-<!--  <Reaction name = "RyR3L3O" id="RyR3L3O"> -->
-<!--     <Reactant specieID="RyR3L"/> -->
-<!--     <Product specieID="RyRLO3"/> -->
-<!--     <forwardRate>8.5e-3</forwardRate> -->
-<!--     <reverseRate>111.7e-3</reverseRate> -->
-<!--  </Reaction>    -->
+ <Reaction name = "RyR3L3O" id="RyR3L3O">
+    <Reactant specieID="RyR3L"/>
+    <Product specieID="RyRLO3"/>
+    <forwardRate>8.5e-3</forwardRate>
+    <reverseRate>111.7e-3</reverseRate>
+ </Reaction>
 
-<!-- <Reaction name = "RyR4L2O" id="RyR4L2O"> -->
-<!--     <Reactant specieID="RyR4L"/> -->
-<!--     <Product specieID="RyRLO2"/> -->
-<!--     <forwardRate>415.3e-3</forwardRate> -->
-<!--     <reverseRate>1995e-3</reverseRate> -->
-<!-- </Reaction> -->
+<Reaction name = "RyR4L2O" id="RyR4L2O">
+    <Reactant specieID="RyR4L"/>
+    <Product specieID="RyRLO2"/>
+    <forwardRate>415.3e-3</forwardRate>
+    <reverseRate>1995e-3</reverseRate>
+</Reaction>
 
-<!-- <Reaction name = "RyR4L3O" id="RyR4L3O"> -->
-<!--     <Reactant specieID="RyR4L"/> -->
-<!--     <Product specieID="RyRLO3"/> -->
-<!--     <forwardRate>43.3e-3</forwardRate> -->
-<!--     <reverseRate>253.3e-3</reverseRate> -->
-<!-- </Reaction> -->
+<Reaction name = "RyR4L3O" id="RyR4L3O">
+    <Reactant specieID="RyR4L"/>
+    <Product specieID="RyRLO3"/>
+    <forwardRate>43.3e-3</forwardRate>
+    <reverseRate>253.3e-3</reverseRate>
+</Reaction>
  
 
  <!--  <!-\- High act RyR-\->   -->
@@ -130,65 +130,65 @@
     <forwardRate>6.6e-12</forwardRate>
     <reverseRate>0.083e-3</reverseRate>
  </Reaction>
-<!--   <Reaction name = "RyR2L2H" id="RyR2L2H"> -->
-<!--     <Reactant specieID="RyR2L"/> -->
-<!--     <Reactant specieID="Ca" /> -->
-<!--     <Product specieID="RyR2H"/> -->
-<!--     <forwardRate>6.6e-12</forwardRate> -->
-<!--     <reverseRate>0.083e-3</reverseRate> -->
-<!--  </Reaction>    -->
-<!--   <Reaction name = "RyR3L3H" id="RyR3L3H"> -->
-<!--     <Reactant specieID="RyR3L"/> -->
-<!--     <Reactant specieID="Ca" /> -->
-<!--     <Product specieID="RyR3H"/> -->
-<!--     <forwardRate>6.6e-12</forwardRate> -->
-<!--     <reverseRate>0.083e-3</reverseRate> -->
-<!--  </Reaction>    -->
+  <Reaction name = "RyR2L2H" id="RyR2L2H">
+    <Reactant specieID="RyR2L"/>
+    <Reactant specieID="Ca" />
+    <Product specieID="RyR2H"/>
+    <forwardRate>6.6e-12</forwardRate>
+    <reverseRate>0.083e-3</reverseRate>
+ </Reaction>
+  <Reaction name = "RyR3L3H" id="RyR3L3H">
+    <Reactant specieID="RyR3L"/>
+    <Reactant specieID="Ca" />
+    <Product specieID="RyR3H"/>
+    <forwardRate>6.6e-12</forwardRate>
+    <reverseRate>0.083e-3</reverseRate>
+ </Reaction>
 
 
 
  
   <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
-  <!--  <Reaction name = "RyRflux1" id="RyRflux1"> -->
-  <!--    <Reactant specieID="RyRLO1"/> -->
-  <!--    <Reactant specieID="CaER"/> -->
-  <!--    <Product specieID="RyRLO1"/> -->
-  <!--    <Product specieID="Ca"/> -->
-  <!--   <forwardRate>5e-3</forwardRate> -->
-  <!--   <reverseRate>5e-3</reverseRate> -->
-  <!-- </Reaction> -->
-  <!-- <Reaction name = "RyRflux2" id="RyRflux2"> -->
-  <!--    <Reactant specieID="RyRLO2"/> -->
-  <!--    <Reactant specieID="CaER"/> -->
-  <!--    <Product specieID="RyRLO2"/> -->
-  <!--    <Product specieID="Ca"/> -->
-  <!--   <forwardRate>5e-3</forwardRate> -->
-  <!--   <reverseRate>5e-3</reverseRate> -->
-  <!-- </Reaction> -->
-  <!--  <Reaction name = "RyRflux3" id="RyRflux3"> -->
-  <!--    <Reactant specieID="RyRLO3"/> -->
-  <!--    <Reactant specieID="CaER"/> -->
-  <!--    <Product specieID="RyRLO3"/> -->
-  <!--    <Product specieID="Ca"/> -->
-  <!--   <forwardRate>5e-3</forwardRate> -->
-  <!--   <reverseRate>5e-3</reverseRate> -->
-  <!-- </Reaction> -->
+   <Reaction name = "RyRflux1" id="RyRflux1">
+     <Reactant specieID="RyRLO1"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRLO1"/>
+     <Product specieID="Ca"/>
+    <forwardRate>5e-3</forwardRate>
+    <reverseRate>5e-3</reverseRate>
+  </Reaction>
+  <Reaction name = "RyRflux2" id="RyRflux2">
+     <Reactant specieID="RyRLO2"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRLO2"/>
+     <Product specieID="Ca"/>
+    <forwardRate>5e-3</forwardRate>
+    <reverseRate>5e-3</reverseRate>
+  </Reaction>
+   <Reaction name = "RyRflux3" id="RyRflux3">
+     <Reactant specieID="RyRLO3"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRLO3"/>
+     <Product specieID="Ca"/>
+    <forwardRate>5e-3</forwardRate>
+    <reverseRate>5e-3</reverseRate>
+  </Reaction>
 
-  <!--   <Reaction name = "RyRflux5" id="RyRflux5"> -->
-  <!--    <Reactant specieID="RyRHO1"/> -->
-  <!--    <Reactant specieID="CaER"/> -->
-  <!--    <Product specieID="RyRHO1"/> -->
-  <!--    <Product specieID="Ca"/> -->
-  <!--   <forwardRate>5e-3</forwardRate> -->
-  <!--   <reverseRate>5e-3</reverseRate> -->
-  <!-- </Reaction> -->
-  <!-- <Reaction name = "RyRflux6" id="RyRflux6"> -->
-  <!--    <Reactant specieID="RyRHO2"/> -->
-  <!--    <Reactant specieID="CaER"/> -->
-  <!--    <Product specieID="RyRHO2"/> -->
-  <!--    <Product specieID="Ca"/> -->
-  <!--   <forwardRate>5e-3</forwardRate> -->
-  <!--   <reverseRate>5e-3</reverseRate> -->
-  <!-- </Reaction> -->
+    <Reaction name = "RyRflux5" id="RyRflux5">
+     <Reactant specieID="RyRHO1"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRHO1"/>
+     <Product specieID="Ca"/>
+    <forwardRate>5e-3</forwardRate>
+    <reverseRate>5e-3</reverseRate>
+  </Reaction>
+  <Reaction name = "RyRflux6" id="RyRflux6">
+     <Reactant specieID="RyRHO2"/>
+     <Reactant specieID="CaER"/>
+     <Product specieID="RyRHO2"/>
+     <Product specieID="Ca"/>
+    <forwardRate>5e-3</forwardRate>
+    <reverseRate>5e-3</reverseRate>
+  </Reaction>
    
 </ReactionScheme>
