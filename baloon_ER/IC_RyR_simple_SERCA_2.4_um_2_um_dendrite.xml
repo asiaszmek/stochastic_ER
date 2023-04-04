@@ -31,7 +31,7 @@
     <PicoSD specieID="pmca" value="4000"/> 
     <PicoSD specieID="pmcaCa" value="1500"/>
 
-    <PicoSD specieID="RyRC1"      value="5"    />
+    <PicoSD specieID="RyR"      value="5"    />
     <PicoSD specieID="Cyt_SERCA"       value="1442"     />
     <PicoSD specieID="Cyt_SERCA_Ca2"       value="25"     />
     <PicoSD specieID="Cyt_SERCA_Ca"       value="200"     />
