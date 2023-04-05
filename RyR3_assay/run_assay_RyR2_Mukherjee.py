@@ -386,7 +386,6 @@ if __name__ == "__main__":
             conc, po, t_o, t_c = get_numbers(my_file, output="all")
             output[i, 0] = np.mean(conc)
             output[i, 1] = np.mean(po)
-            print(conc)
             print(np.mean(conc), np.mean(po), t_o, t_c)
             mean_times.append([np.mean(po), t_o, t_c])
             
