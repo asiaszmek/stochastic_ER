@@ -164,7 +164,7 @@
     <Reactant specieID="RyRO1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRO2"/>
-    <forwardRate>5e-10</forwardRate>
+    <forwardRate>5e-11</forwardRate>
     <reverseRate>13</reverseRate>
   </Reaction>
 
@@ -172,7 +172,7 @@
     <Reactant specieID="RyRC2"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRO2"/>
-    <forwardRate>3.3333e-14</forwardRate>
+    <forwardRate>3.3333e-15</forwardRate>
     <reverseRate>66.667e-3</reverseRate>
   </Reaction>
 
