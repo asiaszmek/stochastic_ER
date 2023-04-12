@@ -90,10 +90,13 @@ if __name__ == '__main__':
                 "dend51"]
     if len(sys.argv) == 1:
         sys.exit('No filename given')
-    for fname in sys.argv[1:]:
+    fig1, ax1 = plt.subplots(1, len(sys.argv[1:]))
+    im_list = []
+    for j, fname in enumerate(sys.argv[1:]):
         my_file = h5py.File(fname, 'r')
         conc_dict = {}
         time_dict = {}
+        
         for trial in my_file.keys():
             if trial == "model":
                 continue
@@ -103,26 +106,50 @@ if __name__ == '__main__':
             conc_dict[trial] = conc
             time = get_times(my_file, trial, "all")
             time_dict[trial] = time
-        vmax = 0
-        vmin = 1000000000
-        for key in conc_dict:
-            new_max = conc_dict[key].max()
-            new_min =  conc_dict[key].min()
-            if new_max > vmax:
-                vmax = new_max
-            if new_min < vmin:
-                vmin = new_min
-        for i, key in enumerate(conc_dict):
-            fig, ax = plt.subplots(1, 1)
-            time = time_dict[key]
-            im = ax.imshow(conc_dict[key].T, aspect="auto",
-                           interpolation="none",
-                           origin="lower", extent = [time[0]*1e-3,
-                                                     time[-1]*1e-3,
-                                                     voxels[0],
-                                                     voxels[-1]],
-                           cmap=plt.get_cmap("Reds"), vmin=vmin, vmax=vmax)
-            fig.colorbar(im)
-            ax.set_title("%s trial %d %s" % (fname, i, specie))
+        vmax = max([conc.max() for conc in conc_dict.values()])
+        vmin = min([conc.min() for conc in conc_dict.values()])
+       
+        lmin = min([len(conc) for conc in conc_dict.values()])
+        
+        shape2 = max([conc.shape[1] for conc in conc_dict.values()])
+        conc_mean = np.zeros((lmin, shape2))
+        for conc in conc_dict.values():
+            conc_mean[:lmin, :] += conc[:lmin, :]
+        conc_mean /= len(conc_dict)
+
+        # for i, key in enumerate(conc_dict):
+        #     fig, ax = plt.subplots(1, 1)
+        #     time = time_dict[key]
+        #     im = ax.imshow(conc_dict[key].T, aspect="auto",
+        #                    interpolation="none",
+        #                    origin="lower", extent = [time[0]*1e-3,
+        #                                              time[-1]*1e-3,
+        #                                              voxels[0],
+        #                                              voxels[-1]],
+        #                    cmap=plt.get_cmap("Reds"), vmin=vmin, vmax=vmax)
+        #     fig.colorbar(im)
+        #     ax.set_title("%s trial %d %s" % (fname, i, specie))
+        
+        
+        im_list.append(np.log10(1e-9*conc_mean.T))
+    for im in im_list:
+        print(im.max(), im.min())
+    vmax = max([im.max() for im in im_list])
+    vmin = min([im.min() for im in im_list])
+    for j, x in enumerate(ax1):
+        im = ax1[j].imshow(im_list[j], aspect="auto",
+                          interpolation="none",
+                          origin="lower", extent = [time[0]*1e-3,
+                                                    time[-1]*1e-3,
+                                                    voxels[0],
+                                                    voxels[-1]],
+                          cmap=plt.get_cmap("Reds"), vmin=vmin,
+                          vmax=vmax)
+        if "baloon" in sys.argv[j+1]:
+            ax1[j].set_title("baloon ER mean %s" %  specie)
+        elif "tubes" in sys.argv[j+1]:
+            ax1[j].set_title("stacked ER mean %s" %  specie)
+            
+    fig1.colorbar(im)
     plt.show()
                           
