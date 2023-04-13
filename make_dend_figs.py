@@ -1,3 +1,5 @@
+import sys
+import argparse
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -6,7 +8,22 @@ import sys
 from scipy.constants import Avogadro
 
 NA = Avogadro*1e-23
+specie_dict = {
+    "Ca": ["Ca"],
+    "CaOut": ["CaOut"],
+    "CaER": ["CaER"],
+    "RyRO": ["RyRO1", "RyRO2"],
 
+}
+
+def Parser():
+    parser = argparse.ArgumentParser(description='Generate figs of avg conc')
+    parser.add_argument('input', nargs='+',
+                        help='input h5 files')
+    parser.add_argument('--species', default="Ca",
+                        help='Ca, RyRO, CaER, CaOut, RyR')
+
+    return parser
 
 def nano_molarity(N, V):
     return 10 * N / V / NA
@@ -60,6 +77,7 @@ def get_dynamics_in_region(my_file, specie, region, trial,
     specie_list = get_all_species(my_file, output)
     population = get_populations(my_file, trial, output)
     specie_idx = []
+
     for sp in specie:
         specie_idx.append(specie_list.index(sp))
     voxel_list = sorted(vox_ind.keys())
@@ -75,8 +93,19 @@ def get_dynamics_in_region(my_file, specie, region, trial,
 
 
 if __name__ == '__main__':
-    specie_list = ["Ca"]
-    specie = "Ca"
+    fname = []
+    args = Parser().parse_args()
+    for name in args.input:
+        if name.endswith("h5"):
+            fname.append(name)
+    if not fname:
+        sys.exit('Do specify at least one totals filename')
+    chosen_specie = args.species
+
+    try:
+        specie_list = specie_dict[chosen_specie]
+    except AttributeError:
+        sys.exit("Unnkown specie %s" % s)
     reg_list = ["dend", "dend01", "dend02", "dend03", "dend04", "dend05",
                 "dend06", "dend07", "dend08", "dend09", "dend10",
                 "dend11", "dend12", "dend13", "dend14", "dend15",
@@ -88,11 +117,9 @@ if __name__ == '__main__':
                 "dend41", "dend42", "dend43", "dend44", "dend45",
                 "dend46", "dend47", "dend48", "dend49", "dend50",
                 "dend51"]
-    if len(sys.argv) == 1:
-        sys.exit('No filename given')
-    fig1, ax1 = plt.subplots(1, len(sys.argv[1:]))
+    fig1, ax1 = plt.subplots(1, len(fname))
     im_list = []
-    for j, fname in enumerate(sys.argv[1:]):
+    for j, fname in enumerate(fname):
         my_file = h5py.File(fname, 'r')
         conc_dict = {}
         time_dict = {}
@@ -130,10 +157,10 @@ if __name__ == '__main__':
         #     fig.colorbar(im)
         #     ax.set_title("%s trial %d %s" % (fname, i, specie))
         
-        
-        im_list.append(np.log10(1e-9*conc_mean.T))
-    for im in im_list:
-        print(im.max(), im.min())
+        if chosen_specie == "Ca":
+            im_list.append(np.log10(1e-9*conc_mean.T))
+        else:
+            im_list.append(conc_mean.T)
     vmax = max([im.max() for im in im_list])
     vmin = min([im.min() for im in im_list])
     for j, x in enumerate(ax1):
@@ -145,10 +172,10 @@ if __name__ == '__main__':
                                                     voxels[-1]],
                           cmap=plt.get_cmap("Reds"), vmin=vmin,
                           vmax=vmax)
-        if "baloon" in sys.argv[j+1]:
-            ax1[j].set_title("baloon ER mean %s" %  specie)
-        elif "tubes" in sys.argv[j+1]:
-            ax1[j].set_title("stacked ER mean %s" %  specie)
+        if "baloon" in fname[j]:
+            ax1[j].set_title("baloon ER mean %s" %  chosen_specie)
+        elif "tubes" in fname[j]:
+            ax1[j].set_title("stacked ER mean %s" %  chosen_specie)
             
     fig1.colorbar(im)
     plt.show()
