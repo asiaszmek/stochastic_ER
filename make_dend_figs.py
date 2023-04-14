@@ -13,7 +13,8 @@ specie_dict = {
     "CaOut": ["CaOut"],
     "CaER": ["CaER"],
     "RyRO": ["RyRO1", "RyRO2"],
-
+    "STIM_CaER": ["STIM_2CaER"],
+    "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"]
 }
 
 def Parser():
@@ -93,14 +94,18 @@ def get_dynamics_in_region(my_file, specie, region, trial,
 
 
 if __name__ == '__main__':
-    fname = []
+    fnames = []
     args = Parser().parse_args()
     for name in args.input:
         if name.endswith("h5"):
-            fname.append(name)
-    if not fname:
+            fnames.append(name)
+    if not fnames:
         sys.exit('Do specify at least one totals filename')
     chosen_specie = args.species
+    if chosen_specie in ["Ca", "CaER", "CaOut", "RyRO"]:
+        output_name = "all"
+    elif  chosen_specie in ["STIM_CaER", "Orai"]:
+        output_name = "RyR_Orai"
 
     try:
         specie_list = specie_dict[chosen_specie]
@@ -117,9 +122,11 @@ if __name__ == '__main__':
                 "dend41", "dend42", "dend43", "dend44", "dend45",
                 "dend46", "dend47", "dend48", "dend49", "dend50",
                 "dend51"]
-    fig1, ax1 = plt.subplots(1, len(fname))
+    fig1, ax1 = plt.subplots(1, len(fnames))
     im_list = []
-    for j, fname in enumerate(fname):
+    if len(fnames) == 1:
+        ax1 = [ax1]
+    for j, fname in enumerate(fnames):
         my_file = h5py.File(fname, 'r')
         conc_dict = {}
         time_dict = {}
@@ -129,9 +136,9 @@ if __name__ == '__main__':
                 continue
             conc, voxels = get_dynamics_in_region(my_file,
                                                   specie_list,
-                                                  reg_list, trial, "all")
+                                                  reg_list, trial, output_name)
             conc_dict[trial] = conc
-            time = get_times(my_file, trial, "all")
+            time = get_times(my_file, trial, output_name)
             time_dict[trial] = time
         vmax = max([conc.max() for conc in conc_dict.values()])
         vmin = min([conc.min() for conc in conc_dict.values()])
@@ -172,9 +179,10 @@ if __name__ == '__main__':
                                                     voxels[-1]],
                           cmap=plt.get_cmap("Reds"), vmin=vmin,
                           vmax=vmax)
-        if "baloon" in fname[j]:
+
+        if "baloon" in fnames[j]:
             ax1[j].set_title("baloon ER mean %s" %  chosen_specie)
-        elif "tubes" in fname[j]:
+        elif "tubes" in fnames[j]:
             ax1[j].set_title("stacked ER mean %s" %  chosen_specie)
             
     fig1.colorbar(im)
