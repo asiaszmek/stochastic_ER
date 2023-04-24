@@ -16,7 +16,17 @@ specie_dict = {
     "STIM_CaER": ["STIM_2CaER"],
     "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"]
 }
-
+multiplier = {
+    "Ca": 1,
+    "CaOut": 1,
+    "CaER": 1,
+    "RyRO1": 1,
+    "RyRO2": 1,
+    "STIM_2CaER": 1,
+    "OraiSTIM_4": 1,
+    "Orai2STIM_4": 2,
+    "Orai3STIM_4": 3,
+}
 def Parser():
     parser = argparse.ArgumentParser(description='Generate figs of avg conc')
     parser.add_argument('input', nargs='+',
@@ -82,12 +92,13 @@ def get_dynamics_in_region(my_file, specie, region, trial,
     for sp in specie:
         specie_idx.append(specie_list.index(sp))
     voxel_list = sorted(vox_ind.keys())
+    
     how_many_voxels = len(voxel_list)
     out = np.zeros((population.shape[0], how_many_voxels))
     for i, key in enumerate(voxel_list):
         volume = vols[key]
         for idx in specie_idx:
-            h = population[:, vox_ind[key], idx].sum(axis=1)
+            h = population[:, vox_ind[key], idx].sum(axis=1)*multiplier[specie_list[idx]]
             out[:, i] += nano_molarity(h, volume)
     return out, voxel_list
         
