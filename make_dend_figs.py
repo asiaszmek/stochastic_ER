@@ -122,17 +122,11 @@ if __name__ == '__main__':
         specie_list = specie_dict[chosen_specie]
     except AttributeError:
         sys.exit("Unnkown specie %s" % s)
-    reg_list = ["dend", "dend01", "dend02", "dend03", "dend04", "dend05",
-                "dend06", "dend07", "dend08", "dend09", "dend10",
-                "dend11", "dend12", "dend13", "dend14", "dend15",
-                "dend16", "dend17", "dend18", "dend19", "dend20",
-                "dend21", "dend22", "dend23", "dend24", "dend25",
-                "dend26", "dend27", "dend28", "dend29", "dend30",
-                "dend31", "dend32", "dend33", "dend34", "dend35",
-                "dend36", "dend37", "dend38", "dend39", "dend40",
-                "dend41", "dend42", "dend43", "dend44", "dend45",
-                "dend46", "dend47", "dend48", "dend49", "dend50",
-                "dend51"]
+    base = "dend"
+    reg_list = [base, "dend01", "dend02", "dend03", "dend04", "dend05",
+                "dend06", "dend07", "dend08", "dend09",]
+    for i in range(10, 102, 1):
+        reg_list.append("%s%d" %(base, i))
     fig1, ax1 = plt.subplots(1, len(fnames))
     im_list = []
     if len(fnames) == 1:
