@@ -28,7 +28,7 @@ results (also, 3D may not work yet...)  -->
     <outputQuantity>NUMBER</outputQuantity>
 
     <!-- run time for the calculation, milliseconds -->
-    <runtime>143000</runtime>
+    <runtime>10000</runtime>
 
     <!-- set the seed to get the same spines each time testing -->
     <spineSeed>123</spineSeed>
@@ -39,7 +39,7 @@ results (also, 3D may not work yet...)  -->
     </discretization>
     <tolerance>0.01</tolerance>
 
-    <outputInterval>500</outputInterval>
+    <outputInterval>10</outputInterval>
 
     <calculation>GRID_ADAPTIVE</calculation>
 
@@ -52,7 +52,7 @@ IC_text = """<?xml version="1.0" encoding="utf-8"?>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
     <NanoMolarity specieID="CaM" value="1000"/>
-    <NanoMolarity specieID="RyRD2D3"      value="0.1"    />
+    <NanoMolarity specieID="RyR"      value="20"    />
   </ConcentrationSet>
 </InitialConditions>
 """
@@ -61,24 +61,22 @@ IO_text =    """<OutputScheme>
 <OutputSet filename = "all"  dt=".1">
 <OutputSpecie name="Ca"/>
 <OutputSpecie name="RyRO1"/>
-<OutputSpecie name="RyRO2"/>
-<OutputSpecie name="RyRD2D3"/>
-<OutputSpecie name="RyR4CaMD2D3"/>
-<OutputSpecie name="RyR4CaMCCa8D2D3"/>
-<OutputSpecie name="RyR4CaMCa16D2D3" />
-<OutputSpecie name="Ca4RyR4CaMCCa8D2D3"/>
-  <OutputSpecie name="Ca4RyR4CaMCa16D2D3"/>
-  <OutputSpecie name="RyR4CaMCa16D2D3clamped"/>
-  <OutputSpecie name="Ca4RyR4CaMCa16D2D3clamped"/>
-  <OutputSpecie name="Ca8RyR4CaMCa16D2D3clamped"/>
-  
-  <OutputSpecie name="CaM" id="CaM"/>
-  <OutputSpecie name="CaMCa2C"/>
-  <OutputSpecie name="CaMCa2N"/>
-  <OutputSpecie name="CaMCa4" />
-<OutputSpecie name="RyRD24CaMD3"/>
+<OutputSpecie name="Ca8RyR4CaMCa16"/>
+<OutputSpecie name="RyR"/>
+<OutputSpecie name="RyRCaM"/>
+<OutputSpecie name="RyR2CaM"/>
+<OutputSpecie name="RyR3CaM"/>
+<OutputSpecie name="RyR4CaM"/>
+<OutputSpecie name="RyR4CaMCCa8"/>
+<OutputSpecie name="RyR4CaMCa16" />
+<OutputSpecie name="Ca4RyR4CaMCCa8"/>
+<OutputSpecie name="Ca4RyR4CaMCa16"/>
 
-  </OutputSet>
+<OutputSpecie name="CaM" id="CaM"/>
+<OutputSpecie name="CaMCa2C"/>
+<OutputSpecie name="CaMCa2N"/>
+<OutputSpecie name="CaMCa4" />
+</OutputSet>
 </OutputScheme>"""
 
 Rxn_file = "Rxn_module_RyR_CaM.xml"
@@ -146,7 +144,6 @@ def get_all_closed(data, species):
             continue
         specie_state = data[:, 0, species.index(specie)]
         sum_times += specie_state.sum()
-        print(specie, sum_times)
     return sum_times
 
 
@@ -161,7 +158,6 @@ def get_all_open(data, species):
         state +=  data[:, 0, species.index(specie)]
     count = len(np.where((state[1:] - state[0:-1])==1)[0])
     sum_times = state.sum()
-    print(sum_times, count, state[-1])
     return sum_times, count, state[-1]
 
 
@@ -188,16 +184,11 @@ def get_numbers(my_file, output="all"):
         exp_len = int((times[-1])/dt)
         mean_ca = data[:, 0, species.index("Ca")].mean()*10/6.023/vol
         
-        if "RyR" in species:
-            bas_idx = species.index("RyR")
-        elif "RyRC1" in species:
-            bas_idx = species.index("RyRC1")
-        elif "RyR1L" in species:
-            bas_idx = species.index("RyR1L")
+      
+        bas_idx = species.index("RyR")
+      
         
         ryr_basal = data[0, 0, bas_idx]
-        
-        
         open_sum, tot_no, ends = get_all_open(data, species)
         if ends:
             end_closed = False
@@ -206,31 +197,31 @@ def get_numbers(my_file, output="all"):
         p_open_ryr = open_sum/ryr_basal/exp_len
         Ca_conc.append(mean_ca)
         open_ryr3.append(p_open_ryr)
-        if ryr_basal != 1:
-            continue
-        if tot_no > 0:
-            no += tot_no
-            sum_o += open_sum
+    #     if ryr_basal != 1:
+    #         continue
+    #     if tot_no > 0:
+    #         no += tot_no
+    #         sum_o += open_sum
         
-        sum_closed = get_all_closed(data, species)
-        tot_nc = tot_no
-        if end_closed:
-            nc += 1
+    #     sum_closed = get_all_closed(data, species)
+    #     tot_nc = tot_no
+    #     if end_closed:
+    #         nc += 1
 
-        if tot_nc > 0:
-            sum_c +=sum_closed
-            nc += no
-    print(sum_o, sum_c, no)
-    if  nc != 0:
-       mean_c_t = dt*sum_c/nc
-    else:
-        mean_c_t = 0
-    if no != 0: 
-        mean_o_t = dt*sum_o/no
-    else:
-        mean_o_t = 0
-        mean_c_t = 0
-    return Ca_conc, open_ryr3, mean_o_t, mean_c_t
+    #     if tot_nc > 0:
+    #         sum_c +=sum_closed
+    #         nc += no
+
+    # if  nc != 0:
+    #    mean_c_t = dt*sum_c/nc
+    # else:
+    #     mean_c_t = 0
+    # if no != 0: 
+    #     mean_o_t = dt*sum_o/no
+    # else:
+    #     mean_o_t = 0
+    #     mean_c_t = 0
+    return Ca_conc, open_ryr3,0, 0 #mean_o_t, mean_c_t
 
 
 
@@ -247,7 +238,7 @@ if __name__ == "__main__":
     output = np.zeros(exp_res.shape)
     mean_times = []
     for i, ca_conc in enumerate(ca_conc_list):
-        ca_conc_nM = int(np.ceil(ca_conc*1e3))
+        ca_conc_nM = 2*int(np.ceil(ca_conc*1e3))
         IC_name = "Ca_%d.xml" % ca_conc_nM
         model_name = "RyR_model_Ca_%d.xml" % ca_conc_nM
         output_name = "RyR_model_Ca_%d.h5" % ca_conc_nM
@@ -278,25 +269,25 @@ if __name__ == "__main__":
     exp_closed = np.loadtxt(ryr_cl_fname, skiprows=1, delimiter=",")
     mean_times_a = np.array(mean_times)
     date = date.today().strftime("%y%m%d")
-    res_fname1 = "po_res_%s_%s.csv" % (model, date)
-    res_fname2 = "open_closed_times_res_%s_%s.csv" % (model, date)
+    res_fname1 = "po_res_%s.csv" %  date
+    res_fname2 = "open_closed_times_res_%s.csv" % date
     np.savetxt(res_fname1, output, delimiter=",", header="Ca [nM], po")
     np.savetxt(res_fname2, mean_times_a, delimiter=",",
                header="Ca [nM], mean open time, mean closed time")
     fig, ax = plt.subplots(1)
     ax.set_xscale('log')
-    ax.plot(exp_res[:, 0], exp_res[:, 1], "d", color="tab:blue", label="experimental data")
+    ax.plot(exp_res[:, 0]*1e-6, exp_res[:, 1], "d", color="tab:blue", label="experimental data")
     ax.plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
     ax.legend()
     ax.set_xlabel("Concentration [M]")
-    ax.set_ylabel("RyR3 open probability")
+    ax.set_ylabel("RyR2 open probability")
     
     fig, ax = plt.subplots(1)
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.plot(exp_open[:, 0], exp_open[:, 1], "d", color="tab:blue",
+    ax.plot(exp_open[:, 0]*1e-6, exp_open[:, 1], "d", color="tab:blue",
             label="exp open")
-    ax.plot(exp_closed[:, 0], exp_closed[:, 1], "d", color="tab:green",
+    ax.plot(exp_closed[:, 0]*1e-6, exp_closed[:, 1], "d", color="tab:green",
             label="exp closed")
     ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
             label="model open", color="tab:cyan")

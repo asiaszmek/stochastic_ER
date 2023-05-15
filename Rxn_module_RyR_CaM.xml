@@ -2,20 +2,29 @@
 <ReactionScheme>
   <Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s" />
   <Specie name="CaER" id="CaER" kdiff="10." kdiffunit="mu2/s"/>
-  <Specie name="RyRD2D3"            id="RyRD2D3"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="RyRD24CaMD3"            id="RyRD24CaMD3"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="RyR4CaMD2D3"            id="RyR4CaMD2D3"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="RyR4CaMCCa8D2D3"            id="RyR4CaMCCa8D2D3"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="RyR4CaMCa16D2D3"            id="RyR4CaMCa16D2D3"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="Ca4RyR4CaMCCa8D2D3"            id="Ca4RyR4CaMCCa8D2D3"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="Ca4RyR4CaMCa16D2D3"            id="Ca4RyR4CaMCa16D2D3"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="RyRO1"            id="RyRO1"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="RyRO2"            id="RyRO2"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="RyR4CaMCa16D2D3clamped"            id="RyR4CaMCa16D2D3clamped"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="Ca4RyR4CaMCa16D2D3clamped"            id="Ca4RyR4CaMCa16D2D3clamped"           kdiff="0" kdiffunit="mu2/s"/>
-  <Specie name="Ca8RyR4CaMCa16D2D3clamped"            id="Ca8RyR4CaMCa16D2D3clamped"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR"            id="RyR"           kdiff="0" kdiffunit="mu2/s"/>
   
-  <Specie name="CaM" id="CaM" kdiff="4" kdiffunit="mu2/s" />
+  <Specie name="RyRCaM"            id="RyRCaM"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR2CaM"            id="RyR2CaM"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR3CaM"            id="RyR3CaM"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR4CaM"            id="RyR4CaM"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyRCaMCa2"            id="RyRCaMCa2"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR2CaMCa2"            id="RyR2CaMCa2"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR3CaMCa2"            id="RyR3CaMCa2"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR4CaMCa2"            id="RyR4CaMCa2"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR2CaMCa4"            id="RyR2CaMCa4"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR3CaMCa4"            id="RyR3CaMCa4"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR4CaMCa4"            id="RyR4CaMCa4"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR3CaMCa6"            id="RyR3CaMCa6"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR4CaMCa6"            id="RyR4CaMCa6"           kdiff="0" kdiffunit="mu2/s"/>
+  
+  <Specie name="RyR4CaMCCa8"            id="RyR4CaMCCa8"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR4CaMCa16"            id="RyR4CaMCa16"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="Ca4RyR4CaMCCa8"            id="Ca4RyR4CaMCCa8"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="Ca4RyR4CaMCa16"            id="Ca4RyR4CaMCa16"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyRO1"            id="RyRO1"           kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="Ca8RyR4CaMCa16"            id="Ca8RyR4CaMCa16"           kdiff="0" kdiffunit="mu2/s"/>
+    <Specie name="CaM" id="CaM" kdiff="4" kdiffunit="mu2/s" />
   <!--Calmodulin-->
   <Specie name="CaMCa2C" id="CaMCa2C" kdiff="4" kdiffunit="mu2/s" />
   <Specie name="CaMCa2N" id="CaMCa2N" kdiff="4" kdiffunit="mu2/s" />
@@ -24,33 +33,123 @@
   
 <!--Merging a stochastic model by  Keizer and Smith with CaM inhibition. We know that RyR2 has a much higher affinity for Apo-CaM than anything else and that ApoCaM inhibits RyR2 in very low cytosolic Ca  -->
 <Reaction name = "RyRCaM2BD" id="RyRCaM2BD">
-  <Reactant specieID="RyRD2D3"/>
-  <Reactant specieID="CaM" power="4"/>
-  <Product specieID="RyR4CaMD2D3"/>
-  <forwardRate>3.33e-07</forwardRate>
-  <reverseRate>2.702e-05</reverseRate>
+  <Reactant specieID="RyR"/>
+  <Reactant specieID="CaM"/>
+  <Product specieID="RyRCaM"/>
+  <forwardRate>6.66e-3</forwardRate>
+  <reverseRate>4.8e-03</reverseRate>
 </Reaction>
 
-<Reaction name = "RyRCaM3BD" id="RyRCaM3BD">
-  <Reactant specieID="RyRD2D3"/>
-  <Reactant specieID="CaM" power="4"/>
-  <Product specieID="RyRD24CaMD3"/>
-  <forwardRate>3.33e-08</forwardRate>
-  <reverseRate>2.702e-06</reverseRate>
+<Reaction name = "RyRCaM2BD2" id="RyRCaM2BD2">
+  <Reactant specieID="RyRCaM"/>
+  <Reactant specieID="CaM" />
+  <Product specieID="RyR2CaM"/>
+  <forwardRate>6.66e-3</forwardRate>
+  <reverseRate>4.8e-03</reverseRate>
+</Reaction>
+
+<Reaction name = "RyRCaM2BD3" id="RyRCaMBD3">
+  <Reactant specieID="RyR2CaM"/>
+  <Reactant specieID="CaM" />
+  <Product specieID="RyR3CaM"/>
+  <forwardRate>6.66e-3</forwardRate>
+  <reverseRate>4.8e-03</reverseRate>
+</Reaction>
+
+<Reaction name = "RyRCaM2BD4" id="RyRCaMBD4">
+  <Reactant specieID="RyR3CaM"/>
+  <Reactant specieID="CaM" />
+  <Product specieID="RyR4CaM"/>
+  <forwardRate>6.66e-3</forwardRate>
+  <reverseRate>4.8e-03</reverseRate>
+</Reaction>
+
+<Reaction name = "RyRCaMCCa22BD1" id="RyRCaMCCa22BD1">
+  <Reactant specieID="RyRCaM"/>
+  <Reactant  specieID="Ca" power="2"/>
+  <Product specieID="RyRCaMCa2"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
  </Reaction>
 
-<Reaction name = "RyRCaMCCa22BD" id="RyRCaMCCa22BD">
-  <Reactant specieID="RyR4CaMD2D3"/>
-  <Reactant specieID="Ca" n="8"/>
-  <Product specieID="RyR4CaMCCa8D2D3"/> 
-  <forwardRate>1.3e-21</forwardRate>
-  <reverseRate>6.86e-9</reverseRate>
+ <Reaction name = "RyR2CaMCCa22BD1" id="RyR2CaMCCa22BD1">
+  <Reactant specieID="RyR2CaM"/>
+  <Reactant  specieID="Ca" power="2"/>
+  <Product specieID="RyR2CaMCa2"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
  </Reaction>
 
+ <Reaction name = "RyR3CaMCCa2BD1" id="RyR3CaMCCa22BD1">
+  <Reactant specieID="RyR3CaM"/>
+  <Reactant  specieID="Ca" power="2"/>
+  <Product specieID="RyR3CaMCa2"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
+ </Reaction>
+
+ <Reaction name = "RyR4CaMCCa2BD1" id="RyR4CaMCCa22BD1">
+  <Reactant specieID="RyR4CaM"/>
+  <Reactant  specieID="Ca" power="2"/>
+  <Product specieID="RyR4CaMCa2"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
+ </Reaction>
+
+ <Reaction name = "RyR2CaMCCa22BD2" id="RyR2CaMCCa22BD2">
+  <Reactant specieID="RyR2CaMCa2"/>
+  <Reactant  specieID="Ca" power="2"/>
+  <Product specieID="RyR2CaMCa4"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
+ </Reaction>
+
+ <Reaction name = "RyR3CaMCCa2BD2" id="RyR3CaMCCa22BD2">
+  <Reactant specieID="RyR3CaMCa2"/>
+  <Reactant specieID="Ca" power="2"/>
+  <Product specieID="RyR3CaMCa4"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
+ </Reaction>
+
+ <Reaction name = "RyR4CaMCCa2BD2" id="RyR4CaMCCa22BD2">
+  <Reactant specieID="RyR4CaMCa2"/>
+  <Reactant specieID="Ca" power="2"/>
+  <Product specieID="RyR4CaMCa4"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
+ </Reaction>
+
+  <Reaction name = "RyR3CaMCCa2BD3" id="RyR3CaMCCa22BD3">
+  <Reactant specieID="RyR3CaMCa4"/>
+  <Reactant specieID="Ca" power="2"/>
+  <Product specieID="RyR3CaMCa6"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
+ </Reaction>
+
+ <Reaction name = "RyR4CaMCCa2BD3" id="RyR4CaMCCa22BD3">
+  <Reactant specieID="RyR4CaMCa4"/>
+  <Reactant specieID="Ca" power="2"/>
+  <Product specieID="RyR4CaMCa6"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
+ </Reaction>
+
+ <Reaction name = "RyR4CaMCCa2BD4" id="RyR4CaMCCa22BD4">
+  <Reactant specieID="RyR4CaMCa6"/>
+  <Reactant specieID="Ca" power="2"/>
+  <Product specieID="RyR4CaMCCa8"/> 
+  <forwardRate>1e-7</forwardRate>
+  <reverseRate>1e-2</reverseRate>
+ </Reaction>
+
+
+ 
  <Reaction name = "RyR4CaMCCa822BD" id="RyR4CaMCCa82BD">
-  <Reactant specieID="RyR4CaMCCa8D2D3"/>
-  <Reactant specieID="Ca" n="8"/>
-  <Product specieID="RyR4CaMCa16D2D3"/> 
+  <Reactant specieID="RyR4CaMCCa8"/>
+  <Reactant specieID="Ca" power="8"/>
+  <Product specieID="RyR4CaMCa16"/> 
   <forwardRate>1e-16</forwardRate>
   <reverseRate>1</reverseRate>
  </Reaction>
@@ -58,23 +157,23 @@
  
 
   <Reaction name = "RyRe" id="RyRe"> 
-    <Reactant specieID="RyR4CaMCCa8D2D3"/>
+    <Reactant specieID="RyR4CaMCCa8"/>
     <Reactant specieID="Ca" power="4"/>
-    <Product specieID="Ca4RyR4CaMCCa8D2D3"/>
+    <Product specieID="Ca4RyR4CaMCCa8"/>
     <forwardRate>5e-11</forwardRate>
     <reverseRate>50e-3</reverseRate>
   </Reaction>
 
   <Reaction name = "RyRe1" id="RyRe1"> 
-    <Reactant specieID="RyR4CaMCa16D2D3"/>
+    <Reactant specieID="RyR4CaMCa16"/>
     <Reactant specieID="Ca" power="4"/>
-    <Product specieID="Ca4RyR4CaMCa16D2D3"/>
+    <Product specieID="Ca4RyR4CaMCa16"/>
     <forwardRate>5e-11</forwardRate>
     <reverseRate>50e-3</reverseRate>
  </Reaction>
 
   <Reaction name = "RyRa" id="RyRa">
-    <Reactant specieID="RyR4CaMCCa8D2D3"/>
+    <Reactant specieID="RyR4CaMCCa8"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRO1"/>
     <forwardRate>5e-10</forwardRate>
@@ -82,9 +181,9 @@
  </Reaction>
    
   <Reaction name = "RyRa1" id="RyRa1">
-    <Reactant specieID="Ca4RyR4CaMCa16D2D3"/>
+    <Reactant specieID="Ca4RyR4CaMCa16"/>
     <Reactant specieID="Ca" power="4"/>
-    <Product specieID="RyRO2"/>
+    <Product specieID="Ca8RyR4CaMCa16"/>
     <forwardRate>5e-10</forwardRate>
     <reverseRate>9600e-3</reverseRate>
   </Reaction>
@@ -92,62 +191,18 @@
   <Reaction name = "RyRb" id="RyRb">
     <Reactant specieID="RyRO1"/>
     <Reactant specieID="Ca" power="8"/>
-    <Product specieID="RyRO2" />
+    <Product specieID="Ca8RyR4CaMCa16" />
     <forwardRate>1e-16</forwardRate>
     <reverseRate>1</reverseRate>
   </Reaction>
 
-  <Reaction name = "RyRclamped1" id="RyRclamped1">
-    <Reactant specieID="RyR4CaMCa16D2D3"/>
-    <Product specieID="RyR4CaMCa16D2D3clamped"/>
-    <forwardRate>5e-5</forwardRate>
-    <reverseRate>5e-6</reverseRate>
-  </Reaction>
 
-  <Reaction name = "RyRclamped2" id="RyRclamped2">
-    <Reactant specieID="Ca4RyR4CaMCa16D2D3"/>
-    <Product specieID="Ca4RyR4CaMCa16D2D3clamped"/>
-    <forwardRate>5e-5</forwardRate>
-    <reverseRate>5e-6</reverseRate>
-  </Reaction>
-
-  <Reaction name = "RyRclamped3" id="RyRclamped3">
-    <Reactant specieID="RyRO2"/>
-    <Product specieID="Ca8RyR4CaMCa16D2D3clamped"/>
-    <forwardRate>5e-5</forwardRate>
-    <reverseRate>5e-6</reverseRate>
-  </Reaction>
-
-  <Reaction name = "RyReclamped" id="RyReclamped"> 
-    <Reactant specieID="RyR4CaMCa16D2D3clamped"/>
-    <Reactant specieID="Ca" power="4"/>
-    <Product specieID="Ca4RyR4CaMCa16D2D3clamped"/>
-    <forwardRate>5e-11</forwardRate>
-    <reverseRate>50e-3</reverseRate>
- </Reaction>
-
-
- <Reaction name = "RyRcclamped" id="RyRcclamped"> 
-    <Reactant specieID="Ca4RyR4CaMCa16D2D3clamped"/>
-    <Reactant specieID="Ca" power="4"/>
-    <Product specieID="Ca8RyR4CaMCa16D2D3clamped"/>
-    <forwardRate>5e-11</forwardRate>
-    <reverseRate>50e-3</reverseRate>
- </Reaction>
 
   <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
    <Reaction name = "RyRflux1" id="RyRflux1">
      <Reactant specieID="RyRO1"/>
      <Reactant specieID="CaER"/>
      <Product specieID="RyRO1"/>
-     <Product specieID="Ca"/>
-    <forwardRate>5e-3</forwardRate>
-    <reverseRate>5e-3</reverseRate>
-  </Reaction>
-  <Reaction name = "RyRflux2" id="RyRflux2">
-     <Reactant specieID="RyRO2"/>
-     <Reactant specieID="CaER"/>
-     <Product specieID="RyRO2"/>
      <Product specieID="Ca"/>
     <forwardRate>5e-3</forwardRate>
     <reverseRate>5e-3</reverseRate>
