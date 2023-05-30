@@ -15,6 +15,7 @@ specie_dict = {
     "RyRO": ["RyRO1", "RyRO2"],
     "STIM_CaER": ["STIM_2CaER"],
     "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"]
+    "Fura": ["Fura2Ca"]
 }
 multiplier = {
     "Ca": 1,
