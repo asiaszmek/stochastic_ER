@@ -14,7 +14,7 @@ specie_dict = {
     "CaER": ["CaER"],
     "RyRO": ["RyRO1", "RyRO2"],
     "STIM_CaER": ["STIM_2CaER"],
-    "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"]
+    "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"],
     "Fura": ["Fura2Ca"]
 }
 multiplier = {
@@ -27,13 +27,14 @@ multiplier = {
     "OraiSTIM_4": 1,
     "Orai2STIM_4": 2,
     "Orai3STIM_4": 3,
+    "Fura2Ca": 1,
 }
 def Parser():
     parser = argparse.ArgumentParser(description='Generate figs of avg conc')
     parser.add_argument('input', nargs='+',
                         help='input h5 files')
     parser.add_argument('--species', default="Ca",
-                        help='Ca, RyRO, CaER, CaOut, RyR')
+                        help='Ca, RyRO, CaER, CaOut, RyRO, Fura')
 
     return parser
 
@@ -114,7 +115,7 @@ if __name__ == '__main__':
     if not fnames:
         sys.exit('Do specify at least one totals filename')
     chosen_specie = args.species
-    if chosen_specie in ["Ca", "CaER", "CaOut", "RyRO"]:
+    if chosen_specie in ["Ca", "CaER", "CaOut", "RyRO", "Fura"]:
         output_name = "all"
     elif  chosen_specie in ["STIM_CaER", "Orai"]:
         output_name = "RyR_Orai"

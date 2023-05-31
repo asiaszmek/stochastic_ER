@@ -20,8 +20,8 @@
     <NanoMolarity specieID="CaER"         value="0.8e5"     />
     <NanoMolarity       specieID="CRTP" value="8.9e+4"/>
     <NanoMolarity       specieID="CRT" value="1.1e+4"/>
-    <NanoMolarity specieID="Fura2"         value="200000"     />
-
+    <NanoMolarity specieID="Fura2"         value="144000"     />
+    <NanoMolarity specieID="Fura2Ca"         value="56000"     />
   </ConcentrationSet>
 
   <SurfaceDensitySet>

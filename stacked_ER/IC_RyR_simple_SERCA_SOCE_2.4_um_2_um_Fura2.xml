@@ -24,7 +24,8 @@
     <NanoMolarity specieID="LeakER" value="180" />
 
     <NanoMolarity specieID="STIM_2CaER" value="400" />
-    <NanoMolarity specieID="Fura2"         value="200000"     />
+    <NanoMolarity specieID="Fura2"         value="144000"     />
+    <NanoMolarity specieID="Fura2Ca"         value="56000"     />
 
   </ConcentrationSet>
 
