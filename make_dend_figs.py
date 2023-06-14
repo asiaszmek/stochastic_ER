@@ -35,6 +35,8 @@ def Parser():
                         help='input h5 files')
     parser.add_argument('--species', default="Ca",
                         help='Ca, RyRO, CaER, CaOut, RyRO, Fura')
+    parser.add_argument('--scale', default="linear",
+                        help='linear, log')
 
     return parser
 
@@ -157,6 +159,9 @@ if __name__ == '__main__':
         for conc in conc_dict.values():
             conc_mean[:lmin, :] += conc[:lmin, :]
         conc_mean /= len(conc_dict)
+        if chosen_specie == "Fura":
+            mean = conc_mean[:,:int(3000/(time[1]-time[0]))].mean(axis=0)
+            conc_mean = (conc_mean - mean)/mean
 
         # for i, key in enumerate(conc_dict):
         #     fig, ax = plt.subplots(1, 1)
@@ -171,9 +176,9 @@ if __name__ == '__main__':
         #     fig.colorbar(im)
         #     ax.set_title("%s trial %d %s" % (fname, i, specie))
         
-        if chosen_specie == "Ca":
+        if args.scale == "log":
             im_list.append(np.log10(1e-9*conc_mean.T))
-        else:
+        elif args.scale == "linear":
             im_list.append(conc_mean.T)
     vmax = max([im.max() for im in im_list])
     vmin = min([im.min() for im in im_list])
@@ -189,8 +194,10 @@ if __name__ == '__main__':
 
         if "baloon" in fnames[j]:
             ax1[j].set_title("baloon ER mean %s" %  chosen_specie)
+        elif "nc_tubes" in fnames[j]:
+            ax1[j].set_title("RyR overexpression mean %s" %  chosen_specie)
         elif "tubes" in fnames[j]:
-            ax1[j].set_title("stacked ER mean %s" %  chosen_specie)
+            ax1[j].set_title("tubes ER mean %s" %  chosen_specie)
             
     fig1.colorbar(im)
     plt.show()
