@@ -1,7 +1,6 @@
 from lxml import etree
 my_file = open("Rxn.xml", "w")
-molecules = ["Ca", "RyR", "CaM", "CaMCa2C", "CaMCa2C1N",
-             "CaMCa1N", "CaMCa2N", "CaMCa4", "CaER"]
+molecules = ["Ca", "RyR", "CaM", "CaMCa2C", "CaMCa2N", "CaMCa4", "CaER"]
 kdiff = {"Ca": "100",
          "CaER": "10",
          "CaM": "4",
@@ -12,14 +11,14 @@ kdiff = {"Ca": "100",
 ryr_name = "RyR"
 ryr_cam_binding = ["CaM",  "CaMCa2C", "CaMCa2N", "CaMCa4"]
 ca = "Ca"
-kf_ryr_cam = 6.66e-5
-kr_ryr_cam = 3.6e-03
-kf_ryr_camca = 6.66e-4
-kr_ryr_camca = 3.6e-03
-kf_ryr_2c = 17e-8
-kr_ryr_2c = 35e-4
-kf_ryr_2n = 6e-9
-kr_ryr_2n = 6e-3
+kf_ryr_cam = 24e-7 #https://doi.org/10.1161/CIRCRESAHA.114.30285
+kr_ryr_cam = 7e-5
+kf_ryr_camca = 24e-7# 6.66e-4 #  doi: 10.1002/prot.22148 at 26 C with 150 nM Ca
+kr_ryr_camca = 7e-5 #3.6e-03 # https://doi.org/10.1161/CIRCRESAHA.114.30 20-10 nM in situ
+kf_ryr_2c = 17e-10 #17e-8
+kr_ryr_2c = 35e-4#35e-4
+kf_ryr_2n = 1.46e-9
+kr_ryr_2n = 60e-3
 
 def check_specie(specie, RyR_states):
     if specie in RyR_states:
@@ -315,39 +314,22 @@ kr.text = str(35e-4)
 
 cam = etree.SubElement(root,"Reaction", name="CaM2C_bind", id="CaM2C_bind")
 etree.SubElement(cam, "Reactant", specieID="CaMCa2C")
-etree.SubElement(cam, "Reactant", specieID="Ca")
-etree.SubElement(cam, "Product", specieID="CaMCa2C1N",)
-kf = etree.SubElement(cam, "forwardRate")
-kf.text = str(13.5e-6)
-kr = etree.SubElement(cam, "reverseRate")
-kr.text = str(228.3e-3)
-
-cam = etree.SubElement(root,"Reaction", name="CaM2C_bind", id="CaM2C_bind2")
-etree.SubElement(cam, "Reactant", specieID="CaMCa2C1N")
-etree.SubElement(cam, "Reactant", specieID="Ca")
+etree.SubElement(cam, "Reactant", specieID="Ca", power="2")
 etree.SubElement(cam, "Product", specieID="CaMCa4",)
 kf = etree.SubElement(cam, "forwardRate")
-kf.text = str(26.3e-6)
+kf.text = str(1.48e-7)
 kr = etree.SubElement(cam, "reverseRate")
-kr.text = str(64e-3)
+kr.text = str(60e-3)
 
 cam = etree.SubElement(root,"Reaction", name="CaM_bind", id="CaM_bind")
 etree.SubElement(cam, "Reactant", specieID="CaM")
-etree.SubElement(cam, "Reactant", specieID="Ca")
-etree.SubElement(cam, "Product", specieID="CaMCa1N",)
-kf = etree.SubElement(cam, "forwardRate")
-kf.text = str(13.5e-6)
-kr = etree.SubElement(cam, "reverseRate")
-kr.text = str(228.3e-3)
-
-cam = etree.SubElement(root,"Reaction", name="CaM_bind2", id="CaM_bind2")
-etree.SubElement(cam, "Reactant", specieID="CaMCa1N")
-etree.SubElement(cam, "Reactant", specieID="Ca")
+etree.SubElement(cam, "Reactant", specieID="Ca", power="2")
 etree.SubElement(cam, "Product", specieID="CaMCa2N",)
 kf = etree.SubElement(cam, "forwardRate")
-kf.text = str(26.3e-6)
+kf.text = str(1.48e-7)
 kr = etree.SubElement(cam, "reverseRate")
-kr.text = str(64e-3)
+kr.text = str(60e-3)
+
 
 cam = etree.SubElement(root,"Reaction", name="CaM2N_bind", id="CaM2N_bind")
 etree.SubElement(cam, "Reactant", specieID="CaMCa2N")
