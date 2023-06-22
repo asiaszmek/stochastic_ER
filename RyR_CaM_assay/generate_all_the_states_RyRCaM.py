@@ -135,7 +135,9 @@ for comb1 in combinations(range(4), 2):
             RyR_states.append(new_name)
             
 RyR_states.append("RyR_1CaM_1CaMCa2C_1CaMCa2N_1CaMCa4")
-
+child = etree.SubElement(root, "Specie", name=RyR_states[-1],
+                                 id=RyR_states[-1], kdiff="0",
+                                 kdiffunit="mu2/s")
             
 numbers = [[1, 1, 2], [1, 2, 1], [2, 1, 1]]    
 for comb2 in combinations(range(4), 3):
