@@ -407,9 +407,43 @@ for ryr_specie in RyR_states:
                         
                     
     else:
-        pass
+        # RyR_1CaM_1CaMCa2C_1CaMCa2N_1CaMCa4
+
+        #  1 RyR_2CaMCa2C_1CaMCa2N_1CaMCa4                        
+        product = make_product_name_3(1, "CaMCa4",
+                                      1, "CaMCa2N",
+                                      2, "CaMCa2C",
+                                      RyR_states)
+        rxn_idx = add_reaction(root, ryr_specie, product,
+                               kf["2C"], kr["2C"],
+                               rxn_idx)
+
+        #  2 RyR_1CaMCa2C_2CaMCa2N_1CaMCa4
+        product = make_product_name_3(1, "CaMCa4",
+                                      2, "CaMCa2N",
+                                      1, "CaMCa2C",
+                                      RyR_states)
+        rxn_idx = add_reaction(root, ryr_specie, product,
+                               kf["2N"], kr["2N"],
+                               rxn_idx)
+
+        #  3 RyR_1CaM_1CaMCa2N_2CaMCa4
+        product = make_product_name_3(2, "CaMCa4",
+                                      1, "CaMCa2N",
+                                      1, "CaM",
+                                      RyR_states)
+        rxn_idx = add_reaction(root, ryr_specie, product,
+                               kf["2N"], kr["2N"],
+                               rxn_idx)
+        #  4 RyR_1CaM_1CaMCa2C_2CaMCa4
+        product = make_product_name_3(2, "CaMCa4",
+                                      1, "CaMCa2C",
+                                      1, "CaM",
+                                      RyR_states)
+        rxn_idx = add_reaction(root, ryr_specie, product,
+                               kf["2C"], kr["2C"],
+                               rxn_idx)
         
-                
-                
+        
 my_file.write('<?xml version="1.0"?>\n')
 my_file.write(etree.tostring(root, pretty_print=True).decode('utf-8'))
