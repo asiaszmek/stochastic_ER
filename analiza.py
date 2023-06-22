@@ -256,13 +256,14 @@ if __name__ == '__main__':
         my_file = h5py.File(fname, 'r')
         output_dict = get_output_regions(my_file)
         for trial in my_file.keys():
-            if trial != 'model':
+            if trial != "model":
                 save_concentrations(my_file, fname[:-3], '__main__',
                                     trial=trial)
-                for out in output_dict:
-                    if output_dict[out] is None:
-                        save_concentrations(my_file, fname[:-3], out,
-                                            trial=trial)
+            
+                # for out in output_dict:
+                #     if output_dict[out] is None:
+                #         save_concentrations(my_file, fname[:-3], out,
+                #                             trial=trial)
                     
     print('Done')
 
