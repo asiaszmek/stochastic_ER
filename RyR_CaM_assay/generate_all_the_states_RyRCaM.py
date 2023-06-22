@@ -122,7 +122,9 @@ for comb1 in combinations(range(4), 2):
                                      kdiffunit="mu2/s")
             RyR_states.append(new_name)
             
+RyR_states.append("RyR_1CaM_1CaMCa2C_1CaMCa2N_1CaMCa4")
 
+            
 numbers = [[1, 1, 2], [1, 2, 1], [2, 1, 1]]    
 for comb2 in combinations(range(4), 3):
     specie1 = ryr_cam_binding[comb2[0]]
