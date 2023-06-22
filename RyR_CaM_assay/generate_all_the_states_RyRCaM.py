@@ -50,8 +50,25 @@ def make_product_name_3(no_specie1, specie1, no_specie2, specie2, no_specie3,
         new_name = "RyR_%d%s_%d%s" % (no_specie1, specie1, no_specie2, specie2)
         return check_specie_2(new_name, RyR_states)
     
+    if specie1 == specie2:
+        new_name = "RyR_%d%s_%d%s" % (no_specie1+no_specie2, specie1,
+                                      no_specie3, specie3)
+        return check_specie_2(new_name, RyR_states)
+
+    if specie1 == specie3:
+        new_name = "RyR_%d%s_%d%s" % (no_specie1+no_specie3, specie1,
+                                      no_specie2, specie2)
+        return check_specie_2(new_name, RyR_states)
+    
+    if specie3 == specie2:
+        new_name = "RyR_%d%s_%d%s" % (no_specie1, specie1,
+                                      no_specie3+no_specie2, specie3)
+        return check_specie_2(new_name, RyR_states)
+
+    
     new_name = "RyR_%d%s_%d%s_%d%s" % (no_specie1, specie1, no_specie2,
                                       specie2, no_specie3, specie3)
+
     return check_specie_3(new_name, RyR_states)
 
 
