@@ -124,14 +124,12 @@ for molecule in molecules:
         m_kdiff = kdiff[molecule]
     else:
         m_kdiff = "0"
-    child = etree.SubElement(root, "Specie", name=molecule, id=molecule, kdiff=m_kdiff, kdiffunit="mu2/s")
+    child = etree.SubElement(root, "Specie", name=molecule,
+                             id=molecule, kdiff=m_kdiff, kdiffunit="mu2/s")
 
 #RyR binding CaM states:
 for specie in ryr_cam_binding:
     new_name = "RyR_4%s" % specie
-    child = etree.SubElement(root, "Specie", name=new_name,
-                                     id=new_name, kdiff="0",
-                                     kdiffunit="mu2/s")
     RyR_states.append(new_name)
 
 for comb1 in combinations(range(4), 2):
@@ -140,21 +138,10 @@ for comb1 in combinations(range(4), 2):
     for i in range(1, 4):
         j = 4 - i
         new_name = "RyR_%d%s_%d%s" % (i, specie1, j, specie2)
-        child = etree.SubElement(root, "Specie", name=new_name,
-                                 id=new_name, kdiff="0",
-                                 kdiffunit="mu2/s")
         RyR_states.append(new_name)
-        if i != j:
-            new_name = "RyR_%d%s_%d%s" % (j, specie1, i, specie2)
-            child = etree.SubElement(root, "Specie", name=new_name,
-                                     id=new_name, kdiff="0",
-                                     kdiffunit="mu2/s")
-            RyR_states.append(new_name)
+        new_name = "RyR_%d%s_%d%s" % (j, specie1, i, specie2)
+        RyR_states.append(new_name)
             
-RyR_states.append("RyR_1CaM_1CaMCa2C_1CaMCa2N_1CaMCa4")
-child = etree.SubElement(root, "Specie", name=RyR_states[-1],
-                                 id=RyR_states[-1], kdiff="0",
-                                 kdiffunit="mu2/s")
             
 numbers = [[1, 1, 2], [1, 2, 1], [2, 1, 1]]    
 for comb2 in combinations(range(4), 3):
@@ -165,11 +152,15 @@ for comb2 in combinations(range(4), 3):
         new_name = "RyR_%d%s_%d%s_%d%s" % (number[0], specie1,
                                            number[1], specie2,
                                            number[2], specie3)
-        child = etree.SubElement(root, "Specie", name=new_name,
-                                 id=new_name, kdiff="0",
-                                 kdiffunit="mu2/s")
         RyR_states.append(new_name)
 
+RyR_states.append("RyR_1CaM_1CaMCa2C_1CaMCa2N_1CaMCa4")
+
+for state in sorted(list(set(RyR_states))):
+    child = etree.SubElement(root, "Specie", name=state,
+                             id=state, kdiff="0",
+                             kdiffunit="mu2/s")
+        
 rxn_idx = 0
 
 #start with RyR_4CaM:
