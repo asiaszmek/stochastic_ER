@@ -7,7 +7,19 @@ kdiff = {
     "Ca": "100",
     "CaER": "10",
 }
-ryr_name = "RyR_4CaM"
+
+other_indices = {
+    0: [1, 2],
+    1: [0, 2],
+    2: [0, 1]
+}
+
+other_indices_4 = {
+    0: [1, 2, 3],
+    1: [0, 2, 3],
+    2: [0, 1, 3],
+    3: [0, 1, 2],
+}
 
 ca = "Ca"
 #calculated from EdSchutter's models
@@ -54,7 +66,7 @@ def add_reaction(root1, specie1, product1, kf1, kr1, rxn_idx):
     kf.text = str(kf1)
     kr = etree.SubElement(my_reac, "reverseRate")
     kr.text = str(kr1)
-    return my_reac
+    return rxn_idx+1
 
 
 def check_specie_2(specie, RyR_states):
@@ -116,7 +128,7 @@ for comb1 in combinations(range(4), 2):
                                  kdiffunit="mu2/s")
         RyR_states.append(new_name)
         if i != j:
-            new_name = "RyR_%d%s_%d%s" % (j, specie2, i, specie1)
+            new_name = "RyR_%d%s_%d%s" % (j, specie1, i, specie2)
             child = etree.SubElement(root, "Specie", name=new_name,
                                      id=new_name, kdiff="0",
                                      kdiffunit="mu2/s")
@@ -151,22 +163,23 @@ for ryr_specie in RyR_states:
         elif ryr_specie == "RyR_4CaMCa2C":
             product = "RyR_3CaMCa2C_1CaMCa4"
             product = check_specie_2(product, RyR_states)
-            add_reaction(root, ryr_specie, product, kf["2N"], kr["2N"], rxn_idx)
-            rxn_idx += 1
+            rxn_idx = add_reaction(root, ryr_specie, product, kf["2N"], kr["2N"],
+                                   rxn_idx)
         elif ryr_specie == "RyR_4CaMCa2N":
             product = "RyR_3CaMCa2N_1CaMCa4"
             product = check_specie_2(product, RyR_states)
-            add_reaction(root, ryr_specie, product, kf["2C"], kr["2C"], rxn_idx)
-            rxn_idx += 1
+            rxn_idx = add_reaction(root, ryr_specie, product, kf["2C"], kr["2C"],
+                                   rxn_idx)
+
         else:
             product = "RyR_3CaM_1CaMCa2C"
             product = check_specie_2(product, RyR_states)
-            add_reaction(root, ryr_specie, product, kf["2C"], kr["2C"], rxn_idx)
-            rxn_idx += 1
+            rxn_idx = add_reaction(root, ryr_specie, product, kf["2C"], kr["2C"], rxn_idx)
+            
             product = "RyR_3CaM_1CaMCa2N"
             product = check_specie_2(product, RyR_states)
-            add_reaction(root, ryr_specie, product, kf["2N"], kr["2N"], rxn_idx)
-            rxn_idx += 1
+            rxn_idx = add_reaction(root, ryr_specie, product, kf["2N"], kr["2N"], rxn_idx)
+            
 
     elif len(components) == 3:
 
@@ -186,17 +199,17 @@ for ryr_specie in RyR_states:
             #specie binding reactions:
             if endswith in ["2C", "2N"]:
                 product = make_product_name_2(no_camca4+1, "CaMCa4", no_specie-1, specie1, RyR_states)
-                add_reaction(root, ryr_specie, product, kf_rev[endswith], kr_rev[endswith], rxn_idx)
-                rxn_idx += 1
+                rxn_idx = add_reaction(root, ryr_specie, product, kf_rev[endswith], kr_rev[endswith], rxn_idx)
+                
             else:
                 product = make_product_name_3(no_camca4, "CaMCa4", no_specie-1, specie1,
                                               1, "CaMCa2N", RyR_states)
-                add_reaction(root, ryr_specie, product, kf["2N"], kr["2N"], rxn_idx)
-                rxn_idx += 1
+                rxn_idx = add_reaction(root, ryr_specie, product, kf["2N"], kr["2N"], rxn_idx)
+                
                 product = make_product_name_3(no_camca4, "CaMCa4", no_specie-1,
                                               specie1, 1, "CaMCa2C", RyR_states)
-                add_reaction(root, ryr_specie, product, kf["2C"], kr["2C"], rxn_idx)
-                rxn_idx += 1
+                rxn_idx = add_reaction(root, ryr_specie, product, kf["2C"], kr["2C"], rxn_idx)
+                
             continue
 
         if "CaM" in species:
@@ -216,11 +229,11 @@ for ryr_specie in RyR_states:
                 print(1, "CaMCa4", no_cam, "CaM", no_specie-1,
                       specie1)
                 
-                add_reaction(root, ryr_specie, product, kf_rev[endswith], kr_rev[endswith], rxn_idx)
-                rxn_idx += 1
+                rxn_idx = add_reaction(root, ryr_specie, product, kf_rev[endswith], kr_rev[endswith], rxn_idx)
+                
                 product = make_product_name_2(no_cam-1, 'CaM', no_specie+1, specie1, RyR_states)
-                add_reaction(root, ryr_specie, product, kf[endswith], kr[endswith], rxn_idx)
-                rxn_idx += 1
+                rxn_idx = add_reaction(root, ryr_specie, product, kf[endswith], kr[endswith], rxn_idx)
+                
             continue
         #   RyR_n1CaMCa2C_n2CaMCa2N
         specie1 = species[0]
@@ -229,16 +242,145 @@ for ryr_specie in RyR_states:
         no_2 = no_s[1]
 
         #  1: RyR_n1CaMCa2C_n2CaMCa2N + 2 Ca <-> RyR_(n1-1)CaMCa2C_n2CaMCa2N_1CaMCa4 kf["2N"], kr["2N"]
-        product = make_product_name_3(1, "CaMCa4", no_1-1, specie1, no_2,
+        product = make_product_name_3(1, "CaMCa4", no_1-1, specie1,
+                                      no_2,
                                       specie2, RyR_states)
-        print(1, "CaMCa4", no_1-1, specie1, no_2, specie2, ryr_specie, product)
-        add_reaction(root, ryr_specie, product, kf_rev[specie1[-2:]], kr_rev[specie1[-2:]], rxn_idx)
-        rxn_idx += 1
+        rxn_idx = add_reaction(root, ryr_specie, product, kf_rev[specie1[-2:]],
+                     kr_rev[specie1[-2:]], rxn_idx)
+        
         #  2: RyR_n1CaMCa2C_n2CaMCa2N + 2 Ca <-> RyR_n1CaMCa2C_(n2-1)CaMCa2N_1CaMCa4 kf["2C"], kr["2C"]
-        product = make_product_name_3(1, "CaMCa4", no_1, specie1, no_2-1,
+        product = make_product_name_3(1, "CaMCa4", no_1, specie1,
+                                      no_2-1,
                                       specie2, RyR_states)
-        add_reaction(root, ryr_specie, product, kf_rev[specie2[-2:]], kr_rev[specie2[-2:]], rxn_idx)
-        rxn_idx += 1
+        rxn_idx = add_reaction(root, ryr_specie, product,
+                     kf_rev[specie2[-2:]], kr_rev[specie2[-2:]],
+                     rxn_idx)
+        
+    elif len(components) == 4:
+        no_s = [int(components[1][0]), int(components[2][0]),
+                int(components[3][0])]
+        species = [components[1][1:], components[2][1:],
+                   components[2][1:]]
+        for i, cur_specie in species:
+            cur_no = no_s[i]
+            if cur_specie == "CaMCa4":
+                continue
+            elif cur_specie == "CaM":
+                #1 2C
+                if "CaMCa2C" in species:
+                    idx = species.index("CaMCa2C")
+                    no_camca2c = no_s[idx]
+                    if idx in [0, 1] and i in [0,1]:
+                        other = 2
+                    elif idx in [0, 2] and i in [0,2]:
+                        other = 1
+                    else:
+                        other = 0
+                    other_no = no_s[other]
+                    other_sp = species[other]
+                    product = make_product_name_3(no_camca2c+1,
+                                                  "CaMCa2C",
+                                                  no_s-1, "CaM",
+                                                  other_no,
+                                                  other_sp,
+                                                  RyR_states)
+                    rxn_idx = add_reaction(root, ryr_specie, product, kf["2C"],
+                                 kr["2C"], rxn_idx)
+                    
+                else:
+                    if cur_no == 2:
+                        product = "RyR_1CaM_1CaMCa2C_1CaMCa2N_1CaMCa4"
+                        rxn_idx = add_reaction(root, ryr_specie, product,
+                                     kf["2C"],
+                                     kr["2C"], rxn_idx)
+                        
+                    else:
+                        inds = other_indices[i]
+                        product = make_product_name_3(1,
+                                                      "CaMCa2C",
+                                                      no_s[inds[0]],
+                                                      species[inds[0]],
+                                                      no_s[inds[1]],
+                                                      species[inds[1]],
+                                                      RyR_states)
+                        rxn_idx = add_reaction(root, ryr_specie, product, kf["2C"],
+                                               kr["2C"], rxn_idx)
+                         
+                #1 2N
+                if "CaMCa2N" in species:
+                    idx = species.index("CaMCa2N")
+                    no_camca2c = no_s[idx]
+                    if idx in [0, 1] and i in [0,1]:
+                        other = 2
+                    elif idx in [0, 2] and i in [0,2]:
+                        other = 1
+                    else:
+                        other = 0
+                    other_no = no_s[other]
+                    other_sp = species[other]
+                    product = make_product_name_3(no_camca2c+1,
+                                                  "CaMCa2N",
+                                                  no_s-1, "CaM",
+                                                  other_no,
+                                                  other_sp,
+                                                  RyR_states)
+                    rxn_idx = add_reaction(root, ryr_specie, product, kf["2N"],
+                                 kr["2N"], rxn_idx)
+                    
+                else:
+                    if cur_no == 2:
+                        product = "RyR_1CaM_1CaMCa2C_1CaMCa2N_1CaMCa4"
+                        rxn_idx = add_reaction(root, ryr_specie, product,
+                                     kf["2N"],
+                                     kr["2N"], rxn_idx)
+                        
+                    else:
+                        inds = other_indices[i]
+                        product = make_product_name_3(1,
+                                                      "CaMCa2N",
+                                                      no_s[inds[0]],
+                                                      species[inds[0]],
+                                                      no_s[inds[1]],
+                                                      species[inds[1]],
+                                                      RyR_states)
+                        rxn_idx = add_reaction(root, ryr_specie, product, kf["2N"],
+                                               kr["2N"], rxn_idx)
+            else:
+                endswith = cur_specie[-2:]
+                if "CaMCa4" in species:
+                    idx = species.index("CaMCa4")
+                    no_camca4 = no_s[idx]
+                    if idx in [0, 1] and i in [0,1]:
+                        other = 2
+                    elif idx in [0, 2] and i in [0,2]:
+                        other = 1
+                    else:
+                        other = 0
+                    other_no = no_s[other]
+                    other_sp = species[other]
+                    product = make_product_name_3(cur_no, cur_specie,
+                                                  no_camca4-1, "CaMCa4",
+                                                  other_no,
+                                                  other_sp,
+                                                  RyR_states)
+                    rxn_idx = add_reaction(root, ryr_specie, product,
+                                           kf_rev[endswith], kr_rev[endswith],
+                                           rxn_idx)
+                else:
+                   
+                    inds = other_indices[i]
+                    product = make_product_name_3(1, "CaMCa4",
+                                                  no_s[inds[0]], species[inds[0]],
+                                                  no_s[inds[1]],
+                                                  species[inds[1]],
+                                                  RyR_states)
+                    rxn_idx = add_reaction(root, ryr_specie, product,
+                                           kf_rev[endswith], kr_rev[endswith],
+                                           rxn_idx)
+                        
+                    
+    else:
+        pass
         
                 
                 
