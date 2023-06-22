@@ -5,6 +5,9 @@
 *log
 *#*
 *out
-RyR3_assay/*xml
-RyR3_assay/*dig
-RyR3_assay/*csv
+RyR2_assay/*xml
+RyR2_assay/*dig
+RyR2_assay/*csv
+RyR_CaM_assay/*xml
+RyR_CaM_assay/*dig
+RyR_CaM_assay/*csv
