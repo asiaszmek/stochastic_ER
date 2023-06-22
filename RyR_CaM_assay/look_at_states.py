@@ -50,14 +50,13 @@ IC_text = """<?xml version="1.0" encoding="utf-8"?>
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
-    <NanoMolarity specieID="CaM" value="1000"/>
-    <NanoMolarity specieID="RyR"      value="10"    />
+    <NanoMolarity specieID="RyR_4CaM"      value="10"    />
   </ConcentrationSet>
 </InitialConditions>
 """
 
 
-Rxn_file = "Rxn.xml"
+Rxn_file = "Rxn_RyRCaM.xml"
 
 
 def get_key(cell):
