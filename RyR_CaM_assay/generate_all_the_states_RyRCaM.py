@@ -23,10 +23,10 @@ other_indices_4 = {
 
 ca = "Ca"
 #calculated from EdSchutter's models
-kf = {"2C": 17e-11, "2N": 1.46e-10}
+kf = {"2C": 17e-13, "2N": 1.46e-12}
 kr = {"2C": 35e-4, "2N": 60e-3}
 ryr_cam_binding = ["CaM",  "CaMCa2C", "CaMCa2N", "CaMCa4"]
-kf_rev = {"2N": 17e-11, "2C": 1.46e-10}
+kf_rev = {"2N": 17e-13, "2C": 1.46e-12}
 kr_rev = {"2N": 35e-4, "2C": 60e-3}
 
 def make_product_name_2(no_specie1, specie1, no_specie2, specie2, RyR_states):

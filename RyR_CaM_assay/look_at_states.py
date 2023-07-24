@@ -117,8 +117,8 @@ def sum_volume(my_file, region_list):
 if __name__ == "__main__":
 
         
-    for i, ca_conc in enumerate([0, 10, 50, 100, 500, 1000, 5000, 10000, 20000, 100000]):
-        ca_conc_nM = 2*int(np.ceil(ca_conc))
+    for i, ca_conc in enumerate([0, 10, 50, 100, 500, 1000, 5000, 10000, 50000, 100000]):
+        ca_conc_nM = int(np.ceil(ca_conc))
         IC_name = "Ca_%d.xml" % ca_conc_nM
         model_name = "RyR2_model_Ca_%d.xml" % ca_conc_nM
         output_name = "RyR2_model_Ca_%d.h5" % ca_conc_nM

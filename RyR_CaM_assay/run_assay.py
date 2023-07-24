@@ -52,30 +52,51 @@ IC_text = """<?xml version="1.0" encoding="utf-8"?>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
     <NanoMolarity specieID="CaM" value="1000"/>
-    <NanoMolarity specieID="RyR"      value="20"    />
+    <NanoMolarity specieID="RyR"      value="0.1"    />
   </ConcentrationSet>
 </InitialConditions>
 """
 
 IO_text =    """<OutputScheme>
-<OutputSet filename = "all"  dt=".1">
-<OutputSpecie name="Ca"/>
-<OutputSpecie name="RyRO1"/>
-<OutputSpecie name="Ca8RyR4CaMCa16"/>
-<OutputSpecie name="RyR"/>
-<OutputSpecie name="RyRCaM"/>
-<OutputSpecie name="RyR2CaM"/>
-<OutputSpecie name="RyR3CaM"/>
-<OutputSpecie name="RyR4CaM"/>
-<OutputSpecie name="RyR4CaMCCa8"/>
-<OutputSpecie name="RyR4CaMCa16" />
-<OutputSpecie name="Ca4RyR4CaMCCa8"/>
-<OutputSpecie name="Ca4RyR4CaMCa16"/>
+<OutputSet filename = "all"  dt=".01">
+ <OutputSpecie name="Ca" />
+  <OutputSpecie name="CaER"/>
+  <OutputSpecie name="RyR" />
+  <OutputSpecie name="RyRCaM"/>
+  <OutputSpecie name="RyR2CaM"/>
+  <OutputSpecie name="RyR3CaM"/>
+  <OutputSpecie name="RyR4CaM"/>
+  <OutputSpecie name="RyRCaMCa2"/>
+  <OutputSpecie name="RyR2CaMCa2"/>
+  <OutputSpecie name="RyR3CaMCa2"/>
+  <OutputSpecie name="RyR4CaMCa2"/>
+  <OutputSpecie name="RyR2CaMCa4"/>
+  <OutputSpecie name="RyR3CaMCa4"/>
+  <OutputSpecie name="RyR4CaMCa4"/>
+  <OutputSpecie name="RyR3CaMCa6"/>
+  <OutputSpecie name="RyR4CaMCa6"/>
+  <OutputSpecie name="RyR4CaMCCa8"/>
+  <OutputSpecie name="RyR4CaMCCa8NCa2"/>
+  <OutputSpecie name="RyR4CaMCCa8NCa4"/>
+  <OutputSpecie name="RyR4CaMCCa8NCa6"/>
+  <OutputSpecie name="RyR4CaMCa16"/>
 
-<OutputSpecie name="CaM" id="CaM"/>
-<OutputSpecie name="CaMCa2C"/>
-<OutputSpecie name="CaMCa2N"/>
-<OutputSpecie name="CaMCa4" />
+  <OutputSpecie name="RyRO1"/>
+  <OutputSpecie name="RyRO2"/>
+  <OutputSpecie name="RyRO3"/>
+  <OutputSpecie name="RyRO4"/>
+  <OutputSpecie name="RyRO5"/>
+  <OutputSpecie name="RyRO6"/>
+
+<OutputSpecie name="Ca4RyR4CaMCa16clamped"/>
+<OutputSpecie name="Ca8RyR4CaMCa16clamped"/>
+<OutputSpecie name="CaM"/>
+
+  <OutputSpecie name="CaMCa2C"/>
+  <OutputSpecie name="CaMCa1N"/>
+  <OutputSpecie name="CaMCa2N"/>
+  <OutputSpecie name="CaMCa2C1N"/>
+  <OutputSpecie name="CaMCa4"/>
 </OutputSet>
 </OutputScheme>"""
 
@@ -197,31 +218,31 @@ def get_numbers(my_file, output="all"):
         p_open_ryr = open_sum/ryr_basal/exp_len
         Ca_conc.append(mean_ca)
         open_ryr3.append(p_open_ryr)
-    #     if ryr_basal != 1:
-    #         continue
-    #     if tot_no > 0:
-    #         no += tot_no
-    #         sum_o += open_sum
+        if ryr_basal != 1:
+            continue
+        if tot_no > 0:
+            no += tot_no
+            sum_o += open_sum
         
-    #     sum_closed = get_all_closed(data, species)
-    #     tot_nc = tot_no
-    #     if end_closed:
-    #         nc += 1
+        sum_closed = get_all_closed(data, species)
+        tot_nc = tot_no
+        if end_closed:
+            nc += 1
 
-    #     if tot_nc > 0:
-    #         sum_c +=sum_closed
-    #         nc += no
+        if tot_nc > 0:
+            sum_c +=sum_closed
+            nc += no
 
-    # if  nc != 0:
-    #    mean_c_t = dt*sum_c/nc
-    # else:
-    #     mean_c_t = 0
-    # if no != 0: 
-    #     mean_o_t = dt*sum_o/no
-    # else:
-    #     mean_o_t = 0
-    #     mean_c_t = 0
-    return Ca_conc, open_ryr3,0, 0 #mean_o_t, mean_c_t
+    if  nc != 0:
+       mean_c_t = dt*sum_c/nc
+    else:
+        mean_c_t = 0
+    if no != 0: 
+        mean_o_t = dt*sum_o/no
+    else:
+        mean_o_t = 0
+        mean_c_t = 0
+    return Ca_conc, open_ryr3, mean_o_t, mean_c_t
 
 
 
