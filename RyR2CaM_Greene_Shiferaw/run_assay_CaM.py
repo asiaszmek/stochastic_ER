@@ -6,9 +6,9 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-ca_conc_file = "../RyR_CaM_assay/xu_meissner_RyR2CaM_po.csv"
-ryr_op_fname = "../RyR_CaM_assay/xu_meissner_RyR2CaM_minopentime.csv"
-ryr_cl_fname = "../RyR_CaM_assay/xu_meissner_RyR2CaM_minclosedtime.csv"
+ca_conc_file = "ryr_cam_po_1_um_CaM.csv"
+ryr_op_fname = "ryr_cam_to_1_um_CaM.csv"
+ryr_cl_fname = "ryr_cam_tc_1_um_CaM.csv"
 
 model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
