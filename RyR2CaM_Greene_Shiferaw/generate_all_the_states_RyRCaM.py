@@ -2,10 +2,11 @@ import numpy as np
 from lxml import etree
 from itertools import combinations
 my_file = open("Rxn_4_states.xml", "w")
-molecules = ["Ca"]
+molecules = ["Ca", "CaM"]
 kdiff = {
     "Ca": "100",
     "CaER": "10",
+    "CaM":"4",
 }
 ca = "Ca"
 
@@ -126,8 +127,6 @@ for specie in open_states:
         other_closed.append(new_specie)
         RyR_states.append(new_specie)
 
-print(RyR_states)
-
 for state in sorted(list(set(RyR_states))):
     child = etree.SubElement(root, "Specie", name=state,
                              id=state, kdiff="0",
@@ -235,12 +234,12 @@ my_file.write('<?xml version="1.0"?>\n')
 my_file.write(etree.tostring(root, pretty_print=True).decode('utf-8'))
 
 
-with new_f as open("IO_RyR.xml", "w"):
+with open("IO_RyR.xml", "w") as new_f:
 
     root = etree.Element("OutputScheme")
     dataset = etree.SubElement(root, "OutputSet",
                                filename="all", dt="0.01")
-    for specie in species:
+    for specie in RyR_states:
         etree.SubElement(dataset, "OutputSpecie", name=specie)
     new_f.write('<?xml version="1.0"?>\n')
     new_f.write(etree.tostring(root, pretty_print=True).decode('utf-8'))
