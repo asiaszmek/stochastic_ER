@@ -117,7 +117,9 @@ def sum_volume(my_file, region_list):
 def get_all_closed(data, species):
     sum_times = 0
     for specie in species:
-        if "O" in specie:
+        if "3O" in specie:
+            continue
+        if "4O" in specie:
             continue
         if "RyR" not in specie:
             continue
@@ -129,7 +131,7 @@ def get_all_closed(data, species):
 def get_all_open(data, species):
     state = np.zeros(data[:, 0, 0].shape)
     for specie in species:
-        if "O" not in specie:
+        if "3O" not in specie or "4O" not in specie:
             continue
         if "RyR" not in specie:
             continue
