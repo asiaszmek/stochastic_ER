@@ -18,7 +18,9 @@ krcam = 7e-05
 kfca = 2.4e-06   #   kd for Ca 15uM (Shifferaw?)
 krca = 0.036
 kfC1O = 2.79
-krC1O = 0.33 #  G&S 2022
+krC1O = 0.33  #  G&S 2022
+kfOC2 = 0.25
+krOC2 = 0.6  #  G&S 2022
 
 
 def add_reaction(root1, specie1, specie2, product1, kf1, kr1, rxn_idx):
@@ -198,8 +200,28 @@ for specie in RyR_states:
     if new_O:
         new_reactant = "%s_%dO" % (new_reactant, new_O)
     new_reactant += specie.split("O")[-1]
-    print(new_reactant, specie)
     rxn_idx = add_transition(root, new_reactant, specie, kfC1O, krC1O,
+                             rxn_idx)
+
+
+for specie in RyR_states:
+    if "C2" not in specie:
+        continue
+    n_C2 = int(specie.split("C2")[0][-1])
+    n_O = 0
+    if "O" in specie:
+        n_O = int(specie.split("O")[0][-1])
+        new_base = specie.split("O")[0][:-2]
+    else:
+        new_base = specie.split("C2")[0][:-2]
+    new_O = n_O + 1
+    new_C2 = n_C2 - 1
+    new_reactant = "%s_%dO" % (new_base, new_O)
+    if new_C2:
+        new_reactant = "%s_%dC2" % (new_reactant, new_C2)
+    new_reactant += specie.split("C2")[-1]
+    print(new_reactant, specie)
+    rxn_idx = add_transition(root, new_reactant, specie, kfOC2, krOC2,
                              rxn_idx)
     
 
