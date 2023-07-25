@@ -233,3 +233,14 @@ for specie in RyR_states:
         
 my_file.write('<?xml version="1.0"?>\n')
 my_file.write(etree.tostring(root, pretty_print=True).decode('utf-8'))
+
+
+with new_f as open("IO_RyR.xml", "w"):
+
+    root = etree.Element("OutputScheme")
+    dataset = etree.SubElement(root, "OutputSet",
+                               filename="all", dt="0.01")
+    for specie in species:
+        etree.SubElement(dataset, "OutputSpecie", name=specie)
+    new_f.write('<?xml version="1.0"?>\n')
+    new_f.write(etree.tostring(root, pretty_print=True).decode('utf-8'))
