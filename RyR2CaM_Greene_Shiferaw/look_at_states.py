@@ -6,14 +6,12 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-ca_conc_file = "xu_meissner_RyR2CaM_po.csv"
-ryr_op_fname = "xu_meissner_RyR2CaM_minopentime.csv"
-ryr_cl_fname = "xu_meissner_RyR2CaM_minclosedtime.csv"
+ca_conc_file = "../RyR_CaM_assay/xu_meissner_RyR2CaM_po.csv"
 
 model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
     <xi:include href="%s" />
-    <xi:include href="Morph.xml" />
+    <xi:include href="../RyR_CaM_assay/Morph.xml" />
     <xi:include href="%s" />
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the
@@ -50,13 +48,14 @@ IC_text = """<?xml version="1.0" encoding="utf-8"?>
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
-    <NanoMolarity specieID="RyR_4CaM"      value="10"    />
+    <NanoMolarity specieID="CaM" value="0"/>
+    <NanoMolarity specieID="RyR"      value="10"    />
   </ConcentrationSet>
 </InitialConditions>
 """
 
 
-Rxn_file = "Rxn_RyRCaM.xml"
+Rxn_file = "Rxn_4_states.xml"
 
 
 def get_key(cell):
