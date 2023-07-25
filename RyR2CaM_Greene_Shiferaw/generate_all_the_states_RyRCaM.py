@@ -17,6 +17,9 @@ krcam = 7e-05
 
 kfca = 2.4e-06   #   kd for Ca 15uM (Shifferaw?)
 krca = 0.036
+kfC1O = 2.79
+krC1O = 0.33 #  G&S 2022
+
 
 def add_reaction(root1, specie1, specie2, product1, kf1, kr1, rxn_idx):
     my_reac = etree.SubElement(root1, "Reaction",
@@ -178,6 +181,29 @@ for specie in RyR_states:
     #print(new_reactant, specie)
     rxn_idx = add_reaction(root, new_reactant, "Ca", specie, kfca, krca, rxn_idx)
 #C1 to O transition
+
+for specie in RyR_states:
+    if "O" not in specie:
+        continue
+    n_O = int(specie.split("O")[0][-1])
+    n_C1 = 0
+    if "C1" in specie:
+        n_C1 = int(specie.split("C1")[0][-1])
+        new_base = specie.split("C1")[0][:-2]
+    else:
+        new_base = specie.split("O")[0][:-2]
+    new_C1 = n_C1 + 1
+    new_O = n_O - 1
+    new_reactant = "%s_%dC1" % (new_base, new_C1)
+    if new_O:
+        new_reactant = "%s_%dO" % (new_reactant, new_O)
+    new_reactant += specie.split("O")[-1]
+    print(new_reactant, specie)
+    rxn_idx = add_transition(root, new_reactant, specie, kfC1O, krC1O,
+                             rxn_idx)
+    
+
+
 
 #O to C2 transitions
     
