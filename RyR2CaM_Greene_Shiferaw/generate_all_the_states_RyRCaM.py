@@ -15,6 +15,9 @@ krl = 7e-05
 kfcam = 2e-07
 krcam = 7e-05
 
+kfca = 2.4e-06   #   kd for Ca 15uM (Shifferaw?)
+krca = 0.036
+
 def add_reaction(root1, specie1, specie2, product1, kf1, kr1, rxn_idx):
     my_reac = etree.SubElement(root1, "Reaction",
                                name="RyRCaM%d" % rxn_idx,
@@ -153,11 +156,27 @@ for specie in RyR_states:
         reactant = specie.split(str(n_cam)+"CaM")[0]+str(new_n_cam)+"CaM"+rest
     else:
         reactant = specie.split(str(n_cam)+"CaM")[0][:-1] + rest
-    print(reactant, specie)
     rxn_idx = add_reaction(root, reactant, "CaM", specie, kfcam, krcam, rxn_idx)
     
 #Ca binding to L
-
+for specie in RyR_states:
+    if "C1" not in specie:
+        continue
+    n_C1 = int(specie.split("C1")[0][-1])
+    n_L = 0
+    if "L" in specie:
+        n_L = int(specie.split("L")[0][-1])
+        new_base = specie.split("L")[0][:-2]
+    else:
+        new_base = specie.split("C1")[0][:-2]
+    new_L = n_L + 1
+    new_C1 = n_C1 - 1
+    new_reactant = "%s_%dL" % (new_base, new_L)
+    if new_C1:
+        new_reactant = "%s_%dC1" % (new_reactant, new_C1)
+    new_reactant += specie.split("C1")[-1]
+    #print(new_reactant, specie)
+    rxn_idx = add_reaction(root, new_reactant, "Ca", specie, kfca, krca, rxn_idx)
 #C1 to O transition
 
 #O to C2 transitions
