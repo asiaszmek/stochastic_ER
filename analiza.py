@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from __future__ import print_function, division, unicode_literals
 import h5py
 import numpy as np
 from lxml import etree
@@ -85,7 +84,7 @@ def region_volumes(my_file):
     for cell in grid_list:
         key = get_key(cell)
         volumes[key] += float(cell[12])
-    print(volumes)
+
     return volumes
 
 
@@ -128,7 +127,7 @@ def region_surface(grid_list, direction=0):
                 surface[key] += depth * width
             else:
                 print('Unimplemented direction', direction)
-    print(surface)
+
     return surface
 
 
@@ -202,12 +201,6 @@ def get_concentrations(my_file, trial, out):
             concentrations[:, i, :] = nano_molarity(numbers[:, i, :],
                                                     volume_dict[reg])
 
-    for i, specie in enumerate(species):
-        if "SERCA" in specie or "RyR" in specie or "IP3R" in specie:
-            try:
-                print(specie, numbers[0, 0, i])
-            except IndexError:
-                pass
         
     return concentrations
 

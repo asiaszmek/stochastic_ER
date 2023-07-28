@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<ReactionScheme>
+  <Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s"/>
+  <Specie name="RyR" id="RyR" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR_2Ca" id="RyR_2Ca" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR_4Ca" id="RyR_4Ca" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR_6Ca" id="RyR_6Ca" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR_8Ca" id="RyR_8Ca" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR_3O" id="RyR_3O" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR_4O" id="RyR_4O" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR_3O_2Ca" id="RyR_3O_2Ca" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RyR_C2" id="RyR_C2" kdiff="0" kdiffunit="mu2/s"/>
+
+  <Reaction name="RyRCaM4" id="RyRCaM4">
+    <Reactant specieID="RyR"/>
+    <Reactant specieID="Ca" power="2"/>
+    <Product specieID="RyR_2Ca"/>
+    <forwardRate>1.2e-09</forwardRate>
+    <reverseRate>0.0025</reverseRate>
+  </Reaction>
+  <Reaction name="RyRCaM5" id="RyRCaM5">
+    <Reactant specieID="RyR_2Ca"/>
+    <Reactant specieID="Ca" power="2"/>
+    <Product specieID="RyR_4Ca"/>
+    <forwardRate>1.2e-09</forwardRate>
+    <reverseRate>0.0025</reverseRate>
+  </Reaction>
+  <Reaction name="RyRCaM6" id="RyRCaM6">
+    <Reactant specieID="RyR_4Ca"/>
+    <Reactant specieID="Ca" power="2"/>
+    <Product specieID="RyR_6Ca"/>
+    <forwardRate>1.2e-09</forwardRate>
+    <reverseRate>0.0025</reverseRate>
+  </Reaction>
+  <Reaction name="RyRCaM7" id="RyRCaM7">
+    <Reactant specieID="RyR_6Ca"/>
+    <Reactant specieID="Ca" power="2"/>
+    <Product specieID="RyR_8Ca"/>
+    <forwardRate>1.2e-09</forwardRate>
+    <reverseRate>0.0025</reverseRate>
+  </Reaction>
+
+  <Reaction name="RyRCaM8" id="RyRCaM8">
+    <Reactant specieID="RyR_3O"/>
+    <Reactant specieID="Ca" power="2"/>
+    <Product specieID="RyR_3O_2Ca"/>
+    <forwardRate>1.2e-09</forwardRate>
+    <reverseRate>0.0025</reverseRate>
+   </Reaction>
+
+  <Reaction name="RyRCaM9" id="RyRCaM9">
+    <Reactant specieID="RyR_6Ca"/>
+    <Product specieID="RyR_3O"/>
+    <forwardRate>0.001</forwardRate>
+    <reverseRate>0.125</reverseRate>
+  </Reaction>
+
+  <Reaction name="RyRCaM10" id="RyRCaM10">
+    <Reactant specieID="RyR_8Ca"/>
+    <Product specieID="RyR_4O"/>
+    <forwardRate>0.0001</forwardRate>
+    <reverseRate>0.0625</reverseRate>
+  </Reaction>
+  
+  <Reaction name="RyRCaM11" id="RyRCaM11">
+    <Reactant specieID="RyR_3O_2Ca"/>
+    <Product specieID="RyR_4O"/>
+    <forwardRate>0.1</forwardRate>
+    <reverseRate>0.5</reverseRate>
+  </Reaction>
+
+  <Reaction name="RyRCaM12" id="RyRCaM12">
+    <Reactant specieID="RyR_4O"/>
+    <Product specieID="RyR_C2"/>
+    <forwardRate>0.1</forwardRate>
+    <reverseRate>0.5</reverseRate>
+  </Reaction>
+  
+</ReactionScheme>

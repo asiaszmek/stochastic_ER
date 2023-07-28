@@ -6,9 +6,9 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-ca_conc_file = "JGP_201110706_Fig2_RyR2_po_pca.csv"
-ryr_op_fname = "JGP_201110706_Fig2_RyR2_to_po.csv"
-ryr_cl_fname = "JGP_201110706_Fig2_RyR2_tc_po.csv"
+ca_conc_file = "../RyR2CaM_Greene_Shiferaw/ryr_cam_po_no_cam.csv" #"JGP_201110706_Fig2_RyR2_po_pca.csv"
+ryr_op_fname = "../RyR2CaM_Greene_Shiferaw/ryr_cam_to_no_cam.csv" #"JGP_201110706_Fig2_RyR2_to_po.csv"
+ryr_cl_fname = "../RyR2CaM_Greene_Shiferaw/ryr_cam_tc_no_cam.csv" #"JGP_201110706_Fig2_RyR2_tc_po.csv"
 
 model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
@@ -202,7 +202,7 @@ Rxn_file = {
     "KL": "Rxn_module_RyR_KeizerLevine.xml",
     "Dura": "Rxn_module_RyR_Dura.xml",
     "Saftenku": "Rxn_module_RyR_Saftenku.xml",
-    "KLtuned": "Rxn_module_RyR_KeizerSmith.xml",
+    "KLtuned": "Rxn_module_RyR_KeizerSmith_CaM.xml",
     "Stern": "Rxn_module_RyR_Stern.xml",
     "Stern_JGP": "Rxn_module_RyR_Stern_JGP.xml",
     "Rice": "Rxn_module_RyR_Rice_modified.xml", 
@@ -364,8 +364,8 @@ if __name__ == "__main__":
     output = np.zeros(exp_res.shape)
     mean_times = []
     for i, ca_conc in enumerate(ca_conc_list):
-
-        ca_conc_nM = int(np.ceil(ca_conc*1e9))
+        print(ca_conc)
+        ca_conc_nM = int(np.ceil(ca_conc*1e3))
         IC_name = "Ca_%d.xml" % ca_conc_nM
         model_name = "RyR2_model_Ca_%d.xml" % ca_conc_nM
         output_name = "RyR2_model_Ca_%d.h5" % ca_conc_nM
@@ -387,7 +387,7 @@ if __name__ == "__main__":
             output[i, 0] = np.mean(conc)
             output[i, 1] = np.mean(po)
             print(np.mean(conc), np.mean(po), t_o, t_c)
-            mean_times.append([np.mean(po), t_o, t_c])
+            mean_times.append([np.mean(conc), t_o, t_c])
             
             
 
@@ -404,7 +404,7 @@ if __name__ == "__main__":
     fig, ax = plt.subplots(1)
     ax.set_xscale('log')
     ax.plot(exp_res[:, 0], exp_res[:, 1], "d", color="tab:blue", label="experimental data")
-    ax.plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
+    ax.plot(output[:, 0]*1e-3, output[:, 1], "d", color="tab:red", label="model data")
     ax.legend()
     ax.set_xlabel("Concentration [M]")
     ax.set_ylabel("RyR3 open probability")
@@ -416,13 +416,13 @@ if __name__ == "__main__":
             label="exp open")
     ax.plot(exp_closed[:, 0], exp_closed[:, 1], "d", color="tab:green",
             label="exp closed")
-    ax.plot(mean_times_a[:, 0], mean_times_a[:, 1], "d",
+    ax.plot(mean_times_a[:, 0]*1e-3, mean_times_a[:, 1], "d",
             label="model open", color="tab:cyan")
-    ax.plot(mean_times_a[:, 0], mean_times_a[:, 2], "d",
+    ax.plot(mean_times_a[:, 0]*1e-3, mean_times_a[:, 2], "d",
             label="model closed", color="tab:olive")
     
     ax.legend()
-    ax.set_xlabel("open probability")
+    ax.set_xlabel("Ca concentration")
     ax.set_ylabel("Time [ms]")
 
 
