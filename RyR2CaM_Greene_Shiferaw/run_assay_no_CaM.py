@@ -15,7 +15,7 @@ model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <xi:include href="%s" />
     <xi:include href="../RyR_CaM_assay/Morph.xml" />
     <xi:include href="%s" />
-    <xi:include href="IO_RyR.xml"/>
+    <xi:include href="IO_RyR_no_cam.xml"/>
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the
 results (also, 3D may not work yet...)  -->
@@ -51,14 +51,13 @@ IC_text = """<?xml version="1.0" encoding="utf-8"?>
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
-    <NanoMolarity specieID="CaM" value="0"/>
-    <NanoMolarity specieID="RyR"      value="0.1"    />
+    <NanoMolarity specieID="RyR_4L"      value="0.1"    />
   </ConcentrationSet>
 </InitialConditions>
 """
 
 
-Rxn_file = "Rxn_4_states.xml"
+Rxn_file = "Rxn_4_states_no_cam.xml"
 
 
 def get_key(cell):
@@ -131,12 +130,10 @@ def get_all_closed(data, species):
 def get_all_open(data, species):
     state = np.zeros(data[:, 0, 0].shape)
     for specie in species:
-        if "3O" not in specie or "4O" not in specie:
-            continue
-        if "RyR" not in specie:
-            continue
-
-        state +=  data[:, 0, species.index(specie)]
+        if "3O" in specie:
+            state +=  data[:, 0, species.index(specie)]
+        elif "4O" in specie:
+            state +=  data[:, 0, species.index(specie)]
     count = len(np.where((state[1:] - state[0:-1])==1)[0])
     sum_times = state.sum()
     return sum_times, count, state[-1]
@@ -166,7 +163,7 @@ def get_numbers(my_file, output="all"):
         mean_ca = data[:, 0, species.index("Ca")].mean()*10/6.023/vol
         
       
-        bas_idx = species.index("RyR")
+        bas_idx = species.index("RyR_4L")
       
         
         ryr_basal = data[0, 0, bas_idx]
@@ -216,16 +213,15 @@ if __name__ == "__main__":
     output = np.zeros(exp_res.shape)
     mean_times = []
     for i, ca_conc in enumerate(ca_conc_list):
-        ca_conc_nM = 2*int(np.ceil(ca_conc*1e3))
-        IC_name = "Ca_%d.xml" % ca_conc_nM
-        model_name = "RyR_model_Ca_%d.xml" % ca_conc_nM
-        output_name = "RyR_model_Ca_%d.h5" % ca_conc_nM
-        fic = open(IC_name, "w")
-        fic.write(IC_text % ca_conc_nM)
-        fic.close()
-        fm = open(model_name, "w")
-        fm.write(model_text % (Rxn_file, IC_name))
-        fm.close()
+        ca_conc_nM = int(np.ceil(ca_conc*1e3))
+        IC_name = "Ca_%d_no_cam.xml" % ca_conc_nM
+        model_name = "RyR_model_Ca_%d_no_cam.xml" % ca_conc_nM
+        output_name = "RyR_model_Ca_%d_no_cam.h5" % ca_conc_nM
+        with open(IC_name, "w") as fic:
+            fic.write(IC_text % ca_conc_nM)
+        with open(model_name, "w") as fm:
+            fm.write(model_text % (Rxn_file, IC_name))
+
         process = subprocess.run(["/usr/lib/jvm/java-8-openjdk-amd64/bin/java",
                                   "-jar",
                                   "/home/jszmek/new_neurord/neurord-3.2.3-all-deps.jar",

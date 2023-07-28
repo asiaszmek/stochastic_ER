@@ -131,12 +131,11 @@ def get_all_closed(data, species):
 def get_all_open(data, species):
     state = np.zeros(data[:, 0, 0].shape)
     for specie in species:
-        if "3O" not in specie or "4O" not in specie:
-            continue
-        if "RyR" not in specie:
-            continue
+        if "3O" in specie:
+            state +=  data[:, 0, species.index(specie)]
+        if "4O" in specie:
+            state +=  data[:, 0, species.index(specie)]
 
-        state +=  data[:, 0, species.index(specie)]
     count = len(np.where((state[1:] - state[0:-1])==1)[0])
     sum_times = state.sum()
     return sum_times, count, state[-1]
@@ -216,7 +215,7 @@ if __name__ == "__main__":
     output = np.zeros(exp_res.shape)
     mean_times = []
     for i, ca_conc in enumerate(ca_conc_list):
-        ca_conc_nM = 2*int(np.ceil(ca_conc*1e3))
+        ca_conc_nM = int(np.ceil(ca_conc*1e3))
         IC_name = "Ca_%d.xml" % ca_conc_nM
         model_name = "RyR_model_Ca_%d.xml" % ca_conc_nM
         output_name = "RyR_model_Ca_%d.h5" % ca_conc_nM
