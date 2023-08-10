@@ -210,7 +210,7 @@ if __name__ == "__main__":
     output = np.zeros(exp_res.shape)
     mean_times = []
     for i, ca_conc in enumerate(ca_conc_list):
-        ca_conc_nM = int(np.ceil(ca_conc*1e3))
+        ca_conc_nM = int(np.ceil(ca_conc))
         IC_name = "Ca_%d_simple_cam.xml" % ca_conc_nM
         model_name = "RyR_simple_Ca_%d_cam.xml" % ca_conc_nM
         output_name = "RyR_simple_Ca_%d_cam.h5" % ca_conc_nM
@@ -247,7 +247,7 @@ if __name__ == "__main__":
                header="Ca [nM], mean open time, mean closed time")
     fig, ax = plt.subplots(1)
     ax.set_xscale('log')
-    ax.plot(exp_res[:, 0]*1e-6, exp_res[:, 1], "d", color="tab:blue", label="experimental data")
+    ax.plot(exp_res[:, 0]*1e-9, exp_res[:, 1], "d", color="tab:blue", label="experimental data")
     ax.plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
     ax.legend()
     ax.set_xlabel("Concentration [M]")
@@ -256,9 +256,9 @@ if __name__ == "__main__":
     fig, ax = plt.subplots(1)
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.plot(exp_open[:, 0]*1e-6, exp_open[:, 1], "d", color="tab:blue",
+    ax.plot(exp_open[:, 0]*1e-9, exp_open[:, 1], "d", color="tab:blue",
             label="exp open")
-    ax.plot(exp_closed[:, 0]*1e-6, exp_closed[:, 1], "d", color="tab:green",
+    ax.plot(exp_closed[:, 0]*1e-9, exp_closed[:, 1], "d", color="tab:green",
             label="exp closed")
     ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
             label="model open", color="tab:cyan")
