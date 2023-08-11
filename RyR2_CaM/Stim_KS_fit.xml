@@ -1,0 +1,57 @@
+<StimulationSet>
+
+  <!--onset and duration in ms, rate in particles/ms-->
+    
+<InjectionStim specieID="Ca" injectionSite="dend:submembrane">
+    <onset>               20000          </onset>
+        <duration>        100         </duration> 
+       	<rate>               23.12      </rate>
+
+	<end>    20150                 </end>
+</InjectionStim>
+
+<InjectionStim specieID="Ca" injectionSite="dend:submembrane">
+    <onset>               40000          </onset>
+        <duration>        100         </duration> 
+       	<rate>               108      </rate>
+
+	<end>    40150                 </end>
+</InjectionStim>
+
+<InjectionStim specieID="Ca" injectionSite="dend:submembrane">
+    <onset>               60000          </onset>
+        <duration>        100         </duration> 
+       	<rate>               177      </rate>
+
+	<end>    60150                 </end>
+</InjectionStim>
+<InjectionStim specieID="Ca" injectionSite="dend:submembrane">
+    <onset>               80000          </onset>
+        <duration>        100         </duration> 
+       	<rate>               462      </rate>
+
+	<end>    80150                 </end>
+</InjectionStim>
+<InjectionStim specieID="Ca" injectionSite="dend:submembrane">
+    <onset>               100000          </onset>
+        <duration>        100         </duration> 
+       	<rate>               771     </rate>
+
+	<end>    100150                 </end>
+</InjectionStim>
+<InjectionStim specieID="Ca" injectionSite="dend:submembrane">
+    <onset>               120000          </onset>
+        <duration>        100         </duration> 
+       	<rate>               3083      </rate>
+
+	<end>    120150                 </end>
+</InjectionStim>
+
+<InjectionStim specieID="Ca" injectionSite="dend:submembrane">
+    <onset>               140000          </onset>
+        <duration>        100         </duration> 
+       	<rate>               12333      </rate>
+
+	<end>    140150                 </end>
+</InjectionStim>
+</StimulationSet>
