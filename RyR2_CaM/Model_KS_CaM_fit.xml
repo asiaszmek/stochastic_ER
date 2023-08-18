@@ -45,7 +45,7 @@ results. depth 2D units are microns  -->
 
     </discretization>
 
-    <outputInterval>      0.01   </outputInterval>
+    <outputInterval>      1  </outputInterval>
 
     <!-- the tolerace is used for adaptive sims -->
 
