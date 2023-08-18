@@ -119,10 +119,47 @@ file_list_ER_no_IP3R_simple_SERCA_Fura2 = [
     ]
 
 #for reproducing Ca wave paper
-file_list_ER_no_IP3R_no_SOCE_simple_SERCA_Fura2 = [
+file_list_ER_RyR2CaM_no_SOCE_simple_SERCA_Fura2 = [
     "Rxn_module_Ca.xml",
     #"Rxn_module_CaBuf.xml",
     "Rxn_module_RyR_KeizerSmith.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+    "Rxn_module_Fura2.xml",
+    ]
+
+
+#"For checking if adding SOCE help Ca wave propagation
+file_list_ER_RyR2CaM_simple_SERCA = [
+    "Rxn_module_Ca.xml",
+    #"Rxn_module_CaBuf.xml",
+    "Rxn_module_RyR_KeizerSmith_CaM.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+    "Rxn_module_SOCE.xml",
+    ]
+
+#for reproducing Ca wave paper
+file_list_ER_RyR2CaM_no_SOCE_simple_SERCA = [
+    "Rxn_module_Ca.xml",
+    #"Rxn_module_CaBuf.xml",
+    "Rxn_module_RyR_KeizerSmith_CaM.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+    ]
+
+file_list_ER_RyR2CaM_simple_SERCA_Fura2 = [
+    "Rxn_module_Ca.xml",
+    #"Rxn_module_CaBuf.xml",
+    "Rxn_module_RyR_KeizerSmith_CaM.xml",
+    "Rxn_module_simple_SERCA_ER.xml",
+    "Rxn_module_SOCE.xml",
+    "Rxn_module_Fura2.xml",
+
+    ]
+
+#for reproducing Ca wave paper
+file_list_ER_RyR2CaM_no_SOCE_simple_SERCA_Fura2 = [
+    "Rxn_module_Ca.xml",
+    #"Rxn_module_CaBuf.xml",
+    "Rxn_module_RyR_KeizerSmith_CaM.xml",
     "Rxn_module_simple_SERCA_ER.xml",
     "Rxn_module_Fura2.xml",
     ]
@@ -163,11 +200,18 @@ if __name__ == "__main__":
     # 1 no mGluR no RyR
    
 
-    my_rxn_f = read_in_files(file_list_ER_no_IP3R_simple_SERCA_Fura2)
-    f = open("Rxn_no_IP3R_SERCA_simple_RyR2_Fura2.xml", "w")
+    my_rxn_f = read_in_files(file_list_ER_RyR2CaM_simple_SERCA_Fura2)
+    f = open("Rxn_RyR2CaM_SERCA_simple_Fura2.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
-    my_rxn_f = read_in_files(file_list_ER_no_IP3R_no_SOCE_simple_SERCA_Fura2)
-    f = open("Rxn_no_IP3R_no_SOCE_SERCA_simple_RyR2_Fura2.xml", "w")
+    my_rxn_f = read_in_files(file_list_ER_RyR2CaM_no_SOCE_simple_SERCA_Fura2)
+    f = open("Rxn_RyR2CaM_no_SOCE_SERCA_simple_Fura2.xml", "w")
     f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
-    
+
+    my_rxn_f = read_in_files(file_list_ER_RyR2CaM_simple_SERCA_Fura2)
+    f = open("Rxn_RyR2CaM_SERCA_simple.xml", "w")
+    f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
+    my_rxn_f = read_in_files(file_list_ER_RyR2CaM_no_SOCE_simple_SERCA_Fura2)
+    f = open("Rxn_RyR2CaM_no_SOCE_SERCA_simple.xml", "w")
+    f.write(etree.tostring(my_rxn_f,
+                           pretty_print=True).decode("utf-8"))
                     

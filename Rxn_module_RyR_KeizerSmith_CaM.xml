@@ -77,7 +77,7 @@ Keizer and Smith -->
     <reverseRate>30e-05</reverseRate>
  </Reaction>
 
- <Reaction name="RyRbCaM1" id="RyRbCaM1">
+ <Reaction name="RyRb2CaM1" id="RyRb2CaM1">
     <Reactant specieID="RyR"/>
     <Reactant specieID="CaM" power="4"/>
     <Product specieID="RyRCaM"/>
