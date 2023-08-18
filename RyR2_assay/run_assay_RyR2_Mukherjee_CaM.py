@@ -6,16 +6,16 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-ca_conc_file = "../RyR2_CaM/ryr_cam_po_no_cam.csv" #"JGP_201110706_Fig2_RyR2_po_pca.csv"
-ryr_op_fname = "../RyR2_CaM/ryr_cam_to_no_cam.csv" #"JGP_201110706_Fig2_RyR2_to_po.csv"
-ryr_cl_fname = "../RyR2_CaM/ryr_cam_tc_no_cam.csv" #"JGP_201110706_Fig2_RyR2_tc_po.csv"
+ca_conc_file = "../RyR2_CaM/ryr_cam_po_1_uM_CaM.csv" #"JGP_201110706_Fig2_RyR2_po_pca.csv"
+ryr_op_fname = "../RyR2_CaM/ryr_cam_to_1_uM_CaM.csv" #"JGP_201110706_Fig2_RyR2_to_po.csv"
+ryr_cl_fname = "../RyR2_CaM/ryr_cam_tc_1_uM_CaM.csv" #"JGP_201110706_Fig2_RyR2_tc_po.csv"
 
 model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
     <xi:include href="../%s" />
     <xi:include href="Morph.xml" />
     <xi:include href="%s" />
-    <xi:include href="IO_Ca.xml"/>
+    <xi:include href="IO_Ca_CaM.xml"/>
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the
 results (also, 3D may not work yet...)  -->
@@ -60,6 +60,7 @@ IC_text = {
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
+    <NanoMolarity specieID="CaM" value="1000"/>
     <NanoMolarity specieID="RyR"      value="0.1"    />
   </ConcentrationSet>
 </InitialConditions>
@@ -365,7 +366,7 @@ if __name__ == "__main__":
     else:
         model = sys.argv[1]
         
-    f = open("IO_Ca.xml", "w")
+    f = open("IO_Ca_CaM.xml", "w")
     f.write(IO_text[model])
     f.close()
     exp_res = np.loadtxt(ca_conc_file, skiprows=1, delimiter=',')
@@ -375,9 +376,9 @@ if __name__ == "__main__":
     for i, ca_conc in enumerate(ca_conc_list):
         print(ca_conc)
         ca_conc_nM = int(np.ceil(ca_conc))
-        IC_name = "Ca_%d.xml" % ca_conc_nM
-        model_name = "RyR2_model_Ca_%d.xml" % ca_conc_nM
-        output_name = "RyR2_model_Ca_%d.h5" % ca_conc_nM
+        IC_name = "Ca_%d_CaM.xml" % ca_conc_nM
+        model_name = "RyR2_model_Ca_%d_CaM.xml" % ca_conc_nM
+        output_name = "RyR2_model_Ca_%d_CaM.h5" % ca_conc_nM
         fic = open(IC_name, "w")
         fic.write(IC_text[model] % ca_conc_nM)
         fic.close()
@@ -405,8 +406,8 @@ if __name__ == "__main__":
     exp_closed = np.loadtxt(ryr_cl_fname, skiprows=1, delimiter=",")
     mean_times_a = np.array(mean_times)
     date = date.today().strftime("%y%m%d")
-    res_fname1 = "po_res_%s_%s.csv" % (model, date)
-    res_fname2 = "open_closed_times_res_%s_%s.csv" % (model, date)
+    res_fname1 = "po_res_%s_%s_CaM.csv" % (model, date)
+    res_fname2 = "open_closed_times_res_%s_%s_CaM.csv" % (model, date)
     np.savetxt(res_fname1, output, delimiter=",", header="Ca [nM], po")
     np.savetxt(res_fname2, mean_times_a, delimiter=",",
                header="po, mean open time, mean closed time")
