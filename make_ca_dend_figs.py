@@ -77,7 +77,7 @@ def get_dynamics_in_region(my_file, specie, region, trial,
 if __name__ == '__main__':
     specie_list = ["Ca"]
     specie = "Ca"
-    reg_list = [ "dend01", "dend02", "dend03", "dend04", "dend05", "dend06",
+    reg_list = ["dend", "dend01", "dend02", "dend03", "dend04", "dend05", "dend06",
                  "dend07", "dend08", "dend09", "dend10", "dend11"]
     if len(sys.argv) == 1:
         sys.exit('No filename given')
