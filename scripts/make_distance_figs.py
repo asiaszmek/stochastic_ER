@@ -4,8 +4,8 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt 
 from lxml import etree
-import sys
-from scipy.constants import Avogadro
+import utility_functions as utils
+
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red',  'tab:purple', 'tab:brown',
           'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan', "b", "orange", "g",
           "r", "p" ]
@@ -142,72 +142,7 @@ def Parser():
 
     return parser
 
-def nano_molarity(N, V):
-    return 10 * N / V / NA
-
-
-def get_grid_list(My_file):
-    return np.array(My_file['model']['grid'])
-
-
-def get_times(My_file, trial='trial0', output="__main__"):
-    return np.array(My_file[trial]['output'][output]['times'])
-
-
-def get_outputs(my_file):
-    return my_file['model']['output'].keys()
-
-
-def get_populations(my_file, trial='trial0', output='__main__'):
-    return np.array(my_file[trial]['output'][output]['population'])
-
-
-def get_all_species(My_file, output="__main__"):
-    return [s.decode('utf-8') for s in My_file['model']['output'][output]['species']]
-
-
-def get_dend_indices(grid, region="dend"):
-    out = {}
-    volumes = {}
-    if not isinstance(region, list):
-        region = [region]
-    for i, line in enumerate(grid):
-        if line[15].decode('utf-8') in region:
-            pos = abs(np.round(line[0], 3))
-            if pos in out:
-                out[pos].append(i)
-            else:
-                out[pos] = [i]
-            if pos in volumes:
-                volumes[pos] += line[12]
-            else:
-                volumes[pos] = line[12]
-    return out, volumes
-
-
-def get_dynamics_in_region(my_file, specie, region, trial,
-                           output="__main__"):
-    if not isinstance(specie, list):
-        specie = [specie]
-    my_grid = get_grid_list(my_file)
-    vox_ind, vols = get_dend_indices(my_grid, region=region)
-    specie_list = get_all_species(my_file, output)
-    population = get_populations(my_file, trial, output)
-    specie_idx = []
-
-    for sp in specie:
-        specie_idx.append(specie_list.index(sp))
-    voxel_list = sorted(vox_ind.keys())
-    
-    how_many_voxels = len(voxel_list)
-    out = np.zeros((population.shape[0], how_many_voxels))
-    for i, key in enumerate(voxel_list):
-        volume = vols[key]
-        for idx in specie_idx:
-            h = population[:, vox_ind[key], idx].sum(axis=1)*multiplier[specie_list[idx]]
-            out[:, i] += nano_molarity(h, volume)
-    return out, voxel_list
-        
+      
 
 
 if __name__ == '__main__':
@@ -246,11 +181,11 @@ if __name__ == '__main__':
             for trial in my_file.keys():
                 if trial == "model":
                     continue
-                conc, voxels = get_dynamics_in_region(my_file,
-                                                  specie_list,
-                                                  reg_list, trial, output_name)
+                conc, voxels = utils.get_dynamics_in_region(my_file,
+                                                            specie_list,
+                                                            reg_list, trial, output_name)
                 conc_dict[trial] = conc
-                time = get_times(my_file, trial, output_name)
+                time = utils.get_times(my_file, trial, output_name)
                 time_dict[trial] = time
                 dt = time[1]-time[0]
 

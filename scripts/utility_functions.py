@@ -242,21 +242,42 @@ def save_concentrations(my_file, fname_base, output, trial='trial0'):
                                                  trial, spine_name))
 
 
-if __name__ == '__main__':
-    if len(sys.argv) == 1:
-        sys.exit('No filename given')
-    for fname in sys.argv[1:]:
-        my_file = h5py.File(fname, 'r')
-        output_dict = get_output_regions(my_file)
-        for trial in my_file.keys():
-            if trial != "model":
-                save_concentrations(my_file, fname[:-3], '__main__',
-                                    trial=trial)
-            
-                # for out in output_dict:
-                #     if output_dict[out] is None:
-                #         save_concentrations(my_file, fname[:-3], out,
-                #                             trial=trial)
-                    
-    print('Done')
+def get_dend_indices(grid, region="dend"):
+    out = {}
+    volumes = {}
+    if not isinstance(region, list):
+        region = [region]
+    for i, line in enumerate(grid):
+        if line[15].decode('utf-8') in region:
+            pos = abs(np.round(line[0], 3))
+            if pos in out:
+                out[pos].append(i)
+            else:
+                out[pos] = [i]
+            if pos in volumes:
+                volumes[pos] += line[12]
+            else:
+                volumes[pos] = line[12]
+    return out, volumes
 
+
+def get_dynamics_in_region(my_file, specie, region, trial,
+                           output="__main__"):
+    if not isinstance(specie, list):
+        specie = [specie]
+    my_grid = get_grid_list(my_file)
+    vox_ind, vols = get_dend_indices(my_grid, region=region)
+    specie_list = get_all_species(my_file, output)
+    population = get_populations(my_file, trial, output)
+    specie_idx = []
+    for sp in specie:
+        specie_idx.append(specie_list.index(sp))
+    voxel_list = sorted(vox_ind.keys())
+    how_many_voxels = len(voxel_list)
+    out = np.zeros((population.shape[0], how_many_voxels))
+    for i, key in enumerate(voxel_list):
+        volume = vols[key]
+        for idx in specie_idx:
+            h = population[:, vox_ind[key], idx].sum(axis=1)
+            out[:, i] += nano_molarity(h, volume)
+    return out, voxel_list

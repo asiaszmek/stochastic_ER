@@ -6,8 +6,8 @@ file_list = os.listdir()
 
 
 for fname in file_list:
-    if fname.startswith("model_RyR") and fname.endswith(".xml"):
-        split = fname[:-4]
-        new_fname = split+"Fura2.xml"
+    if "700" in fname and fname.endswith(".xml"):
+        split = fname.split("700")
+        new_fname = split[0]+"0700"+split[-1]
         print(new_fname)
-        subprocess.run(["cp", fname, new_fname], capture_output=True)
+        subprocess.run(["git", "mv", fname, new_fname], capture_output=True)
