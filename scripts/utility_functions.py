@@ -76,6 +76,8 @@ def get_key(cell):
     return cell[15].decode('utf-8')
 
 def region_volumes(my_file):
+    if isinstance(my_file, str):
+        my_file = h5py.File(my_file)
     grid_list = get_grid_list(my_file)
     regions = get_regions(my_file)
     volumes = {}
