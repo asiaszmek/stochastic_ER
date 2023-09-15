@@ -283,3 +283,32 @@ def get_dynamics_in_region(my_file, specie, region, trial,
             h = population[:, vox_ind[key], idx].sum(axis=1)
             out[:, i] += nano_molarity(h, volume)
     return out, voxel_list
+
+
+def get_conc(fullname, specie_list, region_list, output_name):
+    print(fullname)
+    my_file = h5py.File(fullname)
+    conc_dict = {}
+    time_dict = {}
+    
+    for trial in my_file.keys():
+        if trial == "model":
+            continue
+        conc, voxels = get_dynamics_in_region(my_file,
+                                                    specie_list,
+                                                    region_list, trial,
+                                                    output_name)
+        conc_dict[trial] = conc
+        time = get_times(my_file, trial, output_name)
+        time_dict[trial] = time
+    lmin = min([len(conc) for conc in conc_dict.values()])
+    
+    time_end = min([time[-1] for time in time_dict.values()])
+    time_len = min([len(time) for time in time_dict.values()])
+    time = np.linspace(0, time_end, time_len)
+    shape2 = max([conc.shape[1] for conc in conc_dict.values()])
+    conc_mean = np.zeros((lmin, shape2))
+    for conc in conc_dict.values():
+        conc_mean[:lmin, :] += conc[:lmin, :]
+    conc_mean /= len(conc_dict)
+    return voxels, time, conc_mean

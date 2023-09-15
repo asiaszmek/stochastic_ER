@@ -22,36 +22,6 @@ def set_ylim(ax, mini, maxi):
 
 
 
-def get_conc(fullname, specie_list, region_list, output_name):
-    print(fullname)
-    my_file = h5py.File(fullname)
-    conc_dict = {}
-    time_dict = {}
-    
-    for trial in my_file.keys():
-        if trial == "model":
-            continue
-        conc, voxels = utils.get_dynamics_in_region(my_file,
-                                                    specie_list,
-                                                    region_list, trial,
-                                                    output_name)
-        conc_dict[trial] = conc
-        time = utils.get_times(my_file, trial, output_name)
-        time_dict[trial] = time
-    lmin = min([len(conc) for conc in conc_dict.values()])
-    
-    time_end = min([time[-1] for time in time_dict.values()])
-    time_len = min([len(time) for time in time_dict.values()])
-    time = np.linspace(0, time_end, time_len)
-    shape2 = max([conc.shape[1] for conc in conc_dict.values()])
-    conc_mean = np.zeros((lmin, shape2))
-    for conc in conc_dict.values():
-        conc_mean[:lmin, :] += conc[:lmin, :]
-    conc_mean /= len(conc_dict)
-    return voxels, time, conc_mean
-        
-
-
 reg_list = ["dend", "dend01", "dend02", "dend03", "dend04", "dend05",
             "dend06", "dend07", "dend08", "dend09", "dend10",
             "dend11", "dend12", "dend13", "dend14", "dend15",
@@ -96,7 +66,7 @@ for i, x in enumerate(ax):
                        fontsize=12)
         fname = base_noSOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, basic_RyR_no_SOCE_dir, fname)
-        voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time, ca = utils.utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):
@@ -108,7 +78,7 @@ for i, x in enumerate(ax):
 
         fname_SOCE = base_SOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, basic_RyR_SOCE_dir, fname_SOCE)
-        voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time, ca = utils.utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):
@@ -122,7 +92,7 @@ for i, x in enumerate(ax):
         x[k].tick_params(labelsize=14)    
         fname = CaM_noSOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_no_SOCE_dir, fname)
-        voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time, ca = utils.utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):
@@ -135,7 +105,7 @@ for i, x in enumerate(ax):
         
         fname_SOCE = CaM_SOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_SOCE)
-        voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time, ca = utils.utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):

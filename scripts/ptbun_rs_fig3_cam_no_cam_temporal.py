@@ -21,37 +21,6 @@ def set_ylim(ax, mini, maxi):
         x.set_ylim([mini + 0.01, maxi + 0.05])
 
 
-
-def get_conc(fullname, specie_list, region_list, output_name):
-    print(fullname)
-    my_file = h5py.File(fullname)
-    conc_dict = {}
-    time_dict = {}
-    
-    for trial in my_file.keys():
-        if trial == "model":
-            continue
-        conc, voxels = utils.get_dynamics_in_region(my_file,
-                                                    specie_list,
-                                                    region_list, trial,
-                                                    output_name)
-        conc_dict[trial] = conc
-        time = utils.get_times(my_file, trial, output_name)
-        time_dict[trial] = time
-    lmin = min([len(conc) for conc in conc_dict.values()])
-    
-    time_end = min([time[-1] for time in time_dict.values()])
-    time_len = min([len(time) for time in time_dict.values()])
-    time = np.linspace(0, time_end, time_len)
-    shape2 = max([conc.shape[1] for conc in conc_dict.values()])
-    conc_mean = np.zeros((lmin, shape2))
-    for conc in conc_dict.values():
-        conc_mean[:lmin, :] += conc[:lmin, :]
-    conc_mean /= len(conc_dict)
-    return voxels, time, conc_mean
-        
-
-
 reg_list = ["dend25","dend26", "dend27"]
 
 file_path = os.path.abspath(__file__)
@@ -87,7 +56,7 @@ for i, x in enumerate(ax):
                        fontsize=12)
         fname = base_noSOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, basic_RyR_no_SOCE_dir, fname)
-        voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         output = ca.mean(axis=1)
         x[k].plot(time, output, colors["no_SOCE_no_CaM"],
                   label=labels["no_SOCE_no_CaM"])
@@ -96,7 +65,7 @@ for i, x in enumerate(ax):
 
         fname_SOCE = base_SOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, basic_RyR_SOCE_dir, fname_SOCE)
-        voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         output = ca.mean(axis=1)
         x[k].plot(time, output, colors["SOCE_no_CaM"],
                   label=labels["SOCE_no_CaM"])
@@ -107,7 +76,7 @@ for i, x in enumerate(ax):
         x[k].tick_params(labelsize=14)    
         fname = CaM_noSOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_no_SOCE_dir, fname)
-        voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         output = ca.mean(axis=1)
         x[k].plot(time, output, colors["no_SOCE_CaM"],
                   label=labels["no_SOCE_CaM"])
@@ -117,7 +86,7 @@ for i, x in enumerate(ax):
         
         fname_SOCE = CaM_SOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_SOCE)
-        voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         output = ca.mean(axis=1)
         x[k].plot(time, output, colors["SOCE_CaM"],
                   label=labels["SOCE_CaM"])
