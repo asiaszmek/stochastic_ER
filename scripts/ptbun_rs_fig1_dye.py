@@ -3,15 +3,13 @@ import h5py
 import matplotlib.pyplot as plt
 import numpy as np
 import utility_functions as utils
-colors_fura = ["b", "r", "g"]
-colors_no_fura = ["tab:blue", "tab:red", "tab:green"]
+colors_fura = ["k", "b", "g"]
+colors_no_fura = ["tab:gray", "tab:blue", "tab:green"]
 
 
-def set_ylim(ax):
-    mini = min([min(x.get_ylim()) for x in ax])
-    maxi = max([max(x.get_ylim()) for x in ax])
+def set_ylim(ax, mini, maxi):
     for x in ax:
-        x.set_ylim([mini-0.05, maxi+0.05])
+        x.set_ylim([mini + 0.01, maxi + 0.01])
 
 
 
@@ -65,17 +63,18 @@ RyRCaM_no_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE"
 RyRCaM_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
 output_name = "all"
 stims = ["0350", "0700", "1050"]
-stim_labels = ["2 uM Ca injection", "4 uM Ca injection", "inject 10 uM Ca injection"]
+stim_labels = ["2 uM Ca injection", "4 uM Ca injection", "10 uM Ca injection"]
 branch_diams = [1.2, 2.4, 6.0]
 Fura_specie = "Fura2Ca"
 t_stim = 3000  # sec
 dye_base = "model_RyR_simple_SERCA_tubes_diam_%2.1f_um_50_um_%s_nMFura2.h5"
 nodye_base = "model_RyR_simple_SERCA_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 
-fig, ax = plt.subplots(2, 3, figsize=(19, 14))
+fig, ax = plt.subplots(2, 3, figsize=(15, 12))
 
 #  Dye figs
-
+mini = 200000
+maxi = 0 
 for i, x in enumerate(ax[0]):
     x.set_title(stim_labels[i], fontsize=20)
     for k, b_diam in enumerate(branch_diams):
@@ -90,6 +89,8 @@ for i, x in enumerate(ax[0]):
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(conc_mean.shape[1]):
             max_fluo_vals[j] = conc_mean[:, j].max()
+        mini = min(mini, min(max_fluo_vals))
+        maxi = max(maxi, max(max_fluo_vals))
         x.plot(vox_axis, max_fluo_vals, colors_fura[k],
                label="dend diam=%2.1f um" % b_diam)
     if not i:
@@ -100,7 +101,9 @@ for i, x in enumerate(ax[0]):
     x.set_xticklabels([])
     x.tick_params(labelsize=14)
 
-
+set_ylim(ax[0], mini, maxi)
+mini = 200000
+maxi = 0 
 for i, x in enumerate(ax[1]):
 
     for k, b_diam in enumerate(branch_diams):
@@ -114,6 +117,9 @@ for i, x in enumerate(ax[1]):
         x.plot(vox_axis, max_fluo_vals, colors_fura[k],
                label="%2.1f um + Fura2" % b_diam)
         
+        maxi = max(maxi, max(max_fluo_vals))
+        mini = min(mini, min(max_fluo_vals))
+
         fname_no_dye = nodye_base % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, basic_RyR_no_SOCE_dir, fname_no_dye)
         voxels, time, ca = get_conc(full_name, ["Ca"], reg_list, output_name)
@@ -123,6 +129,9 @@ for i, x in enumerate(ax[1]):
             max_fluo_vals[j] = ca[:, j].max()/1000
         x.plot(vox_axis, max_fluo_vals, colors_no_fura[k],
                label="%2.1f um - Fura2" % b_diam)
+        maxi = max(maxi, max(max_fluo_vals))
+        mini = min(mini, min(max_fluo_vals))
+
         
     
     if not i:
@@ -138,8 +147,7 @@ for i, x in enumerate(ax[1]):
 
 
 
-set_ylim(ax[0])
-set_ylim(ax[1])
-fig.savefig("Ca_dye_effects.png", dpi=300,transparent=False, bbox_inches=None,
-            pad_inches=0.5)
+
+set_ylim(ax[1], mini, maxi)
+fig.savefig("Ca_dye_effects.png", dpi=300, bbox_inches="tight")
 plt.show()
