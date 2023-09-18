@@ -64,7 +64,7 @@ full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_SOCE)
 voxels, time, ca_SOCE_CaM = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
 
 # SOCE no CaM -- basal
-image_full = ax[0][0].imshow(ca_noSOCE_noCaM.T, aspect="auto",
+image_full = ax[0][0].imshow(ca_SOCE_CaM.T, aspect="auto",
                              interpolation="none",
                              origin="lower", extent = [time[0]*1e-3,
                                                        time[-1]*1e-3,
@@ -72,16 +72,16 @@ image_full = ax[0][0].imshow(ca_noSOCE_noCaM.T, aspect="auto",
                                                        voxels[-1]],
                              cmap=plt.get_cmap("Reds"))
 fig.colorbar(image_full, ax=ax[0][0])
-ax[0][0].set_title("no RyR inhibition + no SOCE")
+ax[0][0].set_title("control")
 ax[0][0].set_ylabel("x [um]")
 
-soce_alone = ca_SOCE_noCaM - ca_noSOCE_noCaM
+soce_alone = ca_noSOCE_CaM - ca_SOCE_CaM
 mini.append(soce_alone.min())
 maxi.append(soce_alone.max())
-cam_alone = ca_noSOCE_CaM - ca_noSOCE_noCaM
+cam_alone = ca_SOCE_noCaM - ca_SOCE_CaM
 mini.append(cam_alone.min())
 maxi.append(cam_alone.max())
-soce_and_cam_interaction = ca_SOCE_noCaM - ca_noSOCE_CaM
+soce_and_cam_interaction = ca_SOCE_CaM - ca_noSOCE_noCaM
 mini.append(soce_and_cam_interaction.min())
 maxi.append(soce_and_cam_interaction.max())
 vmin = min(mini)
@@ -119,7 +119,7 @@ ax[1][1].set_title("RyR inhibition + SOCE contribution")
 
 fig.colorbar(image_soce)
 ax[1][0].set_ylabel("x [um]")
-ax[0][1].set_xlabel("time [sec]")
+ax[1][0].set_xlabel("time [sec]")
 ax[1][1].set_xlabel("time [sec]")
 
 

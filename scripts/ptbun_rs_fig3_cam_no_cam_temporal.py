@@ -58,16 +58,16 @@ for i, x in enumerate(ax):
         full_name = os.path.join(cur_dir, basic_RyR_no_SOCE_dir, fname)
         voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         output = ca.mean(axis=1)
-        x[k].plot(time, output, colors["no_SOCE_no_CaM"],
+        x[k].plot(time/1000,output, colors["no_SOCE_no_CaM"],
                   label=labels["no_SOCE_no_CaM"])
         maxi.append(max(output))
         mini.append(min(output))
 
         fname_SOCE = base_SOCE % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, basic_RyR_SOCE_dir, fname_SOCE)
-        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
+        voxels, time,ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         output = ca.mean(axis=1)
-        x[k].plot(time, output, colors["_no_CaM"],
+        x[k].plot(time/1000,output, colors["_no_CaM"],
                   label=labels["_no_CaM"])
         maxi.append(max(output))
         mini.append(min(output))
@@ -78,7 +78,7 @@ for i, x in enumerate(ax):
         full_name = os.path.join(cur_dir, RyRCaM_no_SOCE_dir, fname)
         voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         output = ca.mean(axis=1)
-        x[k].plot(time, output, colors["no_SOCE_CaM"],
+        x[k].plot(time/1000,output, colors["no_SOCE_CaM"],
                   label=labels["no_SOCE_CaM"])
         maxi.append(max(output))
         mini.append(min(output))
@@ -88,7 +88,7 @@ for i, x in enumerate(ax):
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_SOCE)
         voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         output = ca.mean(axis=1)
-        x[k].plot(time, output, colors["_CaM"],
+        x[k].plot(time/1000,output, colors["_CaM"],
                   label=labels["_CaM"])
         maxi.append(max(output))
         mini.append(min(output))
@@ -99,10 +99,10 @@ for i, x in enumerate(ax):
         else:
             x[k].set_yticks([])
 
-        if i < 2:
+        if i < 1:
             x[k].set_xticks([])
         else:
-            x[k].set_xlabel("Distance from stim [um]", fontsize=20)
+            x[k].set_xlabel("Time [sec]", fontsize=20)
             x[k].tick_params(labelsize=14)
 
 
