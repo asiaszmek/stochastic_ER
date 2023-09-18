@@ -6,14 +6,14 @@ import utility_functions as utils
 
 
 colors = {"no_SOCE_no_CaM": "tab:blue",
-          "SOCE_no_CaM": "tab:green",
+          "_no_CaM": "tab:green",
           "no_SOCE_CaM": "tab:cyan",
-          "SOCE_CaM": "tab:olive",
+          "_CaM": "tab:olive",
 }
-labels = {"no_SOCE_no_CaM": "no SOCE no CaM",
-          "SOCE_no_CaM": "SOCE no CaM",
-          "no_SOCE_CaM": "no SOCE CaM",
-          "SOCE_CaM": "SOCE CaM",
+labels = {"no_SOCE_no_CaM": "no SOCE RyR dis-inh.",
+          "_no_CaM": " RyR dis-inh.",
+          "no_SOCE_CaM": "no SOCE",
+          "_CaM": "ctrl",
 }
 
 def set_ylim(ax, mini, maxi):
@@ -86,8 +86,8 @@ for i, x in enumerate(ax):
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):
             max_fluo_vals[j] = ca[:, j].max()/1000
-        x[k].plot(vox_axis, max_fluo_vals, colors["SOCE_no_CaM"],
-                  label=labels["SOCE_no_CaM"])
+        x[k].plot(vox_axis, max_fluo_vals, colors["_no_CaM"],
+                  label=labels["_no_CaM"])
         maxi.append(max(max_fluo_vals))
         mini.append(min(max_fluo_vals))
 
@@ -113,8 +113,8 @@ for i, x in enumerate(ax):
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):
             max_fluo_vals[j] = ca[:, j].max()/1000
-        x[k].plot(vox_axis, max_fluo_vals, colors["SOCE_CaM"],
-                  label=labels["SOCE_CaM"])
+        x[k].plot(vox_axis, max_fluo_vals, colors["_CaM"],
+                  label=labels["_CaM"])
         maxi.append(max(max_fluo_vals))
         mini.append(min(max_fluo_vals))
 
@@ -136,5 +136,5 @@ set_ylim(ax[1], min(mini), max(maxi))
 set_ylim(ax[0], min(mini), max(maxi))
 set_ylim(ax[2], min(mini), max(maxi))
 
-fig.savefig("SOCE_effects.png", dpi=300, bbox_inches="tight")
+fig.savefig("SOCE_effects.svg", dpi=100, bbox_inches="tight")
 plt.show()

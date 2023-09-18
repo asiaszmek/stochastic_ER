@@ -6,14 +6,14 @@ import utility_functions as utils
 
 
 colors = {"no_SOCE_no_CaM": "tab:blue",
-          "SOCE_no_CaM": "tab:green",
+          "_no_CaM": "tab:green",
           "no_SOCE_CaM": "tab:cyan",
-          "SOCE_CaM": "tab:olive",
+          "_CaM": "tab:olive",
 }
-labels = {"no_SOCE_no_CaM": "no SOCE no CaM",
-          "SOCE_no_CaM": "SOCE no CaM",
-          "no_SOCE_CaM": "no SOCE CaM",
-          "SOCE_CaM": "SOCE CaM",
+labels = {"no_SOCE_no_CaM": "no SOCE RyR dis-inh.",
+          "_no_CaM": " RyR dis-inh.",
+          "no_SOCE_CaM": "no SOCE",
+          "_CaM": "ctrl",
 }
 base = "dend"
 reg_list = [base, "dend01", "dend02", "dend03", "dend04", "dend05",
@@ -123,5 +123,5 @@ ax[0][1].set_xlabel("time [sec]")
 ax[1][1].set_xlabel("time [sec]")
 
 
-fig.savefig("Ca_mechanisms_contribution.png", dpi=300, bbox_inches="tight")
+fig.savefig("Ca_mechanisms_contribution.svg", dpi=100, bbox_inches="tight")
 plt.show()

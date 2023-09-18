@@ -5,21 +5,21 @@ import numpy as np
 import utility_functions as utils
 
 
-colors = {"no_SOCE_no_CaM": "tab:blue",
-          "_no_CaM": "tab:green",
-          "no_SOCE_CaM": "tab:cyan",
+colors = {"_no_CaM": "tab:green",
           "_CaM": "tab:olive",
+          "_no_CaM_ove": "tab:pink",
+          "_CaM_ove": "tab:purple",
 }
-labels = {"no_SOCE_no_CaM": "no SOCE RyR dis-inh.",
-          "_no_CaM": " RyR dis-inh.",
-          "no_SOCE_CaM": "no SOCE",
+labels = {"_no_CaM": "RyR dis-inh.",
           "_CaM": "ctrl",
+          "_no_CaM_ove": "RyR over-exp. and dis-inh.",
+          "_CaM_ove": "RyR over-exp.",
 }
 
 def set_ylim(ax, mini, maxi):
     for x in ax:
         x.set_ylim([mini + 0.01, maxi + 0.05])
-
+   
 
 
 reg_list = ["dend", "dend01", "dend02", "dend03", "dend04", "dend05",
@@ -42,18 +42,19 @@ basic_RyR_SOCE_dir = "Ca_wave_simple_SERCA_SOCE"
 RyRCaM_no_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE"
 RyRCaM_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
 output_name = "all"
-stims = ["0350", "0700", "1050"]
+stims = ["0350"]
 stim_labels = ["2 uM Ca injection", "4 uM Ca injection", "10 uM Ca injection"]
-branch_diams = [1.2, 2.4, 6.0]
+branch_diams = [2.4, 6.0]
 Fura_specie = "Fura2Ca"
+ryr_exp = ["", "_nc"]
+ryr_exp_label = ["", "RyR overexpression"]
+base_noSOCE = "model_RyR_simple_SERCA%s_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
+base_SOCE = "model_RyR_simple_SERCA_SOCE%s_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 
-base_noSOCE = "model_RyR_simple_SERCA_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
-base_SOCE = "model_RyR_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
+CaM_noSOCE = "model_RyR2CaM_simple_SERCA%s_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
+CaM_SOCE = "model_RyR2CaM_simple_SERCA_SOCE%s_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 
-CaM_noSOCE = "model_RyR2CaM_simple_SERCA_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
-CaM_SOCE = "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
-
-fig, ax = plt.subplots(nrows=1, ncols=3, figsize=(15, 5))
+fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(15, 5))
 
 mini = []
 maxi = []
@@ -62,25 +63,12 @@ maxi = []
 for i, x in enumerate([ax]):
    
     for k, b_diam in enumerate(branch_diams):
+    
         x[k].set_title(stim_labels[i]+ " diam %2.1f um" % b_diam,
                        fontsize=12)
-        fname = base_noSOCE % (b_diam, stims[i])
-        full_name = os.path.join(cur_dir, basic_RyR_no_SOCE_dir, fname)
-        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
-                                          output_name)
-        vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
-        max_fluo_vals = np.zeros_like(vox_axis)
-        for j in range(ca.shape[1]):
-            max_fluo_vals[j] = ca[:, j].max()/1000
-        x[k].plot(vox_axis, max_fluo_vals, colors["no_SOCE_no_CaM"],
-                  label=labels["no_SOCE_no_CaM"])
-        maxi.append(max(max_fluo_vals))
-        mini.append(min(max_fluo_vals))
-
-        fname_SOCE = base_SOCE % (b_diam, stims[i])
-        full_name = os.path.join(cur_dir, basic_RyR_SOCE_dir, fname_SOCE)
-        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
-                                          output_name)
+        fname = base_SOCE % (ryr_exp[0], b_diam, stims[i])
+        full_name = os.path.join(cur_dir, basic_RyR_SOCE_dir, fname)
+        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):
@@ -90,26 +78,23 @@ for i, x in enumerate([ax]):
         maxi.append(max(max_fluo_vals))
         mini.append(min(max_fluo_vals))
 
-        
-        x[k].tick_params(labelsize=14)    
-        fname = CaM_noSOCE % (b_diam, stims[i])
-        full_name = os.path.join(cur_dir, RyRCaM_no_SOCE_dir, fname)
-        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
-                                          output_name)
+        fname_SOCE = base_SOCE % (ryr_exp[1], b_diam, stims[i])
+        full_name = os.path.join(cur_dir, basic_RyR_SOCE_dir, fname_SOCE)
+        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):
             max_fluo_vals[j] = ca[:, j].max()/1000
-        x[k].plot(vox_axis, max_fluo_vals, colors["no_SOCE_CaM"],
-                  label=labels["no_SOCE_CaM"])
+        x[k].plot(vox_axis, max_fluo_vals, colors["_no_CaM_ove"],
+                  label=labels["_no_CaM_ove"])
         maxi.append(max(max_fluo_vals))
         mini.append(min(max_fluo_vals))
 
         
-        fname_SOCE = CaM_SOCE % (b_diam, stims[i])
-        full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_SOCE)
-        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
-                                          output_name)
+        x[k].tick_params(labelsize=14)    
+        fname = CaM_SOCE % (ryr_exp[0], b_diam, stims[i])
+        full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname)
+        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
         for j in range(ca.shape[1]):
@@ -119,18 +104,36 @@ for i, x in enumerate([ax]):
         maxi.append(max(max_fluo_vals))
         mini.append(min(max_fluo_vals))
 
+        
+        fname_SOCE = CaM_SOCE % (ryr_exp[1], b_diam, stims[i])
+        full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_SOCE)
+        voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
+        vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
+        max_fluo_vals = np.zeros_like(vox_axis)
+        for j in range(ca.shape[1]):
+            max_fluo_vals[j] = ca[:, j].max()/1000
+        x[k].plot(vox_axis, max_fluo_vals, colors["_CaM_ove"],
+                  label=labels["_CaM_ove"])
+        maxi.append(max(max_fluo_vals))
+        mini.append(min(max_fluo_vals))
+
         if not k:
-            x[k].legend(loc=1)
+            x[k].legend()
             x[k].set_ylabel("Calcium [uM]", fontsize=20)
         else:
             x[k].set_yticks([])
 
+        # if i < 2:
+        #     x[k].set_xticks([])
+        # else:
         x[k].set_xlabel("Distance from stim [um]", fontsize=20)
         x[k].tick_params(labelsize=14)
 
 
-
+ax[1].legend()
 set_ylim(ax, min(mini), max(maxi))
+# set_ylim(ax[0], min(mini), max(maxi))
+# set_ylim(ax[2], min(mini), max(maxi))
 
-fig.savefig("SOCE_effects.svg", dpi=100, bbox_inches="tight")
+fig.savefig("overexpression_effects.svg", dpi=100, bbox_inches="tight")
 plt.show()

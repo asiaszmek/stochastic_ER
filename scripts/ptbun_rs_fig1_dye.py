@@ -119,5 +119,5 @@ for i, x in enumerate(ax[1]):
 
 
 set_ylim(ax[1], mini, maxi)
-fig.savefig("Ca_dye_effects.png", dpi=300, bbox_inches="tight")
+fig.savefig("Ca_dye_effects.svg", dpi=100, bbox_inches="tight")
 plt.show()

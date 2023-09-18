@@ -290,7 +290,7 @@ def get_conc(fullname, specie_list, region_list, output_name):
     my_file = h5py.File(fullname)
     conc_dict = {}
     time_dict = {}
-    
+
     for trial in my_file.keys():
         if trial == "model":
             continue
