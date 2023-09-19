@@ -62,7 +62,8 @@ voxels, time, ca_noSOCE_CaM = utils.get_conc(full_name, ["Ca"], reg_list, output
 fname_SOCE = CaM_SOCE % (branch_diam, stim)
 full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_SOCE)
 voxels, time, ca_SOCE_CaM = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
-
+v_raw_min = min(ca_SOCE_CaM.min(),  ca_SOCE_noCaM.min())
+v_raw_max = max(ca_SOCE_CaM.max(),  ca_SOCE_noCaM.max())
 # SOCE no CaM -- basal
 image_full = ax[0][0].imshow(ca_SOCE_CaM.T, aspect="auto",
                              interpolation="none",
@@ -70,22 +71,27 @@ image_full = ax[0][0].imshow(ca_SOCE_CaM.T, aspect="auto",
                                                        time[-1]*1e-3,
                                                        voxels[0],
                                                        voxels[-1]],
+                             vmin=v_raw_min,
+                             vmax=v_raw_max,
                              cmap=plt.get_cmap("Reds"))
 fig.colorbar(image_full, ax=ax[0][0])
 ax[0][0].set_title("control")
 ax[0][0].set_ylabel("x [um]")
 
-soce_alone = ca_noSOCE_CaM - ca_SOCE_CaM
+soce_alone =  ca_SOCE_CaM - ca_noSOCE_CaM
 mini.append(soce_alone.min())
 maxi.append(soce_alone.max())
 cam_alone = ca_SOCE_noCaM - ca_SOCE_CaM
 mini.append(cam_alone.min())
 maxi.append(cam_alone.max())
-soce_and_cam_interaction = ca_SOCE_CaM - ca_noSOCE_noCaM
-mini.append(soce_and_cam_interaction.min())
-maxi.append(soce_and_cam_interaction.max())
+
 vmin = min(mini)
 vmax = max(maxi)
+if abs(vmin) > abs(vmax):
+    vmax = abs(vmin)
+else:
+    vmin = -vmax
+
 
 image_soce = ax[0][1].imshow(soce_alone.T, aspect="auto",
                              interpolation="none",
@@ -105,19 +111,21 @@ image_soce = ax[1][0].imshow(cam_alone.T, aspect="auto",
                                                        voxels[-1]],
                              vmin=vmin, vmax=vmax,
                              cmap=plt.get_cmap("bwr"))
-ax[1][0].set_title("RyR inhibition contribution")
+ax[1][0].set_title("RyR dis-inhibition contribution")
 fig.colorbar(image_soce, ax=ax[1][0])
-image_soce = ax[1][1].imshow(soce_and_cam_interaction.T, aspect="auto",
-                             interpolation="none",
-                             origin="lower", extent = [time[0]*1e-3,
-                                                       time[-1]*1e-3,
-                                                       voxels[0],
-                                                       voxels[-1]],
-                             vmin=vmin, vmax=vmax,
-                             cmap=plt.get_cmap("bwr"))
-ax[1][1].set_title("RyR inhibition + SOCE contribution")
-
-fig.colorbar(image_soce)
+image_disease = ax[1][1].imshow(ca_noSOCE_noCaM.T, aspect="auto",
+                                interpolation="none",
+                                origin="lower", extent = [time[0]*1e-3,
+                                                          time[-1]*1e-3,
+                                                          voxels[0],
+                                                          voxels[-1]],
+                                vmin=v_raw_min,
+                                vmax=v_raw_max,
+                                
+                                cmap=plt.get_cmap("Reds"))
+ax[1][1].set_title("RyR dis-inhibition")
+print(ca_SOCE_noCaM.T.max(), ca_SOCE_CaM.T.max())
+fig.colorbar(image_disease)
 ax[1][0].set_ylabel("x [um]")
 ax[1][0].set_xlabel("time [sec]")
 ax[1][1].set_xlabel("time [sec]")
