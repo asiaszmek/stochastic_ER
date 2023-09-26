@@ -24,10 +24,10 @@
     <NanoMolarity specieID="Cyt_SERCA"       value="480"     />
     <NanoMolarity specieID="Cyt_SERCA_Ca"       value="78"     />
     <NanoMolarity specieID="Cyt_SERCA_Ca2"       value="12"     />
-    <NanoMolarity specieID="LeakER" value="75" />
+    <NanoMolarity specieID="LeakER" value="77" />
     <NanoMolarity specieID="Fura2"         value="144000"     />
     <NanoMolarity specieID="Fura2Ca"         value="56000"     />
-    <NanoMolarity specieID="STIM_2CaER" value="400" />
+    <NanoMolarity specieID="STIM_2CaER" value="80" />
   </ConcentrationSet>
 
   <SurfaceDensitySet>
