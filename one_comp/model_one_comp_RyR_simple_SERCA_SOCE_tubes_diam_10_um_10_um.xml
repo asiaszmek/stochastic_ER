@@ -6,9 +6,9 @@
 
 	 reaction data brought in from other files --> 
 
-          <xi:include href="../Rxn_RyR2CaM_SERCA_simple.xml" />
+          <xi:include href="../Rxn_no_IP3R_SERCA_simple_RyR2.xml"/>
           <xi:include href="../Morph.xml" />        
-          <xi:include href="IC_RyRCaM_simple_SERCA_SOCE.xml" />
+          <xi:include href="IC_RyR_simple_SERCA_SOCE.xml" />
           	   
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 
@@ -24,7 +24,7 @@ results. depth 2D units are microns  -->
 
     <!-- run time for the calculation, milliseconds -->
 
-    <runtime>          600000      </runtime>
+    <runtime>          2000000      </runtime>
 
     <!-- set the seed to get the same spines each time testing -->
 
