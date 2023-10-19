@@ -2,21 +2,21 @@
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="75"/>
-    <NanoMolarity specieID="CaOut" value="2000000"/>
+    <NanoMolarity specieID="CaOut" value="2002000"/>
     <!-- total calbindin = 160 uM -->
     <NanoMolarity specieID="Calbin" value="135000"/>
     <NanoMolarity specieID="CalbinC" value="15000"/>
-    <NanoMolarity specieID="fixedbuffer" value="1997000"/>
-    <NanoMolarity specieID="fixedbufferCa" value="3000"/>
+    <NanoMolarity specieID="fixedbuffer" value="1996900"/>
+    <NanoMolarity specieID="fixedbufferCa" value="3100"/>
 
     <NanoMolarity specieID="CaM" value="8050"/>
     <NanoMolarity specieID="CaMCa2C" value="400"/>
     <NanoMolarity specieID="CaMCa2N" value="100"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
-    <NanoMolarity specieID="CaER"         value="0.8e5"     />
-    <NanoMolarity       specieID="CRTP" value="8.8054e+4"/>
-    <NanoMolarity       specieID="CRT" value="1.1946e+4"/>
+    <NanoMolarity specieID="CaER"         value="0.79e5"     />
+    <NanoMolarity       specieID="CRTP" value="88750"/>
+    <NanoMolarity       specieID="CRT" value="11250"/>
     <NanoMolarity specieID="RyRCaM"      value="6"    />
     <NanoMolarity specieID="Cyt_SERCA"       value="1262" />
     <NanoMolarity specieID="Cyt_SERCA_Ca"       value="200" />
