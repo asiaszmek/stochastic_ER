@@ -30,7 +30,7 @@ if __name__ == '__main__':
             time = utils.get_times(my_file, trial, "__main__")
             time_dict[trial] = time
         vmax = 0
-
+        diam = fname.split("diam_")[-1][:3]
         for key in conc_dict:
             new_max = conc_dict[key].max()
             if new_max > vmax:
@@ -45,7 +45,14 @@ if __name__ == '__main__':
                                                      voxels[0],
                                                      voxels[-1]],
                            cmap=plt.get_cmap("Reds"), vmin=0, vmax=vmax)
+            ax.set_xlabel("time (sec)", fontsize=14)
+            ax.set_ylabel("dendrite (um)", fontsize=14)
             fig.colorbar(im)
-            ax.set_title("%s %s" % (specie, trial))
-    plt.show()
+            
+            ax.set_title("%s dynamics in %s um dend" % (specie, diam),
+                         fontsize=14)
+            fig.savefig(fname[:-3]+"_"+key+".svg", dpi=100,
+                        bbox_inches="tight")
+            print(fname[:-3]+"_"+key+".png")
+ 
                           
