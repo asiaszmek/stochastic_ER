@@ -4,7 +4,7 @@ import numpy as np
 import utility_functions as utils
 
 
-length = 200000 #  sec
+length = 100000 #  sec
 output = "__main__"
 
 if __name__ == "__main__":

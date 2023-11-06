@@ -417,9 +417,11 @@ if __name__ == "__main__":
     ax.plot(exp_res[:, 0], exp_res[:, 1], "d", color="tab:blue", label="experimental data")
     ax.plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
     ax.legend()
-    ax.set_xlabel("Concentration [M]")
-    ax.set_ylabel("RyR3 open probability")
-    
+    ax.tick_params(axis='x', labelsize=14)
+    ax.tick_params(axis='y', labelsize=14)
+    ax.set_xlabel("Concentration [M]", fontsize=14)
+    ax.set_ylabel("RyR2 open probability", fontsize=14)
+    fig.savefig("open_probability"+sys.argv[1]+".png", dpi=100)
     fig, ax = plt.subplots(1)
     ax.set_xscale('log')
     ax.set_yscale('log')
@@ -433,8 +435,11 @@ if __name__ == "__main__":
             label="model closed", color="tab:olive")
     
     ax.legend()
-    ax.set_xlabel("Concentration [M]")
-    ax.set_ylabel("Time [ms]")
+    ax.tick_params(axis='x', labelsize=14)
+    ax.tick_params(axis='y', labelsize=14)
 
+    ax.set_xlabel("Concentration [M]", fontsize=14)
+    ax.set_ylabel("Time [ms]", fontsize=14)
 
+    fig.savefig("open_closed_times"+sys.argv[1]+".png", dpi=100)
 plt.show()

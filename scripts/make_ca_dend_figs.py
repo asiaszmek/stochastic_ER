@@ -14,6 +14,7 @@ if __name__ == '__main__':
     specie = "Ca"
     reg_list = ["dend", "dend01", "dend02", "dend03", "dend04", "dend05", "dend06",
                  "dend07", "dend08", "dend09", "dend10", "dend11"]
+    figs, axes = [], []
     if len(sys.argv) == 1:
         sys.exit('No filename given')
     for fname in sys.argv[1:]:
@@ -29,12 +30,13 @@ if __name__ == '__main__':
             conc_dict[trial] = conc
             time = utils.get_times(my_file, trial, "__main__")
             time_dict[trial] = time
-        vmax = 0
+        vmin = 0
+        vmax = 1200
         diam = fname.split("diam_")[-1][:3]
-        for key in conc_dict:
-            new_max = conc_dict[key].max()
-            if new_max > vmax:
-                vmax = new_max
+        # for key in conc_dict:
+        #     new_max = conc_dict[key].max()
+        #     if new_max > vmax:
+        #         vmax = new_max
         for key in conc_dict:
             fig, ax = plt.subplots(1, 1)
             time = time_dict[key]
@@ -53,6 +55,8 @@ if __name__ == '__main__':
                          fontsize=14)
             fig.savefig(fname[:-3]+"_"+key+".svg", dpi=100,
                         bbox_inches="tight")
-            print(fname[:-3]+"_"+key+".png")
+    
+    
+    
  
                           
