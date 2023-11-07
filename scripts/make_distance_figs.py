@@ -1,3 +1,4 @@
+import os
 import sys
 import argparse
 import h5py
@@ -5,112 +6,91 @@ import numpy as np
 import matplotlib.pyplot as plt 
 from lxml import etree
 import utility_functions as utils
+from scipy.constants import Avogadro
 
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red',  'tab:purple', 'tab:brown',
           'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan', "b", "orange", "g",
           "r", "p" ]
 stim_dend = "dend26"
+directory = "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
+my_path = os.path.join("..", directory)
 dend_f = {
     "1.2":
     [
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_1.2_um_50_um_350_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_1.2_um_50_um_700_nM.h5",        
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_1.2_um_50_um_1050_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_baloon_diam_1.2_um_50_um_2000_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_baloon_diam_1.2_um_50_um_4000_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_1.2_um_50_um_350_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_1.2_um_50_um_700_nM.h5",        
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_1.2_um_50_um_1050_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_tubes_diam_1.2_um_50_um_2000_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_tubes_diam_1.2_um_50_um_4000_nM.h5",        
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0350_nM.h5",
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0700_nM.h5",        
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_1050_nM.h5",        
+       
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",        
+           
     ],
        "2.4":
     [
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_2.4_um_50_um_350_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_2.4_um_50_um_700_nM.h5",        
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_2.4_um_50_um_1050_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_baloon_diam_2.4_um_50_um_2000_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_baloon_diam_2.4_um_50_um_4000_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_2.4_um_50_um_350_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_2.4_um_50_um_700_nM.h5",        
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_2.4_um_50_um_1050_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_tubes_diam_2.4_um_50_um_2000_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_tubes_diam_2.4_um_50_um_4000_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_2.4_um_50_um_350_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_2.4_um_50_um_700_nM.h5",        
-        "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_2.4_um_50_um_1050_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_2.4_um_50_um_2000_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_2.4_um_50_um_4000_nM.h5",    
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0350_nM.h5",
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0700_nM.h5",        
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_1050_nM.h5",        
+       
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
+       
+        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_2.4_um_50_um_0700_nM.h5",        
+        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_2.4_um_50_um_1050_nM.h5",        
+          
         
     ],
        "6.0":
     [
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_6.0_um_50_um_350_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_6.0_um_50_um_700_nM.h5",        
-        "model_RyR_3s_injection_simple_SERCA_baloon_diam_6.0_um_50_um_1050_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_baloon_diam_6.0_um_50_um_2000_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_baloon_diam_6.0_um_50_um_4000_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_6.0_um_50_um_350_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_6.0_um_50_um_700_nM.h5",        
-        "model_RyR_3s_injection_simple_SERCA_tubes_diam_6.0_um_50_um_1050_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_tubes_diam_6.0_um_50_um_2000_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_tubes_diam_6.0_um_50_um_4000_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_6.0_um_50_um_350_nM.h5",
-        "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_6.0_um_50_um_700_nM.h5",        
-        "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_6.0_um_50_um_1050_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_6.0_um_50_um_2000_nM.h5",        
-        # "model_RyR_3s_injection_simple_SERCA_nc_tubes_diam_6.0_um_50_um_4000_nM.h5",   
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0350_nM.h5",
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0700_nM.h5",        
+        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_1050_nM.h5",        
+       
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
+       
+        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_6.0_um_50_um_0350_nM.h5",
+        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_6.0_um_50_um_0700_nM.h5",        
+        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_6.0_um_50_um_1050_nM.h5",        
+         
     ],
 }
 labels = {
     "1.2":
     [
-        "dendritic membrane 350 nM",
-        "dendritic membrane 700 nM",        
-        "dendritic membrane 1050 nM",        
-        "dendritic membrane 2000 nM",        
-        "dendritic membrane 4000 nM",
+        # "dendritic membrane 350 nM",
+        # "dendritic membrane 700 nM",        
+        # "dendritic membrane 1050 nM",        
         "RyR2 uniform  350 nM",
         "RyR2 uniform  700 nM",        
         "RyR2 uniform  1050 nM",        
-        "RyR2 uniform  2000 nM",        
-        "RyR2 uniform  4000 nM",        
     ],
        "2.4":
     [
-        "RyR2 dendritic membrane 350 nM",
-        "RyR2 dendritic membrane 700 nM",        
-        "RyR2 dendritic membrane 1050 nM",        
-        # "RyR2 dendritic membrane 2000 nM",        
-        # "RyR2 dendritic membrane  4000 nM",
+        # "RyR2 dendritic membrane 350 nM",
+        # "RyR2 dendritic membrane 700 nM",        
+        # "RyR2 dendritic membrane 1050 nM",        
         "RyR2 uniform 350 nM",
         "RyR2 uniform 700 nM",        
         "RyR2 uniform 1050 nM",        
-        # "RyR2 uniform 2000 nM",        
-        # "RyR2 uniform 4000 nM",
-        "RyR2 overexpressiom 350 nM",
-        "RyR2 overexpression 700 nM",        
-        "RyR2 overexpression 1050 nM",        
-        # "RyR2 overexpression 2000 nM",        
-        # "RyR2 overexpression 4000 nM",     
+        # "RyR2 overexpressiom 350 nM",
+        # "RyR2 overexpression 700 nM",        
+        # "RyR2 overexpression 1050 nM",        
     ],
        "6.0":
     [
-        "RyR2 dendritic membrane 350 nM",
-        "RyR2 dendritic membrane 700 nM",        
-        "RyR2 dendritic membrane 1050 nM",        
-        # "RyR2 dendritic membrane 2000 nM",        
-        # "RyR2 dendritic membrane 4000 nM",
+        # "RyR2 dendritic membrane 350 nM",
+        # "RyR2 dendritic membrane 700 nM",        
+        # "RyR2 dendritic membrane 1050 nM",        
         "RyR2 uniform 350 nM",
         "RyR2 uniform 700 nM",        
         "RyR2 uniform 1050 nM",        
-        # "RyR2 uniform 2000 nM",        
-        # "RyR2 uniform 4000 nM",
-        "RyR2 overexpression 350 nM",
-        "RyR2 overexpression 700 nM",        
-        "RyR2 overexpression 1050 nM",        
-        # "RyR2 overexpression 2000 nM",        
-        # "RyR2 overexpression 4000 nM",   
+        # "RyR2 overexpression 350 nM",
+        # "RyR2 overexpression 700 nM",        
+        # "RyR2 overexpression 1050 nM",        
     ],
 }
     
@@ -119,7 +99,7 @@ specie_dict = {
     "Ca": ["Ca"],
     "CaOut": ["CaOut"],
     "CaER": ["CaER"],
-    "RyRO": ["RyRO1", "RyRO2"],
+    "RyRO": ["RyRO1", "RyRO2", "RyRCaMO1", "RyRCaMO2"],
     "STIM_CaER": ["STIM_2CaER"],
     "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"]
 }
@@ -129,6 +109,8 @@ multiplier = {
     "CaER": 1,
     "RyRO1": 1,
     "RyRO2": 1,
+    "RyRCaMO1": 1,
+    "RyRCaMO2": 1,
     "STIM_2CaER": 1,
     "OraiSTIM_4": 1,
     "Orai2STIM_4": 2,
@@ -171,10 +153,11 @@ if __name__ == '__main__':
     for i, key in enumerate(dend_f.keys()):
         im_list[key] = []
         for j, fname in enumerate(dend_f[key]):
+            my_file = os.path.join(my_path, fname)
             try:
-                my_file = h5py.File(fname, 'r')
+                my_file = h5py.File(my_file, 'r')
             except FileNotFoundError:
-                print(fname, " not found")
+                print(my_file, " not found")
                 continue
             conc_dict = {}
             time_dict = {}
@@ -247,7 +230,7 @@ if __name__ == '__main__':
         ylim1 = min([min(ax.get_ylim()) for ax in axes])
         for ax in axes:
             ax.set_ylim([ylim1, ylim2])
-    fig1.savefig("Ca_wave_vs_distance_3s_injection.png",
+    fig1.savefig("Ca_wave_vs_distance.png",
                  bbox_inches=None, pad_inches=0.1)
     
     plt.show()
