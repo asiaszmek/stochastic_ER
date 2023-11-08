@@ -8,89 +8,93 @@ from lxml import etree
 import utility_functions as utils
 from scipy.constants import Avogadro
 
+
+t_init = 3000
+
 colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red',  'tab:purple', 'tab:brown',
           'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan', "b", "orange", "g",
           "r", "p" ]
 stim_dend = "dend26"
-directory = "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
-my_path = os.path.join("..", directory)
+directories = [
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
+]
+
+symbol = {
+    "tubes": "d",
+    "baloon": "o",
+}
+
+
 dend_f = {
-    "1.2":
+    "350 nM":
     [
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0350_nM.h5",
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0700_nM.h5",        
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_1050_nM.h5",        
-       
         "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0350_nM.h5",
+
+
            
     ],
-       "2.4":
+       "700 nM":
     [
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0350_nM.h5",
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0700_nM.h5",        
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_1050_nM.h5",        
-       
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
+      
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
         "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
-       
-        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_2.4_um_50_um_0350_nM.h5",
-        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_2.4_um_50_um_0700_nM.h5",        
-        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_2.4_um_50_um_1050_nM.h5",        
-          
-        
-    ],
-       "6.0":
-    [
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0350_nM.h5",
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0700_nM.h5",        
-        # "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_1050_nM.h5",        
-       
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
         "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0700_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0700_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0700_nM.h5",        
+    
        
-        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_6.0_um_50_um_0350_nM.h5",
-        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_6.0_um_50_um_0700_nM.h5",        
-        # "model_RyR2CaM_simple_SERCA_SOCE_nc_tubes_diam_6.0_um_50_um_1050_nM.h5",        
+    ],
+       "1050 nM":
+    [
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",               
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_1050_nM.h5",               
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_1050_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_1050_nM.h5",        
+      
          
     ],
 }
 labels = {
-    "1.2":
+    "350 nM":
     [
-        # "dendritic membrane 350 nM",
-        # "dendritic membrane 700 nM",        
-        # "dendritic membrane 1050 nM",        
-        "RyR2 uniform  350 nM",
-        "RyR2 uniform  700 nM",        
-        "RyR2 uniform  1050 nM",        
+        "RyR2 uniform  1.2 um",
+        "RyR2 uniform  2.4 um",        
+        "RyR2 uniform  6.0 um",
+        "RyR2 dendritic membrane  1.2 um",
+        "RyR2 dendritic membrane  2.4 um",        
+        "RyR2 dendritic membrane  6.0 um",        
+
     ],
-       "2.4":
+       "700 nM":
     [
-        # "RyR2 dendritic membrane 350 nM",
-        # "RyR2 dendritic membrane 700 nM",        
-        # "RyR2 dendritic membrane 1050 nM",        
-        "RyR2 uniform 350 nM",
-        "RyR2 uniform 700 nM",        
-        "RyR2 uniform 1050 nM",        
-        # "RyR2 overexpressiom 350 nM",
-        # "RyR2 overexpression 700 nM",        
-        # "RyR2 overexpression 1050 nM",        
+
+        "RyR2 uniform  1.2 um",
+        "RyR2 uniform  2.4 um",        
+        "RyR2 uniform  6.0 um",
+        "RyR2 dendritic membrane  1.2 um",
+        "RyR2 dendritic membrane  2.4 um",        
+        "RyR2 dendritic membrane  6.0 um",        
+
+
     ],
-       "6.0":
+       "1050 nM":
     [
-        # "RyR2 dendritic membrane 350 nM",
-        # "RyR2 dendritic membrane 700 nM",        
-        # "RyR2 dendritic membrane 1050 nM",        
-        "RyR2 uniform 350 nM",
-        "RyR2 uniform 700 nM",        
-        "RyR2 uniform 1050 nM",        
-        # "RyR2 overexpression 350 nM",
-        # "RyR2 overexpression 700 nM",        
-        # "RyR2 overexpression 1050 nM",        
+        "RyR2 uniform  1.2 um",
+        "RyR2 uniform  2.4 um",        
+        "RyR2 uniform  6.0 um",        
+        "RyR2 dendritic membrane  1.2 um",
+        "RyR2 dendritic membrane  2.4 um",        
+        "RyR2 dendritic membrane  6.0 um",        
+
     ],
 }
     
@@ -147,82 +151,93 @@ if __name__ == '__main__':
         reg_list.append("%s%d" %(base, i))
         
     fig1, ax1 = plt.subplots(2, len(dend_f), figsize=(20, 10))
-
- 
-    im_list = {}
-    for i, key in enumerate(dend_f.keys()):
-        im_list[key] = []
-        for j, fname in enumerate(dend_f[key]):
-            my_file = os.path.join(my_path, fname)
-            try:
-                my_file = h5py.File(my_file, 'r')
-            except FileNotFoundError:
-                print(my_file, " not found")
-                continue
-            conc_dict = {}
-            time_dict = {}
-            for trial in my_file.keys():
-                if trial == "model":
-                    continue
-                conc, voxels = utils.get_dynamics_in_region(my_file,
-                                                            specie_list,
-                                                            reg_list, trial, output_name)
-                conc_dict[trial] = conc
-                time = utils.get_times(my_file, trial, output_name)
-                time_dict[trial] = time
-                dt = time[1]-time[0]
-
-            lmin = min([len(conc) for conc in conc_dict.values()])
-        
-            shape2 = max([conc.shape[1] for conc in conc_dict.values()])
-            conc_mean = np.zeros((lmin, shape2))
-            for conc in conc_dict.values():
-                conc_mean[:lmin, :] += conc[:lmin, :]
-            conc_mean /= len(conc_dict)
-            conc_mean = (conc_mean - conc_mean[:2000].mean(axis=0))/conc_mean[:2000].mean(axis=0)
-            im_list[key].append(conc_mean.T)#np.log10(1e-9*conc_mean.T))
-           
-        for j, conc in enumerate(im_list[key]):
-            
-
-            length = conc.shape[0]
-            distance = [0]
-            max_idx_seg_side1 = 50
-            max_idx_seg_side2 = 51
-            
-            branch = [(conc[max_idx_seg_side1].max()
-                       +conc[max_idx_seg_side2].max())/2]
-            delay = [(conc[max_idx_seg_side1, 3000:].argmax()
-                      +conc[max_idx_seg_side2, 3000:].argmax())/2*dt]
-            max_pre = np.mean(conc[:, :3000].max(axis=1))
-            for idx in range(1, 51):
-                distance.append(idx/2)
-                peak = (conc[max_idx_seg_side1-idx, 3000:].max()
-                               +conc[max_idx_seg_side2+idx, 3000:].max())/2
-                branch.append(peak)
-               
-                if peak > 1:
-                    delay.append((conc[max_idx_seg_side1-idx, 3000:].argmax()
-                                  +conc[max_idx_seg_side2+idx, 3000:].argmax())/2*dt)
-                    
+    for k, directory in enumerate(directories):
+        my_path = os.path.join("..", directory)
+        im_list = {}
+        for i, key in enumerate(dend_f.keys()):
+            im_list[key] = []
+            for j, fname in enumerate(dend_f[key]):
+                if k:
+                    new_fname = fname.split("SOCE_")[0]+fname.split("SOCE_")[-1]
+                    my_file = os.path.join(my_path, new_fname)
                 else:
-                     delay.append(0)
-                    
-            ax1[0][i].plot(distance, branch, colors[j], marker = "d",
-                           label=labels[key][j])
-            ax1[1][i].plot(distance, delay, colors[j], marker = "d",
-                           label=labels[key][j])
- 
-        # ax1[0][i].plot(distance, np.log10(np.ones_like(distance)*1e-7),
-        #              "k", label = "100 nM")
-        #ax1[0][i].set_xlabel("Distance from stimulated site (um)")
-        ax1[0][0].set_ylabel("% basal calcium", fontsize=15)
-        ax1[0][i].set_title("%s um diameter" % key, fontsize=15)
+                    my_file = os.path.join(my_path, fname)
+                try:
+                    my_file = h5py.File(my_file, 'r')
+                except FileNotFoundError:
+                    print(my_file, " not found")
+                    continue
+                conc_dict = {}
+                time_dict = {}
+                for trial in my_file.keys():
+                    if trial == "model":
+                        continue
+                    conc, voxels = utils.get_dynamics_in_region(my_file,
+                                                                specie_list,
+                                                                reg_list, trial, output_name)
+                    conc_dict[trial] = conc
+                    time = utils.get_times(my_file, trial, output_name)
+                    time_dict[trial] = time
+                    dt = time[1]-time[0]
+
+
+                lmin = min([len(conc) for conc in conc_dict.values()])
         
-        ax1[1][i].set_xlabel("Distance from stimulated site (um)", fontsize=15)
-        ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
-       
-    ax1[0][i].legend()
+                shape2 = max([conc.shape[1] for conc in conc_dict.values()])
+                conc_mean = np.zeros((lmin, shape2))
+                for conc in conc_dict.values():
+                    conc_mean[:lmin, :] += conc[:lmin, :]
+                conc_mean /= len(conc_dict)
+                conc_mean = (conc_mean - conc_mean[:2000].mean(axis=0))/conc_mean[:2000].mean(axis=0)
+                im_list[key].append(conc_mean.T)#np.log10(1e-9*conc_mean.T))
+           
+            for j, conc in enumerate(im_list[key]):
+            
+
+                length = conc.shape[0]
+                distance = [0]
+                max_idx_seg_side1 = 50
+                max_idx_seg_side2 = 51
+            
+                branch = [(conc[max_idx_seg_side1].max()
+                           +conc[max_idx_seg_side2].max())/2]
+                delay = [(conc[max_idx_seg_side1, int(t_init/dt):].argmax()
+                          +conc[max_idx_seg_side2, int(t_init/dt):].argmax())/2*dt]
+                max_pre = np.mean(conc[:, :int(t_init/dt)].max(axis=1))
+                for idx in range(1, 51):
+                    distance.append(idx/2)
+                    peak = (conc[max_idx_seg_side1-idx, int(t_init/dt):].max()
+                            +conc[max_idx_seg_side2+idx, int(t_init/dt):].max())/2
+                    branch.append(peak)
+               
+                    if peak > 1:
+                        delay.append((conc[max_idx_seg_side1-idx, int(t_init/dt):].argmax()
+                                      +conc[max_idx_seg_side2+idx, int(t_init/dt):].argmax())/2*dt)
+                    
+                    else:
+                        delay.append(0)
+                if j > 2:
+                    symbol = "o"
+                else:
+                    symbol = "d"
+                if not k:
+                    ax1[0][i].plot(distance, branch, colors[j], marker=symbol,
+                                   label=labels[key][j]+" SOCE", linestyle="")
+                    ax1[1][i].plot(distance, delay, colors[j], marker=symbol,
+                                   label=labels[key][j]+" SOCE", linestyle="")
+                if k:
+                    ax1[0][i].plot(distance, branch, colors[j], marker=symbol,
+                                   label=labels[key][j], linestyle="", fillstyle="none")
+                    ax1[1][i].plot(distance, delay, colors[j], marker=symbol,
+                                   label=labels[key][j], linestyle="", fillstyle="none")
+                    
+            ax1[0][0].set_ylabel("% basal calcium", fontsize=15)
+            ax1[0][i].set_title("Injection %s" % key, fontsize=15)
+            
+            ax1[1][i].set_xlabel("Distance from stimulated site (um)", fontsize=15)
+            ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
+            
+            ax1[0][i].legend()
     
 
     for axes in ax1:
