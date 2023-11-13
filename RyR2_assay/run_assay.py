@@ -202,7 +202,7 @@ Rxn_file = {
     "KL": "Rxn_module_RyR_KeizerLevine.xml",
     "Dura": "Rxn_module_RyR_Dura.xml",
     "Saftenku": "Rxn_module_RyR_Saftenku.xml",
-    "KLtuned": "Rxn_module_RyR_KeizerSmith.xml",
+    "KLtuned": "Rxn_module_RyR_KeizerSmith_modified.xml",
     "Stern": "Rxn_module_RyR_Stern.xml",
     "Stern_JGP": "Rxn_module_RyR_Stern_JGP.xml",
     "Rice": "Rxn_module_RyR_Rice_modified.xml", 
@@ -412,34 +412,32 @@ if __name__ == "__main__":
     np.savetxt(res_fname1, output, delimiter=",", header="Ca [nM], po")
     np.savetxt(res_fname2, mean_times_a, delimiter=",",
                header="Ca [nM], mean open time, mean closed time")
-    fig, ax = plt.subplots(1)
-    ax.set_xscale('log')
-    ax.plot(exp_res[:, 0], exp_res[:, 1], "d", color="tab:blue", label="experimental data")
-    ax.plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
-    ax.legend()
-    ax.tick_params(axis='x', labelsize=14)
-    ax.tick_params(axis='y', labelsize=14)
-    ax.set_xlabel("Concentration [M]", fontsize=14)
-    ax.set_ylabel("RyR2 open probability", fontsize=14)
-    fig.savefig("open_probability"+sys.argv[1]+".png", dpi=100)
-    fig, ax = plt.subplots(1)
-    ax.set_xscale('log')
-    ax.set_yscale('log')
-    ax.plot(exp_open[:, 0], exp_open[:, 1], "d", color="tab:blue",
+    fig, ax = plt.subplots(2,1)
+    ax[0].set_xscale('log')
+    ax[0].plot(exp_res[:, 0], exp_res[:, 1], "d", color="tab:blue", label="experimental data")
+    ax[0].plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
+    ax[0].legend()
+    ax[0].tick_params(axis='x', labelsize=14)
+    ax[0].tick_params(axis='y', labelsize=14)
+    ax[0].set_xlabel("Concentration [M]", fontsize=14)
+    ax[0].set_ylabel("RyR2 open probability", fontsize=14)
+    ax[1].set_xscale('log')
+    ax[1].set_yscale('log')
+    ax[1].plot(exp_open[:, 0], exp_open[:, 1], "d", color="tab:blue",
             label="exp open")
-    ax.plot(exp_closed[:, 0], exp_closed[:, 1], "d", color="tab:green",
+    ax[1].plot(exp_closed[:, 0], exp_closed[:, 1], "d", color="tab:green",
             label="exp closed")
-    ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
+    ax[1].plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
             label="model open", color="tab:cyan")
-    ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 2], "d",
+    ax[1].plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 2], "d",
             label="model closed", color="tab:olive")
     
-    ax.legend()
-    ax.tick_params(axis='x', labelsize=14)
-    ax.tick_params(axis='y', labelsize=14)
+    ax[1].legend()
+    ax[1].tick_params(axis='x', labelsize=14)
+    ax[1].tick_params(axis='y', labelsize=14)
 
-    ax.set_xlabel("Concentration [M]", fontsize=14)
-    ax.set_ylabel("Time [ms]", fontsize=14)
+    ax[1].set_xlabel("Concentration [M]", fontsize=14)
+    ax[1].set_ylabel("Time [ms]", fontsize=14)
 
     fig.savefig("open_closed_times"+sys.argv[1]+".png", dpi=100)
 plt.show()
