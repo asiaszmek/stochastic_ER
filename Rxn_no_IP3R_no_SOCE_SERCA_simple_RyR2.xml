@@ -143,57 +143,54 @@
   <Specie name="RyRC3" id="RyRC3" kdiff="0" kdiffunit="mu2/s"/>  
   <Specie name="RyRO1" id="RyRO1" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRO2" id="RyRO2" kdiff="0" kdiffunit="mu2/s"/>
- 
-
 <Reaction name="RyRe" id="RyRe">
     <Reactant specieID="RyR"/>
-    <Reactant specieID="Ca" power="2"/>
+    <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRC1"/>
-    <forwardRate>5e-06</forwardRate> <!-- 2 Ca to 2 subunits-->
+    <forwardRate>5e-11</forwardRate>
     <reverseRate>50e-3</reverseRate>
  </Reaction>
 
-  <Reaction name="RyRa" id="RyRa"> 
+  <Reaction name="RyRa" id="RyRa">
     <Reactant specieID="RyRC1"/>
-    <Reactant specieID="Ca" power="2"/> <!-- 2 Ca to 2 subunits Fully bound?-->
+    <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRO1"/>
-    <forwardRate>10e-10</forwardRate>
+    <forwardRate>5e-10</forwardRate>
     <reverseRate>9600e-3</reverseRate>
  </Reaction>
    
 
   <Reaction name="RyRb" id="RyRb">
     <Reactant specieID="RyRO1"/>
-    <Reactant specieID="Ca" power="2"/>
+    <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRO2"/>
-    <forwardRate>14e-5</forwardRate>
+    <forwardRate>5e-11</forwardRate>
     <reverseRate>13</reverseRate>
   </Reaction>
 
    <Reaction name="RyRc" id="RyRc">
     <Reactant specieID="RyRC2"/>
-    <Reactant specieID="Ca" power="2"/>
+    <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRO2"/>
-    <forwardRate>1.5e-6</forwardRate>
-    <reverseRate>66.667e-1</reverseRate>
+    <forwardRate>3.3333e-15</forwardRate>
+    <reverseRate>66.667e-3</reverseRate>
   </Reaction>
 
   <Reaction name="RyRd" id="RyRd">
     <Reactant specieID="RyRC1"/>
-    <Reactant specieID="Ca" power="2"/>
+    <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRC2"/>
-    <forwardRate>16e-7</forwardRate>
-    <reverseRate>1.235e-2</reverseRate>
+    <forwardRate>5000e-15</forwardRate>
+    <reverseRate>1.235e-3</reverseRate>
   </Reaction>
 
   <Reaction name="RyRf" id="RyRf">
     <Reactant specieID="RyRC2"/>
-    <Reactant specieID="Ca" power="2"/>
+    <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRC3"/>
-    <forwardRate>1.73e-7</forwardRate>
+    <forwardRate>1e-14</forwardRate>
     <reverseRate>3</reverseRate>
-  </Reaction>
- 
+ </Reaction>
   <Reaction name="RyRflux1" id="RyRflux1">
      <Reactant specieID="RyRO1"/>
      <Reactant specieID="CaER"/>
@@ -210,7 +207,7 @@
     <forwardRate>5e-3</forwardRate>
     <reverseRate>5e-3</reverseRate>
   </Reaction>
- 
+    
 <Specie name="Cyt_SERCA" id="Cyt_SERCA" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Cyt_SERCA_Ca" id="Cyt_SERCA_Ca" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Cyt_SERCA_Ca2" id="Cyt_SERCA_Ca2" kdiff="0" kdiffunit="mu2/s"/>
