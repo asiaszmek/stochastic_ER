@@ -75,22 +75,7 @@
   </Reaction>
  
   <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
-   <Reaction name = "RyRflux1" id="RyRflux1">
-     <Reactant specieID="RyRO1"/>
-     <Reactant specieID="CaER"/>
-     <Product specieID="RyRO1"/>
-     <Product specieID="Ca"/>
-    <forwardRate>5e-3</forwardRate>
-    <reverseRate>5e-3</reverseRate>
-  </Reaction>
-  <Reaction name = "RyRflux2" id="RyRflux2">
-     <Reactant specieID="RyRO2"/>
-     <Reactant specieID="CaER"/>
-     <Product specieID="RyRO2"/>
-     <Product specieID="Ca"/>
-    <forwardRate>5e-3</forwardRate>
-    <reverseRate>5e-3</reverseRate>
-  </Reaction>
+ 
    <Reaction name = "RyRCaMflux1" id="RyRCaMflux1">
      <Reactant specieID="RyRCaMO1"/>
      <Reactant specieID="CaER"/>

@@ -208,23 +208,7 @@
     <reverseRate>1e-4</reverseRate>
   </Reaction>
  
-  <Reaction name="RyRflux1" id="RyRflux1">
-     <Reactant specieID="RyRO1"/>
-     <Reactant specieID="CaER"/>
-     <Product specieID="RyRO1"/>
-     <Product specieID="Ca"/>
-    <forwardRate>5e-3</forwardRate>
-    <reverseRate>5e-3</reverseRate>
-  </Reaction>
-  <Reaction name="RyRflux2" id="RyRflux2">
-     <Reactant specieID="RyRO2"/>
-     <Reactant specieID="CaER"/>
-     <Product specieID="RyRO2"/>
-     <Product specieID="Ca"/>
-    <forwardRate>5e-3</forwardRate>
-    <reverseRate>5e-3</reverseRate>
-  </Reaction>
-   <Reaction name="RyRCaMflux1" id="RyRCaMflux1">
+  <Reaction name="RyRCaMflux1" id="RyRCaMflux1">
      <Reactant specieID="RyRCaMO1"/>
      <Reactant specieID="CaER"/>
      <Product specieID="RyRCaMO1"/>
