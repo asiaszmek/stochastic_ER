@@ -202,7 +202,7 @@ Rxn_file = {
     "KL": "Rxn_module_RyR_KeizerLevine.xml",
     "Dura": "Rxn_module_RyR_Dura.xml",
     "Saftenku": "Rxn_module_RyR_Saftenku.xml",
-    "KLtuned": "Rxn_module_RyR_KeizerSmith_modified.xml",
+    "KLtuned": "Rxn_module_RyR_KeizerSmith.xml",
     "Stern": "Rxn_module_RyR_Stern.xml",
     "Stern_JGP": "Rxn_module_RyR_Stern_JGP.xml",
     "Rice": "Rxn_module_RyR_Rice_modified.xml", 
@@ -439,5 +439,5 @@ if __name__ == "__main__":
     ax[1].set_xlabel("Concentration [M]", fontsize=14)
     ax[1].set_ylabel("Time [ms]", fontsize=14)
 
-    fig.savefig("open_closed_times"+sys.argv[1]+".png", dpi=100)
+    fig.savefig("open_closed_times_KeizerSmith_original"+sys.argv[1]+".png", dpi=100)
 plt.show()
