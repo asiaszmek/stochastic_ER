@@ -1,3 +1,4 @@
+import sys
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -36,7 +37,7 @@ if __name__ == '__main__':
                 if specie not in conc_dict:
                     conc_dict[specie] = list()
                     conc_dict[specie].append(conc)
-            times.append(get_times(my_file, trial, "all"))
+            times.append(utils.get_times(my_file, trial, "all"))
         for specie in conc_dict.keys():
             amin = np.argmin([len(c) for c in conc_dict[specie]])
             shape = conc_dict[specie][amin].shape
