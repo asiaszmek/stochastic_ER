@@ -22,8 +22,6 @@
     <OutputSpecie name="Ca"/>
     <OutputSpecie name="CaER"/>
     <OutputSpecie name="CaOut"/>
-    <OutputSpecie name="RyRO1"/>
-    <OutputSpecie name="RyRO2"/>
     <OutputSpecie name="RyRCaMO1"/>
     <OutputSpecie name="RyRCaMO2"/>
   </OutputSet>
