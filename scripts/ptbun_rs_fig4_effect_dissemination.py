@@ -78,7 +78,7 @@ fig.colorbar(image_full, ax=ax[0][0])
 ax[0][0].set_title("control")
 ax[0][0].set_ylabel("x [um]")
 
-soce_alone =  ca_SOCE_CaM - ca_noSOCE_CaM
+soce_alone =  ca_SOCE_noCaM - ca_noSOCE_noCaM
 mini.append(soce_alone.min())
 maxi.append(soce_alone.max())
 cam_alone = ca_SOCE_noCaM - ca_SOCE_CaM
