@@ -51,8 +51,7 @@ IC_text = """<?xml version="1.0" encoding="utf-8"?>
 <InitialConditions>
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="%f"/>
-    <NanoMolarity specieID="CaM" value="1000"/>
-    <NanoMolarity specieID="RyR"      value="0.1"    />
+    <NanoMolarity specieID="RyRCaM"      value="0.1"    />
   </ConcentrationSet>
 </InitialConditions>
 """
@@ -119,7 +118,7 @@ def get_all_closed(data, species):
     for specie in species:
         if "O" in specie:
             continue
-        if "RyR" not in specie:
+        if "RyRCaM" not in specie:
             continue
         specie_state = data[:, 0, species.index(specie)]
         sum_times += specie_state.sum()
@@ -160,7 +159,7 @@ def get_numbers(my_file, output="all"):
         mean_ca = data[:, 0, species.index("Ca")].mean()*10/6.023/vol
         
       
-        bas_idx = species.index("RyR")
+        bas_idx = species.index("RyRCaM")
       
         
         ryr_basal = data[0, 0, bas_idx]
@@ -245,29 +244,29 @@ if __name__ == "__main__":
     np.savetxt(res_fname1, output, delimiter=",", header="Ca [nM], po")
     np.savetxt(res_fname2, mean_times_a, delimiter=",",
                header="Ca [nM], mean open time, mean closed time")
-    fig, ax = plt.subplots(1)
-    ax.set_xscale('log')
-    ax.plot(exp_res[:, 0]*1e-9, exp_res[:, 1], "d", color="tab:blue", label="experimental data")
-    ax.plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
-    ax.legend()
-    ax.set_xlabel("Concentration [M]")
-    ax.set_ylabel("RyR2 open probability with 1 uM CaM")
+    fig, ax = plt.subplots(1, 2, figsize=(10, 15))
+    ax[0].set_xscale('log')
+    ax[0].plot(exp_res[:, 0]*1e-9, exp_res[:, 1], "d", color="tab:blue", label="experimental data")
+    ax[0].plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
+    ax[0].legend()
+    ax[0].set_xlabel("Concentration [M]")
+    ax[0].set_ylabel("CaM-bound RyR2 open probability")
     
-    fig, ax = plt.subplots(1)
-    ax.set_xscale('log')
-    ax.set_yscale('log')
-    ax.plot(exp_open[:, 0]*1e-9, exp_open[:, 1], "d", color="tab:blue",
+
+    ax[1].set_xscale('log')
+    ax[1].set_yscale('log')
+    ax[1].plot(exp_open[:, 0]*1e-9, exp_open[:, 1], "d", color="tab:blue",
             label="exp open")
-    ax.plot(exp_closed[:, 0]*1e-9, exp_closed[:, 1], "d", color="tab:green",
+    ax[1].plot(exp_closed[:, 0]*1e-9, exp_closed[:, 1], "d", color="tab:green",
             label="exp closed")
-    ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
+    ax[1].plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
             label="model open", color="tab:cyan")
-    ax.plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 2], "d",
+    ax[1].plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 2], "d",
             label="model closed", color="tab:olive")
     
-    ax.legend()
-    ax.set_xlabel("Concentration [M]")
-    ax.set_ylabel("Time [ms]")
-
+    ax[1].legend()
+    ax[1].set_xlabel("Concentration [M]")
+    ax[1].set_ylabel("Time [ms]")
+    fig.savefig("RyR2CaM_properties.png", dpi=100, bbox_inches="tight")
 
 plt.show()
