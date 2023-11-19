@@ -164,7 +164,7 @@ if __name__ == '__main__':
                     my_file = os.path.join(my_path, fname)
                 try:
                     my_file = h5py.File(my_file, 'r')
-                except FileNotFoundError:
+                except FileNotFoundError or OSError:
                     print(my_file, " not found")
                     continue
                 conc_dict = {}
@@ -174,11 +174,15 @@ if __name__ == '__main__':
                         continue
                     conc, voxels = utils.get_dynamics_in_region(my_file,
                                                                 specie_list,
-                                                                reg_list, trial, output_name)
+                                                                reg_list,
+                                                                trial, output_name)
                     conc_dict[trial] = conc
-                    time = utils.get_times(my_file, trial, output_name)
-                    time_dict[trial] = time
-                    dt = time[1]-time[0]
+                    try:
+                        time = utils.get_times(my_file, trial, output_name)
+                        time_dict[trial] = time
+                        dt = time[1]-time[0]
+                    except IOError:
+                        pass
 
 
                 lmin = min([len(conc) for conc in conc_dict.values()])
@@ -201,8 +205,12 @@ if __name__ == '__main__':
             
                 branch = [(conc[max_idx_seg_side1].max()
                            +conc[max_idx_seg_side2].max())/2]
-                delay = [(conc[max_idx_seg_side1, int(t_init/dt):].argmax()
-                          +conc[max_idx_seg_side2, int(t_init/dt):].argmax())/2*dt]
+                try:
+                    delay = [(conc[max_idx_seg_side1, int(t_init/dt):].argmax()
+                              +conc[max_idx_seg_side2, int(t_init/dt):].argmax())/2*dt]
+                except ValueError:
+                    continue
+                
                 max_pre = np.mean(conc[:, :int(t_init/dt)].max(axis=1))
                 for idx in range(1, 51):
                     distance.append(idx/2)

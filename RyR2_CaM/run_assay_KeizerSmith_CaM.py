@@ -244,7 +244,7 @@ if __name__ == "__main__":
     np.savetxt(res_fname1, output, delimiter=",", header="Ca [nM], po")
     np.savetxt(res_fname2, mean_times_a, delimiter=",",
                header="Ca [nM], mean open time, mean closed time")
-    fig, ax = plt.subplots(1, 2, figsize=(10, 15))
+    fig, ax = plt.subplots(1, 2, figsize=(15, 10))
     ax[0].set_xscale('log')
     ax[0].plot(exp_res[:, 0]*1e-9, exp_res[:, 1], "d", color="tab:blue", label="experimental data")
     ax[0].plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
@@ -267,6 +267,6 @@ if __name__ == "__main__":
     ax[1].legend()
     ax[1].set_xlabel("Concentration [M]")
     ax[1].set_ylabel("Time [ms]")
-    fig.savefig("RyR2CaM_properties.png", dpi=100, bbox_inches="tight")
+    fig.savefig("RyR2CaM_properties.png", dpi=200, bbox_inches="tight")
 
 plt.show()
