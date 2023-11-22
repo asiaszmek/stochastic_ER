@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <InitialConditions>
   <ConcentrationSet>
-    <NanoMolarity specieID="Ca" value="75"/>
+    <NanoMolarity specieID="Ca" value="78"/>
     <NanoMolarity specieID="CaOut" value="2000000"/>
     <!-- total calbindin = 160 uM -->
     <NanoMolarity specieID="Calbin" value="135000"/>
     <NanoMolarity specieID="CalbinC" value="15000"/>
-    <NanoMolarity specieID="fixedbuffer" value="1996800"/>
-    <NanoMolarity specieID="fixedbufferCa" value="3200"/>
+    <NanoMolarity specieID="fixedbuffer" value="1996900"/>
+    <NanoMolarity specieID="fixedbufferCa" value="3100"/>
 
-    <NanoMolarity specieID="CaM" value="8100"/>
-    <NanoMolarity specieID="CaMCa2C" value="400"/>
-    <NanoMolarity specieID="CaMCa2N" value="50"/>
-    <NanoMolarity specieID="CaMCa4" value="5"/>
+    <NanoMolarity specieID="CaM" value="8066"/>
+    <NanoMolarity specieID="CaMCa2C" value="415"/>
+    <NanoMolarity specieID="CaMCa2N" value="63"/>
+    <NanoMolarity specieID="CaMCa4" value="3"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
-    <NanoMolarity specieID="CaER"         value="0.8e5"     />
-    <NanoMolarity       specieID="CRTP" value="8.9e+4"/>
-    <NanoMolarity       specieID="CRT" value="11000"/>
+    <NanoMolarity specieID="CaER"         value="0.70165e5"     />
+    <NanoMolarity       specieID="CRTP" value="8.7253e+4"/>
+    <NanoMolarity       specieID="CRT" value="1.2476e4"/>
     <NanoMolarity specieID="RyR"      value="6"    />
     <NanoMolarity specieID="Cyt_SERCA"       value="1262" />
     <NanoMolarity specieID="Cyt_SERCA_Ca"       value="200" />
     <NanoMolarity specieID="Cyt_SERCA_Ca2"       value="30" />
-    <NanoMolarity specieID="LeakER" value="190" />
-    <NanoMolarity specieID="STIM_2" value="10" />
-    <NanoMolarity specieID="STIM_2CaER" value="190" />
+    <NanoMolarity specieID="LeakER" value="2000" />
+    <NanoMolarity specieID="STIM_2" value="7" />
+    <NanoMolarity specieID="STIM_4" value="1" />
+    <NanoMolarity specieID="STIM_2CaER" value="192" />
 
   </ConcentrationSet>
 
