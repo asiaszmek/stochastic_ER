@@ -18,9 +18,9 @@
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
 
-    <NanoMolarity specieID="CaER"         value="0.8e5"     />
-    <NanoMolarity       specieID="CRTP" value="8.89e+4"/>
-    <NanoMolarity       specieID="CRT" value="1.11e+4"/>
+    <NanoMolarity specieID="CaER"         value="0.78e5"     />
+    <NanoMolarity       specieID="CRTP" value="8.86e+4"/>
+    <NanoMolarity       specieID="CRT" value="1.14e+4"/>
   </ConcentrationSet>
 
   <SurfaceDensitySet>
@@ -39,10 +39,12 @@
     <PicoSD specieID="Cyt_SERCA_Ca2"       value="25"     />
    
     <PicoSD specieID="PMJ"       value="6"     />
-    <PicoSD specieID="Orai"      value="194"     />
+    <PicoSD specieID="Orai"      value="192"     />
     <PicoSD specieID="OraiSTIM_4"      value="6"     />
-	
-    <PicoSD specieID="STIM_2CaER"      value="371"     />
+    <PicoSD specieID="Orai2STIM_4"      value="1"     />
+    <PicoSD specieID="Orai3STIM_4"      value="1"     />
+    
+    <PicoSD specieID="STIM_2CaER"      value="360"     />
     <PicoSD specieID="STIM_2"      value="13"     />
     <PicoSD specieID="STIM_4"      value="1"     />
   </SurfaceDensitySet>

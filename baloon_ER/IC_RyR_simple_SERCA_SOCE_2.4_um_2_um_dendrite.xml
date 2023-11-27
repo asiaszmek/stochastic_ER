@@ -6,20 +6,20 @@
     <NanoMolarity specieID="Ca" value="78"/>
     <NanoMolarity specieID="CaOut" value="2000000"/>
     <!-- total calbindin = 160 uM -->
-    <NanoMolarity specieID="Calbin" value="134500"/>
-    <NanoMolarity specieID="CalbinC" value="15500"/>
+    <NanoMolarity specieID="Calbin" value="134600"/>
+    <NanoMolarity specieID="CalbinC" value="15400"/>
     <NanoMolarity specieID="fixedbuffer" value="1996800"/>
     <NanoMolarity specieID="fixedbufferCa" value="3200"/>
 
     <NanoMolarity specieID="CaM" value="8063"/>
-    <NanoMolarity specieID="CaMCa2C" value="415"/>
+    <NanoMolarity specieID="CaMCa2C" value="425"/>
     <NanoMolarity specieID="CaMCa2N" value="68"/>
     <NanoMolarity specieID="CaMCa4" value="3"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
-    <NanoMolarity specieID="CaER"         value="0.8e5"     />
-    <NanoMolarity       specieID="CRTP" value="8.8750e+4"/>
-    <NanoMolarity       specieID="CRT" value="1.1250e+4"/>
+    <NanoMolarity specieID="CaER"         value="0.78e5"     />
+    <NanoMolarity       specieID="CRTP" value="8.860e+4"/>
+    <NanoMolarity       specieID="CRT" value="1.140e+4"/>
   </ConcentrationSet>
 
 
@@ -38,11 +38,13 @@
     <PicoSD specieID="Cyt_SERCA_Ca2"       value="25"     />
     <PicoSD specieID="Cyt_SERCA_Ca"       value="200"     />
     <PicoSD specieID="PMJ"       value="6"     />
-    <PicoSD specieID="Orai"      value="193"     />
-    <PicoSD specieID="Orai2STIM_4"      value="1"     />
-    <PicoSD specieID="OraiSTIM_4"      value="5"     />
-    <PicoSD specieID="STIM_2CaER"      value="375"     />
+    <PicoSD specieID="Orai"      value="190.5"     />
+    <PicoSD specieID="Orai2STIM_4"      value="3"     />
+    <PicoSD specieID="Orai3STIM_4"      value="0.5"     />
+    <PicoSD specieID="OraiSTIM_4"      value="6"     />
+    <PicoSD specieID="STIM_2CaER"      value="363"     />
     <PicoSD specieID="STIM_2"      value="11"     />
+    <PicoSD specieID="STIM_4"      value="1"     />
   </SurfaceDensitySet>  
 
 </InitialConditions>

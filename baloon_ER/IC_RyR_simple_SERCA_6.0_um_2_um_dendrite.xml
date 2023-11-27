@@ -18,9 +18,9 @@
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
 
-    <NanoMolarity specieID="CaER"         value="0.8e5"     />
-    <NanoMolarity       specieID="CRTP" value="8.89e+4"/>
-    <NanoMolarity       specieID="CRT" value="1.11e+4"/>
+    <NanoMolarity specieID="CaER"         value="0.78e5"     />
+    <NanoMolarity       specieID="CRTP" value="8.86e+4"/>
+    <NanoMolarity       specieID="CRT" value="1.14e+4"/>
   </ConcentrationSet>
 
   <SurfaceDensitySet>
