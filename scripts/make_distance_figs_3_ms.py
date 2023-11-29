@@ -201,8 +201,11 @@ if __name__ == '__main__':
             
                 branch = [(conc[max_idx_seg_side1].max()
                            +conc[max_idx_seg_side2].max())/2]
-                delay = [(conc[max_idx_seg_side1, int(t_init/dt):].argmax()
-                          +conc[max_idx_seg_side2, int(t_init/dt):].argmax())/2*dt]
+                try:
+                    delay = [(conc[max_idx_seg_side1, int(t_init/dt):].argmax()
+                              +conc[max_idx_seg_side2, int(t_init/dt):].argmax())/2*dt]
+                except ValueError:
+                    continue
                 max_pre = np.mean(conc[:, :int(t_init/dt)].max(axis=1))
                 for idx in range(1, 51):
                     distance.append(idx/2)

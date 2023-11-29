@@ -255,6 +255,7 @@ if __name__ == '__main__':
             ax.set_ylim([ylim1, ylim2])
     fig1.savefig("Ca_wave_vs_distance.png",
                  bbox_inches=None, pad_inches=0.1)
-    
+    fig1.savefig("Ca_wave_vs_distance.eps",
+                 bbox_inches=None, pad_inches=0.1)
     plt.show()
                           
