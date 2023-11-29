@@ -2,7 +2,6 @@
 <ReactionScheme>
   <Specie name="Ca" id="Ca" kdiff="100" kdiffunit="mu2/s" />
   <Specie name="CaER" id="CaER" kdiff="10." kdiffunit="mu2/s"/>
-  <Specie name="RyR"            id="RyR"           kdiff="0" kdiffunit="mu2/s"/>
   
   <Specie name="RyRCaM"            id="RyRCaM"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyR2CaM"            id="RyR2CaM"           kdiff="0" kdiffunit="mu2/s"/>
@@ -32,13 +31,7 @@
   <Specie name="CaMCa4" id="CaMCa4" kdiff="4" kdiffunit="mu2/s" />
   
 <!--Merging a stochastic model by  Keizer and Smith with CaM inhibition. We know that RyR2 has a much higher affinity for Apo-CaM than anything else and that ApoCaM inhibits RyR2 in very low cytosolic Ca  -->
-<Reaction name = "RyRCaM2BD" id="RyRCaM2BD">
-  <Reactant specieID="RyR"/>
-  <Reactant specieID="CaM"/>
-  <Product specieID="RyRCaM"/>
-  <forwardRate>6.66e-3</forwardRate>
-  <reverseRate>4.8e-03</reverseRate>
-</Reaction>
+
 
 <Reaction name = "RyRCaM2BD2" id="RyRCaM2BD2">
   <Reactant specieID="RyRCaM"/>
