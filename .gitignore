@@ -20,3 +20,7 @@ RyR2_CaM/*dig
 RyR2_CaM/*csv
 RyR2_CaM/tmp
 RyR2_CaM/*xcf
+*/*sh
+*/*eps
+*/*/*eps
+*/__pycache__/*
