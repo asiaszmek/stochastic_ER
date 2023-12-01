@@ -17,7 +17,7 @@ colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red',  'tab:purple', 'tab:
 stim_dend = "dend26"
 directories = [
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
+    "Ca_wave_simple_SERCA_SOCE",
 ]
 
 symbol = {
@@ -29,72 +29,47 @@ symbol = {
 dend_f = {
     "350 nM":
     [
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0350_nM.h5",
-
-
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
+    
            
     ],
        "700 nM":
     [
       
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0700_nM.h5",        
-    
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",   
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",   
        
     ],
        "1050 nM":
     [
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",               
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_1050_nM.h5",               
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_1050_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_1050_nM.h5",        
-      
-         
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",   
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",
+        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",
     ],
 }
 labels = {
     "350 nM":
     [
-        "RyR2 uniform  1.2 um",
-        "RyR2 uniform  2.4 um",        
-        "RyR2 uniform  6.0 um",
-        "RyR2 dendritic membrane  1.2 um",
-        "RyR2 dendritic membrane  2.4 um",        
-        "RyR2 dendritic membrane  6.0 um",        
+        "1.2 um",
+        "2.4 um",        
+        "6.0 um",
 
     ],
        "700 nM":
     [
 
-        "RyR2 uniform  1.2 um",
-        "RyR2 uniform  2.4 um",        
-        "RyR2 uniform  6.0 um",
-        "RyR2 dendritic membrane  1.2 um",
-        "RyR2 dendritic membrane  2.4 um",        
-        "RyR2 dendritic membrane  6.0 um",        
-
-
-    ],
+        "1.2 um",
+        "2.4 um",        
+        "6.0 um",
+ ],
        "1050 nM":
     [
-        "RyR2 uniform  1.2 um",
-        "RyR2 uniform  2.4 um",        
-        "RyR2 uniform  6.0 um",        
-        "RyR2 dendritic membrane  1.2 um",
-        "RyR2 dendritic membrane  2.4 um",        
-        "RyR2 dendritic membrane  6.0 um",        
-
+        "1.2 um",
+        "2.4 um",        
+        "6.0 um",        
     ],
 }
     
@@ -158,13 +133,13 @@ if __name__ == '__main__':
             im_list[key] = []
             for j, fname in enumerate(dend_f[key]):
                 if k:
-                    new_fname = fname.split("SOCE_")[0]+fname.split("SOCE_")[-1]
+                    new_fname = fname.split("RyR2CaM")[0] + "RyR" + fname.split("RyR2CaM")[-1]
                     my_file = os.path.join(my_path, new_fname)
                 else:
                     my_file = os.path.join(my_path, fname)
                 try:
                     my_file = h5py.File(my_file, 'r')
-                except FileNotFoundError or OSError:
+                except FileNotFoundError or IOError:
                     print(my_file, " not found")
                     continue
                 conc_dict = {}
@@ -174,15 +149,11 @@ if __name__ == '__main__':
                         continue
                     conc, voxels = utils.get_dynamics_in_region(my_file,
                                                                 specie_list,
-                                                                reg_list,
-                                                                trial, output_name)
+                                                                reg_list, trial, output_name)
                     conc_dict[trial] = conc
-                    try:
-                        time = utils.get_times(my_file, trial, output_name)
-                        time_dict[trial] = time
-                        dt = time[1]-time[0]
-                    except IOError:
-                        pass
+                    time = utils.get_times(my_file, trial, output_name)
+                    time_dict[trial] = time
+                    dt = time[1]-time[0]
 
 
                 lmin = min([len(conc) for conc in conc_dict.values()])
@@ -210,7 +181,6 @@ if __name__ == '__main__':
                               +conc[max_idx_seg_side2, int(t_init/dt):].argmax())/2*dt]
                 except ValueError:
                     continue
-                
                 max_pre = np.mean(conc[:, :int(t_init/dt)].max(axis=1))
                 for idx in range(1, 51):
                     distance.append(idx/2)
@@ -230,14 +200,14 @@ if __name__ == '__main__':
                     symbol = "d"
                 if not k:
                     ax1[0][i].plot(distance, branch, colors[j], marker=symbol,
-                                   label=labels[key][j]+" SOCE", linestyle="")
+                                   label=labels[key][j], linestyle="")
                     ax1[1][i].plot(distance, delay, colors[j], marker=symbol,
-                                   label=labels[key][j]+" SOCE", linestyle="")
+                                   label=labels[key][j], linestyle="")
                 if k:
                     ax1[0][i].plot(distance, branch, colors[j], marker=symbol,
-                                   label=labels[key][j], linestyle="", fillstyle="none")
+                                   label=labels[key][j] + " no CaM", linestyle="", fillstyle="none")
                     ax1[1][i].plot(distance, delay, colors[j], marker=symbol,
-                                   label=labels[key][j], linestyle="", fillstyle="none")
+                                   label=labels[key][j]+" no CaM", linestyle="", fillstyle="none")
                     
             ax1[0][0].set_ylabel("% basal calcium", fontsize=15)
             ax1[0][i].set_title("Injection %s" % key, fontsize=15)
@@ -245,7 +215,7 @@ if __name__ == '__main__':
             ax1[1][i].set_xlabel("Distance from stimulated site (um)", fontsize=15)
             ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
             
-    ax1[0][2].legend()
+            ax1[0][i].legend()
     
 
     for axes in ax1:
@@ -253,9 +223,12 @@ if __name__ == '__main__':
         ylim1 = min([min(ax.get_ylim()) for ax in axes])
         for ax in axes:
             ax.set_ylim([ylim1, ylim2])
-    fig1.savefig("Ca_wave_vs_distance.png",
-                 bbox_inches=None, pad_inches=0.1)
-    fig1.savefig("Ca_wave_vs_distance.eps",
-                 bbox_inches=None, pad_inches=0.1)
+    fig1.savefig("Ca_wave_vs_distance_3_ms_injection_health_disease.png",
+                 dpi=100,
+                 bbox_inches="tight", pad_inches=0.1)
+    fig1.savefig("Ca_wave_vs_distance_3_ms_injection_health_disease.eps",
+                 dpi=100,
+                 bbox_inches="tight", pad_inches=0.1)
+    
     plt.show()
                           
