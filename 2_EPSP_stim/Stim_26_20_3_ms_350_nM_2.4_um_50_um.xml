@@ -1,6 +1,6 @@
 <StimulationSet>
   <InjectionStim specieID="Ca" injectionSite="dend26:submembrane">
-    <onset>3000</onset>
+    <onset>4000</onset>
     <duration>3</duration>
     <rate>20000</rate>
     <end>8000</end>    
