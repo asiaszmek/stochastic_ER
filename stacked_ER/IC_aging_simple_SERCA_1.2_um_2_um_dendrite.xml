@@ -3,25 +3,26 @@
   <ConcentrationSet>
     <NanoMolarity specieID="Ca" value="100"/>
     <NanoMolarity specieID="CaOut" value="2000000"/>
-    <!-- total calbindin = 160 uM -->
-    <NanoMolarity specieID="Calbin" value="120000"/>
+    <!-- total calbindin = 160 uM -->>
+    <NanoMolarity specieID="CaOut" value="2000000"/>
+    <NanoMolarity specieID="Calbin" value="270000"/>
     <NanoMolarity specieID="CalbinC" value="30000"/>
-    <NanoMolarity specieID="fixedbuffer" value="1993500"/>
-    <NanoMolarity specieID="fixedbufferCa" value="6500"/>
+    <NanoMolarity specieID="fixedbuffer" value="3993750"/>
+    <NanoMolarity specieID="fixedbufferCa"  value="6250"/>
 
-    <NanoMolarity specieID="CaM" value="7430"/>
-    <NanoMolarity specieID="CaMCa2C" value="1000"/>
-    <NanoMolarity specieID="CaMCa2N" value="150"/>
-    <NanoMolarity specieID="CaMCa4" value="20"/>
+    <NanoMolarity specieID="CaM" value="9682"/>
+    <NanoMolarity specieID="CaMCa2C" value="500"/>
+    <NanoMolarity specieID="CaMCa2N" value="75"/>
+    <NanoMolarity specieID="CaMCa4" value="3"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
     <NanoMolarity specieID="CaER"         value="0.8e5"     />
     <NanoMolarity       specieID="CRTP" value="88750"/>
     <NanoMolarity       specieID="CRT" value="11250"/>
     <!-- Bartol et al 2015 -->
-    <NanoMolarity specieID="Cyt_SERCA" value="2310" />
-    <NanoMolarity specieID="Cyt_SERCA_Ca" value="888" />
-    <NanoMolarity specieID="Cyt_SERCA_Ca2" value="134" />
+    <NanoMolarity specieID="Cyt_SERCA" value="4700" />
+    <NanoMolarity specieID="Cyt_SERCA_Ca" value="740" />
+    <NanoMolarity specieID="Cyt_SERCA_Ca2" value="115" />
     
     <NanoMolarity specieID="LeakER" value="228" />
 
@@ -29,11 +30,10 @@
 
 
   <SurfaceDensitySet>
-    <PicoSD specieID="Leak" value="8"/>
-    <PicoSD specieID="CaOutLeak" value="7000"/>
+    <PicoSD specieID="Leak" value="5"/>
+    <PicoSD specieID="CaOutLeak" value="6000"/>
     <PicoSD specieID="ncx" value="2780"/>
     <PicoSD specieID="ncxCa" value="220"/>
-    <!--https://doi.org/10.1016/j.neulet.2017.09.066 pmca dowregulation with age -->
     <PicoSD specieID="pmca" value="2045"/> 
     <PicoSD specieID="pmcaCa" value="780"/>
  </SurfaceDensitySet>
