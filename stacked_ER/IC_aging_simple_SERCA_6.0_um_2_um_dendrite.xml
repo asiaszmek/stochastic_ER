@@ -2,7 +2,7 @@
 <InitialConditions>
   <ConcentrationSet>
   
-    <NanoMolarity specieID="Ca" value="200"/>
+    <NanoMolarity specieID="Ca" value="100"/>
     <!-- total calbindin = 160 uM -->
     <NanoMolarity specieID="CaOut" value="2000000"/>
     <NanoMolarity specieID="Calbin" value="115000"/>
@@ -17,9 +17,9 @@
     <NanoMolarity specieID="NgCaM" value="17100"/>
     <NanoMolarity specieID="Ng" value="2900"/>
 
-    <NanoMolarity specieID="CaER"         value="100000"     />
-    <NanoMolarity       specieID="CRTP" value="9.1e+4"/>
-    <NanoMolarity       specieID="CRT" value="0.9e+4"/>
+    <NanoMolarity specieID="CaER"         value="0.8e5"     />
+    <NanoMolarity       specieID="CRTP" value="88750"/>
+    <NanoMolarity       specieID="CRT" value="11250"/>
     <NanoMolarity specieID="RyRC2"      value="1"    />
     <NanoMolarity specieID="RyRCaM"      value="1"    />
     
