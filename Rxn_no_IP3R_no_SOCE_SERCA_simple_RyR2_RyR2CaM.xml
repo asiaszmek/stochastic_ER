@@ -33,7 +33,7 @@
     <Product specieID="pmca"/>
     <Product specieID="CaOut"/>
     
-    <forwardRate>0.00175</forwardRate>
+    <forwardRate>0.0028</forwardRate>
     <reverseRate>0</reverseRate>
   </Reaction>
 
