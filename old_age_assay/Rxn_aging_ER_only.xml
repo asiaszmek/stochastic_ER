@@ -126,18 +126,6 @@
     <reverseRate>1.8e-7</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
-<Specie name="Fura2" id="Fura2" kdiff="83" kdiffunit="mu2/s"/>
-  <Specie name="Fura2Ca" id="Fura2Ca" kdiff="83" kdiffunit="mu2/s"/>
-  <Reaction name="Fura2_r" id="Fura2_r">
-    <Reactant specieID="Ca"/>
-    <Reactant specieID="Fura2"/>
-    <Product specieID="Fura2Ca"/>
-
-    <forwardRate>1e-3</forwardRate>
-    <reverseRate>185e-3</reverseRate>
-  </Reaction>
-
-
  <Specie name="RyRCaM"            id="RyRCaM"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRCaMC1"            id="RyRCaMC1"           kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="RyRCaMC2"            id="RyRCaMC2"           kdiff="0" kdiffunit="mu2/s"/>

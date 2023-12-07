@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <InitialConditions>
   <ConcentrationSet>
-    <NanoMolarity specieID="Ca" value="100"/>
+    <NanoMolarity specieID="Ca" value="75"/>
     <NanoMolarity specieID="CaOut" value="2000000"/>
     <!-- total calbindin = 160 uM -->>
     <NanoMolarity specieID="CaOut" value="2000000"/>
-    <NanoMolarity specieID="Calbin" value="270000"/>
-    <NanoMolarity specieID="CalbinC" value="30000"/>
-    <NanoMolarity specieID="fixedbuffer" value="3993750"/>
-    <NanoMolarity specieID="fixedbufferCa"  value="6250"/>
+    <NanoMolarity specieID="Calbin" value="264500"/>
+    <NanoMolarity specieID="CalbinC" value="35500"/>
+    <NanoMolarity specieID="fixedbuffer" value="3992500"/>
+    <NanoMolarity specieID="fixedbufferCa"  value="7500"/>
 
-    <NanoMolarity specieID="CaM" value="9682"/>
-    <NanoMolarity specieID="CaMCa2C" value="500"/>
-    <NanoMolarity specieID="CaMCa2N" value="75"/>
-    <NanoMolarity specieID="CaMCa4" value="3"/>
-    <NanoMolarity specieID="NgCaM" value="17250"/>
-    <NanoMolarity specieID="Ng" value="2750"/>
+    <NanoMolarity specieID="CaM" value="14100"/>
+    <NanoMolarity specieID="CaMCa2C" value="900"/>
+    <NanoMolarity specieID="CaMCa2N" value="130"/>
+    <NanoMolarity specieID="CaMCa4" value="6"/>
+    <NanoMolarity specieID="NgCaM" value="36500"/>
+    <NanoMolarity specieID="Ng" value="3500"/>
   
   </ConcentrationSet>
 
@@ -24,8 +24,8 @@
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
     <PicoSD specieID="ncx" value="2780"/>
-    <PicoSD specieID="ncxCa" value="220"/>
-    <PicoSD specieID="pmca" value="4066"/> 
-    <PicoSD specieID="pmcaCa" value="1560"/>
+    <PicoSD specieID="ncxCa" value="250"/>
+    <PicoSD specieID="pmca" value="3826"/> 
+    <PicoSD specieID="pmcaCa" value="1800"/>
  </SurfaceDensitySet>
 </InitialConditions> 
