@@ -73,11 +73,19 @@ if __name__ == '__main__':
         time_dict = {}
         
         for trial in my_file.keys():
+            print(trial)
             if trial == "model":
                 continue
-            conc, voxels = utils.get_dynamics_in_region(my_file,
-                                                        specie_list,
-                                                        reg_list, trial, output_name)
+            try:
+                conc, voxels = utils.get_dynamics_in_region(my_file,
+                                                            specie_list,
+                                                            reg_list, trial,
+                                                            output_name)
+            except KeyError:
+                conc, voxels = utils.get_dynamics_in_region(my_file,
+                                                            specie_list,
+                                                            reg_list, trial,
+                                                            "__main__")
             conc_dict[trial] = conc
             time = utils.get_times(my_file, trial, output_name)
             time_dict[trial] = time

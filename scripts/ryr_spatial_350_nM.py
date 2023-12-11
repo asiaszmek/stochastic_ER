@@ -81,5 +81,9 @@ ylim = max(ax[0].get_ylim() + ax[1].get_ylim())
 ax[0].set_ylim([0, ylim])
 ax[1].set_ylim([0, ylim])
 
-fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp.svg", dpi=100, bbox_inches="tight")
+fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp.eps", dpi=100,
+            bbox_inches="tight")
+fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp.png", dpi=100,
+            bbox_inches="tight")
+
 plt.show()

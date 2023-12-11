@@ -228,7 +228,7 @@ if __name__ == '__main__':
         ylim1 = min([min(ax.get_ylim()) for ax in axes])
         for ax in axes:
             ax.set_ylim([ylim1, ylim2])
-    fig1.savefig("Health_SOCE_impact.png",
+    fig1.savefig("Health_SOCE_impact.eps",
                  bbox_inches=None, pad_inches=0.1)
     
     plt.show()
