@@ -139,7 +139,7 @@ if __name__ == '__main__':
                     my_file = os.path.join(my_path, fname)
                 try:
                     my_file = h5py.File(my_file, 'r')
-                except FileNotFoundError or IOError:
+                except FileNotFoundError or IOError or OSError:
                     print(my_file, " not found")
                     continue
                 conc_dict = {}
