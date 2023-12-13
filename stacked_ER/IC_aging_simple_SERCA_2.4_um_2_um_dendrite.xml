@@ -4,8 +4,8 @@
     <NanoMolarity specieID="Ca" value="94"/>
     <NanoMolarity specieID="CaOut" value="2000000"/>
     <!-- total calbindin = 160 uM -->>
-    <NanoMolarity specieID="Calbin" value="264816"/>
-    <NanoMolarity specieID="CalbinC" value="35184"/>
+    <NanoMolarity specieID="Calbin" value="264404"/>
+    <NanoMolarity specieID="CalbinC" value="35594"/>
     <NanoMolarity specieID="fixedbuffer" value="3992487"/>
     <NanoMolarity specieID="fixedbufferCa"  value="7513"/>
 
