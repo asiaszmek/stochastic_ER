@@ -15,16 +15,16 @@
     <NanoMolarity specieID="CaMCa4" value="3"/>
     <NanoMolarity specieID="NgCaM" value="17250"/>
     <NanoMolarity specieID="Ng" value="2750"/>
-    <NanoMolarity specieID="CaER"         value="0.79e5"     />
-    <NanoMolarity       specieID="CRTP" value="88750"/>
-    <NanoMolarity       specieID="CRT" value="11250"/>
+    <NanoMolarity specieID="CaER"         value="0.9e5"     />
+    <NanoMolarity       specieID="CRTP" value="90000"/>
+    <NanoMolarity       specieID="CRT" value="10000"/>
     <NanoMolarity specieID="RyRCaM"      value="8"    />
     <!-- Bartol et al 2015 -->
     <NanoMolarity specieID="Cyt_SERCA" value="2351" />
     <NanoMolarity specieID="Cyt_SERCA_Ca" value="370" />
     <NanoMolarity specieID="Cyt_SERCA_Ca2" value="56" />
     
-    <NanoMolarity specieID="LeakER" value="370" />
+    <NanoMolarity specieID="LeakER" value="235" />
   </ConcentrationSet>
 
 
