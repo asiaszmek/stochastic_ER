@@ -44,7 +44,7 @@ directory ={
     "aging": aging_dir,
     } 
 stim_types = ["_3s_injection", ""]
-fig, ax = plt.subplots(nrows=3, ncols=3, figsize=(15, 10))
+
 suffix = {"": "40 ms stim",
           "_3s_injection": "3 ms stim"}
 
@@ -66,7 +66,7 @@ for k, b_diam in enumerate(branch_diams):
                 print("Could not find", full_name)
                 continue
             output = ca.mean(axis=1)
-            ax[k].plot(time/1000, output, colors[inh+s],
+            ax[k].plot(time/1000, output, 
                        label=inh+" diam "+ str(b_diam))
             
 ax[0].set_ylabel("Calcium [uM]", fontsize=20)
