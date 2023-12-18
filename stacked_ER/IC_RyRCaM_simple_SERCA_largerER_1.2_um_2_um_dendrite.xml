@@ -4,17 +4,17 @@
     <NanoMolarity specieID="Ca" value="75"/>
     <NanoMolarity specieID="CaOut" value="2000000"/>
     <!-- total calbindin = 160 uM -->
-    <NanoMolarity specieID="Calbin" value="135000"/>
-    <NanoMolarity specieID="CalbinC" value="15000"/>
-    <NanoMolarity specieID="fixedbuffer" value="1996760"/>
-    <NanoMolarity specieID="fixedbufferCa" value="3230"/>
+    <NanoMolarity specieID="Calbin" value="134931"/>
+    <NanoMolarity specieID="CalbinC" value="15069"/>
+    <NanoMolarity specieID="fixedbuffer" value="1996867"/>
+    <NanoMolarity specieID="fixedbufferCa" value="3123"/>
 
-    <NanoMolarity specieID="CaM" value="8100"/>
-    <NanoMolarity specieID="CaMCa2C" value="400"/>
-    <NanoMolarity specieID="CaMCa2N" value="55"/>
+    <NanoMolarity specieID="CaM" value="8074"/>
+    <NanoMolarity specieID="CaMCa2C" value="414"/>
+    <NanoMolarity specieID="CaMCa2N" value="63"/>
     <NanoMolarity specieID="CaMCa4" value="3"/>
-    <NanoMolarity specieID="NgCaM" value="17250"/>
-    <NanoMolarity specieID="Ng" value="2750"/>
+    <NanoMolarity specieID="NgCaM" value="17254"/>
+    <NanoMolarity specieID="Ng" value="2746"/>
     <NanoMolarity specieID="CaER"         value="0.9e5"     />
     <NanoMolarity       specieID="CRTP" value="90000"/>
     <NanoMolarity       specieID="CRT" value="10000"/>
@@ -24,16 +24,16 @@
     <NanoMolarity specieID="Cyt_SERCA_Ca" value="370" />
     <NanoMolarity specieID="Cyt_SERCA_Ca2" value="56" />
     
-    <NanoMolarity specieID="LeakER" value="235" />
+    <NanoMolarity specieID="LeakER" value="334" />
   </ConcentrationSet>
 
 
   <SurfaceDensitySet>
     <PicoSD specieID="Leak" value="5"/>
     <PicoSD specieID="CaOutLeak" value="6000"/>
-    <PicoSD specieID="ncx" value="2780"/>
-    <PicoSD specieID="ncxCa" value="220"/>
-    <PicoSD specieID="pmca" value="4090"/> 
-    <PicoSD specieID="pmcaCa" value="1535"/>
+    <PicoSD specieID="ncx" value="272"/>
+    <PicoSD specieID="ncxCa" value="218"/>
+    <PicoSD specieID="pmca" value="4103"/> 
+    <PicoSD specieID="pmcaCa" value="1521"/>
  </SurfaceDensitySet>
 </InitialConditions> 
