@@ -382,7 +382,7 @@
     <Reactant specieID="Fura2"/>
     <Product specieID="Fura2Ca"/>
 
-    <forwardRate>1e-3</forwardRate>
-    <reverseRate>185e-3</reverseRate>
+    <forwardRate>1e-4</forwardRate>
+    <reverseRate>185e-4</reverseRate>
   </Reaction>
 </ReactionScheme>
