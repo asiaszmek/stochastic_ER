@@ -1,12 +1,19 @@
 #!/usr/bin/env python
+import os
 import h5py
 import numpy as np
 from lxml import etree
 import sys
 from scipy.constants import Avogadro
+import matplotlib.pyplot as plt
 
 NA = Avogadro*1e-23
 spine = ['PSD', 'head', 'neck']
+t_init = 3000
+window = 50
+
+def moving_average(x, w):
+    return np.convolve(x, np.ones(w), 'valid') / w
 
 
 def nano_molarity(N, V):
@@ -312,3 +319,127 @@ def get_conc(fullname, specie_list, region_list, output_name):
         conc_mean[:lmin, :] += conc[:lmin, :]
     conc_mean /= len(conc_dict)
     return voxels, time, conc_mean
+
+
+def extract_max_delay(concentration, dt):
+    mean = concentration[:,:int(t_init/dt)-1].mean()
+    length = concentration.shape[0]
+    distance = np.linspace(-length/2, length/2, length)
+    branch = concentration[:, int(t_init/dt):].max(axis=1)
+    delay = np.zeros_like(branch)
+    for idx in range(length):
+        try:
+            if branch[idx] > 1.5*mean:
+                delay[idx] = concentration[idx, int(t_init/dt):].argmax()*dt
+        except ValueError:
+            continue    
+    return distance, branch, delay
+
+def make_distance_figs(directiories_list, descr, dend_dict,
+                       what_species, region_list, output_name, color_list,
+                       label_list, what_type, marker_list):
+
+    fig1, ax1 = plt.subplots(2, len(dend_dict), figsize=(20, 10))
+    for k, directory in enumerate(directiories_list):
+        my_path = os.path.join("..", directory)
+        if len(descr):
+            description = descr[directory] 
+        im_list = {}
+        for i, key in enumerate(dend_dict.keys()):
+            im_list[key] = []
+            for j, fname in enumerate(dend_dict[key]):
+                if len(descr):
+                    new_fname = fname % description
+                else:
+                    new_fname = fname
+                my_file = os.path.join(my_path, new_fname)
+                
+                vox, times, conc_mean = get_conc(my_file, ["Ca"],
+                                                 region_list, output_name)
+                
+                im_list[key].append(conc_mean.T)
+                dt = times[1]-times[0]
+            for j, conc in enumerate(im_list[key]):
+                distance, branch, delay = extract_max_delay(conc, dt)
+                if k % 2:
+                    symbol = "o"
+                else:
+                    symbol = "d"
+
+                ax1[0][i].plot(distance, 100*branch, color_list[j], marker=symbol,
+                               label=label_list[key][j]+" "+what_type[directory],
+                               linestyle="", fillstyle=marker_list[directory])
+                ax1[1][i].plot(distance, delay, color_list[j], marker=symbol,
+                               label=label_list[key][j]+" "+ what_type[directory],
+                               linestyle="", fillstyle=marker_list[directory])
+                    
+            ax1[0][0].set_ylabel("Calcium amplitude (nM)", fontsize=15)
+            ax1[0][i].set_title("Injection %s" % key, fontsize=15)
+            ax1[0][i].set_yscale("log")
+            ax1[1][i].set_xlabel("Distance from stimulated site (um)", fontsize=15)
+            ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
+            
+            
+    
+    ax1[0][2].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
+    for axes in ax1:
+        ylim2 = max([max(ax.get_ylim()) for ax in axes])
+        ylim1 = min([min(ax.get_ylim()) for ax in axes])
+        for ax in axes:
+            ax.set_ylim([ylim1, ylim2])
+    return fig1
+
+
+def make_distance_figs_bal_tubes(directiories_list, descr, dend_dict,
+                                 what_species, region_list, output_name, color_list,
+                                 label_list, what_type, marker_list):
+    symbol = "d"
+    fig1, ax1 = plt.subplots(2, len(dend_dict), figsize=(20, 10))
+    for k, directory in enumerate(directiories_list):
+        my_path = os.path.join("..", directory)
+        if len(descr):
+            description = descr[directory] 
+        im_list = {}
+        for i, key in enumerate(dend_dict.keys()):
+            im_list[key] = []
+            for j, fname in enumerate(dend_dict[key]):
+                if len(descr):
+                    new_fname = fname % description
+                else:
+                    new_fname = fname
+                my_file = os.path.join(my_path, new_fname)
+                
+                vox, times, conc_mean = get_conc(my_file, ["Ca"],
+                                                 region_list, output_name)
+                
+                im_list[key].append(conc_mean.T)
+                dt = times[1] - times[0]
+           
+            for j, conc in enumerate(im_list[key]):
+                distance, branch, delay = extract_max_delay(conc, dt)
+                if j > 2:
+                    fillstyle = "none"
+                else:
+                    fillstyle = "full"
+                ax1[0][i].plot(distance, 100*branch, color_list[j], marker=symbol,
+                               label=label_list[key][j]+" "+what_type[directory],
+                               linestyle="", fillstyle=fillstyle)
+                ax1[1][i].plot(distance, delay, color_list[j], marker=symbol,
+                               label=label_list[key][j]+" "+ what_type[directory],
+                               linestyle="", fillstyle=fillstyle)
+                    
+            ax1[0][0].set_ylabel("Calcium amplitude (nM)", fontsize=15)
+            ax1[0][i].set_title("Injection %s" % key, fontsize=15)
+            ax1[0][i].set_yscale("log")
+            ax1[1][i].set_xlabel("Distance from stimulated site (um)", fontsize=15)
+            ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
+            
+            
+    
+    ax1[0][2].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
+    for axes in ax1:
+        ylim2 = max([max(ax.get_ylim()) for ax in axes])
+        ylim1 = min([min(ax.get_ylim()) for ax in axes])
+        for ax in axes:
+            ax.set_ylim([ylim1, ylim2])
+    return fig1
