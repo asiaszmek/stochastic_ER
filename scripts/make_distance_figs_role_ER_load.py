@@ -29,9 +29,9 @@ descr = {
 }
 types = {
     "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "CaM",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "CaM + largerER",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "CaM + 110%ER",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "no CaM",
-    "Ca_wave_simple_SERCA_no_SOCE_largerER": "no CaM + largerER",
+    "Ca_wave_simple_SERCA_no_SOCE_largerER": "no CaM + 110%ER",
 }
 marker = {
     "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "full",
@@ -162,7 +162,7 @@ if __name__ == '__main__':
                                     types, marker)
 
     fig1.savefig("ER_load_impact.eps",
-                bbox_inches="tight", pad_inches=0.1)
+                 bbox_inches="tight", pad_inches=0.2)
     fig1.savefig("ER_load_impact.png",
-                bbox_inches="tight", pad_inches=0.1)
+                 bbox_inches="tight", pad_inches=0.2)
   

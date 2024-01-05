@@ -147,8 +147,8 @@ if __name__ == '__main__':
 
     fig1 = utils.make_distance_figs(directories, descr, dend_f, ["Ca"], reg_list,
                                    output_name, colors, labels, types, marker)
-    fig1.savefig("Health_SOCE_impact.eps",
+    fig1.savefig("Control_SOCE_impact.eps",
                  bbox_inches="tight", pad_inches=0.1)
-    fig1.savefig("Health_SOCE_impact.png",
+    fig1.savefig("Control_SOCE_impact.png",
                  bbox_inches="tight", pad_inches=0.1)
                           

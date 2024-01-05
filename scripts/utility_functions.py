@@ -339,7 +339,7 @@ def make_distance_figs(directiories_list, descr, dend_dict,
                        what_species, region_list, output_name, color_list,
                        label_list, what_type, marker_list):
 
-    fig1, ax1 = plt.subplots(2, len(dend_dict), figsize=(20, 10))
+    fig1, ax1 = plt.subplots(2, len(dend_dict), figsize=(21, 10))
     for k, directory in enumerate(directiories_list):
         my_path = os.path.join("..", directory)
         if len(descr):
