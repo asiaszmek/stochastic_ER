@@ -11,54 +11,56 @@ from scipy.constants import Avogadro
 
 t_init = 3000
 
-colors = ['tab:blue', 'tab:olive', 'tab:green', 'tab:red',  'tab:purple', 'tab:brown',
-          'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan', "b", "olive", "g",
-          "r", "p" ]
+colors = ['tab:cyan', 'tab:red', 'tab:olive']
 stim_dend = "dend26"
 directories = [
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
     "Ca_wave_simple_SERCA_SOCE",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018",
 ]
+marker = {
+    "Ca_wave_simple_SERCA_SOCE": "full",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "none",
+}
+descr = {
+    "Ca_wave_simple_SERCA_SOCE": "_SOCE",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "",
+}
+types = {
+    "Ca_wave_simple_SERCA_SOCE": "SOCE",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "",
+}
 
 symbol = {
     "tubes": "d",
     "baloon": "o",
 }
-descr = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyR2CaM",
-    "Ca_wave_simple_SERCA_SOCE": "RyR",
-}
-marker = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
-    "Ca_wave_simple_SERCA_SOCE": "none",
-}
-types = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "control",
-    "Ca_wave_simple_SERCA_SOCE": "oxidative stress"
-}
-
 dend_f = {
     "350 nM":
     [
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
-    
+        "model_RyR_simple_SERCA%s_baloon_diam_1.2_um_50_um_0350_nM.h5",
+        "model_RyR_simple_SERCA%s_baloon_diam_2.4_um_50_um_0350_nM.h5",
+        "model_RyR_simple_SERCA%s_baloon_diam_6.0_um_50_um_0350_nM.h5",
+
+
+
            
     ],
        "700 nM":
     [
       
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",   
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",   
+        "model_RyR_simple_SERCA%s_baloon_diam_1.2_um_50_um_0700_nM.h5",        
+        "model_RyR_simple_SERCA%s_baloon_diam_2.4_um_50_um_0700_nM.h5",        
+        "model_RyR_simple_SERCA%s_baloon_diam_6.0_um_50_um_0700_nM.h5",        
+    
        
     ],
        "1050 nM":
     [
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",   
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",
-        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",
+        "model_RyR_simple_SERCA%s_baloon_diam_1.2_um_50_um_1050_nM.h5",               
+        "model_RyR_simple_SERCA%s_baloon_diam_2.4_um_50_um_1050_nM.h5",        
+        "model_RyR_simple_SERCA%s_baloon_diam_6.0_um_50_um_1050_nM.h5",        
+      
+         
     ],
 }
 labels = {
@@ -75,12 +77,15 @@ labels = {
         "1.2 um",
         "2.4 um",        
         "6.0 um",
- ],
+
+
+    ],
        "1050 nM":
     [
         "1.2 um",
         "2.4 um",        
         "6.0 um",        
+
     ],
 }
     
@@ -136,11 +141,11 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
         
-    fig1 = utils.make_distance_figs(directories, descr, dend_f, ["Ca"], reg_list,
-                                   output_name, colors, labels, types, marker) 
-    fig1.savefig("Ca_wave_vs_distance_3_ms_injection_control_oxidation.png",
-                 dpi=100,
+    fig1 = utils.ca_wave_propagation_figs(directories, descr, dend_f, ["Ca"], reg_list,
+                                   output_name, colors, labels, types, marker)
+    fig1.savefig("Oxidation_SOCE_impact_baloon.png",
                  bbox_inches="tight", pad_inches=0.1)
-    fig1.savefig("Ca_wave_vs_distance_3_ms_injection_control_oxidation.eps",
-                 dpi=100,
+    fig1.savefig("Oxidation_SOCE_impact_baloon.eps",
                  bbox_inches="tight", pad_inches=0.1)
+
+                          

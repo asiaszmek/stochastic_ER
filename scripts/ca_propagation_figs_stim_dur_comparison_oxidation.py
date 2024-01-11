@@ -14,7 +14,7 @@ t_init = 3000
 colors = ['tab:blue', 'tab:olive', 'tab:green', 'tab:blue', 'tab:olive', 'tab:green']
 stim_dend = "dend26"
 directories = [
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+    "Ca_wave_simple_SERCA_SOCE",
     #"Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
 ]
 
@@ -22,17 +22,17 @@ symbol = {
     "tubes": "d",
     "baloon": "o",
 }
-types = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": ""}
-marker = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full"}
+types = {"Ca_wave_simple_SERCA_SOCE": ""}
+marker = {"Ca_wave_simple_SERCA_SOCE": "full"}
 dend_f = {
     "350 nM":
     [
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
 
 
            
@@ -40,23 +40,23 @@ dend_f = {
        "700 nM":
     [
       
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
     
        
     ],
        "1050 nM":
     [
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",               
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",               
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",               
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
+        "model_RyR_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",               
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
+        "model_RyR_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
       
          
     ],
@@ -148,13 +148,13 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
     
-    fig1 = utils.make_distance_figs_bal_tubes(directories, "",
+    fig1 = utils.ca_wave_propagation_figs_bal_tubes(directories, "",
                                               dend_f, specie_list,
                                               reg_list, output_name,
                                               colors, labels, types, marker)
-    fig1.savefig("Ca_wave_vs_distance_dur_comparison.png",
+    fig1.savefig("Ca_wave_vs_distance_dur_comparison_oxi.png",
                  bbox_inches="tight", pad_inches=0.1)
-    fig1.savefig("Ca_wave_vs_distance_dur_comparison.eps",
+    fig1.savefig("Ca_wave_vs_distance_dur_comparison_oxi.eps",
                  bbox_inches="tight", pad_inches=0.1)
 
                           

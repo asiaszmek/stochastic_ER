@@ -16,53 +16,64 @@ colors = ['tab:blue', 'tab:olive', 'tab:green', 'tab:red',  'tab:purple', 'tab:b
           "r", "p" ]
 stim_dend = "dend26"
 directories = [
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-    "Ca_wave_aging",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018",
+    "Ca_wave_simple_SERCA_no_SOCE_largerER",
 ]
-marker = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
-    "Ca_wave_aging": "none",
-}
 descr = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "_SOCE",
-    "Ca_wave_aging": "",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "RyR2CaM",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "RyR2CaM_largerER",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "RyR",
+    "Ca_wave_simple_SERCA_no_SOCE_largerER": "RyR_largerER"
 }
 types = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
-    "Ca_wave_aging": "aging",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "CaM",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "CaM + 110%ER",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "no CaM",
+    "Ca_wave_simple_SERCA_no_SOCE_largerER": "no CaM + 110%ER",
 }
+marker = {
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "full",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "full",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "none",
+    "Ca_wave_simple_SERCA_no_SOCE_largerER": "none",
+}
+
+
 symbol = {
     "tubes": "d",
     "baloon": "o",
 }
-descr = {
-    "Ca_wave_aging": ("aging", ""),
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": ("RyR2CaM", "_SOCE"),
 
-}
 
 dend_f = {
     "350 nM":
     [
-        "model_%s_simple_SERCA%s_tubes_diam_1.2_um_50_um_0350_nM.h5",
-        "model_%s_simple_SERCA%s_tubes_diam_2.4_um_50_um_0350_nM.h5",
-        "model_%s_simple_SERCA%s_tubes_diam_6.0_um_50_um_0350_nM.h5",
-    
+        "model_%s_simple_SERCA_tubes_diam_1.2_um_50_um_0350_nM.h5",
+        "model_%s_simple_SERCA_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        "model_%s_simple_SERCA_tubes_diam_6.0_um_50_um_0350_nM.h5",
+
+
+
            
     ],
        "700 nM":
     [
       
-        "model_%s_simple_SERCA%s_tubes_diam_1.2_um_50_um_0700_nM.h5",
-        "model_%s_simple_SERCA%s_tubes_diam_2.4_um_50_um_0700_nM.h5",   
-        "model_%s_simple_SERCA%s_tubes_diam_6.0_um_50_um_0700_nM.h5",   
+        "model_%s_simple_SERCA_tubes_diam_1.2_um_50_um_0700_nM.h5",        
+        "model_%s_simple_SERCA_tubes_diam_2.4_um_50_um_0700_nM.h5",        
+        "model_%s_simple_SERCA_tubes_diam_6.0_um_50_um_0700_nM.h5",        
+    
        
     ],
        "1050 nM":
     [
-        "model_%s_simple_SERCA%s_tubes_diam_1.2_um_50_um_1050_nM.h5",   
-        "model_%s_simple_SERCA%s_tubes_diam_2.4_um_50_um_1050_nM.h5",
-        "model_%s_simple_SERCA%s_tubes_diam_6.0_um_50_um_1050_nM.h5",
+        "model_%s_simple_SERCA_tubes_diam_1.2_um_50_um_1050_nM.h5",             
+        "model_%s_simple_SERCA_tubes_diam_2.4_um_50_um_1050_nM.h5",        
+        "model_%s_simple_SERCA_tubes_diam_6.0_um_50_um_1050_nM.h5",        
+      
+         
     ],
 }
 labels = {
@@ -79,12 +90,15 @@ labels = {
         "1.2 um",
         "2.4 um",        
         "6.0 um",
- ],
+
+
+    ],
        "1050 nM":
     [
         "1.2 um",
         "2.4 um",        
         "6.0 um",        
+
     ],
 }
     
@@ -110,7 +124,7 @@ multiplier = {
     "Orai2STIM_4": 2,
     "Orai3STIM_4": 3,
 }
-
+label_list = []
 def Parser():
     parser = argparse.ArgumentParser(description='Generate figs of avg conc')
     parser.add_argument('--species', default="Ca",
@@ -118,7 +132,8 @@ def Parser():
 
     return parser
 
-      
+
+
 
 
 if __name__ == '__main__':
@@ -139,12 +154,15 @@ if __name__ == '__main__':
                 "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-
-    fig1 = utils.make_distance_figs(directories, descr, dend_f, ["Ca"], reg_list,
-                                   output_name, colors, labels, types, marker)
-    fig1.savefig("Ca_wave_vs_distance_control_aging.eps", dpi=100,
-                 bbox_inches="tight", pad_inches=0.1)
-    fig1.savefig("Ca_wave_vs_distance_control_aging.png", dpi=100,
-                 bbox_inches="tight", pad_inches=0.1)
-
+        
                           
+    fig1 = utils.ca_wave_propagation_figs(directories, descr,
+                                    dend_f, specie_list, reg_list,
+                                    output_name, colors, labels,
+                                    types, marker)
+
+    fig1.savefig("ER_load_impact.eps",
+                 bbox_inches="tight", pad_inches=0.2)
+    fig1.savefig("ER_load_impact.png",
+                 bbox_inches="tight", pad_inches=0.2)
+  

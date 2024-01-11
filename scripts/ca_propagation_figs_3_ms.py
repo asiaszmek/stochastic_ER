@@ -148,7 +148,7 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
     
-    fig1 = utils.make_distance_figs_bal_tubes(directories, "",
+    fig1 = utils.ca_wave_propagation_figs_bal_tubes(directories, "",
                                               dend_f, specie_list,
                                               reg_list, output_name,
                                               colors, labels, types, marker)
