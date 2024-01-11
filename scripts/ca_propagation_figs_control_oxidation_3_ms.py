@@ -40,25 +40,25 @@ types = {
 dend_f = {
     "350 nM":
     [
-        "model_%s_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
-        "model_%s_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
-        "model_%s_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
     
            
     ],
        "700 nM":
     [
       
-        "model_%s_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",
-        "model_%s_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",   
-        "model_%s_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",   
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",   
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",   
        
     ],
        "1050 nM":
     [
-        "model_%s_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",   
-        "model_%s_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",
-        "model_%s_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",   
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",
+        "model_%s_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",
     ],
 }
 labels = {
@@ -136,11 +136,11 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
         
-    fig1 = utils.make_distance_figs(directories, descr, dend_f, ["Ca"], reg_list,
+    fig1 = utils.ca_wave_propagation_figs(directories, descr, dend_f, ["Ca"], reg_list,
                                    output_name, colors, labels, types, marker) 
-    fig1.savefig("Ca_wave_vs_distance_injection_control_oxidation.png",
+    fig1.savefig("Ca_wave_vs_distance_3_ms_injection_control_oxidation.png",
                  dpi=100,
                  bbox_inches="tight", pad_inches=0.1)
-    fig1.savefig("Ca_wave_vs_distance_injection_control_oxidation.eps",
+    fig1.savefig("Ca_wave_vs_distance_3_ms_injection_control_oxidation.eps",
                  dpi=100,
                  bbox_inches="tight", pad_inches=0.1)
