@@ -294,7 +294,10 @@ def get_dynamics_in_region(my_file, specie, region, trial,
 
 def get_conc(fullname, specie_list, region_list, output_name):
     print(fullname)
-    my_file = h5py.File(fullname)
+    try:
+        my_file = h5py.File(fullname)
+    except FileNotFoundError:
+        return
     conc_dict = {}
     time_dict = {}
 
@@ -327,12 +330,25 @@ def extract_max_delay(concentration, dt):
     distance = np.linspace(-length/2, length/2, length)
     branch = concentration[:, int(t_init/dt):].max(axis=1)
     delay = np.zeros_like(branch)
-    for idx in range(length):
+    for idx in range(51, 102, 1):
         try:
             if branch[idx] > 1.5*mean:
                 delay[idx] = concentration[idx, int(t_init/dt):].argmax()*dt
+                print(idx, delay[idx], branch[idx], 1.5*mean)
+            else:
+                break
         except ValueError:
-            continue    
+            break
+    for idx in range(50, -1, -1):
+        try:
+            if branch[idx] > 1.5*mean:
+                delay[idx] = concentration[idx, int(t_init/dt):].argmax()*dt
+                print(idx, delay[idx],  branch[idx], 1.5*mean)
+            else:
+                break
+        except ValueError:
+            break
+    
     return distance, branch, delay
 
 def make_distance_figs(directiories_list, descr, dend_dict,
@@ -353,9 +369,12 @@ def make_distance_figs(directiories_list, descr, dend_dict,
                 else:
                     new_fname = fname
                 my_file = os.path.join(my_path, new_fname)
-                
-                vox, times, conc_mean = get_conc(my_file, ["Ca"],
-                                                 region_list, output_name)
+                try:
+                    vox, times, conc_mean = get_conc(my_file, ["Ca"],
+                                                     region_list, output_name)
+                except TypeError:
+                    print("No file", new_fname)
+                    continue
                 
                 im_list[key].append(conc_mean.T)
                 dt = times[1]-times[0]
@@ -366,32 +385,42 @@ def make_distance_figs(directiories_list, descr, dend_dict,
                 else:
                     symbol = "d"
 
-                ax1[0][i].plot(distance, 100*branch, color_list[j], marker=symbol,
-                               label=label_list[key][j]+" "+what_type[directory],
+                ax1[0][i].plot(distance, branch, color_list[j],
+                               marker=symbol,
+                               label=label_list[key][j]+" "+
+                               what_type[directory],
                                linestyle="", fillstyle=marker_list[directory])
                 ax1[1][i].plot(distance, delay, color_list[j], marker=symbol,
-                               label=label_list[key][j]+" "+ what_type[directory],
+                               label=label_list[key][j]+" "+
+                               what_type[directory],
                                linestyle="", fillstyle=marker_list[directory])
                     
             ax1[0][0].set_ylabel("Calcium amplitude (nM)", fontsize=15)
             ax1[0][i].set_title("Injection %s" % key, fontsize=15)
             ax1[0][i].set_yscale("log")
-            ax1[1][i].set_xlabel("Distance from stimulated site (um)", fontsize=15)
+            ax1[1][i].set_xlabel("Distance from stimulated site (um)",
+                                 fontsize=15)
             ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
             
             
     
     ax1[0][2].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
-    for axes in ax1:
+    for i, axes in enumerate(ax1):
         ylim2 = max([max(ax.get_ylim()) for ax in axes])
         ylim1 = min([min(ax.get_ylim()) for ax in axes])
-        for ax in axes:
+        for j, ax in enumerate(axes):
             ax.set_ylim([ylim1, ylim2])
+            if j:
+                ax.set_yticks([])
+            if i<1:
+                ax.set_xticks([])
+            ax.tick_params(axis='both', which='major', labelsize=14)
     return fig1
 
 
 def make_distance_figs_bal_tubes(directiories_list, descr, dend_dict,
-                                 what_species, region_list, output_name, color_list,
+                                 what_species, region_list, output_name,
+                                 color_list,
                                  label_list, what_type, marker_list):
     symbol = "d"
     fig1, ax1 = plt.subplots(2, len(dend_dict), figsize=(20, 10))
@@ -408,9 +437,13 @@ def make_distance_figs_bal_tubes(directiories_list, descr, dend_dict,
                 else:
                     new_fname = fname
                 my_file = os.path.join(my_path, new_fname)
-                
-                vox, times, conc_mean = get_conc(my_file, ["Ca"],
-                                                 region_list, output_name)
+                try:
+                    vox, times, conc_mean = get_conc(my_file, ["Ca"],
+                                                     region_list, output_name)
+                except TypeError:
+                    print("No file", new_fname)
+                    continue
+
                 
                 im_list[key].append(conc_mean.T)
                 dt = times[1] - times[0]
@@ -421,25 +454,110 @@ def make_distance_figs_bal_tubes(directiories_list, descr, dend_dict,
                     fillstyle = "none"
                 else:
                     fillstyle = "full"
-                ax1[0][i].plot(distance, 100*branch, color_list[j], marker=symbol,
-                               label=label_list[key][j]+" "+what_type[directory],
+                ax1[0][i].plot(distance, branch, color_list[j],
+                               marker=symbol,
+                               label=label_list[key][j]+" "+
+                               what_type[directory],
                                linestyle="", fillstyle=fillstyle)
                 ax1[1][i].plot(distance, delay, color_list[j], marker=symbol,
-                               label=label_list[key][j]+" "+ what_type[directory],
+                               label=label_list[key][j]+" "+
+                               what_type[directory],
                                linestyle="", fillstyle=fillstyle)
                     
             ax1[0][0].set_ylabel("Calcium amplitude (nM)", fontsize=15)
             ax1[0][i].set_title("Injection %s" % key, fontsize=15)
             ax1[0][i].set_yscale("log")
-            ax1[1][i].set_xlabel("Distance from stimulated site (um)", fontsize=15)
+            ax1[1][i].set_xlabel("Distance from stimulated site (um)",
+                                 fontsize=15)
             ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
             
             
     
     ax1[0][2].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
-    for axes in ax1:
+    for i, axes in enumerate(ax1):
         ylim2 = max([max(ax.get_ylim()) for ax in axes])
         ylim1 = min([min(ax.get_ylim()) for ax in axes])
-        for ax in axes:
+        for j, ax in enumerate(axes):
             ax.set_ylim([ylim1, ylim2])
+            if j:
+                ax.set_yticks([])
+            if i<1:
+                ax.set_xticks([])
+            ax.tick_params(axis='both', which='major', labelsize=14)
+    return fig1
+
+
+
+def make_distance_figs_different_paradigms(directiories_list, descr, paradigm_dict,
+                                          what_species, region_list, output_name,
+                                          color_list,
+                                          label_list, what_type, marker_list):
+    symbol = "d"
+    fig1, ax1 = plt.subplots(2, len(paradigm_dict), figsize=(20, 10))
+    for k, directory in enumerate(directiories_list):
+        my_path = os.path.join("..", directory)
+        if len(descr):
+            description = descr[directory] 
+        im_list = {}
+        for i, key in enumerate(paradigm_dict.keys()):
+            im_list[key] = []
+            for j, fname in enumerate(paradigm_dict[key]):
+                
+                if len(descr):
+                    new_fname = fname % description
+                else:
+                    new_fname = fname
+                print(i, j, k, new_fname)
+                my_file = os.path.join(my_path, new_fname)
+                try:
+                    vox, times, conc_mean = get_conc(my_file, ["Ca"],
+                                                     region_list, output_name)
+                except TypeError:
+                    print("No file", new_fname)
+                    continue
+
+                
+                im_list[key].append(conc_mean.T)
+                dt = times[1] - times[0]
+           
+            for j, conc in enumerate(im_list[key]):
+                
+                distance, branch, delay = extract_max_delay(conc, dt)
+                if k%2:
+                    fillstyle = "none"
+                else:
+                    fillstyle = "full"
+                ax1[0][i].plot(distance, branch, color_list[j],
+                               marker=symbol,
+                               label=label_list[key][j]+" "+
+                               what_type[directory],
+                               linestyle="", fillstyle=fillstyle)
+                ax1[1][i].plot(distance, delay, color_list[j], marker=symbol,
+                               label=label_list[key][j]+" "+
+                               what_type[directory],
+                               linestyle="", fillstyle=fillstyle)
+                    
+            ax1[0][0].set_ylabel("Calcium amplitude (nM)", fontsize=15)
+            ax1[0][i].set_title("Injection duration %s ms" % key, fontsize=15)
+            ax1[0][i].set_yscale("log")
+            ax1[1][i].set_xlabel("Distance from stimulated site (um)",
+                                 fontsize=15)
+            ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
+            
+            
+    try:
+        ax1[0][2].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
+    except IndexError:
+        ax1[0][1].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
+        
+    for i, axes in enumerate(ax1):
+        ylim2 = max([max(ax.get_ylim()) for ax in axes])
+        ylim1 = min([min(ax.get_ylim()) for ax in axes])
+        for j, ax in enumerate(axes):
+            ax.set_ylim([ylim1, ylim2])
+            if j:
+                ax.set_yticks([])
+            if i<1:
+                ax.set_xticks([])
+            ax.tick_params(axis='both', which='major', labelsize=14)
     return fig1

@@ -34,8 +34,8 @@ stim_labels = ["2 uM Ca injection", "4 uM Ca injection", "10 uM Ca injection"]
 branch_diams = [1.2, 2.4, 6.0]
 Fura_specie = "Fura2Ca"
 t_stim = 3000  # sec
-dye_base = "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.xmlFura2.h5"
-nodye_base = "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
+dye_base = "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_%2.1f_um_50_um_%s_nM.xmlFura2.h5"
+nodye_base = "model_RyR2CaM_simple_SERCA_SOCE_baloon_diam_%2.1f_um_50_um_%s_nM.h5"
 
 fig, ax = plt.subplots(2, 3, figsize=(15, 12))
 
@@ -81,7 +81,8 @@ for i, x in enumerate(ax[1]):
         fname = dye_base % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname)
         try:
-            voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
+            voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
+                                              output_name)
         except TypeError:
             continue
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
@@ -129,6 +130,6 @@ for i, x in enumerate(ax[1]):
 
 
 set_ylim(ax[1], mini, maxi)
-fig.savefig("Ca_dye_effects.eps", dpi=100, bbox_inches="tight")
-fig.savefig("Ca_dye_effects.png", dpi=100, bbox_inches="tight")
+fig.savefig("Ca_dye_effects_baloon.eps", dpi=100, bbox_inches="tight")
+fig.savefig("Ca_dye_effects_baloon.png", dpi=100, bbox_inches="tight")
 plt.show()

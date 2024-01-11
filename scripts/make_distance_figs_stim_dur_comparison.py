@@ -13,7 +13,11 @@ t_init = 3000
 
 colors = ['tab:blue', 'tab:olive', 'tab:green', 'tab:blue', 'tab:olive', 'tab:green']
 stim_dend = "dend26"
-my_path = os.path.join("..", "Ca_wave_simple_SERCA_SOCE")
+directories = [
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+    #"Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
+]
+
 symbol = {
     "tubes": "d",
     "baloon": "o",
@@ -23,12 +27,12 @@ marker = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full"}
 dend_f = {
     "350 nM":
     [
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.h5",
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0350_nM.h5",
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0350_nM.h5",
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0350_nM.h5",
 
 
            
@@ -36,23 +40,23 @@ dend_f = {
        "700 nM":
     [
       
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.h5",        
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5",        
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_0700_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_0700_nM.h5",        
     
        
     ],
        "1050 nM":
     [
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",               
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
+        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.h5",               
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_1050_nM.h5",        
         "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_1.2_um_50_um_1050_nM.h5",               
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_2.4_um_50_um_1050_nM.h5",        
-        "model_RyR2CaM_3s_injection_simple_SERCA_SOCE_baloon_diam_6.0_um_50_um_1050_nM.h5",        
       
          
     ],
@@ -60,34 +64,34 @@ dend_f = {
 labels = {
     "350 nM":
     [
-        "RyR2 uniform  1.2 um",
-        "RyR2 uniform  2.4 um",        
-        "RyR2 uniform  6.0 um",
-        "RyR2 dendritic membrane  1.2 um",
-        "RyR2 dendritic membrane  2.4 um",        
-        "RyR2 dendritic membrane  6.0 um",        
+        "40 ms injection  1.2 um",
+        "40 ms injection  2.4 um",        
+        "40 ms injection  6.0 um",
+        "3 ms injection  1.2 um",
+        "3 ms injection  2.4 um",        
+        "3 ms injection  6.0 um",        
 
     ],
        "700 nM":
     [
 
-        "RyR2 uniform  1.2 um",
-        "RyR2 uniform  2.4 um",        
-        "RyR2 uniform  6.0 um",
-        "RyR2 dendritic membrane  1.2 um",
-        "RyR2 dendritic membrane  2.4 um",        
-        "RyR2 dendritic membrane  6.0 um",        
+        "40 ms injection  1.2 um",
+        "40 ms injection  2.4 um",        
+        "40 ms injection  6.0 um",
+        "3 ms injection  1.2 um",
+        "3 ms injection  2.4 um",        
+        "3 ms injection  6.0 um",        
 
 
     ],
        "1050 nM":
     [
-        "RyR2 uniform  1.2 um",
-        "RyR2 uniform  2.4 um",        
-        "RyR2 uniform  6.0 um",        
-        "RyR2 dendritic membrane  1.2 um",
-        "RyR2 dendritic membrane  2.4 um",        
-        "RyR2 dendritic membrane  6.0 um",        
+        "40 ms injection  1.2 um",
+        "40 ms injection  2.4 um",        
+        "40 ms injection  6.0 um",        
+        "3 ms injection  1.2 um",
+        "3 ms injection  2.4 um",        
+        "3 ms injection  6.0 um",        
 
     ],
 }
@@ -143,20 +147,14 @@ if __name__ == '__main__':
                 "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-    new_fname = "model_RyR_simple_SERCA_SOCE_tubes_diam_6.0_um_50_um_1050_nM.h5"
-    fullname = os.path.join(my_path, new_fname)
-    vox, times, conc = utils.get_conc(fullname, specie_list,
-                                      reg_list, output_name)
-    dt = times[1] - times[0]
-    length = conc.shape[1]
-    distance = np.linspace(0, length, length)
-    fig, ax = plt.subplots(1, 1)
-    new_times = np.arange(25, 1000, 50)
-    print(conc.shape)
-    for i, new_t in enumerate(new_times):
-        ax.plot(distance, conc[int((t_init+new_t)/dt), :], label="delay %d ms" % new_t,
-                marker="d", fillstyle="none",
-                linewidth=0)
-    ax.legend()
-    plt.show()
+    
+    fig1 = utils.make_distance_figs_bal_tubes(directories, "",
+                                              dend_f, specie_list,
+                                              reg_list, output_name,
+                                              colors, labels, types, marker)
+    fig1.savefig("Ca_wave_vs_distance_dur_comparison.png",
+                 bbox_inches="tight", pad_inches=0.1)
+    fig1.savefig("Ca_wave_vs_distance_dur_comparison.eps",
+                 bbox_inches="tight", pad_inches=0.1)
+
                           

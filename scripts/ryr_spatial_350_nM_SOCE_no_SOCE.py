@@ -5,19 +5,18 @@ import numpy as np
 import utility_functions as utils
 
 
-colors = ["tab:blue", "tab:olive", "tab:green"]
-
-labels = {"_no_CaM": "no CaM",
-          "_CaM": "ctrl",
+labels = {
+    "_no_SOCE": "no SOCE",
+    "_SOCE": "ctrl",
 }
-
+colors = ['tab:blue', 'tab:olive', 'tab:green']
 
 reg_list = ["dend25", "dend26", "dend27"]
 
 file_path = os.path.abspath(__file__)
 list_fp = os.path.split(file_path)
 cur_dir = os.path.join(os.path.join(list_fp[0], ".."))
-basic_RyR_SOCE_dir = "Ca_wave_simple_SERCA_SOCE"
+RyRCaM_no_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE"
 RyRCaM_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
 output_name = "all"
 stim = "0350"
@@ -27,17 +26,17 @@ branch_diams = [1.2, 2.4, 6.0]
 t_start = 3000
 idx_start = t_start
 
-base_SOCE = "model_RyR%s_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
+CaM_no_SOCE = "model_RyR2CaM%s_simple_SERCA_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 CaM_SOCE = "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 
 fname = {
-    "_CaM": CaM_SOCE,
-    "_no_CaM": base_SOCE
+    "_SOCE": CaM_SOCE,
+    "_no_SOCE": CaM_no_SOCE
     }
 
 directory ={
-    "_CaM": "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-    "_no_CaM": "Ca_wave_simple_SERCA_SOCE",
+    "_SOCE": "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+    "_no_SOCE": "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
     }
 
 stim_types = ["_3s_injection", ""]
@@ -48,7 +47,7 @@ suffix = {"": "40 ms stim",
 
 
 for i, b_diam in enumerate(branch_diams):
-    for inh in ["_no_CaM", "_CaM"]:
+    for inh in ["_no_SOCE", "_SOCE"]:
         for k, s in enumerate(stim_types):
             fname_SOCE = fname[inh] % (s, b_diam, stim)
             full_name = os.path.join(cur_dir, directory[inh], fname_SOCE)
@@ -60,17 +59,18 @@ for i, b_diam in enumerate(branch_diams):
                 print("Could not find", full_name)
                 continue
             output = ca.mean(axis=1)
-            max_idx = output.argmax()
-            if inh == "_no_CaM":
-                ax[k].plot(time[max_idx:len(time)//2:50]/1000,
-                           output[max_idx:len(time)//2:50], color=colors[i],
+            argmax = output.argmax()
+            if inh == "_SOCE":
+                ax[k].plot(time[argmax::100]/1000, output[argmax::100], 
                            label=labels[inh]+" diam "+ str(b_diam),
-                           linestyle="", marker="d",  fillstyle="none")
+                           color=colors[i],  linestyle="", marker="d",
+                           fillstyle="full")
             else:
-                ax[k].plot(time[max_idx:len(time)//2:50]/1000,
-                           output[max_idx:len(time)//2:50], color=colors[i],
+                ax[k].plot(time[argmax::100]/1000, output[argmax::100], 
                            label=labels[inh]+" diam "+ str(b_diam),
-                           linestyle="", marker="d",  fillstyle="full")
+                           color=colors[i], linestyle="", marker="d",
+                           fillstyle="none")
+
 
 ax[0].set_ylabel("Calcium [uM]", fontsize=20)
 ax[0].set_xlabel("Time [sec]", fontsize=20)
@@ -84,9 +84,9 @@ ylim = max(ax[0].get_ylim() + ax[1].get_ylim())
 ax[0].set_ylim([0, ylim])
 ax[1].set_ylim([0, ylim])
 
-fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp.eps", dpi=100,
+fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp_SOCE.eps", dpi=100,
             bbox_inches="tight")
-fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp.png", dpi=100,
+fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp_SOCE.png", dpi=100,
             bbox_inches="tight")
 
 plt.show()

@@ -14,7 +14,7 @@ if __name__ == '__main__':
         my_file = h5py.File(fname, 'r')
         for trial in my_file.keys():
             if trial != "model":
-                utils.save_concentrations(my_file, fname[:-3], '__main__',
+                utils.save_concentrations(my_file, fname[:-3], 'all',
                                     trial=trial)
 
     print('Done')

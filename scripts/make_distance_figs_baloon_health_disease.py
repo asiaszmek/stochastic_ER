@@ -11,8 +11,8 @@ from scipy.constants import Avogadro
 
 t_init = 3000
 
-colors = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red',  'tab:purple', 'tab:brown',
-          'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan', "b", "orange", "g",
+colors = ['tab:blue', 'tab:olive', 'tab:green', 'tab:red',  'tab:purple', 'tab:brown',
+          'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan', "b", "olive", "g",
           "r", "p" ]
 stim_dend = "dend26"
 directories = [

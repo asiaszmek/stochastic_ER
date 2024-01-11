@@ -5,12 +5,8 @@ import numpy as np
 import utility_functions as utils
 
 
-colors = {"ctrl_3s_injection": "tab:blue",
-          "ctrl": "tab:cyan",
-          "aging_3s_injection": "tab:green",
-          "aging": "tab:olive",
-          
-}
+
+colors = ["tab:blue", "tab:olive", "tab:green"]
 
 def set_ylim(ax, mini, maxi):
     for x in ax:
@@ -30,6 +26,9 @@ stim_label = "2 uM Ca injection"
 branch_diams = [1.2, 2.4, 6.0]
 t_start = 3000
 idx_start = t_start
+labels = {"aging": "old age",
+          "ctrl": "ctrl",
+}
 
 base_ctrl = "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 
@@ -48,10 +47,10 @@ stim_types = ["_3s_injection", ""]
 suffix = {"": "40 ms stim",
           "_3s_injection": "3 ms stim"}
 
-fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(10, 10))
+fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(10, 5))
 
 
-for k, b_diam in enumerate(branch_diams):
+for i, b_diam in enumerate(branch_diams):
     for inh in ["ctrl", "aging"]:
         for k, s in enumerate(stim_types):
             ax[k].set_title(stim_label+ " diam %2.1f um" % b_diam,
@@ -66,8 +65,17 @@ for k, b_diam in enumerate(branch_diams):
                 print("Could not find", full_name)
                 continue
             output = ca.mean(axis=1)
-            ax[k].plot(time/1000, output, 
-                       label=inh+" diam "+ str(b_diam))
+            max_idx = output.argmax()
+            if inh == "aging":
+                ax[k].plot(time[max_idx:len(time)//2:50]/1000,
+                           output[max_idx:len(time)//2:50], color=colors[i],
+                           label=labels[inh]+" diam "+ str(b_diam),
+                           linestyle="", marker="d",  fillstyle="none")
+            else:
+                ax[k].plot(time[max_idx:len(time)//2:50]/1000,
+                           output[max_idx:len(time)//2:50], color=colors[i],
+                           label=labels[inh]+" diam "+ str(b_diam),
+                           linestyle="", marker="d",  fillstyle="full")
             
 ax[0].set_ylabel("Calcium [uM]", fontsize=20)
 ax[0].set_xlabel("Time [sec]", fontsize=20)
@@ -81,4 +89,5 @@ ylim = max(ax[0].get_ylim() + ax[1].get_ylim())
 ax[0].set_ylim([0, ylim])
 ax[1].set_ylim([0, ylim])
 fig.savefig("Temporal_ctrl_aging_350.eps", dpi=100, bbox_inches="tight")
+fig.savefig("Temporal_ctrl_aging_350.png", dpi=100, bbox_inches="tight")
 plt.show()

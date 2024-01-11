@@ -92,7 +92,7 @@ directory ={
     }
 
 stim_types = ["_3s_injection", ""]
-fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 10))
+fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(5, 5))
 
 suffix = {"": "40 ms stim",
           "_3s_injection": "3 ms stim"}
