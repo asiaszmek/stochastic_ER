@@ -334,7 +334,8 @@ def extract_max_delay(concentration, dt):
         try:
             if branch[idx] > 1.5*mean:
                 delay[idx] = concentration[idx, int(t_init/dt):].argmax()*dt
-                print(idx, delay[idx], branch[idx], 1.5*mean)
+
+                #   print(idx, delay[idx], branch[idx], 1.5*mean)
             else:
                 break
         except ValueError:
@@ -343,7 +344,7 @@ def extract_max_delay(concentration, dt):
         try:
             if branch[idx] > 1.5*mean:
                 delay[idx] = concentration[idx, int(t_init/dt):].argmax()*dt
-                print(idx, delay[idx],  branch[idx], 1.5*mean)
+                #   print(idx, delay[idx], branch[idx], 1.5*mean)
             else:
                 break
         except ValueError:
@@ -351,7 +352,7 @@ def extract_max_delay(concentration, dt):
     
     return distance, branch, delay
 
-def make_distance_figs(directiories_list, descr, dend_dict,
+def ca_wave_propagation_figs(directiories_list, descr, dend_dict,
                        what_species, region_list, output_name, color_list,
                        label_list, what_type, marker_list):
 
@@ -418,10 +419,13 @@ def make_distance_figs(directiories_list, descr, dend_dict,
     return fig1
 
 
-def make_distance_figs_bal_tubes(directiories_list, descr, dend_dict,
-                                 what_species, region_list, output_name,
-                                 color_list,
-                                 label_list, what_type, marker_list):
+def ca_wave_propagation_figs_bal_tubes(directiories_list,
+                                       descr, dend_dict,
+                                       what_species, region_list,
+                                       output_name,
+                                       color_list,
+                                       label_list, what_type,
+                                       marker_list):
     symbol = "d"
     fig1, ax1 = plt.subplots(2, len(dend_dict), figsize=(20, 10))
     for k, directory in enumerate(directiories_list):
@@ -488,10 +492,12 @@ def make_distance_figs_bal_tubes(directiories_list, descr, dend_dict,
 
 
 
-def make_distance_figs_different_paradigms(directiories_list, descr, paradigm_dict,
-                                          what_species, region_list, output_name,
-                                          color_list,
-                                          label_list, what_type, marker_list):
+def ca_wave_propagation_figs_different_paradigms(directiories_list,
+                                                 descr, paradigm_dict,
+                                                 what_species, region_list,
+                                                 output_name, color_list,
+                                                 label_list, what_type,
+                                                 marker_list):
     symbol = "d"
     fig1, ax1 = plt.subplots(2, len(paradigm_dict), figsize=(20, 10))
     for k, directory in enumerate(directiories_list):
