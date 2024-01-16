@@ -56,9 +56,11 @@ for k, b_diam in enumerate(branch_diams):
     for inh in ["_no_CaM", "_CaM"]:
         for k, s in enumerate(stim_types):
             fname_SOCE = fname[inh] % (s, b_diam, stim)
-            full_name = os.path.join(cur_dir, directory[inh], fname_SOCE)
+            full_name = os.path.join(cur_dir, directory[inh],
+                                     fname_SOCE)
             try:
-                voxels, time, ca = utils.get_conc(full_name, ["Ca"],
+                voxels, time, ca = utils.get_conc(full_name,
+                                                  ["Ca"],
                                                   reg_list,
                                                   output_name)
             except FileNotFoundError and OSError:

@@ -442,8 +442,10 @@ def ca_wave_propagation_figs_bal_tubes(directiories_list,
                     new_fname = fname
                 my_file = os.path.join(my_path, new_fname)
                 try:
-                    vox, times, conc_mean = get_conc(my_file, ["Ca"],
-                                                     region_list, output_name)
+                    vox, times, conc_mean = get_conc(my_file,
+                                                     ["Ca"],
+                                                     region_list,
+                                                     output_name)
                 except TypeError:
                     print("No file", new_fname)
                     continue
@@ -567,3 +569,236 @@ def ca_wave_propagation_figs_different_paradigms(directiories_list,
                 ax.set_xticks([])
             ax.tick_params(axis='both', which='major', labelsize=14)
     return fig1
+
+
+
+def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
+                      what_species, region_list, output_name,
+                      colors, types):
+    fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
+    fig2, ax2 = plt.subplots(1, 1, figsize=(5, 5))
+    for k, d in enumerate(directories_list):
+        my_path = os.path.join("..", d)
+        add = descr[d]
+        im_list = {}
+        for j, diam in enumerate(dend_diam):
+            for inh in [""]:
+                y = []
+                y_d = []
+                x = []
+                for i, stim in enumerate(stims):
+                    new_fname = fname % (add, diam, stim)
+                    my_file = os.path.join(my_path, new_fname)
+                    try:
+                        vox, times, conc_mean = get_conc(my_file,
+                                                         what_species,
+                                                         region_list,
+                                                         output_name)
+                        dt = times[1]-times[0]
+                    except TypeError:
+                        print("No file", new_fname)
+                        continue
+               
+                
+            
+                    distance, branch, delay = extract_max_delay(conc_mean.T, dt)
+                    full_delay = (len(np.where(delay[:50]>0)[0])
+                                  +len(np.where(delay[52:]>0)[0]))/2*0.5
+                
+                    full_duration = (delay[:50].max()
+                                     +delay[51:].max())/2
+                    y.append(full_delay)
+                    y_d.append(full_delay/full_duration)
+                    b_diam = float(diam)
+                    x.append((branch[50]+branch[51])/2)
+                print(x, y, y_d)
+                if k == 0:
+                    ax1.plot(x, y, color=colors[diam], marker="d",
+                             label=types[d]+" diam "+diam
+                             +" 40 ms",
+                             linestyle="")
+                    ax2.plot(x, y_d, color=colors[diam],
+                             marker="d",
+                             label=types[d]+" diam "+diam
+                             +" 40 ms",
+                             linestyle="")
+
+                if k == 1:
+                    ax1.plot(x, y, color=colors[diam], marker="o",
+                             label=types[d]+" diam "+diam
+                             +" 40 ms",
+                             linestyle="")
+                    ax2.plot(x, y_d, color=colors[diam],
+                             marker="o",
+                             label=types[d]+" diam "+diam
+                             +" 40 ms",
+                             linestyle="")
+
+                if k == 2:
+                    ax1.plot(x, y, color=colors[diam], marker="d",
+                             label=types[d]+" diam "+diam
+                             +" 40 ms", linestyle="",
+                             fillstyle="none")
+                    ax2.plot(x, y_d, color=colors[diam],
+                             marker="d",
+                             label=types[d]+" diam "+diam
+                             +" 40 ms", linestyle="",
+                             fillstyle="none")
+
+                if k == 3:
+                    ax1.plot(x, y, color=colors[diam], marker="o",
+                             label=types[d]+" diam "+diam
+                             +" 40 ms", linestyle="",
+                             fillstyle="none")
+                    ax2.plot(x, y_d, color=colors[diam],
+                             marker="o",
+                             label=types[d]+" diam "+diam
+                             +" 40 ms", linestyle="",
+                             fillstyle="none")
+    ax1.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax2.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax1.set_ylabel("Distance travelled [um]", fontsize=20)
+    ax2.set_ylabel("speed [um/ms]", fontsize=20)
+    
+    
+    ax1.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
+    ax2.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
+    return fig1, fig2
+
+
+def make_distance_fig_2_4(fname, directories, descr, dend_diam,
+                          stims, what_species, organization,
+                          dur_dict, reg_list, output_name, 
+                          colors, types, marker):
+    fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
+    fig2, ax2 = plt.subplots(1, 1, figsize=(5, 5))
+    for d in directories:
+        my_path = os.path.join("..", d)
+        add = descr[d]
+        for k, org in  enumerate(organization):
+            for j, diam in enumerate(dend_diam):
+                for inh in what_species:
+                    y = []
+                    y_d = []
+                    x = []
+                    for i, stim in enumerate(stims):
+                        new_fname = fname % (add, inh, org, diam, stim)
+                        my_file = os.path.join(my_path, new_fname)
+                        try:
+                            vox, times, conc_mean = get_conc(my_file,
+                                                                   ["Ca"],
+                                                                   reg_list,
+                                                                   output_name)
+                            dt = times[1]-times[0]
+                        except TypeError:
+                            print("No file", new_fname)
+                            continue
+               
+                
+            
+                        distance, branch, delay = extract_max_delay(conc_mean.T,
+                                                                dt)
+                        full_delay = (len(np.where(delay[:50]>0)[0])
+                                      +len(np.where(delay[52:]>0)[0]))/2*0.5
+                
+                        full_duration = (delay[:50].max()
+                                         +delay[51:].max())/2
+                        y.append(full_delay)
+                        y_d.append(full_delay/full_duration)
+                        b_diam = float(diam)
+                        x.append((branch[50]+branch[51])/2)
+                    print(x, y, y_d)
+                    print(types[org]+" diam "+diam)
+                    if k % 2:
+                        ax1.plot(x, y, color=colors[diam], marker=marker[inh],
+                                 label=types[org]+" diam "+ diam + dur_dict[inh],
+                                 linestyle="", fillstyle="full")
+                        ax2.plot(x, y_d, color=colors[diam],
+                                 marker=marker[inh],
+                                 label=types[org]+" diam "+diam
+                                 + dur_dict[inh],
+                                 linestyle="", fillstyle="full")
+
+                    else:
+                        ax1.plot(x, y, color=colors[diam], marker=marker[inh],
+                                 label=types[org]+" diam "+diam
+                                 + dur_dict[inh]+" no CaM",
+                                 linestyle="", fillstyle="none")
+                        ax2.plot(x, y_d, color=colors[diam],
+                                 marker=marker[inh],
+                                 label=types[org]+" diam "+diam
+                                 + dur_dict[inh]+" no CaM", fillstyle="none",
+                                 linestyle="")
+    ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    return fig1, fig2
+
+
+
+def make_distance_fig_aging(directories, descr, dend_diam,
+                            stims, what_species, organization,
+                            dur_dict, reg_list, output_name, 
+                            colors, types, marker):
+    fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
+    fig2, ax2 = plt.subplots(1, 1, figsize=(5, 5))
+    for k, d in enumerate(directories):
+        my_path = os.path.join("..", d)
+        add = descr[d]
+        fname = directories[d]
+        for org in organization:
+            for j, diam in enumerate(dend_diam):
+                for inh in what_species:
+                    y = []
+                    y_d = []
+                    x = []
+                    for i, stim in enumerate(stims):
+                        new_fname = fname % (add, inh, org, diam, stim)
+                        my_file = os.path.join(my_path, new_fname)
+                        try:
+                            vox, times, conc_mean = get_conc(my_file,
+                                                                   ["Ca"],
+                                                                   reg_list,
+                                                                   output_name)
+                            dt = times[1]-times[0]
+                        except TypeError:
+                            print("No file", new_fname)
+                            continue
+               
+                
+            
+                        distance, branch, delay = extract_max_delay(conc_mean.T,
+                                                                dt)
+                        full_delay = (len(np.where(delay[:50]>0)[0])
+                                      +len(np.where(delay[52:]>0)[0]))/2*0.5
+                
+                        full_duration = (delay[:50].max()
+                                         +delay[51:].max())/2
+                        y.append(full_delay)
+                        y_d.append(full_delay/full_duration)
+                        b_diam = float(diam)
+                        x.append((branch[50]+branch[51])/2)
+                    print(x, y, y_d)
+                   
+                    if not k % 2:
+                        ax1.plot(x, y, color=colors[diam], marker=marker[inh],
+                                 label=types[d]+" diam "+diam + dur_dict[inh],
+                                 linestyle="", fillstyle="full")
+                        ax2.plot(x, y_d, color=colors[diam],
+                                 marker=marker[inh],
+                                 label=types[d]+" diam "+diam
+                                 + dur_dict[inh],
+                                 linestyle="", fillstyle="full")
+
+                    else:
+                        ax1.plot(x, y, color=colors[diam], marker=marker[inh],
+                                 label=types[d]+" diam "+diam
+                                 + dur_dict[inh],
+                                 linestyle="", fillstyle="none")
+                        ax2.plot(x, y_d, color=colors[diam],
+                                 marker=marker[inh],
+                                 label=types[d]+" diam "+diam
+                                 + dur_dict[inh], fillstyle="none",
+                                 linestyle="")
+    ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    return fig1, fig2

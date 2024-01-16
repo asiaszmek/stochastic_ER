@@ -105,9 +105,11 @@ for k, b_diam in enumerate(branch_diams):
             x = []
             for stim in stims:
                 fname_SOCE = fname[inh] % (s, b_diam, stim)
-                full_name = os.path.join(cur_dir, directory[inh], fname_SOCE)
+                full_name = os.path.join(cur_dir, directory[inh],
+                                         fname_SOCE)
                 try:
-                    voxels, time, ca = utils.get_conc(full_name, ["Ca"],
+                    voxels, time, ca = utils.get_conc(full_name,
+                                                      ["Ca"],
                                                       reg_list,
                                                       output_name)
                 except FileNotFoundError and OSError:
@@ -117,7 +119,8 @@ for k, b_diam in enumerate(branch_diams):
                 x.append(injections[b_diam][stim][s]/b_diam)
             if inh == "_CaM" and s == "":
                 ax.plot(x, y,color=colors[b_diam], marker="d",
-                        label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
+                        label=labels[inh]+" diam "+str(b_diam)
+                        +" 40 ms",
                         linestyle="")
             elif inh == "_no_CaM" and s == "":
                 ax.plot(x, y, color=colors[b_diam], marker="d",
