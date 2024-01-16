@@ -28,8 +28,8 @@ marker = {
     "Ca_wave_simple_SERCA_SOCE": "none",
 }
 types = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "control",
-    "Ca_wave_simple_SERCA_SOCE": "oxidative stress"
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
+    "Ca_wave_simple_SERCA_SOCE": "no CaM"
 }
 symbol = {
     "tubes": "d",
