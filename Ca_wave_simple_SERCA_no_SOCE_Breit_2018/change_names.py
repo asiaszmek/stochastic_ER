@@ -6,8 +6,8 @@ file_list = os.listdir()
 
 
 for fname in file_list:
-    if "700" in fname and fname.endswith(".xml"):
-        split = fname.split("700")
-        new_fname = split[0]+"0700"+split[-1]
+    if "350" in fname and fname.endswith(".xml"):
+        split = fname.split("350")
+        new_fname = split[0]+"175"+split[-1]
         print(new_fname)
-        subprocess.run(["git", "mv", fname, new_fname], capture_output=True)
+        subprocess.run(["cp", "-v", fname, new_fname], capture_output=True)
