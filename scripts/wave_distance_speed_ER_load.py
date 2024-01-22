@@ -42,7 +42,7 @@ marker = {
     "Ca_wave_simple_SERCA_no_SOCE_largerER": "none",
 }
 
-stims = ["0175", "0350", "0700", "1050"]
+stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 fname = "model_%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
     
