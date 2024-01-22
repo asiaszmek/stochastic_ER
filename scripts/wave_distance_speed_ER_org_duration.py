@@ -17,53 +17,6 @@ dur_dict = {
     "_3s_injection": " 3 ms"
 }
               
-injections = {
-    1.2:{
-        "0350":{
-            "":40*1200,
-            "_3s_injection":3*12000,
-        },
-        "0700":{
-            "":40*2400,
-            "_3s_injection":3*24000,
-        },
-        "1050":{
-            "":40*4000,
-            "_3s_injection":3*40000,
-        },
-    },
-    2.4:{
-        "0350":{
-            "":40*2000,
-            "_3s_injection":3*20000,
-        },
-        "0700":{
-            "":40*4000,
-            "_3s_injection":3*40000,
-        },
-        "1050":{
-            "":40*6000,
-            "_3s_injection":3*60000,
-        },
-
-    },
-    6.0:{
-        "0350":{
-            "":40*4000,
-            "_3s_injection":3*40000,
-        },
-        "0700":{
-            "": 40*8000,
-            "_3s_injection":3*80000,
-        },
-        "1050":{
-            "":40*12000,
-            "_3s_injection":3*120000,
-        },
-
-    },
-}
-
 
 colors = {"1.2": 'tab:blue',
           "2.4": 'tab:olive',
@@ -81,10 +34,10 @@ descr = {
 
 types = {
     "baloon": "RyRCaM in dendritic membrane",
-    "tubes": "unformly distributed RyRCaM",
+    "tubes": "uniformly distributed RyRCaM",
 }
 
-stims = ["0350", "0700", "1050"]
+stims = ["0175", "0350", "0700", "1050"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
     

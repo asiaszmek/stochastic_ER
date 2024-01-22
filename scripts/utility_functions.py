@@ -304,10 +304,13 @@ def get_conc(fullname, specie_list, region_list, output_name):
     for trial in my_file.keys():
         if trial == "model":
             continue
-        conc, voxels = get_dynamics_in_region(my_file,
-                                                    specie_list,
-                                                    region_list, trial,
-                                                    output_name)
+        try:
+            conc, voxels = get_dynamics_in_region(my_file,
+                                                  specie_list,
+                                                  region_list, trial,
+                                                  output_name)
+        except OSError:
+            return
         conc_dict[trial] = conc
         time = get_times(my_file, trial, output_name)
         time_dict[trial] = time
@@ -328,7 +331,10 @@ def extract_max_delay(concentration, dt):
     mean = concentration[:,:int(t_init/dt)-1].mean()
     length = concentration.shape[0]
     distance = np.linspace(-length/2, length/2, length)
-    branch = concentration[:, int(t_init/dt):].max(axis=1)
+    try:
+        branch = concentration[:, int(t_init/dt):].max(axis=1)
+    except ValueError:
+        return None
     delay = np.zeros_like(branch)
     for idx in range(51, 102, 1):
         try:
@@ -380,7 +386,11 @@ def ca_wave_propagation_figs(directiories_list, descr, dend_dict,
                 im_list[key].append(conc_mean.T)
                 dt = times[1]-times[0]
             for j, conc in enumerate(im_list[key]):
-                distance, branch, delay = extract_max_delay(conc, dt)
+                try:
+                    distance, branch, delay = extract_max_delay(conc, dt)
+                except TypeError:
+                    continue
+                
                 if k % 2:
                     symbol = "o"
                 else:
@@ -455,7 +465,10 @@ def ca_wave_propagation_figs_bal_tubes(directiories_list,
                 dt = times[1] - times[0]
            
             for j, conc in enumerate(im_list[key]):
-                distance, branch, delay = extract_max_delay(conc, dt)
+                try:
+                    distance, branch, delay = extract_max_delay(conc, dt)
+                except TypeError:
+                    continue
                 if j > 2:
                     fillstyle = "none"
                 else:
@@ -529,8 +542,10 @@ def ca_wave_propagation_figs_different_paradigms(directiories_list,
                 dt = times[1] - times[0]
            
             for j, conc in enumerate(im_list[key]):
-                
-                distance, branch, delay = extract_max_delay(conc, dt)
+                try:
+                    distance, branch, delay = extract_max_delay(conc, dt)
+                except TypeError:
+                    continue
                 if k%2:
                     fillstyle = "none"
                 else:
@@ -600,8 +615,11 @@ def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
                         continue
                
                 
-            
-                    distance, branch, delay = extract_max_delay(conc_mean.T, dt)
+                    try:
+                        distance, branch, delay = extract_max_delay(conc_mean.T,
+                                                                    dt)
+                    except TypeError:
+                        continue
                     full_delay = (len(np.where(delay[:50]>0)[0])
                                   +len(np.where(delay[52:]>0)[0]))/2*0.5
                 
@@ -695,9 +713,11 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                             continue
                
                 
-            
-                        distance, branch, delay = extract_max_delay(conc_mean.T,
+                        try:
+                            distance, branch, delay = extract_max_delay(conc_mean.T,
                                                                 dt)
+                        except TypeError:
+                            continue
                         full_delay = (len(np.where(delay[:50]>0)[0])
                                       +len(np.where(delay[52:]>0)[0]))/2*0.5
                 
@@ -729,6 +749,10 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                                  label=types[org]+" diam "+diam
                                  + dur_dict[inh]+" no CaM", fillstyle="none",
                                  linestyle="")
+    ax1.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax2.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax1.set_ylabel("Distance travelled [um]", fontsize=20)
+    ax2.set_ylabel("speed [um/ms]", fontsize=20)
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     return fig1, fig2
@@ -765,9 +789,11 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                             continue
                
                 
-            
-                        distance, branch, delay = extract_max_delay(conc_mean.T,
+                        try:
+                            distance, branch, delay = extract_max_delay(conc_mean.T,
                                                                 dt)
+                        except TypeError:
+                            continue
                         full_delay = (len(np.where(delay[:50]>0)[0])
                                       +len(np.where(delay[52:]>0)[0]))/2*0.5
                 
@@ -801,4 +827,9 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                                  linestyle="")
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax1.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax2.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax1.set_ylabel("Distance travelled [um]", fontsize=20)
+    ax2.set_ylabel("speed [um/ms]", fontsize=20)
+
     return fig1, fig2
