@@ -43,7 +43,7 @@ marker = {
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "none",
 }
 
-stims = ["0175", "0350", "0700", "1050"]
+stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
 symbol = {
