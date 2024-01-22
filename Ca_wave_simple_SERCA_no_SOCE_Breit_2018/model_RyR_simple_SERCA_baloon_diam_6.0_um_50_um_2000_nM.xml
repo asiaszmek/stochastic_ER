@@ -2,11 +2,11 @@
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
     <!-- this file defines a single run of the calculation, using morphology and
 -	 reaction data brought in from other files --> 
-    <xi:include href="../Rxn_RyR2CaM_no_SOCE_SERCA_simple.xml" />
-    <xi:include href="../morph_diam_2.4_um_50_um_dendrite.xml" />
-    <xi:include href="../stacked_ER_constant_RyRSERCA/IC_RyRCaM_simple_SERCA_2.4_um_2_um_dendrite.xml" />
-    <xi:include href="../1_EPSP_stim/Stim_middle_40_ms_2000_nM_2.4_um_50_um.xml"/>
-    <xi:include href="IO_Ca_RyRCaM.xml"/>
+    <xi:include href="../Rxn_no_IP3R_no_SOCE_SERCA_simple_RyR2.xml" />
+    <xi:include href="../morph_diam_6.0_um_50_um_dendrite.xml" />
+    <xi:include href="../baloon_ER/IC_RyR_simple_SERCA_6.0_um_2_um_dendrite.xml" />
+    <xi:include href="../1_EPSP_stim/Stim_middle_40_ms_2000_nM_6.0_um_50_um.xml"/>
+    <xi:include href="IO_Ca.xml"/>
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the
 results (also, 3D may not work yet...)  -->
@@ -25,8 +25,8 @@ results (also, 3D may not work yet...)  -->
     <spineSeed>123</spineSeed>
 
     <discretization>
-      <defaultMaxElementSide>.6</defaultMaxElementSide>
-      <surfaceLayers>0.4</surfaceLayers> 
+      <defaultMaxElementSide>.5</defaultMaxElementSide>
+      <surfaceLayers>0.4</surfaceLayers>
  
       <!-- default largest size for elements in bulk volumes (dendrites), microns -->	
 
