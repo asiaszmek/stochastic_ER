@@ -16,8 +16,8 @@ stim_dend = "dend26"
 
 directories = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
 }
 
@@ -30,9 +30,9 @@ descr = {
 
 types = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "ctrl no SOCE",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "ctrl",
     "Ca_wave_simple_SERCA_SOCE": "no CaM",
-    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "no CaM no SOCE",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "no CaM",
 }
 marker = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
@@ -113,18 +113,19 @@ if __name__ == '__main__':
         "": "o"
     }
     organization = ["baloon"]
-    fig1, fig2 = utils.make_distance_fig_aging(directories, descr,
-                                               dend_diam,
-                                               stims, what_species,
-                                               organization,
-                                               dur_dict,
-                                               reg_list, output_name, 
-                                               colors, types, fillstyle)
-    fig1.savefig("ER_load_distance_cam_no_cam_baloon.png", dpi=100,
+    fig1, fig2 = utils.make_distance_fig_aging(
+                                             directories, descr,
+                                             dend_diam,
+                                             stims, what_species,
+                                             organization,
+                                             dur_dict,
+                                             reg_list, output_name, 
+                                             colors, types, fillstyle)
+    fig1.savefig("ER_distance_cam_no_cam_baloon.png", dpi=100,
                  bbox_inches="tight")
-    fig2.savefig("ER_load_speed_cam_no_cam_baloon.png", dpi=100,
+    fig2.savefig("ER_speed_cam_no_cam_baloon.png", dpi=100,
                  bbox_inches="tight")
-    fig1.savefig("ER_load_distance_cam_no_cam_baloon.eps", dpi=100,
+    fig1.savefig("ER_distance_cam_no_cam_baloon.eps", dpi=100,
                  bbox_inches="tight")
-    fig2.savefig("ER_load_speed_cam_no_cam_baloon.eps", dpi=100,
+    fig2.savefig("ER_speed_cam_no_cam_baloon.eps", dpi=100,
                  bbox_inches="tight")

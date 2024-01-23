@@ -67,13 +67,13 @@ for i, b_diam in enumerate(branch_diams):
             output = ca.mean(axis=1)
             max_idx = output.argmax()
             if inh == "aging":
-                ax[k].plot(time[max_idx:len(time)//2:50]/1000,
-                           output[max_idx:len(time)//2:50], color=colors[i],
+                ax[k].plot(time[max_idx:len(time)//2:100]/1000,
+                           output[max_idx:len(time)//2:100], color=colors[i],
                            label=labels[inh]+" diam "+ str(b_diam),
                            linestyle="", marker="d",  fillstyle="none")
             else:
-                ax[k].plot(time[max_idx:len(time)//2:50]/1000,
-                           output[max_idx:len(time)//2:50], color=colors[i],
+                ax[k].plot(time[max_idx:len(time)//2:100]/1000,
+                           output[max_idx:len(time)//2:100], color=colors[i],
                            label=labels[inh]+" diam "+ str(b_diam),
                            linestyle="", marker="d",  fillstyle="full")
             

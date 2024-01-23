@@ -14,5 +14,6 @@ for directory in directories:
             split = fname.split("1050")
             new_fname = os.path.join(directory, split[0]+"2000"+split[-1])
             print(os.path.join(directory, fname), new_fname)
-            subprocess.run(["cp","-v", os.path.join(directory, fname), new_fname],
+            subprocess.run(["cp","-v", os.path.join(directory, fname),
+                            new_fname],
                            capture_output=True)

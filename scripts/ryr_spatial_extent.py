@@ -9,9 +9,9 @@ colors = {1.2: "tab:blue",
           2.4: "tab:green",
           6.0: "tab:olive",
 }
-labels = {"no_SOCE_no_CaM": "no SOCE RyR dis-inh.",
-          "_no_CaM": "RyR dis-inh.",
-          "no_SOCE_CaM": "no SOCE",
+labels = {"no_SOCE_no_CaM": "no CaM no SOCE",
+          "_no_CaM": "no CaM",
+          "no_SOCE_CaM": "ctrl no SOCE",
           "_CaM": "ctrl",
 }
 
@@ -24,12 +24,17 @@ cur_dir = os.path.join(os.path.join(list_fp[0], ".."))
 basic_RyR_SOCE_dir = "Ca_wave_simple_SERCA_SOCE"
 RyRCaM_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
 output_name = "all"
-stims = ["0350", "0700", "1050"]
+stims = ["0175", "0350", "0700", "1050"]
 stim_label = "2 uM Ca injection"
 branch_diams = [1.2, 2.4, 6.0]
 
 injections = {
     1.2:{
+        "0175":{
+            "":20*1200,
+            "_3s_injection":1.5*12000,
+        },
+
         "0350":{
             "":40*1200,
             "_3s_injection":3*12000,
@@ -44,6 +49,11 @@ injections = {
         },
     },
     2.4:{
+        "0175":{
+            "":20*2000,
+            "_3s_injection":1.5*20000,
+        },
+
         "0350":{
             "":40*2000,
             "_3s_injection":3*20000,
@@ -59,10 +69,16 @@ injections = {
 
     },
     6.0:{
+        "0175":{
+            "":20*4000,
+            "_3s_injection":1.5*40000,
+        },
+
         "0350":{
             "":40*4000,
             "_3s_injection":3*40000,
         },
+        
         "0700":{
             "": 40*8000,
             "_3s_injection":3*80000,
@@ -110,7 +126,7 @@ for k, b_diam in enumerate(branch_diams):
                     voxels, time, ca = utils.get_conc(full_name, ["Ca"],
                                                       reg_list,
                                                       output_name)
-                except FileNotFoundError and OSError:
+                except TypeError:
                     print("Could not find", full_name)
                     continue
                 y.append(np.max(ca.mean(axis=1))/1000)
