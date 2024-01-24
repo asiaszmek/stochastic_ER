@@ -628,7 +628,7 @@ def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
                     y.append(full_delay)
                     y_d.append(full_delay/full_duration)
                     b_diam = float(diam)
-                    x.append((branch[50]+branch[51])/2)
+                    x.append((branch[50]+branch[51])/2000)
                 print(x, y, y_d)
                 if k == 0:
                     ax1.plot(x, y, color=colors[diam], marker="d",
@@ -673,8 +673,8 @@ def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
                              label=types[d]+" diam "+diam
                              +" 40 ms", linestyle="",
                              fillstyle="none")
-    ax1.set_xlabel("peak Ca [nM]", fontsize=20)
-    ax2.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax2.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
     ax1.set_ylabel("distance travelled [um]", fontsize=20)
     ax2.set_ylabel("speed [um/ms]", fontsize=20)
     
@@ -727,7 +727,7 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                         y.append(full_delay)
                         y_d.append(full_delay/full_duration)
                         b_diam = float(diam)
-                        x.append((branch[50]+branch[51])/2)
+                        x.append((branch[50]+branch[51])/2000)
                     print(x, y, y_d)
                     print(types[org]+" diam "+ diam + dur_dict[inh])
                   
@@ -751,8 +751,8 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                                  label=types[org]+" diam "+diam
                                  + dur_dict[inh], fillstyle="none",
                                  linestyle="")
-    ax1.set_xlabel("peak Ca [nM]", fontsize=20)
-    ax2.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax2.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
     ax1.set_ylabel("distance travelled [um]", fontsize=20)
     ax2.set_ylabel("speed [um/ms]", fontsize=20)
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
@@ -805,7 +805,7 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                         y.append(full_delay)
                         y_d.append(full_delay/full_duration)
                         b_diam = float(diam)
-                        x.append((branch[50]+branch[51])/2)
+                        x.append((branch[50]+branch[51])/2000)
                     print(x, y, y_d)
                     if not len(y):
                         continue
@@ -832,8 +832,8 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                         print(types[d]+" diam "+diam + dur_dict[inh],k, "none")
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax1.set_xlabel("peak Ca [nM]", fontsize=20)
-    ax2.set_xlabel("peak Ca [nM]", fontsize=20)
+    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax2.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
     ax1.set_ylabel("distance travelled [um]", fontsize=20)
     ax2.set_ylabel("speed [um/ms]", fontsize=20)
 
