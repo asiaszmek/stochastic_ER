@@ -30,7 +30,7 @@ cur_dir = os.path.join(os.path.join(list_fp[0], ".."))
 RyRCaM_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
 output_name = "all"
 stims = ["0350", "0700", "1050"]
-stim_labels = ["2 uM Ca injection", "4 uM Ca injection", "10 uM Ca injection"]
+stim_labels = ["1 uM Ca injection", "2.5 uM Ca injection", "5 uM Ca injection"]
 branch_diams = [1.2, 2.4, 6.0]
 Fura_specie = "Fura2Ca"
 t_stim = 3000  # sec
@@ -81,7 +81,8 @@ for i, x in enumerate(ax[1]):
         fname = dye_base % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname)
         try:
-            voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
+            voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
+                                              output_name)
         except TypeError:
             continue
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
@@ -98,8 +99,9 @@ for i, x in enumerate(ax[1]):
         fname_no_dye = nodye_base % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_no_dye)
         try:
-            voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list, output_name)
-        except FileNotFoundError or OSError:
+            voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
+                                              output_name)
+        except TypeError:
             continue
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
@@ -111,6 +113,7 @@ for i, x in enumerate(ax[1]):
                label="%2.1f um - Fura2" % b_diam)
         maxi = max(maxi, max(max_fluo_vals))
         mini = min(mini, min(max_fluo_vals))
+        print(max(max_fluo_vals))
 
         
     

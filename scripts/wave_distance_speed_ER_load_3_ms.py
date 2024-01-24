@@ -44,7 +44,7 @@ marker = {
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
-fname = "model_%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
+fname = "model_%s_3s_injection_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
     
 NA = Avogadro*1e-23
 specie_dict = {
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     fig1, fig2 = utils.make_distance_fig(fname, directories, descr, dend_diam,
                                          stims, ["Ca"], reg_list, output_name,
                                          colors, types)
-    fig1.savefig("ER_load_distance_tubes.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("ER_load_distance_tubes.eps", dpi=100, bbox_inches="tight")
-    fig2.savefig("ER_load_speed_tubes.png", dpi=100, bbox_inches="tight")
-    fig2.savefig("ER_load_speed_tubes.eps", dpi=100, bbox_inches="tight")
+    fig1.savefig("ER_load_distance_tubes_3ms.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("ER_load_distance_tubes_3ms.eps", dpi=100, bbox_inches="tight")
+    fig2.savefig("ER_load_speed_tubes_3ms.png", dpi=100, bbox_inches="tight")
+    fig2.savefig("ER_load_speed_tubes_3ms.eps", dpi=100, bbox_inches="tight")

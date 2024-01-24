@@ -56,7 +56,7 @@ for i, b_diam in enumerate(branch_diams):
                 voxels, time, ca = utils.get_conc(full_name, ["Ca"],
                                                   reg_list,
                                                   output_name)
-            except FileNotFoundError and OSError:
+            except TypeError:
                 print("Could not find", full_name)
                 continue
             output = ca.mean(axis=1)
@@ -84,9 +84,9 @@ ylim = max(ax[0].get_ylim() + ax[1].get_ylim())
 ax[0].set_ylim([0, ylim])
 ax[1].set_ylim([0, ylim])
 
-fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp.eps", dpi=100,
+fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp_CaM.eps", dpi=100,
             bbox_inches="tight")
-fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp.png", dpi=100,
+fig.savefig("Ca_decay_stim_3_ms_40_ms_temp_comp_CaM.png", dpi=100,
             bbox_inches="tight")
 
 plt.show()

@@ -9,10 +9,10 @@ colors = {1.2: "tab:blue",
           2.4: "tab:green",
           6.0: "tab:olive",
 }
-labels = {"no_SOCEbaloon": "no CaM no SOCE",
-          "baloon": "RyRCaM in dendritic membrane",
-          "no_SOCEtubes": "ctrl no SOCE",
-          "tubes": "uniformly distributed RyRCaM",
+labels = {"no_SOCE_no_CaM": "no CaM no SOCE",
+          "_no_CaM": "no CaM",
+          "no_SOCE_CaM": "ctrl no SOCE",
+          "_CaM": "ctrl",
 }
 
 
@@ -21,6 +21,8 @@ reg_list = ["dend25", "dend26", "dend27"]
 file_path = os.path.abspath(__file__)
 list_fp = os.path.split(file_path)
 cur_dir = os.path.join(os.path.join(list_fp[0], ".."))
+basic_RyR_SOCE_dir = "Ca_wave_simple_SERCA_SOCE"
+RyRCaM_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
 output_name = "all"
 stims = ["0175", "0350", "0700", "1050", "2000"]
 stim_label = "2 uM Ca injection"
@@ -92,17 +94,17 @@ injections = {
 t_start = 3000
 idx_start = t_start
 
-base_SOCE = "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%2.1f_um_50_um_%s_nM.h5"
+base_SOCE = "model_RyR%s_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 CaM_SOCE = "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 
 fname = {
-    "tubes": CaM_SOCE,
-    "baloon": base_SOCE
+    "_CaM": CaM_SOCE,
+    "_no_CaM": base_SOCE
     }
 
 directory ={
-    "tubes": "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-    "baloon": "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+    "_CaM": "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+    "_no_CaM": "Ca_wave_simple_SERCA_SOCE",
     }
 
 stim_types = ["_3s_injection", ""]
@@ -113,7 +115,7 @@ suffix = {"": "40 ms stim",
 
 
 for k, b_diam in enumerate(branch_diams):
-    for inh in ["baloon", "tubes"]:
+    for inh in ["_no_CaM", "_CaM"]:
         for j, s in enumerate(stim_types):
             y = []
             x = []
@@ -129,16 +131,16 @@ for k, b_diam in enumerate(branch_diams):
                     continue
                 y.append(np.max(ca.mean(axis=1))/1000)
                 x.append(injections[b_diam][stim][s]/b_diam)
-            if inh == "tubes" and s == "":
+            if inh == "_CaM" and s == "":
                 ax.plot(x, y,color=colors[b_diam], marker="d",
                         label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
                         linestyle="")
-            elif inh == "baloon" and s == "":
+            elif inh == "_no_CaM" and s == "":
                 ax.plot(x, y, color=colors[b_diam], marker="d",
                         label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
                         linestyle="",
                         fillstyle="none")
-            elif inh == "tubes" and s == "_3s_injection":
+            elif inh == "_CaM" and s == "_3s_injection":
                 ax.plot(x, y, color=colors[b_diam], marker="o",
                         label=labels[inh]+" diam "+str(b_diam)+" 3 ms",
                         linestyle="")
@@ -150,12 +152,12 @@ for k, b_diam in enumerate(branch_diams):
 ax.set_ylabel("max(Calcium) [uM]", fontsize=20)
 ax.set_xlabel("total injected ions/diam [1/um]", fontsize=20)
 ax.tick_params(labelsize=14)
-ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+ax.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
 
 
-fig.savefig("Spatial_sum.eps", dpi=100,
+fig.savefig("Spatial_sum_cam.eps", dpi=100,
             bbox_inches="tight")
-fig.savefig("Spatial_sum.png", dpi=100,
+fig.savefig("Spatial_sum_cam..png", dpi=100,
             bbox_inches="tight")
 
 plt.show()
