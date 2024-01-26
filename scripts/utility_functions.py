@@ -358,6 +358,41 @@ def extract_max_delay(concentration, dt):
     
     return distance, branch, delay
 
+
+def extract_min_delay(concentration, dt):
+    mean = concentration[:,:int(t_init/dt)-1].mean()
+    std = concentration[:,:int(t_init/dt)-1].std()
+    length = concentration.shape[0]
+    distance = np.linspace(-length/2, length/2, length)
+    try:
+        branch = concentration[:, int(t_init/dt):].min(axis=1)/mean
+    except ValueError:
+        return None
+    delay = np.zeros_like(branch)
+    for idx in range(51, 102, 1):
+        try:
+            if branch[idx] < mean - 3*std:
+                delay[idx] = concentration[idx, int(t_init/dt):].argmin()*dt
+
+                #   print(idx, delay[idx], branch[idx], 1.5*mean)
+            else:
+                break
+        except ValueError:
+            break
+    for idx in range(50, -1, -1):
+        try:
+            if branch[idx] > 1.5*mean:
+                delay[idx] = concentration[idx, int(t_init/dt):].argmin()*dt
+                #   print(idx, delay[idx], branch[idx], 1.5*mean)
+            else:
+                break
+        except ValueError:
+            break
+    
+    return distance, branch, delay
+
+
+
 def ca_wave_propagation_figs(directiories_list, descr, dend_dict,
                        what_species, region_list, output_name, color_list,
                        label_list, what_type, marker_list):
@@ -590,19 +625,22 @@ def ca_wave_propagation_figs_different_paradigms(directiories_list,
 def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
                       what_species, region_list, output_name,
                       colors, types):
-    fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
-    fig2, ax2 = plt.subplots(1, 1, figsize=(5, 5))
+    fig1, ax1 = plt.subplots(1, 2, figsize=(11, 5))
+    fig2, ax2 = plt.subplots(1, 2, figsize=(11, 5))
+    paradigm_dict = {
+        0: "",
+        1: "_3s_injection"}
     for k, d in enumerate(directories_list):
         my_path = os.path.join("..", d)
         add = descr[d]
         im_list = {}
-        for j, diam in enumerate(dend_diam):
-            for inh in [""]:
+        for l, inh in enumerate(["", "_3s_injection"]):
+            for j, diam in enumerate(dend_diam):
                 y = []
                 y_d = []
                 x = []
                 for i, stim in enumerate(stims):
-                    new_fname = fname % (add, diam, stim)
+                    new_fname = fname % (add, inh, diam, stim)
                     my_file = os.path.join(my_path, new_fname)
                     try:
                         vox, times, conc_mean = get_conc(my_file,
@@ -631,56 +669,60 @@ def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
                     x.append((branch[50]+branch[51])/2000)
                 print(x, y, y_d)
                 if k == 0:
-                    ax1.plot(x, y, color=colors[diam], marker="d",
-                             label=types[d]+" diam "+diam
-                             +" 40 ms",
-                             linestyle="")
-                    ax2.plot(x, y_d, color=colors[diam],
-                             marker="d",
-                             label=types[d]+" diam "+diam
-                             +" 40 ms",
-                             linestyle="")
+                    ax1[l].plot(x, y, color=colors[diam], marker="d",
+                                label=types[d]+" diam "+diam,
+                                linestyle="")
+                    ax2[l].plot(x, y_d, color=colors[diam],
+                                marker="d",
+                                label=types[d]+" diam "+diam,
+                                linestyle="")
 
                 if k == 1:
-                    ax1.plot(x, y, color=colors[diam], marker="o",
-                             label=types[d]+" diam "+diam
-                             +" 40 ms",
-                             linestyle="")
-                    ax2.plot(x, y_d, color=colors[diam],
-                             marker="o",
-                             label=types[d]+" diam "+diam
-                             +" 40 ms",
-                             linestyle="")
+                    ax1[l].plot(x, y, color=colors[diam], marker="o",
+                                label=types[d]+" diam "+diam,
+                                linestyle="")
+                    ax2[l].plot(x, y_d, color=colors[diam],
+                                marker="o",
+                                label=types[d]+" diam "+diam,
+                                linestyle="")
 
                 if k == 2:
-                    ax1.plot(x, y, color=colors[diam], marker="d",
-                             label=types[d]+" diam "+diam
-                             +" 40 ms", linestyle="",
-                             fillstyle="none")
-                    ax2.plot(x, y_d, color=colors[diam],
-                             marker="d",
-                             label=types[d]+" diam "+diam
-                             +" 40 ms", linestyle="",
-                             fillstyle="none")
+                    ax1[l].plot(x, y, color=colors[diam], marker="d",
+                                label=types[d]+" diam "+diam, linestyle="",
+                                fillstyle="none")
+                    ax2[l].plot(x, y_d, color=colors[diam],
+                                marker="d",
+                                label=types[d]+" diam "+diam, linestyle="",
+                                fillstyle="none")
 
                 if k == 3:
-                    ax1.plot(x, y, color=colors[diam], marker="o",
-                             label=types[d]+" diam "+diam
-                             +" 40 ms", linestyle="",
-                             fillstyle="none")
-                    ax2.plot(x, y_d, color=colors[diam],
-                             marker="o",
-                             label=types[d]+" diam "+diam
-                             +" 40 ms", linestyle="",
-                             fillstyle="none")
-    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
-    ax2.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
-    ax1.set_ylabel("distance travelled [um]", fontsize=20)
-    ax2.set_ylabel("speed [um/ms]", fontsize=20)
+                    ax1[l].plot(x, y, color=colors[diam], marker="o",
+                                label=types[d]+" diam "+diam, linestyle="",
+                                fillstyle="none")
+                    ax2[l].plot(x, y_d, color=colors[diam],
+                                marker="o",
+                                label=types[d]+" diam "+diam, linestyle="",
+                                fillstyle="none")
+    ax1[0].set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax1[1].set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax2[0].set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax2[1].set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax1[0].set_ylabel("distance travelled [um]", fontsize=20)
+    ax2[0].set_ylabel("speed [um/ms]", fontsize=20)
+    ax1[0].set_title("40 ms stimulation",  fontsize=20)
+    ax1[1].set_title("3 ms stimulation", fontsize=20)
+    ax2[0].set_title("40 ms stimulation", fontsize=20)
+    ax2[1].set_title("3 ms stimulation", fontsize=20)
     
-    
-    ax1.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
-    ax2.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
+    ylim2 = max([max(ax.get_ylim()) for ax in ax1])
+    ylim1 = min([min(ax.get_ylim()) for ax in ax1])
+    ax1[0].set_ylim([ylim1, ylim2])
+    ax1[1].set_ylim([ylim1, ylim2])
+    ax1[1].set_yticklabels([])
+    ax1[0].tick_params(axis='both', which='major', labelsize=14)
+    ax1[1].tick_params(axis='both', which='major', labelsize=14)
+    ax1[1].legend(loc='lower left', bbox_to_anchor=(1, 0.5))
+    ax2[1].legend(loc='lower left', bbox_to_anchor=(1, 0.5))
     return fig1, fig2
 
 
@@ -836,5 +878,106 @@ def make_distance_fig_aging(directories, descr, dend_diam,
     ax2.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
     ax1.set_ylabel("distance travelled [um]", fontsize=20)
     ax2.set_ylabel("speed [um/ms]", fontsize=20)
+
+    return fig1, fig2
+
+
+def make_distance_fig_aging_CaER(directories,  dend_diam,
+                                 stims, what_species, organization,
+                                 dur_dict, reg_list, output_name, 
+                                 colors, types):
+    fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
+    fig2, ax2 = plt.subplots(1, 1, figsize=(5, 5))
+    
+    stim_labels = {
+        "": " 40 ms",
+        "_3s_injection": "3 ms"
+    }
+    marker = {
+        "": "d",
+        "_3s_injection": "o"
+                                 
+        }
+    for k, d in enumerate(directories):
+        my_path = os.path.join("..", d)
+        fname = directories[d]
+        for stim_type in ["", "_3s_injection"]:
+            for j, diam in enumerate(dend_diam):
+                for inh in what_species:
+                    y = []
+                    y_d = []
+                    x = []
+                    for i, stim in enumerate(stims):
+                        new_fname = fname % (stim_type, inh, diam, stim)
+                        my_file = os.path.join(my_path, new_fname)
+                        try:
+                            vox, times, conc_mean = get_conc(my_file,
+                                                                   ["CaER"],
+                                                                   reg_list,
+                                                                   output_name)
+                            vox1, times1, ca1 = get_conc(my_file,
+                                                         ["Ca"],
+                                                         reg_list,
+                                                         output_name)
+                            
+                            dt = times[1]-times[0]
+                        except TypeError:
+                            print("No file", new_fname)
+                            continue
+                        
+                
+                        try:
+                            distance, branch, delay = extract_min_delay(conc_mean.T,
+                                                                        dt)
+                            dist_ca, branch_ca, delay_ca = extract_max_delay(ca1.T,
+                                                                             dt)
+                            
+                        except TypeError:
+                            continue
+                        full_delay = (len(np.where(delay_ca[:50]>0)[0])
+                                      +len(np.where(delay_ca[52:]>0)[0]))/2*0.5
+                
+                        full_duration = (delay[:50].max()
+                                         +delay[51:].max())/2
+                        y.append(min(branch)*100)
+                        y_d.append(full_delay)
+                        b_diam = float(diam)
+                        x.append((branch_ca[50]+branch_ca[51])/2000)
+                    print(x, y, y_d)
+                    if not len(y):
+                        continue
+                    if not k % 2:
+                        ax1.plot(x, y, color=colors[diam],
+                                 marker=marker[stim_type],
+                                 label=types[d]+" diam "+diam + dur_dict[inh]
+                                 +stim_labels[stim_type],
+                                 linestyle="", fillstyle="full")
+                        ax2.plot(y, y_d, color=colors[diam],
+                                 marker=marker[stim_type],
+                                 label=types[d]+" diam "+diam
+                                 + dur_dict[inh]
+                                 +stim_labels[stim_type],
+                                 linestyle="", fillstyle="full")
+                        print(types[d]+" diam "+diam + dur_dict[inh], k, "full")
+                    else:
+                        ax1.plot(x, y, color=colors[diam],
+                                 marker=marker[stim_type],
+                                 label=types[d]+" diam "+diam
+                                 + dur_dict[inh]
+                                 +stim_labels[stim_type],
+                                 linestyle="", fillstyle="none")
+                        ax2.plot(y, y_d, color=colors[diam],
+                                 marker=marker[stim_type],
+                                 label=types[d]+" diam "+diam
+                                 + dur_dict[inh]
+                                 +stim_labels[stim_type], fillstyle="none",
+                                 linestyle="")
+                        print(types[d]+" diam "+diam + dur_dict[inh],k, "none")
+    ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax2.set_xlabel("min Ca in the ER [uM]", fontsize=20)
+    ax1.set_ylabel("% ER depletion", fontsize=20)
+    ax2.set_ylabel("distance [um]", fontsize=20)
 
     return fig1, fig2
