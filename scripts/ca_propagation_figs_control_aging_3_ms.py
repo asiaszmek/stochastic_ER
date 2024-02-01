@@ -11,9 +11,7 @@ from scipy.constants import Avogadro
 
 t_init = 3000
 
-colors = ['tab:blue', 'tab:olive', 'tab:green', 'tab:red',  'tab:purple', 'tab:brown',
-          'tab:pink', 'tab:gray', 'tab:olive', 'tab:cyan', "b", "olive", "g",
-          "r", "p" ]
+colors = ['tab:blue', 'tab:purple', 'tab:green']
 stim_dend = "dend26"
 directories = [
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE",

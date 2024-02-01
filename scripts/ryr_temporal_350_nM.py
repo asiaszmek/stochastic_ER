@@ -5,8 +5,8 @@ import numpy as np
 import utility_functions as utils
 
 
-colors = ["tab:blue", "tab:olive", "tab:green"]
-
+colors = ["tab:blue", "tab:purple", "tab:green"]
+colors_aging = ["tab:cyan", "tab:pink", "tab:olive"]
 labels = {"_no_CaM": "no CaM",
           "_CaM": "ctrl",
 }
@@ -52,25 +52,42 @@ for i, b_diam in enumerate(branch_diams):
         for k, s in enumerate(stim_types):
             fname_SOCE = fname[inh] % (s, b_diam, stim)
             full_name = os.path.join(cur_dir, directory[inh], fname_SOCE)
+            ca_dict, time_dict = utils.get_conc(full_name, ["Ca"],
+                                                reg_list,
+                                                output_name)
+    
+            ca_out = [ca_dict["Ca"][key].mean(axis=0) for key in ca_dict["Ca"].keys()]
             try:
-                voxels, time, ca = utils.get_conc(full_name, ["Ca"],
-                                                  reg_list,
-                                                  output_name)
-            except TypeError:
-                print("Could not find", full_name)
+                time = time_dict["trial0"]
+            except KeyError:
                 continue
-            output = ca.mean(axis=1)
+            
+            ca = np.array(ca_out)/1000
+            output = ca.mean(axis=0)
+            ca_err = ca.std(axis=0)/10**0.5
             max_idx = output.argmax()
+            print(max(ca_err))
             if inh == "_no_CaM":
-                ax[k].plot(time[max_idx:len(time)//2:50]/1000,
-                           output[max_idx:len(time)//2:50], color=colors[i],
-                           label=labels[inh]+" diam "+ str(b_diam),
-                           linestyle="", marker="d",  fillstyle="none")
+                ax[k].plot(time[max_idx:len(time)//4]/1000,
+                           output[max_idx:len(time)//4], color=colors_aging[i],
+                           label=labels[inh]+" diam "+ str(b_diam))
+                ax[k].fill_between(time[max_idx:len(time)//4]/1000,
+                                   output[max_idx:len(time)//4]
+                                   -ca_err[max_idx:len(time)//4],
+                                   output[max_idx:len(time)//4]
+                                   +ca_err[max_idx:len(time)//4],
+                                   color=colors_aging[i],
+                                   alpha=0.2)
             else:
-                ax[k].plot(time[max_idx:len(time)//2:50]/1000,
-                           output[max_idx:len(time)//2:50], color=colors[i],
-                           label=labels[inh]+" diam "+ str(b_diam),
-                           linestyle="", marker="d",  fillstyle="full")
+                ax[k].plot(time[max_idx:len(time)//4]/1000,
+                           output[max_idx:len(time)//4], color=colors[i],
+                           label=labels[inh]+" diam "+ str(b_diam))
+                ax[k].fill_between(time[max_idx:len(time)//4]/1000,
+                                   output[max_idx:len(time)//4]
+                                   -ca_err[max_idx:len(time)//4],
+                                   output[max_idx:len(time)//4]
+                                   +ca_err[max_idx:len(time)//4],
+                                   color=colors[i], alpha=0.2)
 
 ax[0].set_ylabel("Calcium [uM]", fontsize=20)
 ax[0].set_xlabel("Time [sec]", fontsize=20)

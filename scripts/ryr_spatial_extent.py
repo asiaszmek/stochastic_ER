@@ -6,8 +6,8 @@ import utility_functions as utils
 
 
 colors = {1.2: "tab:blue",
-          2.4: "tab:green",
-          6.0: "tab:olive",
+          2.4: "tab:purple",
+          6.0: "tab:green",
 }
 labels = {"no_SOCEbaloon": "no CaM no SOCE",
           "baloon": "RyRCaM in dendritic membrane",
@@ -28,6 +28,7 @@ branch_diams = [1.2, 2.4, 6.0]
 
 injections = {
     1.2:{
+        
         "0175":{
             "":20*1200,
             "_3s_injection":1.5*12000,
@@ -44,6 +45,10 @@ injections = {
         "1050":{
             "":40*4000,
             "_3s_injection":3*40000,
+        },
+        "2000":{
+            "":40*4800,
+            "_3s_injection":3*48000,
         },
     },
     2.4:{
@@ -63,6 +68,10 @@ injections = {
         "1050":{
             "":40*6000,
             "_3s_injection":3*60000,
+        },
+        "2000":{
+            "":40*8000,
+            "_3s_injection":3*80000,
         },
 
     },
@@ -84,6 +93,10 @@ injections = {
         "1050":{
             "":40*12000,
             "_3s_injection":3*120000,
+        },
+        "2000":{
+            "":40*16000,
+            "_3s_injection":3*160000,
         },
 
     },
@@ -116,34 +129,39 @@ for k, b_diam in enumerate(branch_diams):
     for inh in ["baloon", "tubes"]:
         for j, s in enumerate(stim_types):
             y = []
+            y_err = []
             x = []
             for stim in stims:
                 fname_SOCE = fname[inh] % (s, b_diam, stim)
                 full_name = os.path.join(cur_dir, directory[inh], fname_SOCE)
-                try:
-                    voxels, time, ca = utils.get_conc(full_name, ["Ca"],
-                                                      reg_list,
-                                                      output_name)
-                except TypeError:
-                    print("Could not find", full_name)
+                ca_dict, time_dict = utils.get_conc(full_name, ["Ca"],
+                                                    reg_list,
+                                                    output_name)
+                if not len(ca_dict["Ca"]):
                     continue
-                y.append(np.max(ca.mean(axis=1))/1000)
+                ca_out = utils.get_array(ca_dict, "Ca")
+                
+                ca = np.array(ca_out)/1000
+            
+                output = ca_out.mean(axis=1).max(axis=1)
+                y.append(np.mean(output))
+                y_err.append(np.std(output)/len(output)**0.5)
                 x.append(injections[b_diam][stim][s]/b_diam)
             if inh == "tubes" and s == "":
-                ax.plot(x, y,color=colors[b_diam], marker="d",
+                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
                         label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
                         linestyle="")
             elif inh == "baloon" and s == "":
-                ax.plot(x, y, color=colors[b_diam], marker="d",
+                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
                         label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
                         linestyle="",
                         fillstyle="none")
             elif inh == "tubes" and s == "_3s_injection":
-                ax.plot(x, y, color=colors[b_diam], marker="o",
+                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="o",
                         label=labels[inh]+" diam "+str(b_diam)+" 3 ms",
                         linestyle="")
             else:
-                ax.plot(x, y, color=colors[b_diam], marker="o",
+                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="o",
                         label=labels[inh]+" diam "+str(b_diam)+" 3 ms",
                         linestyle="", fillstyle="none")
 

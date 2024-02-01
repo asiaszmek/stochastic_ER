@@ -6,8 +6,8 @@ import utility_functions as utils
 
 
 colors = {1.2: "tab:blue",
-          2.4: "tab:green",
-          6.0: "tab:olive",
+          2.4: "tab:purple",
+          6.0: "tab:green",
 }
 labels = {"no_SOCE_no_CaM": "no SOCE RyR dis-inh.",
           "_no_CaM": "RyR dis-inh.",
@@ -102,37 +102,39 @@ for k, b_diam in enumerate(branch_diams):
     for inh in ["_no_CaM", "_CaM"]:
         for j, s in enumerate(stim_types):
             y = []
+            y_err = []
             x = []
             for stim in stims:
                 fname_SOCE = fname[inh] % (s, b_diam, stim)
                 full_name = os.path.join(cur_dir, directory[inh],
                                          fname_SOCE)
-                try:
-                    voxels, time, ca = utils.get_conc(full_name,
-                                                      ["Ca"],
-                                                      reg_list,
-                                                      output_name)
-                except FileNotFoundError and OSError:
-                    print("Could not find", full_name)
-                    continue
-                y.append(np.max(ca.mean(axis=1))/1000)
+                ca_dict, time_dict = utils.get_conc(full_name, ["Ca"],
+                                                    reg_list,
+                                                    output_name)
+                ca_out = [ca_dict["Ca"][key]
+                          for key in ca_dict["Ca"].keys()]
+                ca = np.array(ca_out)/1000
+            
+                output = ca.max(axis=0)
+                y.append(np.mean(output))
+                y_err.append(np.std(output)/len(output)**0.5)
                 x.append(injections[b_diam][stim][s]/b_diam)
             if inh == "_CaM" and s == "":
-                ax.plot(x, y,color=colors[b_diam], marker="d",
+                ax.errorbar(x, y, yerr=y_err,color=colors[b_diam], marker="d",
                         label=labels[inh]+" diam "+str(b_diam)
                         +" 40 ms",
                         linestyle="")
             elif inh == "_no_CaM" and s == "":
-                ax.plot(x, y, color=colors[b_diam], marker="d",
+                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
                         label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
                         linestyle="",
                         fillstyle="none")
             elif inh == "_CaM" and s == "_3s_injection":
-                ax.plot(x, y, color=colors[b_diam], marker="o",
+                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="o",
                         label=labels[inh]+" diam "+str(b_diam)+" 3 ms",
                         linestyle="")
             else:
-                ax.plot(x, y, color=colors[b_diam], marker="o",
+                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="o",
                         label=labels[inh]+" diam "+str(b_diam)+" 3 ms",
                         linestyle="", fillstyle="none")
 

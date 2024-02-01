@@ -16,14 +16,13 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_RyR2CaM%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_simple_SERCA_SOCE": "model_RyR%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
     
 }
 
 descr = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyR2CaM",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "RyR2CaM",
     "Ca_wave_simple_SERCA_SOCE": "RyR",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "RyR",
 }   
@@ -104,7 +103,7 @@ if __name__ == '__main__':
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-    what_species = ["SOCE_", ""]
+    what_species = ["SOCE_"]
     dur_dict = {
         "SOCE_": " SOCE",
         "": " no SOCE"
@@ -114,14 +113,18 @@ if __name__ == '__main__':
         "": "o"
     }
     organization = ["tubes"]
-    fig1 = utils.make_distance_fig_aging(directories, descr,
-                                         dend_diam,
-                                         stims, what_species,
-                                         organization,
-                                         dur_dict,
-                                         reg_list, output_name, 
-                                         colors, types, fillstyle)
-    fig1.savefig("ER_distance_soce_no_soce_ctrl_tubes.png", dpi=100,
+    fig1, fig2 = utils.make_distance_fig_aging_CaER(directories,
+                                                    dend_diam,
+                                                    stims, what_species,
+                                                    organization,
+                                                    dur_dict,
+                                                    reg_list, output_name, 
+                                                    colors, types)
+    fig1.savefig("ER_depletion_max_CaM_no_CaM_ctrl_tubes.png", dpi=100,
                  bbox_inches="tight")
-    fig1.savefig("ER_distance_soce_no_soce_ctrl_tubes.eps", dpi=100,
+    fig1.savefig("ER_depletion_max_CaM_no_CaM_ctrl_tubes.eps", dpi=100,
+                 bbox_inches="tight")
+    fig2.savefig("ER_depletion_max_CaM_no_CaM_ctrl_tubes_mol_no_per_um.png", dpi=100,
+                 bbox_inches="tight")
+    fig2.savefig("ER_depletion_max_CaM_no_CaM_ctrl_tubes_mol_no_per_um.eps", dpi=100,
                  bbox_inches="tight")
