@@ -370,42 +370,6 @@ def extract_max_delay(conc_dict, dt):
     return distance, branch, delay
 
 
-def extract_min_delay(conc_dict , dt):
-    length = conc_dict["trial0"].shape[0]
-    branch = np.zeros((len(conc_dict), length))
-    delay = np.zeros((len(conc_dict), length))
-    distance = np.linspace(-length/2, length/2, length)
-
-    for i, concentration in enumerate(conc_dict.values()):
-        mean = concentration[:,:int(t_init/dt)-1].mean()
-        std =  concentration[:,:int(t_init/dt)-1].std()
-        try:
-            branch[i] = concentration[:, int(t_init/dt):].min(axis=1)
-        except ValueError:
-            continue
-        for idx in range(51, 102, 1):
-            try:
-                if branch[i, idx] < mean-3*std:
-                    delay[i, idx] = concentration[idx,
-                                                  int(t_init/dt):].argmin()*dt
-
-                else:
-                    break
-            except ValueError:
-                break
-        for idx in range(50, -1, -1):
-            try:
-                if branch[i, idx] < mean-3*std:
-                    delay[i, idx] = concentration[idx,
-                                                  int(t_init/dt):].argmin()*dt
-                else:
-                    break
-            except ValueError:
-                break
-    return distance, branch, delay
-
-
-
 def ca_wave_propagation_figs(directiories_list, descr, dend_dict,
                        what_species, region_list, output_name, color_list,
                        label_list, what_type, marker_list):
@@ -874,19 +838,15 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         except TypeError:
                             continue
                 
-                        try:
-                            distance, branch, delay = extract_min_delay(conc_dict["CaER"],
-                                                                        dt)
-                        except TypeError:
-                            continue
+                       
                         full_delay = np.zeros((len(delay_ca),))
                         for i, delay_1d in enumerate(delay_ca): 
                             full_delay[i] = len(np.where(delay_1d>0)[0])/4
                         x.append(full_delay.mean())
                         x_err.append(full_delay.std()/len(full_delay)**.5)
-                        full_dip = np.zeros((len(delay),))
-                        for i, CaER_1d in enumerate(branch): 
-                            full_dip[i] = (CaER_1d[50]+CaER_1d[51])/2000*4 #  uM
+                        full_dip = np.zeros((len(delay_ca),))
+                        for i, key in enumerate(conc_dict["CaER"].keys()): 
+                            full_dip[i] = (min(conc_dict["CaER"][key][50, int(t_init/dt):])+min(conc_dict["CaER"][key][51, int(t_init/dt):]))/2000*4 #  uM
                         
                         y.append(full_dip.mean())
                         y_err.append(full_dip.std()/len(full_dip)**0.5)
@@ -895,8 +855,8 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         my_grid = get_grid_list(myfile)
                         vox_ind, vols = get_dend_indices(my_grid, region=reg_list)
                         volume = sum(vols)
-                        y_ER.append(x[-1]*0.25*volume/len(vox_ind)*Avogadro)
-                        y_ER_err.append(x_err[-1]*0.25*volume/len(vox_ind)*Avogadro)
+                        y_ER.append(y[-1]*0.25*volume*Avogadro*1e-15)
+                        y_ER_err.append(y_err[-1]*0.25*volume*Avogadro*1e-15)
                     print(x, x_err, y_ER, y_ER_err, y, y_err)
                     if not len(y):
                         continue

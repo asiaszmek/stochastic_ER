@@ -16,7 +16,7 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_RyR2CaM%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "model_RyR%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_simple_SERCA_SOCE": "model_RyR%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
     
 }
@@ -37,7 +37,7 @@ types = {
 marker = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
     "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "full",
-    "Ca_wave_simple_SERCA_SOCE": "none",
+    "Ca_wave_simple_SERCA_SOCE": "full",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "none",
 }
 
@@ -103,7 +103,7 @@ if __name__ == '__main__':
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-    what_species = ["SOCE_"]
+    what_species = ["SOCE_", ""]
     dur_dict = {
         "SOCE_": " SOCE",
         "": " no SOCE"

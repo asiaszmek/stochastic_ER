@@ -106,8 +106,8 @@ if __name__ == '__main__':
         reg_list.append("%s%d" %(base, i))
     what_species = ["SOCE_", ""]
     dur_dict = {
-        "SOCE_": " SOCE",
-        "": " no SOCE"
+        "SOCE_": "",
+        "": ""
     }
     fillstyle = {
         "SOCE_": "d",
