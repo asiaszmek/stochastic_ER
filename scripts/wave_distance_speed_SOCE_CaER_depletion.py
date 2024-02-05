@@ -10,7 +10,7 @@ import utility_functions as utils
 
 
 colors = {"1.2": 'tab:blue',
-          "2.4": 'tab:olive',
+          "2.4": 'tab:purple',
           "6.0": 'tab:green'}
 
 stim_dend = "dend26"
@@ -125,8 +125,7 @@ if __name__ == '__main__':
                  bbox_inches="tight")
     fig1.savefig("ER_depletion_max_soce_no_soce_ctrl_tubes.eps", dpi=100,
                  bbox_inches="tight")
-
-    fig2.savefig("ER_distance_depletion_soce_no_soce_ctrl_tubes.png", dpi=100,
+    fig2.savefig("ER_depletion_max_soce_no_soce_ctrl_tubes_mol_no_per_um.png", dpi=100,
                  bbox_inches="tight")
-    fig2.savefig("ER_distance_depletion_soce_no_soce_ctrl_tubes.eps", dpi=100,
+    fig2.savefig("ER_depletion_max_soce_no_soce_ctrl_tubes_mol_no_per_um.eps", dpi=100,
                  bbox_inches="tight")

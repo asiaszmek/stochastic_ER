@@ -11,7 +11,7 @@ import utility_functions as utils
 
 colors = {
     "1.2": 'tab:blue',
-    "2.4": 'tab:olive',
+    "2.4": 'tab:purple',
     "6.0": 'tab:green'
 }
 

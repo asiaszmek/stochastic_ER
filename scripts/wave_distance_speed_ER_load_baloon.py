@@ -10,7 +10,7 @@ import utility_functions as utils
 
 
 colors = {"1.2": 'tab:blue',
-          "2.4": 'tab:olive',
+          "2.4": 'tab:purple',
           "6.0": 'tab:green'}
 
 stim_dend = "dend26"
@@ -50,7 +50,7 @@ symbol = {
     "baloon": "o",
 }
 
-fname = "model_%s_simple_SERCA_baloon_diam_%s_um_50_um_%s_nM.h5"
+fname = "model_%s%s_simple_SERCA_baloon_diam_%s_um_50_um_%s_nM.h5"
     
 NA = Avogadro*1e-23
 specie_dict = {
@@ -105,8 +105,10 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
         
-    fig1, fig2 = utils.make_distance_fig(fname, directories, descr, dend_diam,
-                                         stims, ["Ca"], reg_list, output_name,
-                                         colors, types)
-    fig1.savefig("ER_load_distance_cam_no_cam_baloon.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("ER_load_speed_cam_no_cam.png_baloon.eps", dpi=100, bbox_inches="tight")
+    fig1 = utils.make_distance_fig(fname, directories, descr, dend_diam,
+                                   stims, ["Ca"], reg_list, output_name,
+                                   colors, types)
+    fig1.savefig("ER_load_distance_cam_no_cam_baloon.png", dpi=100,
+                 bbox_inches="tight")
+    fig1.savefig("ER_load_speed_cam_no_cam.png_baloon.eps", dpi=100,
+                 bbox_inches="tight")

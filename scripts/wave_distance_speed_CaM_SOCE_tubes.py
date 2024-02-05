@@ -10,7 +10,7 @@ import utility_functions as utils
 
 
 colors = {"1.2": 'tab:blue',
-          "2.4": 'tab:olive',
+          "2.4": 'tab:purple',
           "6.0": 'tab:green'}
 
 stim_dend = "dend26"
@@ -116,19 +116,15 @@ if __name__ == '__main__':
         "": "o"
     }
     organization = ["tubes"]
-    fig1, fig2 = utils.make_distance_fig_aging(directories, descr,
-                                               dend_diam,
-                                               stims, what_species,
-                                               organization,
-                                               dur_dict,
-                                               reg_list, output_name, 
-                                               colors, types, fillstyle)
+    fig1 = utils.make_distance_fig_aging(directories, descr,
+                                         dend_diam,
+                                         stims, what_species,
+                                         organization,
+                                         dur_dict,
+                                         reg_list, output_name, 
+                                         colors, types, fillstyle)
     fig1.savefig("ER_distance_cam_no_cam_tubes.png", dpi=100,
                  bbox_inches="tight")
     fig1.savefig("ER_distance_cam_no_cam_tubes.eps", dpi=100,
                  bbox_inches="tight")
 
-    fig2.savefig("ER_speed_cam_no_cam_tubes.png", dpi=100,
-                 bbox_inches="tight")
-    fig2.savefig("ER_speed_cam_no_cam_tubes.eps", dpi=100,
-                 bbox_inches="tight")

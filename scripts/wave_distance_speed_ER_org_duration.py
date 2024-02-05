@@ -19,7 +19,7 @@ dur_dict = {
               
 
 colors = {"1.2": 'tab:blue',
-          "2.4": 'tab:olive',
+          "2.4": 'tab:purple',
           "6.0": 'tab:green'}
 
 stim_dend = "dend26"
@@ -98,15 +98,13 @@ if __name__ == '__main__':
     fname = "model_%s%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"
     what_species = ["", "_3s_injection"]
     organization = ["baloon", "tubes"]
-    fig1, fig2 = utils.make_distance_fig_2_4(fname, directories, descr,
-                                             dend_diam,
-                                             stims, what_species,organization,
-                                             dur_dict,
-                                             reg_list, output_name, 
-                                             colors, types, marker)
+    fig1 = utils.make_distance_fig_2_4(fname, directories, descr,
+                                       dend_diam,
+                                       stims, what_species,organization,
+                                       dur_dict,
+                                       reg_list, output_name, 
+                                       colors, types, marker)
     fig1.savefig("ER_org_distance.png", dpi=100, bbox_inches="tight")
-    fig2.savefig("ER_org_speed.png", dpi=100, bbox_inches="tight")
     fig1.savefig("ER_org_distance.eps", dpi=100, bbox_inches="tight")
-    fig2.savefig("ER_org_speed.eps", dpi=100, bbox_inches="tight")
 
     plt.show()

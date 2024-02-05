@@ -8,43 +8,48 @@ import matplotlib.pyplot as plt
 import utility_functions as utils
 
 
+
 colors = {"1.2": 'tab:blue',
-          "2.4": 'tab:olive',
+          "2.4": 'tab:purple',
           "6.0": 'tab:green'}
 
 stim_dend = "dend26"
 
-directories = [
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER",
-    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018",
-    "Ca_wave_simple_SERCA_no_SOCE_largerER",
-]
-
-descr = {
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "RyR2CaM",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "RyR2CaM_largerER",
-    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "RyR",
-    "Ca_wave_simple_SERCA_no_SOCE_largerER": "RyR_largerER"
+directories = {
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "model_RyR%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_simple_SERCA_SOCE": "model_RyR%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
+    
 }
 
+descr = {
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyR2CaM",
+    "Ca_wave_simple_SERCA_SOCE": "RyR",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "RyR",
+}   
+
 types = {
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "CaM",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "CaM + 110%ER",
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "ctrl",
+    "Ca_wave_simple_SERCA_SOCE": "no CaM",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "no CaM",
-    "Ca_wave_simple_SERCA_no_SOCE_largerER": "no CaM + 110%ER",
 }
 
 marker = {
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
     "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "full",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "full",
+    "Ca_wave_simple_SERCA_SOCE": "full",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "none",
-    "Ca_wave_simple_SERCA_no_SOCE_largerER": "none",
 }
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
-fname = "model_%s_3s_injection_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
+
+symbol = {
+    "SOCE_": "d",
+    "": "o",
+}
+
+fname = "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5"
     
 NA = Avogadro*1e-23
 specie_dict = {
@@ -98,11 +103,28 @@ if __name__ == '__main__':
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-        
-    fig1, fig2 = utils.make_distance_fig(fname, directories, descr, dend_diam,
-                                         stims, ["Ca"], reg_list, output_name,
-                                         colors, types)
-    fig1.savefig("ER_load_distance_tubes_3ms.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("ER_load_distance_tubes_3ms.eps", dpi=100, bbox_inches="tight")
-    fig2.savefig("ER_load_speed_tubes_3ms.png", dpi=100, bbox_inches="tight")
-    fig2.savefig("ER_load_speed_tubes_3ms.eps", dpi=100, bbox_inches="tight")
+    what_species = ["SOCE_", ""]
+    dur_dict = {
+        "SOCE_": " SOCE",
+        "": " no SOCE"
+    }
+    fillstyle = {
+        "SOCE_": "d",
+        "": "o"
+    }
+    organization = ["tubes"]
+    fig1, fig2 = utils.make_distance_fig_aging_CaER(directories,
+                                                    dend_diam,
+                                                    stims, what_species,
+                                                    organization,
+                                                    dur_dict,
+                                                    reg_list, output_name, 
+                                                    colors, types)
+    fig1.savefig("ER_depletion_max_CaM_no_CaM_ctrl_tubes.png", dpi=100,
+                 bbox_inches="tight")
+    fig1.savefig("ER_depletion_max_CaM_no_CaM_ctrl_tubes.eps", dpi=100,
+                 bbox_inches="tight")
+    fig2.savefig("ER_depletion_max_CaM_no_CaM_ctrl_tubes_mol_no_per_um.png", dpi=100,
+                 bbox_inches="tight")
+    fig2.savefig("ER_depletion_max_CaM_no_CaM_ctrl_tubes_mol_no_per_um.eps", dpi=100,
+                 bbox_inches="tight")

@@ -4,9 +4,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import utility_functions as utils
 
-colors = ["tab:blue", "tab:olive", "tab:green"]
+colors_dye = ["tab:cyan", "tab:pink", "tab:olive"]
+colors_ctrl = ["tab:blue", "tab:purple", "tab:green"]
 
-
+def get_ylim(ax):
+    mini = min([min(x.get_ylim()) for x in ax])
+    maxi = max([max(x.get_ylim()) for x in ax])
+    return mini, maxi
+               
 def set_ylim(ax, mini, maxi):
     for x in ax:
         x.set_ylim([mini + 0.01, maxi + 0.01])
@@ -40,30 +45,50 @@ nodye_base = "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5
 fig, ax = plt.subplots(2, 3, figsize=(15, 12))
 
 #  Dye figs
-mini = 200000
-maxi = 0 
+
 for i, x in enumerate(ax[0]):
     x.set_title(stim_labels[i], fontsize=20)
     for k, b_diam in enumerate(branch_diams):
         fname = dye_base % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname)
-        try:
-            voxels, time, conc_mean = utils.get_conc(full_name, ["Fura2Ca"],
-                                                     reg_list, output_name)
-        except TypeError:
-            continue
-        mean = conc_mean[:, :int(t_stim/(time[1]-time[0]))].mean(axis=0)
-        conc_mean = (conc_mean - mean)/mean
-        # mean fluo
+        my_file = h5py.File(full_name)
+        my_grid = utils.get_grid_list(my_file)
+        vox_ind, vols = utils.get_dend_indices(my_grid, region=reg_list)
+        voxels = sorted(vox_ind.keys())
+        conc_dict, time_dict = utils.get_conc(full_name, ["Fura2Ca", "Ca"],
+                                              reg_list,
+                                              output_name)
+        dt = time_dict["trial0"][1] - time_dict["trial0"][0]
+        ca_out = [conc_dict["Ca"][key]
+                  for key in conc_dict["Ca"].keys()]
+        ca = np.array(ca_out)/1000
+        fura2 = [conc_dict["Fura2Ca"][key]
+                 for key in conc_dict["Fura2Ca"].keys()]
+        fura2 = np.array(fura2)
+        
+        mean = fura2[:, :int(3000/dt)].mean(axis=2)
+        fura_scaled = (fura2 - mean[:, :, None])/mean[:, :, None]
+        fluo_vals = fura_scaled.max(axis=2)
+        max_fluo_vals = fluo_vals.mean(axis=0)
+        max_fluo_error = fluo_vals.std(axis=0)/fluo_vals.shape[0]**0.5
+        
+        vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
+        x.plot(vox_axis[25:-25], max_fluo_vals[25:-25], color=colors_dye[k], 
+               label="dend diam=%2.1f um" % b_diam)
+        x.fill_between(vox_axis[25:-25], max_fluo_vals[25:-25]-max_fluo_error[25:-25],
+                       max_fluo_vals[25:-25]+max_fluo_error[25:-25],
+                       color=colors_dye[k], alpha=0.2)
         vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
         max_fluo_vals = np.zeros_like(vox_axis)
-        for j in range(conc_mean.shape[1]):
-            max_fluo_vals[j] = conc_mean[:, j].max()
-        mini = min(mini, min(max_fluo_vals))
-        maxi = max(maxi, max(max_fluo_vals))
-        x.plot(vox_axis, max_fluo_vals, colors[k], marker="d",
-               linestyle="", fillstyle="none",
-               label="dend diam=%2.1f um" % b_diam)
+        ca_vals = ca.max(axis=2)
+        max_ca_vals = ca_vals.mean(axis=0)
+        max_ca_error = ca_vals.std(axis=0)/len(ca_vals)**0.5
+        ax[1][i].plot(vox_axis[25:-25], max_ca_vals[25:-25], color=colors_dye[k],
+                      label="%2.1f um + Fura2" % b_diam)
+        ax[1][i].fill_between(vox_axis[25:-25], max_ca_vals[25:-25]-max_ca_error[25:-25],
+                              max_ca_vals[25:-25]+max_ca_error[25:-25], color=colors_ctrl[k],
+                              alpha=0.2)
+
     if not i:
         x.legend()
         x.set_ylabel("%Fluorescence", fontsize=20)
@@ -72,50 +97,36 @@ for i, x in enumerate(ax[0]):
     x.set_xticklabels([])
     x.tick_params(labelsize=14)
 
+mini, maxi = get_ylim(ax[0])
 set_ylim(ax[0], mini, maxi)
-mini = 200000
-maxi = 0 
-for i, x in enumerate(ax[1]):
 
+for i, x in enumerate(ax[1]):
     for k, b_diam in enumerate(branch_diams):
-        fname = dye_base % (b_diam, stims[i])
-        full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname)
-        try:
-            voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
-                                              output_name)
-        except TypeError:
-            continue
-        vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
-        max_fluo_vals = np.zeros_like(vox_axis)
-        for j in range(conc_mean.shape[1]):
-            max_fluo_vals[j] = ca[:, j].max()/1000
-        x.plot(vox_axis, max_fluo_vals, colors[k], marker="d",
-               linestyle="", fillstyle="none",
-               label="%2.1f um + Fura2" % b_diam)
-        
-        maxi = max(maxi, max(max_fluo_vals))
-        mini = min(mini, min(max_fluo_vals))
-        
         fname_no_dye = nodye_base % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_no_dye)
-        try:
-            voxels, time, ca = utils.get_conc(full_name, ["Ca"], reg_list,
+        my_file = h5py.File(full_name)
+        my_grid = utils.get_grid_list(my_file)
+        vox_ind, vols = utils.get_dend_indices(my_grid, region=reg_list)
+        voxels = sorted(vox_ind.keys())
+        conc_dict, time_dict = utils.get_conc(full_name, ["Ca"],
+                                              reg_list,
                                               output_name)
-        except TypeError:
-            continue
-        vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
-        max_fluo_vals = np.zeros_like(vox_axis)
-        for j in range(conc_mean.shape[1]):
-            max_fluo_vals[j] = ca[:, j].max()/1000
-        x.plot(vox_axis, max_fluo_vals, colors[k],
-                marker="d",
-               linestyle="", fillstyle="full",
-               label="%2.1f um - Fura2" % b_diam)
-        maxi = max(maxi, max(max_fluo_vals))
-        mini = min(mini, min(max_fluo_vals))
-        print(max(max_fluo_vals))
+        dt = time_dict["trial0"][1] - time_dict["trial0"][0]
+        ca_out = [conc_dict["Ca"][key]
+                  for key in conc_dict["Ca"].keys()]
+        ca = np.array(ca_out)/1000
 
-        
+        vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
+        ca_vals = ca.max(axis=2)
+        max_ca_vals = ca_vals.mean(axis=0)
+        max_ca_error = ca_vals.std(axis=0)/len(ca_vals)**0.5
+        x.plot(vox_axis[25:-25], max_ca_vals[25:-25],
+               color=colors_ctrl[k],
+               label="%2.1f um - Fura2" % b_diam)
+        x.fill_between(vox_axis[25:-25], max_ca_vals[25:-25]-max_ca_error[25:-25],
+                       max_ca_vals[25:-25]+max_ca_error[25:-25], color=colors_ctrl[k],
+                       alpha=0.2)
+        x.set_yscale("log")
     
     if not i:
         x.legend()
@@ -124,13 +135,7 @@ for i, x in enumerate(ax[1]):
         x.set_yticklabels([])
     x.tick_params(labelsize=14)
     x.set_xlabel("Distance from stim [um]", fontsize=20)
-
-
-
-
-
-
-
+mini, maxi = get_ylim(ax[1])
 set_ylim(ax[1], mini, maxi)
 fig.savefig("Ca_dye_effects.eps", dpi=100, bbox_inches="tight")
 fig.savefig("Ca_dye_effects.png", dpi=100, bbox_inches="tight")
