@@ -26,11 +26,9 @@ stim_dend = "dend26"
 directories = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE":"model_RyR2CaM%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_simple_SERCA_SOCE":"model_RyR%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_aging":"model_aging%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_RyR2CaM_aging":"model_RyR2CaM_aging%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5"}
-
-
-stims = ["0175", "0350", "0700", "1050", "2000"]
+ 
+}
+stims = [ "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
     
@@ -69,14 +67,14 @@ if __name__ == '__main__':
         "Ca_wave_RyR2CaM_aging": "Old age CaM",
     }
     output_name = "all"
-    fig1 = utils.make_decay_constant_fig_sep_dends(directories,
-                                                   dend_diam,
-                                                   stims, what_species,
-                                                   organization,
-                                                   dur_dict,
-                                                   output_name, 
-                                                   colors,
-                                                   types)
-    fig1.savefig("Aging_temporal_dissection.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("Aging_temporal_dissection.eps", dpi=100, bbox_inches="tight")
+    fig1 = utils.make_spatiotemporal_specificity_fig_sep_dends(directories,
+                                                               dend_diam,
+                                                               stims, what_species,
+                                                               organization,
+                                                               dur_dict,
+                                                               output_name, 
+                                                               colors,
+                                                               types)
+    fig1.savefig("CaM_spatiotemporal_dissection.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("CaM_spatiotemporal_dissection.eps", dpi=100, bbox_inches="tight")
     plt.show()
