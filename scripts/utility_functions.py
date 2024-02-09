@@ -848,12 +848,10 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         x.append(full_delay.mean())
                         x_err.append(full_delay.std()/len(full_delay)**.5)
                         full_dip = np.zeros((len(delay_ca),))
-                        full_delay = np.zeros((len(delay_ca),)) 
                         for i, key in enumerate(conc_dict["CaER"].keys()): 
                             full_dip[i] = (min(conc_dict["CaER"][key][50, int(t_init/dt):])
                                            +min(conc_dict["CaER"][key][51, int(t_init/dt):]))/2000*4 #  uM
-                            full_delay[i] = (conc_dict["CaER"][key][50, int(t_init/dt):].argmin()*dt
-                                             +conc_dict["CaER"][key][50, int(t_init/dt):].argmin()*dt)/2
+                          
                         y.append(full_dip.mean())
                         y_err.append(full_dip.std()/len(full_dip)**0.5)
                         b_diam = float(diam)
@@ -862,8 +860,8 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         vox_ind, vols = get_dend_indices(my_grid,
                                                          region=reg_list)
                         volume = sum(vols)
-                        y_ER.append(full_delay.mean())
-                        y_ER_err.append(full_delay.std()/len(full_delay)**.5)
+                        y_ER.append(y[-1]*volume*4*6.022)
+                        y_ER_err.append(y_err[-1]*volume*4*6.022)
                     print(x, x_err, y_ER, y_ER_err, y, y_err)
                     if not len(y):
                         continue
@@ -905,10 +903,10 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
     ax1.set_xlabel("min Ca in the ER [uM]", fontsize=20)
     ax1.set_ylabel("distance [um]", fontsize=20)
     ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax2.set_xlabel("Time to min(CaER) [msec]",
+    ax2.set_xlabel("min Ca molecules in the ER",
                    fontsize=20)
     ax2.set_ylabel("distance [um]", fontsize=20)
-    ax2.set_xscale("log")
+    
 
     return fig1, fig2
 
@@ -1001,7 +999,7 @@ def make_decay_constant_fig(directories,  dend_diam,
 
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
-    ax1.set_ylabel("Ca short decay constant [m sec]", fontsize=20)
+    ax1.set_ylabel("Ca decay constant [m sec]", fontsize=20)
     return fig1
 
 
@@ -1096,7 +1094,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
 
 
 def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
-                                           stims, what_species, organization,
+                                           stims, what_species,
                                            dur_dict, output_name, 
                                            colors, types):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(15, 5))
@@ -1189,9 +1187,88 @@ def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
     return fig1
 
 
+def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
+                                 stims, organization,
+                                 dur_dict, output_name, 
+                                 colors, types):
+    fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
+    if len(dend_diam) == 1:
+        ax1 = [ax1]
+    stim_labels = {
+        "": " 40 ms",
+        "_3s_injection": " 3 ms"
+    }
+    marker = {
+        "": "d",
+        "_3s_injection": "o"
+                                 
+        }
+    base = "dend"
+    reg_list = ["dend26"]
+
+    d = directory
+    for k, org in enumerate(organization):
+        my_path = os.path.join("..", d)
+        for stim_type in ["", "_3s_injection"]:
+            for j, diam in enumerate(dend_diam):
+                
+                y = []
+                y_err = []
+                x = []
+                for i, stim in enumerate(stims):
+                    new_fname = fname % (stim_type, org, diam, stim)
+                    my_file = os.path.join(my_path, new_fname)
+                    try:
+                        conc_dict, times_dict = get_conc(my_file,
+                                                         ["Ca"],
+                                                         reg_list,
+                                                         output_name)
+                    except TypeError:
+                        continue
+                    try:
+                        dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                    except KeyError:
+                        continue
+                    ca_means = np.zeros((len(conc_dict["Ca"].keys())))
+                    t_decays1 = np.zeros((len(conc_dict["Ca"].keys())))
+                    for i, trial in enumerate(conc_dict["Ca"].keys()):
+                        time = times_dict[trial]
+                        ca = conc_dict["Ca"][trial].mean(axis=0)
+                        t1 = fit_exp(time, ca, dt)
+                        t_decays1[i] = t1
+                        ca_means[i] = ca.max()/1000
+                    x.append(ca_means.mean())
+                    y.append(t_decays1.mean())
+                    y_err.append(t_decays1.std()/len(t_decays1)**0.5)
+                        
+                print(x, y, y_err)
+                if not len(y):
+                    continue
+                if not k % 2:
+                    ax1.errorbar(x, y,  yerr=y_err,
+                                 color=colors[d][diam],
+                                 marker=marker[stim_type],
+                                 label=types[org]+ dur_dict[stim_type]
+                                 +stim_labels[stim_type],
+                                 linestyle="", fillstyle="full")
+                else:
+                    ax1.errorbar(x, y, yerr=y_err,
+                                 color=colors[d][diam],
+                                 marker=marker[stim_type],
+                                 label=types[org]
+                                 + dur_dict[stim_type]
+                                 +stim_labels[stim_type],
+                                 linestyle="", fillstyle="none")
+
+    ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax1.set_ylabel("Ca decay constant [m sec]", fontsize=20)
+    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    return fig1
+
+
 
 def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
-                                                  stims, what_species, organization,
+                                                  stims, what_species,
                                                   dur_dict, output_name, 
                                                   colors, types):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(15, 5))
@@ -1281,8 +1358,8 @@ def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
                                         +stim_labels[stim_type],
                                         linestyle="", fillstyle="none")
 
-    #ax1[-1].legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax1[0].legend(loc=1)
+    ax1[-1].legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    
     ax1[0].set_xlabel("Distance travelled [um]", fontsize=20)
     miniy = min([min(x.get_ylim()) for x in ax1])
     maxiy = max([max(x.get_ylim()) for x in ax1])

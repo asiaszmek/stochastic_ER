@@ -65,7 +65,7 @@ if __name__ == '__main__':
     types = {
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
         "Ca_wave_aging": "Old age",
-        "Ca_wave_simple_SERCA_SOCE": "ctrl no CaM",
+        "Ca_wave_simple_SERCA_SOCE": "no CaM",
         "Ca_wave_RyR2CaM_aging": "Old age CaM",
     }
     output_name = "all"

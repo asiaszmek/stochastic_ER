@@ -71,8 +71,9 @@ if __name__ == '__main__':
     output_name = "all"
     fig1 = utils.make_spatiotemporal_specificity_fig_sep_dends(directories,
                                                                dend_diam,
-                                                               stims, what_species,
-                                                               organization,
+                                                               stims,
+                                                               what_species,
+
                                                                dur_dict,
                                                                output_name, 
                                                                colors,

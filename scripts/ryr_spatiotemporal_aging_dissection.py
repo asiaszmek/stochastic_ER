@@ -17,7 +17,7 @@ dur_dict = {
               
 
 colors = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": 'k',
-          "Ca_wave_simple_SERCA_SOCE":"orange",
+          "Ca_wave_simple_SERCA_no_SOCE_larger_ER":"orange",
           "Ca_wave_aging":"r",
           "Ca_wave_RyR2CaM_aging":"darkolivegreen",
 }
@@ -25,7 +25,7 @@ stim_dend = "dend26"
 
 directories = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE":"model_RyR2CaM%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_simple_SERCA_SOCE":"model_RyR%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_simple_SERCA_no_SOCE_larger_ER":"model_RyR_largerER%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_aging":"model_aging%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_RyR2CaM_aging":"model_RyR2CaM_aging%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5"}
 
@@ -65,14 +65,13 @@ if __name__ == '__main__':
     types = {
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
         "Ca_wave_aging": "Old age",
-        "Ca_wave_simple_SERCA_SOCE": "ctrl no CaM",
+        "Ca_wave_simple_SERCA_no_SOCE_larger_ER": "ctrl no CaM",
         "Ca_wave_RyR2CaM_aging": "Old age CaM",
     }
     output_name = "all"
     fig1 = utils.make_spatiotemporal_specificity_fig_sep_dends(directories,
                                                                dend_diam,
                                                                stims, what_species,
-                                                               organization,
                                                                dur_dict,
                                                                output_name, 
                                                                colors,

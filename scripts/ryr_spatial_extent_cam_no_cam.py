@@ -136,13 +136,14 @@ for k, b_diam in enumerate(branch_diams):
                 ca_dict, time_dict = utils.get_conc(full_name, ["Ca"],
                                                     reg_list,
                                                     output_name)
-                ca_out = [ca_dict["Ca"][key]
-                          for key in ca_dict["Ca"].keys()]
+                ca_out = utils.get_array(ca_dict, "Ca")
                 ca = np.array(ca_out)/1000
-            
-                output = ca.max(axis=0)
+                ca = ca.mean(axis=1)
+                output = ca.max(axis=1)
                 y.append(np.mean(output))
                 x.append(injections[b_diam][stim][s]/b_diam)
+                y_err.append(output.std()/len(output)**0.5)
+            print(x, y, y_err)
             if inh == "_CaM" and s == "":
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
                         label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
