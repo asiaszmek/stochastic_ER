@@ -1011,10 +1011,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(15, 5))
     if len(dend_diam) == 1:
         ax1 = [ax1]
-    stim_labels = {
-        "": " 40 ms",
-        "_3s_injection": " 3 ms"
-    }
+    
     marker = {
         "": "d",
         "_3s_injection": "o"
@@ -1024,7 +1021,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
         fname = directories[d]
-        for stim_type in ["_3s_injection"]:
+        for stim_type in ["", "_3s_injection"]:
             for j, diam in enumerate(dend_diam):
                 for inh in what_species:
                     y = []
@@ -1049,7 +1046,10 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                         for i, trial in enumerate(conc_dict["Ca"].keys()):
                             time = times_dict[trial]
                             ca = conc_dict["Ca"][trial].mean(axis=0)
-                            t1 = fit_exp(time, ca, dt)
+                            try:
+                                t1 = fit_exp(time, ca, dt)
+                            except ValueError:
+                                continue
                             t_decays1[i] = t1
                             ca_means[i] = ca.max()/1000
                         x.append(ca_means.mean())
@@ -1065,7 +1065,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                                      color=colors[d],
                                      marker=marker[stim_type],
                                      label=types[d]+ dur_dict[stim_type]
-                                     +stim_labels[stim_type],
+                                     ,
                                      linestyle="", fillstyle="full")
                     else:
                         ax1[j].errorbar(x, y, yerr=y_err,
@@ -1073,12 +1073,12 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                                      marker=marker[stim_type],
                                      label=types[d]
                                      + dur_dict[stim_type]
-                                     +stim_labels[stim_type],
+                                     ,
                                      linestyle="", fillstyle="none")
 
     #ax1[-1].legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax1[0].legend(loc=1)
-    ax1[0].set_ylabel("Ca short decay constant [m sec]", fontsize=20)
+    ax1[0].set_ylabel("Ca decay constant [m sec]", fontsize=20)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
     ax1[0].set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
