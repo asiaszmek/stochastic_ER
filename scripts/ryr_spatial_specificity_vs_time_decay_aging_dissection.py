@@ -17,7 +17,7 @@ dur_dict = {
               
 
 colors = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": 'k',
-          "Ca_wave_simple_SERCA_SOCE":"orange",
+          "Ca_wave_PMCA_aging":"orange",
           "Ca_wave_aging":"r",
           "Ca_wave_RyR2CaM_aging":"darkolivegreen",
 }

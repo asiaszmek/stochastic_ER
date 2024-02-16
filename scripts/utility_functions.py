@@ -656,8 +656,8 @@ def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
                     ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker="o",
                                 label=types[d]+" diam "+diam, linestyle="",
                                 fillstyle="none")
-    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
-    ax1.set_ylabel("distance travelled [um]", fontsize=20)
+    ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
+    ax1.set_ylabel("Spatial extent [um]", fontsize=20)
     
     ax1.tick_params(axis='both', which='major', labelsize=14)
     ax1.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
@@ -723,8 +723,8 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                                      label=types[org]+" diam "+diam
                                      + dur_dict[inh],
                                      linestyle="", fillstyle="none")
-    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
-    ax1.set_ylabel("distance travelled [um]", fontsize=20)
+    ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
+    ax1.set_ylabel("Spatial extent [um]", fontsize=20)
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     return fig1
 
@@ -786,8 +786,8 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                                      + dur_dict[inh],
                                      linestyle="", fillstyle="none")
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
-    ax1.set_ylabel("distance travelled [um]", fontsize=20)
+    ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
+    ax1.set_ylabel("Spatial extent [um]", fontsize=20)
 
     return fig1
 
@@ -901,11 +901,11 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         print(types[d]+" diam "+diam + dur_dict[inh],k, "none")
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax1.set_xlabel("min Ca in the ER [uM]", fontsize=20)
-    ax1.set_ylabel("distance [um]", fontsize=20)
+    ax1.set_ylabel("Spatial extent [um]", fontsize=20)
     ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax2.set_xlabel("min Ca molecules in the ER",
                    fontsize=20)
-    ax2.set_ylabel("distance [um]", fontsize=20)
+    ax2.set_ylabel("Spatial extent [um]", fontsize=20)
     
 
     return fig1, fig2
@@ -944,7 +944,7 @@ def make_decay_constant_fig(directories,  dend_diam,
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
         fname = directories[d]
-        for stim_type in ["", "_3s_injection"]:
+        for stim_type in [""]:#, "_3s_injection"]:
             for j, diam in enumerate(dend_diam):
                 for inh in what_species:
                     y = []
@@ -998,8 +998,8 @@ def make_decay_constant_fig(directories,  dend_diam,
                                      linestyle="", fillstyle="none")
 
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
-    ax1.set_ylabel("Ca decay constant [m sec]", fontsize=20)
+    ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
+    ax1.set_ylabel("Temporal decay constant [m sec]", fontsize=20)
     return fig1
 
 
@@ -1021,7 +1021,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
         fname = directories[d]
-        for stim_type in ["", "_3s_injection"]:
+        for stim_type in [""]:  #  , "_3s_injection"]:
             for j, diam in enumerate(dend_diam):
                 for inh in what_species:
                     y = []
@@ -1060,28 +1060,19 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                     print(x, y, y_err)
                     if not len(y):
                         continue
-                    if not k % 2:
-                        ax1[j].errorbar(x, y,  yerr=y_err,
-                                     color=colors[d],
-                                     marker=marker[stim_type],
-                                     label=types[d]+ dur_dict[stim_type]
-                                     ,
+                    
+                    ax1[j].errorbar(x, y,  yerr=y_err,
+                                    color=colors[d],
+                                    marker=marker[stim_type],
+                                    label=types[d]+ dur_dict[stim_type],
                                      linestyle="", fillstyle="full")
-                    else:
-                        ax1[j].errorbar(x, y, yerr=y_err,
-                                     color=colors[d],
-                                     marker=marker[stim_type],
-                                     label=types[d]
-                                     + dur_dict[stim_type]
-                                     ,
-                                     linestyle="", fillstyle="none")
+              
+    ax1[-1].legend(loc=1)
 
-    #ax1[-1].legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax1[0].legend(loc=1)
-    ax1[0].set_ylabel("Ca decay constant [m sec]", fontsize=20)
+    ax1[0].set_ylabel("Temporal decay constant [m sec]", fontsize=20)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     for i, diam in enumerate(dend_diam):
         
         ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
@@ -1154,28 +1145,21 @@ def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
                     print(x, y, y_err)
                     if not len(y):
                         continue
-                    if not k % 2:
-                        ax1[j].errorbar(x, y,  yerr=y_err,
-                                        color=colors[d],
-                                        marker=marker[stim_type],
-                                        label=types[d]+ dur_dict[stim_type]
-                                        +stim_labels[stim_type],
-                                        linestyle="", fillstyle="full")
-                    else:
-                        ax1[j].errorbar(x, y, yerr=y_err,
-                                        color=colors[d],
-                                        marker=marker[stim_type],
-                                        label=types[d]
-                                        + dur_dict[stim_type]
-                                        +stim_labels[stim_type],
-                                        linestyle="", fillstyle="none")
 
-    #ax1[-1].legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax1[0].legend(loc=1)
-    ax1[0].set_ylabel("Distance travelled [um]", fontsize=20)
+                    ax1[j].errorbar(x, y,  yerr=y_err,
+                                    color=colors[d],
+                                    marker=marker[stim_type],
+                                    label=types[d]+ dur_dict[stim_type]
+                                    +stim_labels[stim_type],
+                                    linestyle="", fillstyle="full")
+
+
+    ax1[-1].legend(loc=1)
+    #ax1[0].legend(loc=1)
+    ax1[0].set_ylabel("Spatial extent [um]", fontsize=20)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     for i, diam in enumerate(dend_diam):
         
         ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
@@ -1209,7 +1193,7 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
     d = directory
     for k, org in enumerate(organization):
         my_path = os.path.join("..", d)
-        for stim_type in ["", "_3s_injection"]:
+        for stim_type in [""]:
             for j, diam in enumerate(dend_diam):
                 
                 y = []
@@ -1261,8 +1245,8 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
                                  linestyle="", fillstyle="none")
 
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax1.set_ylabel("Ca decay constant [m sec]", fontsize=20)
-    ax1.set_xlabel("peak Ca at stimulated site [uM]", fontsize=20)
+    ax1.set_ylabel("Temporal decay constant [m sec]", fontsize=20)
+    ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     return fig1
 
 
@@ -1333,7 +1317,10 @@ def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
                         for i, trial in enumerate(conc_dict["Ca"].keys()):
                             time = times_dict[trial]
                             ca = conc_dict["Ca"][trial][50:52,:].mean(axis=0)
-                            t1 = fit_exp(time, ca, dt)
+                            try:
+                                t1 = fit_exp(time, ca, dt)
+                            except ValueError:
+                                break
                             t_decays1[i] = t1
                             ca_means[i] = ca.max()/1000
                         y.append(t_decays1.mean())
@@ -1341,32 +1328,25 @@ def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
                     print(x,x_err, y, y_err)
                     if not len(y):
                         continue
-                    if not k % 2:
-                        ax1[j].errorbar(x, y, xerr=x_err,
-                                        yerr=y_err,
-                                        color=colors[d],
-                                        marker=marker[stim_type],
-                                        label=types[d]+ dur_dict[stim_type]
-                                        +stim_labels[stim_type],
-                                        linestyle="", fillstyle="full")
-                    else:
-                        ax1[j].errorbar(x, y, xerr=x_err, yerr=y_err,
-                                        color=colors[d],
-                                        marker=marker[stim_type],
-                                        label=types[d]
-                                        + dur_dict[stim_type]
-                                        +stim_labels[stim_type],
-                                        linestyle="", fillstyle="none")
+                    
+                    ax1[j].errorbar(x, y, xerr=x_err,
+                                    yerr=y_err,
+                                    color=colors[d],
+                                    marker=marker[stim_type],
+                                    label=types[d]+ dur_dict[stim_type]
+                                    +stim_labels[stim_type],
+                                    linestyle="", fillstyle="full")
+                    
 
-    ax1[-1].legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax1[-1].legend(loc=1)
     
-    ax1[0].set_xlabel("Distance travelled [um]", fontsize=20)
+    ax1[0].set_xlabel("Spatial extent [um]", fontsize=20)
     miniy = min([min(x.get_ylim()) for x in ax1])
     maxiy = max([max(x.get_ylim()) for x in ax1])
     minix = min([min(x.get_xlim()) for x in ax1])
     maxix = max([max(x.get_xlim()) for x in ax1])
     
-    ax1[0].set_ylabel("Time decay constant [m sec]", fontsize=20)
+    ax1[0].set_ylabel("Temporal decay constant [m sec]", fontsize=20)
     for i, diam in enumerate(dend_diam):
         
         ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
