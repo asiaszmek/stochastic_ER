@@ -36,5 +36,45 @@
       <start on="seg08" at="end" r="3"/>
       <end x="54.0" y="0.0" z="0.0" r="3"/>
     </Segment>
+    <Segment id="seg10" region="dend10">
+      <start on="seg09" at="end" r="3"/>
+      <end x="60.0" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg11" region="dend11">
+      <start on="seg10" at="end" r="3"/>
+      <end x="66.0" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg12" region="dend12">
+      <start on="seg11" at="end" r="3"/>
+      <end x="72.0" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg13" region="dend13">
+      <start on="seg12" at="end" r="3"/>
+      <end x="78.0" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg14" region="dend14">
+      <start on="seg13" at="end" r="3"/>
+      <end x="84.0" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg15" region="dend15">
+      <start on="seg14" at="end" r="3"/>
+      <end x="90.0" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg16" region="dend16">
+      <start on="seg15" at="end" r="3"/>
+      <end x="96.0" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg17" region="dend17">
+      <start on="seg16" at="end" r="3"/>
+      <end x="102" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg18" region="dend18">
+      <start on="seg17" at="end" r="3"/>
+      <end x="108" y="0.0" z="0.0" r="3"/>
+    </Segment>
+    <Segment id="seg19" region="dend19">
+      <start on="seg18" at="end" r="3"/>
+      <end x="114" y="0.0" z="0.0" r="3"/>
+    </Segment>
 
 </Morphology>
