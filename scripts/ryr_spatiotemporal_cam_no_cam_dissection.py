@@ -5,17 +5,6 @@ import numpy as np
 import utility_functions as utils
 
 
-marker = {
-    "": "d",
-    "_3s_injection": "o"
-}
-
-dur_dict = {
-    "": " 40 ms",
-    "_3s_injection": " 3 ms"
-}
-              
-
 colors = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": 'k',
           "Ca_wave_simple_SERCA_SOCE":"orange",
           "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE":"grey",
@@ -72,7 +61,6 @@ if __name__ == '__main__':
                                                                dend_diam,
                                                                stims, what_species,
 
-                                                               dur_dict,
                                                                output_name, 
                                                                colors,
                                                                types)

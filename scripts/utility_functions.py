@@ -8,6 +8,81 @@ from scipy.constants import Avogadro
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
+injections = {
+    1.2:{
+        
+        "0175":{
+            "":20*1200,
+            "_3s_injection":1.5*12000,
+        },
+
+        "0350":{
+            "":40*1200,
+            "_3s_injection":3*12000,
+        },
+        "0700":{
+            "":40*2400,
+            "_3s_injection":3*24000,
+        },
+        "1050":{
+            "":40*4000,
+            "_3s_injection":3*40000,
+        },
+        "2000":{
+            "":40*4800,
+            "_3s_injection":3*48000,
+        },
+    },
+    2.4:{
+        "0175":{
+            "":20*2000,
+            "_3s_injection":1.5*20000,
+        },
+
+        "0350":{
+            "":40*2000,
+            "_3s_injection":3*20000,
+        },
+        "0700":{
+            "":40*4000,
+            "_3s_injection":3*40000,
+        },
+        "1050":{
+            "":40*6000,
+            "_3s_injection":3*60000,
+        },
+        "2000":{
+            "":40*8000,
+            "_3s_injection":3*80000,
+        },
+
+    },
+    6.0:{
+        "0175":{
+            "":20*4000,
+            "_3s_injection":1.5*40000,
+        },
+
+        "0350":{
+            "":40*4000,
+            "_3s_injection":3*40000,
+        },
+        
+        "0700":{
+            "": 40*8000,
+            "_3s_injection":3*80000,
+        },
+        "1050":{
+            "":40*12000,
+            "_3s_injection":3*120000,
+        },
+        "2000":{
+            "":40*16000,
+            "_3s_injection":3*160000,
+        },
+
+    },
+}
 
 
 NA = Avogadro*1e-23
@@ -40,6 +115,17 @@ def pico_sd(N, S):
     return 10 * N / S / NA
 
 
+def get_length(My_file):
+    if isinstance(My_file, str):
+        try:
+            my_file = h5py.File(My_file)
+        except FileNotFoundError:
+            return
+    else:
+        my_file = My_file    
+    grid = get_grid_list(my_file)
+    return grid[-1][3] - grid[0][0]
+    
 def get_grid_list(My_file):
     return np.array(My_file['model']['grid'])
 
@@ -343,7 +429,11 @@ def extract_max_delay(conc_dict, dt):
     branch = np.zeros((len(conc_dict), length))
     delay = np.zeros((len(conc_dict), length))
     distance = np.linspace(-length/2, length/2, length)
-
+    if not length % 2:
+        start_2 = length//2-1
+        start_1 = length//2
+    else:
+        start_1 = start_2 = length//2+1
     for i, concentration in enumerate(conc_dict.values()):
         maxi = concentration[:, :int(t_init/dt)-1].max()
         mean = concentration[:, :int(t_init/dt)-1].mean()
@@ -352,7 +442,7 @@ def extract_max_delay(conc_dict, dt):
             branch[i] = concentration[:, int(t_init/dt):].max(axis=1)
         except ValueError:
             continue
-        for idx in range(51, 102, 1):
+        for idx in range(start_1, length, 1):
             try:
                 if branch[i, idx] > maxi and  branch[i, idx] > mean+3*std:
                     delay[i, idx] = concentration[idx, int(t_init/dt):].argmax()*dt
@@ -361,7 +451,7 @@ def extract_max_delay(conc_dict, dt):
                     break
             except ValueError:
                 break
-        for idx in range(50, -1, -1):
+        for idx in range(start_2, -1, -1):
             try:
                 if branch[i, idx] > maxi and  branch[i, idx] > mean+3*std:
                     delay[i, idx] = concentration[idx, int(t_init/dt):].argmax()*dt
@@ -630,14 +720,21 @@ def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
                     distance, branch, delay = extract_max_delay(conc_dict["Ca"],
                                                                     dt)
 
-                    
+                    dend_length = get_length(my_file)
+                    dx = dend_length/len(distance)
                     full_delay = np.zeros((len(delay),))
                     for i, delay_1d in enumerate(delay): 
-                        full_delay[i] = len(np.where(delay_1d>0)[0])/4
+                        full_delay[i] = len(np.where(delay_1d>0)[0])*dx/2
                     y.append(full_delay.mean())
                     y_err.append(full_delay.std()/len(full_delay)**0.5)
                     b_diam = float(diam)
-                    x.append(np.mean(branch[:,50]+branch[:,51])/2000)
+                    if not branch.shape[1] % 2:
+                        x.append(np.mean(branch[:,
+                                                branch.shape[1]//2]+branch[:,
+                                                                           branch.shape[1]//2+1])/2000)
+                    else:
+                        x.append(np.mean(branch[:,
+                                                branch.shape[1]//2+1])/1000) 
                 print(x, y, y_err)
                 if k == 0:
                     ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker="d",
@@ -703,14 +800,21 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                             continue
                         
 
-                    
+                        dend_length = get_length(my_file)
+                        dx = dend_length/len(distance)
                         full_delay = np.zeros((len(delay),))
                         for i, delay_1d in enumerate(delay): 
-                            full_delay[i] = len(np.where(delay_1d>0)[0])/4
+                            full_delay[i] = len(np.where(delay_1d>0)[0])*dx/2
                         y.append(full_delay.mean())
                         y_err.append(full_delay.std()/len(full_delay)**0.5)
                         b_diam = float(diam)
-                        x.append(np.mean(branch[:,50]+branch[:,51])/2000)
+                        if not branch.shape[1] % 2:
+                            x.append(np.mean(branch[:,
+                                                    branch.shape[1]//2]+branch[:,
+                                                                               branch.shape[1]//2+1])/2000)
+                        else:
+                            x.append(np.mean(branch[:,
+                                                    branch.shape[1]//2+1])/1000)   
                     print(x, y, y_err)
                     if k % 2:
                         ax1.errorbar(x, y, yerr=y_err,
@@ -760,19 +864,27 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                         except KeyError:
                             continue
                
-                
+                        dend_length = get_length(my_file)
                         try:
                             distance, branch, delay = extract_max_delay(conc_dict["Ca"],
                                                                         dt)
                         except TypeError:
                             continue
+                        dx = dend_length/len(distance)
                         full_delay = np.zeros((len(delay),))
+                        print(dend_length, dx)
                         for i, delay_1d in enumerate(delay): 
-                            full_delay[i] = len(np.where(delay_1d>0)[0])/4
+                            full_delay[i] = len(np.where(delay_1d>0)[0])*dx/2
                         y.append(full_delay.mean())
                         y_err.append(full_delay.std()/len(full_delay)**0.5)
                         b_diam = float(diam)
-                        x.append(np.mean(branch[:,50]+branch[:,51])/2000)
+                        if not branch.shape[1] % 2:
+                            x.append(np.mean(branch[:,
+                                                    branch.shape[1]//2]+branch[:,
+                                                                               branch.shape[1]//2+1])/2000)
+                        else:
+                            x.append(np.mean(branch[:,
+                                                    branch.shape[1]//2+1])/1000)   
                     print(x, y, y_err)
                     if not len(y):
                         continue
@@ -790,6 +902,70 @@ def make_distance_fig_aging(directories, descr, dend_diam,
     ax1.set_ylabel("Spatial extent [um]", fontsize=20)
 
     return fig1
+
+
+def make_distance_fig_det(directories, descr, dend_diam,
+                          stims, what_species, organization,
+                          dur_dict, reg_list, output_name, 
+                          colors, types, marker):
+    fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
+    for k, d in enumerate(directories):
+        my_path = os.path.join("..", d)
+        add = descr[d]
+        fname = directories[d]
+        for org in organization:
+            for j, diam in enumerate(dend_diam):
+                for inh in what_species:
+                    y = []
+                    y_err = []
+                    x = []
+                    for i, stim in enumerate(stims):
+                        new_fname = fname % (add, inh, org, diam, stim)
+                        my_file = os.path.join(my_path, new_fname)
+                        try:
+                            conc_dict, times_dict = get_conc(my_file,
+                                                             ["Ca"],
+                                                             reg_list,
+                                                             output_name)
+                        except TypeError:
+                            continue
+                        try:
+                            dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                        except KeyError:
+                            continue
+               
+                        dend_length = get_length(my_file)
+                        try:
+                            distance, branch, delay = extract_max_delay(conc_dict["Ca"],
+                                                                        dt)
+                        except TypeError:
+                            continue
+                        dx = dend_length/len(distance)
+                        full_delay = np.zeros((len(delay),))
+                        for i, delay_1d in enumerate(delay): 
+                            full_delay[i] = len(np.where(delay_1d>0)[0])*dx/2
+                        y.append(full_delay.mean())
+                        y_err.append(full_delay.std()/len(full_delay)**0.5)
+                        b_diam = float(diam)
+                        x.append(injections[b_diam][stim][""]/b_diam)
+                    print(x, y, y_err)
+                    if not len(y):
+                        continue
+                    if not k % 2:
+                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker=marker[inh],
+                                     label=types[d]+" diam "+diam + dur_dict[inh],
+                                     linestyle="", fillstyle="full")
+                    else:
+                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker=marker[inh],
+                                     label=types[d]+" diam "+diam
+                                     + dur_dict[inh],
+                                     linestyle="", fillstyle="none")
+    ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
+    ax1.set_ylabel("Spatial extent [um]", fontsize=20)
+
+    return fig1
+
 
 
 def make_distance_fig_aging_CaER(directories,  dend_diam,
@@ -841,17 +1017,31 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         except TypeError:
                             continue
                 
-                       
+                        dend_length = get_length(my_file)
+                        if not dend_length % 2:
+                            start_1, start_2 = delay_ca.shape[1]//2 + 1
+                        else:
+                            start_1 = delay_ca.shape[1]//2-1
+                            start_2 = delay_ca.shape[1]//2
+                        dx = dend_length/len(distance)
                         full_delay = np.zeros((len(delay_ca),))
                         for i, delay_1d in enumerate(delay_ca): 
-                            full_delay[i] = len(np.where(delay_1d>0)[0])/4
+                            full_delay[i] = len(np.where(delay_1d>0)[0])*dx/2
                         x.append(full_delay.mean())
                         x_err.append(full_delay.std()/len(full_delay)**.5)
                         full_dip = np.zeros((len(delay_ca),))
-                        for i, key in enumerate(conc_dict["CaER"].keys()): 
-                            full_dip[i] = (min(conc_dict["CaER"][key][50, int(t_init/dt):])
-                                           +min(conc_dict["CaER"][key][51, int(t_init/dt):]))/2000*4 #  uM
-                          
+                        min_mol = np.zeros((len(delay_ca),))
+                        
+                        for i, key in enumerate(conc_dict["CaER"].keys()):
+                            
+                            full_dip[i] = (min(conc_dict["CaER"][key][start_1,
+                                                                      int(t_init/dt):])
+                                           +min(conc_dict["CaER"][key][start_2,
+                                                                       int(t_init/dt):]))/2000*4 #  uM
+                            conc = conc_dict["CaER"][key][:, int(t_init/dt):].sum(axis=0)
+                                    
+                            min_mol[i] = min(conc)
+
                         y.append(full_dip.mean())
                         y_err.append(full_dip.std()/len(full_dip)**0.5)
                         b_diam = float(diam)
@@ -860,8 +1050,8 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         vox_ind, vols = get_dend_indices(my_grid,
                                                          region=reg_list)
                         volume = sum(vols)
-                        y_ER.append(y[-1]*volume*4*6.022)
-                        y_ER_err.append(y_err[-1]*volume*4*6.022)
+                        y_ER.append(min_mol.mean()*volume*4*6.022)
+                        y_ER_err.append(min_mol.std()/len(min_mol)**.5*volume*4*6.022)
                     print(x, x_err, y_ER, y_ER_err, y, y_err)
                     if not len(y):
                         continue
@@ -1065,7 +1255,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                                     color=colors[d],
                                     marker=marker[stim_type],
                                     label=types[d]+ dur_dict[stim_type],
-                                     linestyle="", fillstyle="full")
+                                    linestyle="", fillstyle="full")
               
     ax1[-1].legend(loc=1)
 
@@ -1091,10 +1281,7 @@ def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(15, 5))
     if len(dend_diam) == 1:
         ax1 = [ax1]
-    stim_labels = {
-        "": " 40 ms",
-        "_3s_injection": " 3 ms"
-    }
+   
     marker = {
         "": "d",
         "_3s_injection": "o"
@@ -1109,7 +1296,7 @@ def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
         fname = directories[d]
-        for stim_type in [""]:#, "_3s_injection"]:
+        for stim_type in [""]:
             for j, diam in enumerate(dend_diam):
                 for inh in what_species:
                     y = []
@@ -1135,13 +1322,21 @@ def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
                                                                         dt)
                         except TypeError:
                             continue
+                        dend_length = get_length(my_file)
+                        dx = dend_length/len(distance)
                         full_delay = np.zeros((len(delay),))
                         for i, delay_1d in enumerate(delay): 
-                            full_delay[i] = len(np.where(delay_1d>0)[0])/4
+                            full_delay[i] = len(np.where(delay_1d>0)[0])*dx/2
                         y.append(full_delay.mean())
                         y_err.append(full_delay.std()/len(full_delay)**0.5)
                         b_diam = float(diam)
-                        x.append(np.mean(branch[:,50]+branch[:,51])/2000)
+                        if not branch.shape[1] % 2:
+                            x.append(np.mean(branch[:,
+                                                    branch.shape[1]//2]+branch[:,
+                                                                               branch.shape[1]//2+1])/2000)
+                        else:
+                            x.append(np.mean(branch[:,
+                                                    branch.shape[1]//2+1])/1000)   
                     print(x, y, y_err)
                     if not len(y):
                         continue
@@ -1149,12 +1344,11 @@ def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
                     ax1[j].errorbar(x, y,  yerr=y_err,
                                     color=colors[d],
                                     marker=marker[stim_type],
-                                    label=types[d]+ dur_dict[stim_type]
-                                    +stim_labels[stim_type],
+                                    label=types[d]+ dur_dict[stim_type],
                                     linestyle="", fillstyle="full")
 
 
-    ax1[-1].legend(loc=1)
+    ax1[0].legend(loc=1)
     #ax1[0].legend(loc=1)
     ax1[0].set_ylabel("Spatial extent [um]", fontsize=20)
     mini = min([min(x.get_ylim()) for x in ax1])
@@ -1173,7 +1367,7 @@ def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
 
 def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
                                  stims, organization,
-                                 dur_dict, output_name, 
+                                 output_name, 
                                  colors, types):
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
     if len(dend_diam) == 1:
@@ -1232,7 +1426,7 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
                     ax1.errorbar(x, y,  yerr=y_err,
                                  color=colors[d][diam],
                                  marker=marker[stim_type],
-                                 label=types[org]+ dur_dict[stim_type]
+                                 label=types[org]
                                  +stim_labels[stim_type],
                                  linestyle="", fillstyle="full")
                 else:
@@ -1240,7 +1434,6 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
                                  color=colors[d][diam],
                                  marker=marker[stim_type],
                                  label=types[org]
-                                 + dur_dict[stim_type]
                                  +stim_labels[stim_type],
                                  linestyle="", fillstyle="none")
 
@@ -1253,7 +1446,7 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
 
 def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
                                                   stims, what_species,
-                                                  dur_dict, output_name, 
+                                                  output_name, 
                                                   colors, types):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(15, 5))
     if len(dend_diam) == 1:
@@ -1306,17 +1499,27 @@ def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
                                                                         dt)
                         except TypeError:
                             continue
+                        dend_length = get_length(my_file)
+                        dx = dend_length/len(distance)
                         full_delay = np.zeros((len(delay),))
                         for i, delay_1d in enumerate(delay): 
-                            full_delay[i] = len(np.where(delay_1d>0)[0])/4
+                            full_delay[i] = len(np.where(delay_1d>0)[0])*dx/2
                         x.append(full_delay.mean())
                         x_err.append(full_delay.std()/len(full_delay)**0.5)
                         
                         ca_means = np.zeros((len(conc_dict["Ca"].keys())))
                         t_decays1 = np.zeros((len(conc_dict["Ca"].keys())))
+                        if dend_length%2:
+                            start_1 = branch.shape[1]//2-1
+                            start_2 = branch.shape[1]//2+1
+                        else:
+                            start_1 = branch.shape[1]//2+1
+                            start_2 = branch.shape[1]//2+2
+
                         for i, trial in enumerate(conc_dict["Ca"].keys()):
                             time = times_dict[trial]
-                            ca = conc_dict["Ca"][trial][50:52,:].mean(axis=0)
+                            ca = conc_dict["Ca"][trial][start_1:start_2,
+                                                        :].mean(axis=0)
                             try:
                                 t1 = fit_exp(time, ca, dt)
                             except ValueError:
@@ -1333,7 +1536,7 @@ def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
                                     yerr=y_err,
                                     color=colors[d],
                                     marker=marker[stim_type],
-                                    label=types[d]+ dur_dict[stim_type]
+                                    label=types[d]
                                     +stim_labels[stim_type],
                                     linestyle="", fillstyle="full")
                     
