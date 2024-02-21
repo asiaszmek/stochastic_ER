@@ -1036,7 +1036,7 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         else:
                             start_1 = delay_ca.shape[1]//2-1
                             start_2 = delay_ca.shape[1]//2
-                        dx = dend_length/len(distance)
+                        dx = dend_length/len(distance_ca)
                         full_delay = np.zeros((len(delay_ca),))
                         for i, delay_1d in enumerate(delay_ca): 
                             full_delay[i] = len(np.where(delay_1d>0)[0])*dx/2
