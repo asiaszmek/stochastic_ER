@@ -1188,16 +1188,14 @@ def make_decay_constant_fig(directories,  dend_diam,
                                      color=colors[diam],
                                      marker=marker[stim_type],
                                      label=types[d]+" diam "+diam
-                                     + dur_dict[stim_type]
-                                     +stim_labels[stim_type],
+                                     + dur_dict[stim_type],
                                      linestyle="", fillstyle="full")
                     else:
                         ax1.errorbar(x, y, yerr=y_err,
                                      color=colors[diam],
                                      marker=marker[stim_type],
                                      label=types[d]+" diam "+diam
-                                     + dur_dict[stim_type]
-                                     +stim_labels[stim_type],
+                                     + dur_dict[stim_type],
                                      linestyle="", fillstyle="none")
 
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
