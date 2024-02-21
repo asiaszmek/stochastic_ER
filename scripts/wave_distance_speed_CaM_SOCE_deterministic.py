@@ -16,8 +16,8 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_simple_SERCA_SOCE_det_lim": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_simple_SERCA_SOCE_det_lim": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_simple_SERCA_SOCE": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
     
 
     
@@ -47,7 +47,7 @@ symbol = {
     "": "o",
 }
 
-fname = "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5"
+
     
 NA = Avogadro*1e-23
 specie_dict = {
@@ -114,7 +114,7 @@ if __name__ == '__main__':
     fig1 = utils.make_distance_fig_det(directories, descr,
                                        dend_diam,
                                        stims, what_species,
-                                       organization,
+                                       
                                        dur_dict,
                                        reg_list, output_name, 
                                        colors, types, fillstyle)

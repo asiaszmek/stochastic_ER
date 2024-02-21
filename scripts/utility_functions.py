@@ -905,22 +905,32 @@ def make_distance_fig_aging(directories, descr, dend_diam,
 
 
 def make_distance_fig_det(directories, descr, dend_diam,
-                          stims, what_species, organization,
+                          stims, what_species,
                           dur_dict, reg_list, output_name, 
                           colors, types, marker):
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
+    stim_labels = {
+        "": " 40 ms",
+        #"_3s_injection": " 3 ms"
+    }
+    marker = {
+        "": "d",
+        "_3s_injection": "o"
+    }
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
         add = descr[d]
         fname = directories[d]
-        for org in organization:
+        org = "tubes"
+        for dur in stim_labels:
             for j, diam in enumerate(dend_diam):
                 for inh in what_species:
                     y = []
                     y_err = []
                     x = []
                     for i, stim in enumerate(stims):
-                        new_fname = fname % (add, inh, org, diam, stim)
+                        new_fname = fname % (add, dur, inh, org,
+                                             diam, stim)
                         my_file = os.path.join(my_path, new_fname)
                         try:
                             conc_dict, times_dict = get_conc(my_file,
@@ -952,13 +962,16 @@ def make_distance_fig_det(directories, descr, dend_diam,
                     if not len(y):
                         continue
                     if not k % 2:
-                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker=marker[inh],
-                                     label=types[d]+" diam "+diam + dur_dict[inh],
+                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                     marker=marker[dur],
+                                     label=types[d]+" diam "+diam + dur_dict[inh]
+                                     +stim_labels[dur],
                                      linestyle="", fillstyle="full")
                     else:
-                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker=marker[inh],
+                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                     marker=marker[dur],
                                      label=types[d]+" diam "+diam
-                                     + dur_dict[inh],
+                                     + dur_dict[inh]+stim_labels[dur],
                                      linestyle="", fillstyle="none")
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
