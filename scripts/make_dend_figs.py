@@ -12,7 +12,8 @@ specie_dict = {
     "RyRO": ["RyRO1", "RyRO2"],
     "STIM_CaER": ["STIM_2CaER"],
     "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"],
-    "Fura": ["Fura2Ca"]
+    "Fura": ["Fura2Ca"],
+ 
 }
 multiplier = {
     "Ca": 1,
@@ -53,11 +54,13 @@ if __name__ == '__main__':
         output_name = "all"
     elif  chosen_specie in ["STIM_CaER", "Orai"]:
         output_name = "RyR_Orai"
+    else:
+        output_name = "__main__"
 
     try:
         specie_list = specie_dict[chosen_specie]
-    except AttributeError:
-        sys.exit("Unnkown specie %s" % s)
+    except KeyError:
+        specie_list = [chosen_specie]
     base = "dend"
     reg_list = [base, "dend01", "dend02", "dend03", "dend04", "dend05",
                 "dend06", "dend07", "dend08", "dend09",]
