@@ -22,7 +22,7 @@ directories = {
 fname = "model_RyR2CaM%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"
 
 
-stims = [ "0350", "0700", "1050", "2000"]
+stims = [ "0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 directory =  "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
 
