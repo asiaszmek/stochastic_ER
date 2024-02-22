@@ -42,11 +42,11 @@ t_stim = 3000  # sec
 dye_base = "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.xmlFura2.h5"
 nodye_base = "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 
-fig, ax = plt.subplots(2, 3, figsize=(15, 12))
+fig, ax = plt.subplots(1, 3, figsize=(15, 12))
 
 #  Dye figs
 
-for i, x in enumerate(ax[0]):
+for i, x in enumerate(ax):
     x.set_title(stim_labels[i], fontsize=20)
     for k, b_diam in enumerate(branch_diams):
         fname = dye_base % (b_diam, stims[i])
@@ -78,65 +78,19 @@ for i, x in enumerate(ax[0]):
         x.fill_between(vox_axis[25:-25], max_fluo_vals[25:-25]-max_fluo_error[25:-25],
                        max_fluo_vals[25:-25]+max_fluo_error[25:-25],
                        color=colors_dye[k], alpha=0.2)
-        vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
-        max_fluo_vals = np.zeros_like(vox_axis)
-        ca_vals = ca.max(axis=2)
-        max_ca_vals = ca_vals.mean(axis=0)
-        max_ca_error = ca_vals.std(axis=0)/len(ca_vals)**0.5
-        ax[1][i].plot(vox_axis[25:-25], max_ca_vals[25:-25], color=colors_dye[k],
-                      label="%2.1f um + Fura2" % b_diam)
-        ax[1][i].fill_between(vox_axis[25:-25], max_ca_vals[25:-25]-max_ca_error[25:-25],
-                              max_ca_vals[25:-25]+max_ca_error[25:-25], color=colors_ctrl[k],
-                              alpha=0.2)
-
-    if not i:
-        x.legend()
-        x.set_ylabel("%Fluorescence", fontsize=20)
-    else:
-        x.set_yticklabels([])
-    x.set_xticklabels([])
-    x.tick_params(labelsize=14)
-
-mini, maxi = get_ylim(ax[0])
-set_ylim(ax[0], mini, maxi)
-
-for i, x in enumerate(ax[1]):
-    for k, b_diam in enumerate(branch_diams):
-        fname_no_dye = nodye_base % (b_diam, stims[i])
-        full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname_no_dye)
-        my_file = h5py.File(full_name)
-        my_grid = utils.get_grid_list(my_file)
-        vox_ind, vols = utils.get_dend_indices(my_grid, region=reg_list)
-        voxels = sorted(vox_ind.keys())
-        conc_dict, time_dict = utils.get_conc(full_name, ["Ca"],
-                                              reg_list,
-                                              output_name)
-        dt = time_dict["trial0"][1] - time_dict["trial0"][0]
-        ca_out = [conc_dict["Ca"][key]
-                  for key in conc_dict["Ca"].keys()]
-        ca = np.array(ca_out)/1000
-
-        vox_axis = np.linspace(-voxels[-1]/2, voxels[-1]/2, len(voxels))
-        ca_vals = ca.max(axis=2)
-        max_ca_vals = ca_vals.mean(axis=0)
-        max_ca_error = ca_vals.std(axis=0)/len(ca_vals)**0.5
-        x.plot(vox_axis[25:-25], max_ca_vals[25:-25],
-               color=colors_ctrl[k],
-               label="%2.1f um - Fura2" % b_diam)
-        x.fill_between(vox_axis[25:-25], max_ca_vals[25:-25]-max_ca_error[25:-25],
-                       max_ca_vals[25:-25]+max_ca_error[25:-25], color=colors_ctrl[k],
-                       alpha=0.2)
-        x.set_yscale("log")
+        if not i:
+            x.legend()
+            x.set_ylabel("%Fluorescence", fontsize=20)
+        else:
+            x.set_yticklabels([])
     
-    if not i:
-        x.legend()
-        x.set_ylabel("Calcium [uM]", fontsize=20)
-    else:
-        x.set_yticklabels([])
-    x.tick_params(labelsize=14)
-    x.set_xlabel("Distance from stim [um]", fontsize=20)
-mini, maxi = get_ylim(ax[1])
-set_ylim(ax[1], mini, maxi)
+        x.tick_params(labelsize=14)
+        x.set_xlabel("Distance from stim site [um]", fontsize=20)
+
+
+mini, maxi = get_ylim(ax)
+set_ylim(ax, mini, maxi)
 fig.savefig("Ca_dye_effects.eps", dpi=100, bbox_inches="tight")
 fig.savefig("Ca_dye_effects.png", dpi=100, bbox_inches="tight")
+
 plt.show()

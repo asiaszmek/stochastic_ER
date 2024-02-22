@@ -17,6 +17,7 @@ stim_dend = "dend26"
 
 directories = {
     "Ca_wave_simple_SERCA_SOCE_det_lim": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+     "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_simple_SERCA_SOCE": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
     
 
@@ -25,6 +26,7 @@ directories = {
 
 descr = {
     "Ca_wave_simple_SERCA_SOCE": "RyR",
+    "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim":"RyR",
     "Ca_wave_simple_SERCA_SOCE_det_lim": "RyR",
 
 }   
@@ -32,20 +34,23 @@ descr = {
 types = {
     "Ca_wave_simple_SERCA_SOCE": "stochastic",
     "Ca_wave_simple_SERCA_SOCE_det_lim": "deterministic limit",
+    "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim":"deterministic limit 2",
 }
 
 marker = {
     "Ca_wave_simple_SERCA_SOCE": "full",
-    "Ca_wave_simple_SERCA_SOCE_det_lim": "none",
+    "Ca_wave_simple_SERCA_SOCE_det_lim": "full",
+    "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim":"none",
 }
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
 symbol = {
-    "SOCE_": "d",
-    "": "o",
-}
+    "Ca_wave_simple_SERCA_SOCE": "o",
+    "Ca_wave_simple_SERCA_SOCE_det_lim": "d",
+    "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim":"d",
+ }
 
 
     
@@ -106,10 +111,7 @@ if __name__ == '__main__':
         "SOCE_": " SOCE",
         "": " no SOCE"
     }
-    fillstyle = {
-        "SOCE_": "d",
-        "": "o"
-    }
+    
     organization = ["tubes"]
     fig1 = utils.make_distance_fig_det(directories, descr,
                                        dend_diam,
@@ -117,7 +119,7 @@ if __name__ == '__main__':
                                        
                                        dur_dict,
                                        reg_list, output_name, 
-                                       colors, types, fillstyle)
+                                       colors, types, symbol, marker)
     fig1.savefig("ER_distance_no_cam_det_lim.png", dpi=100,
                  bbox_inches="tight")
     fig1.savefig("ER_distance_no_cam_det_lim.eps", dpi=100,

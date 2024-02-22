@@ -907,15 +907,12 @@ def make_distance_fig_aging(directories, descr, dend_diam,
 def make_distance_fig_det(directories, descr, dend_diam,
                           stims, what_species,
                           dur_dict, reg_list, output_name, 
-                          colors, types, marker):
+                          colors, types, marker, fillstyle):
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
+
     stim_labels = {
         "": " 40 ms",
         #"_3s_injection": " 3 ms"
-    }
-    marker = {
-        "": "d",
-        "_3s_injection": "o"
     }
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
@@ -961,18 +958,11 @@ def make_distance_fig_det(directories, descr, dend_diam,
                     print(x, y, y_err)
                     if not len(y):
                         continue
-                    if not k % 2:
-                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
-                                     marker=marker[dur],
+                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                     marker=marker[d],
                                      label=types[d]+" diam "+diam + dur_dict[inh]
                                      +stim_labels[dur],
-                                     linestyle="", fillstyle="full")
-                    else:
-                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
-                                     marker=marker[dur],
-                                     label=types[d]+" diam "+diam
-                                     + dur_dict[inh]+stim_labels[dur],
-                                     linestyle="", fillstyle="none")
+                                     linestyle="", fillstyle=fillstyle[d])
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     ax1.set_ylabel("Spatial extent [um]", fontsize=20)

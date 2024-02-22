@@ -136,7 +136,10 @@ for k, b_diam in enumerate(branch_diams):
                 ca_dict, time_dict = utils.get_conc(full_name, ["Ca"],
                                                     reg_list,
                                                     output_name)
-                ca_out = utils.get_array(ca_dict, "Ca")
+                try:
+                    ca_out = utils.get_array(ca_dict, "Ca")
+                except ValueError:
+                    continue
                 ca = np.array(ca_out)/1000
                 ca = ca.mean(axis=1)
                 output = ca.max(axis=1)
