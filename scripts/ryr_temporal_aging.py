@@ -11,8 +11,8 @@ marker = {
 }
 
 dur_dict = {
-    "": " 40 ms",
-    "_3s_injection": " 3 ms"
+    "": "",
+    "_3s_injection": ""
 }
               
 
