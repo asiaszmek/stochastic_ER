@@ -1,4 +1,5 @@
 import sys
+import os
 import subprocess
 from datetime import date
 from lxml import etree
@@ -6,9 +7,11 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-ca_conc_file = "xu_meissner_RyR2CaM_po.csv"
-ryr_op_fname = "xu_meissner_RyR2CaM_minopentime.csv"
-ryr_cl_fname = "xu_meissner_RyR2CaM_minclosedtime.csv"
+ca_conc_file = os.path.join("..", "RyR2_CaM", "xu_meissner_RyR2CaM_po.csv")
+ryr_op_fname = os.path.join("..", "RyR2_CaM",
+                            "xu_meissner_RyR2CaM_minopentime.csv")
+ryr_cl_fname = os.path.join("..", "RyR2_CaM",
+                            "xu_meissner_RyR2CaM_minclosedtime.csv")
 
 model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
