@@ -244,29 +244,34 @@ if __name__ == "__main__":
     np.savetxt(res_fname1, output, delimiter=",", header="Ca [nM], po")
     np.savetxt(res_fname2, mean_times_a, delimiter=",",
                header="Ca [nM], mean open time, mean closed time")
-    fig, ax = plt.subplots(1, 2, figsize=(15, 10))
+    fig, ax = plt.subplots(1, 2, figsize=(15, 12))
     ax[0].set_xscale('log')
-    ax[0].plot(exp_res[:, 0]*1e-9, exp_res[:, 1], "d", color="tab:blue", label="experimental data")
-    ax[0].plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
+    ax[0].plot(exp_res[:, 0]*1e-9, exp_res[:, 1], "d",
+               color="tab:blue", label="experimental data",
+               ms=10)
+    ax[0].plot(output[:, 0]*1e-9, output[:, 1], "d",
+               color="tab:red", label="model data", ms=10)
     ax[0].legend()
-    ax[0].set_xlabel("Concentration [M]")
-    ax[0].set_ylabel("CaM-bound RyR2 open probability")
-    
-
+    ax[0].set_xlabel("Concentration [M]", fontsize=20)
+    ax[0].set_ylabel("CaM-bound RyR2 open probability", fontsize=20)
+    ax[0].tick_params(axis='x', labelsize=20)
+    ax[0].tick_params(axis='y', labelsize=20)
     ax[1].set_xscale('log')
     ax[1].set_yscale('log')
     ax[1].plot(exp_open[:, 0]*1e-9, exp_open[:, 1], "d", color="tab:blue",
-            label="exp open")
+               label="exp open", ms=10)
     ax[1].plot(exp_closed[:, 0]*1e-9, exp_closed[:, 1], "d", color="tab:green",
-            label="exp closed")
+               label="exp closed", ms=10)
     ax[1].plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
-            label="model open", color="tab:cyan")
+               label="model open", color="tab:cyan", ms=10)
     ax[1].plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 2], "d",
-            label="model closed", color="tab:olive")
+               label="model closed", color="tab:olive", ms=10)
     
     ax[1].legend()
-    ax[1].set_xlabel("Concentration [M]")
-    ax[1].set_ylabel("Time [ms]")
+    ax[1].tick_params(axis='x', labelsize=20)
+    ax[1].tick_params(axis='y', labelsize=20)
+    ax[1].set_xlabel("Concentration [M]", fontsize=20)
+    ax[1].set_ylabel("Time [ms]", fontsize=20)
     fig.savefig("RyR2CaM_properties.png", dpi=200, bbox_inches="tight")
 
 plt.show()
