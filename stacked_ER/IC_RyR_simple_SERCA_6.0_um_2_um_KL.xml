@@ -18,8 +18,8 @@
     <NanoMolarity specieID="Ng" value="2750"/>
 
     <NanoMolarity specieID="CaER"         value="0.8e5"     />
-    <NanoMolarity       specieID="CRTP" value="8.8750e+4"/>
-    <NanoMolarity       specieID="CRT" value="1.1252e+4"/>
+    <NanoMolarity       specieID="CRTP" value="8.89e+4"/>
+    <NanoMolarity       specieID="CRT" value="1.11e+4"/>
     <NanoMolarity specieID="RyR"      value="2"    />
     
     <NanoMolarity specieID="Cyt_SERCA"       value="480"     />
