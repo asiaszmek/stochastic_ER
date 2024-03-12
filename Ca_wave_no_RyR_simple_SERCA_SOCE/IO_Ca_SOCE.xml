@@ -22,12 +22,8 @@
     <OutputSpecie name="Ca"/>
     <OutputSpecie name="CaER"/>
     <OutputSpecie name="CaOut"/>
-    <OutputSpecie name="RyRO1"/>
-    <OutputSpecie name="RyRO2"/>
   </OutputSet>
   <OutputSet filename = "RyR_Orai"  dt="10.0">
-    <OutputSpecie name="RyRC1"/>
-    <OutputSpecie name="RyRC2"/>
     <OutputSpecie name="STIM_2"/>
     <OutputSpecie name="STIM_4"/>
     <OutputSpecie name="STIM_2CaER"/>
