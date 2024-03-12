@@ -176,4 +176,4 @@ fig.savefig("Spatial_sum.eps", dpi=100,
 fig.savefig("Spatial_sum.png", dpi=100,
             bbox_inches="tight")
 
-plt.show()
+

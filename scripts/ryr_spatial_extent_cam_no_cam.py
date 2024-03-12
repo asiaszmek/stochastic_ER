@@ -173,7 +173,7 @@ ax.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
 
 fig.savefig("Spatial_sum_cam.eps", dpi=100,
             bbox_inches="tight")
-fig.savefig("Spatial_sum_cam..png", dpi=100,
+fig.savefig("Spatial_sum_cam.png", dpi=100,
             bbox_inches="tight")
 
 plt.show()

@@ -17,39 +17,42 @@ stim_dend = "dend26"
 
 directories = {
     "Ca_wave_simple_SERCA_SOCE_det_lim": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
-     #"Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_simple_SERCA_SOCE": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+     "Ca_wave_simple_SERCA_no_SOCE_KL_Breit_2018": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "model_%s%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
     
 
     
 }
 
 descr = {
-    "Ca_wave_simple_SERCA_SOCE": "RyR",
-    "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim":"RyR",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "RyR",
+    "Ca_wave_simple_SERCA_no_SOCE_KL_Breit_2018": "RyR",
     "Ca_wave_simple_SERCA_SOCE_det_lim": "RyR",
 
 }   
 
 types = {
-    "Ca_wave_simple_SERCA_SOCE": "stochastic",
-    "Ca_wave_simple_SERCA_SOCE_det_lim": "deterministic limit",
-    "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim":"deterministic limit 2",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "KS stochastic",
+    "Ca_wave_simple_SERCA_no_SOCE_KL_Breit_2018": "KL deterministic",
+    "Ca_wave_simple_SERCA_SOCE_det_lim": "KS deterministic",
+
 }
 
 marker = {
-    "Ca_wave_simple_SERCA_SOCE": "full",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "full",
+    "Ca_wave_simple_SERCA_no_SOCE_KL_Breit_2018": "none",
     "Ca_wave_simple_SERCA_SOCE_det_lim": "none",
-    "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim":"none",
+
 }
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
 symbol = {
-    "Ca_wave_simple_SERCA_SOCE": "o",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "o",
+    "Ca_wave_simple_SERCA_no_SOCE_KL_Breit_2018": "d",
     "Ca_wave_simple_SERCA_SOCE_det_lim": "o",
-    "Ca_wave_simple_SERCA_SOCE_10xRyR_det_lim":"d",
+
  }
 
 
@@ -116,12 +119,23 @@ if __name__ == '__main__':
     fig1 = utils.make_distance_fig_det(directories, descr,
                                        dend_diam,
                                        stims, what_species,
-                                       
                                        dur_dict,
                                        reg_list, output_name, 
                                        colors, types, symbol, marker)
     fig1.savefig("ER_distance_no_cam_det_lim.png", dpi=100,
                  bbox_inches="tight")
     fig1.savefig("ER_distance_no_cam_det_lim.eps", dpi=100,
+                 bbox_inches="tight")
+
+    fig1 = utils.make_distance_fig_det(directories, descr,
+                                       dend_diam,
+                                       stims, what_species,
+                                       dur_dict,
+                                       reg_list, output_name, 
+                                       colors, types, symbol, marker,
+                                       method="fitexp")
+    fig1.savefig("ER_distance_no_cam_det_lim_fitexp.png", dpi=100,
+                 bbox_inches="tight")
+    fig1.savefig("ER_distance_no_cam_det_lim_fitexp.eps", dpi=100,
                  bbox_inches="tight")
 

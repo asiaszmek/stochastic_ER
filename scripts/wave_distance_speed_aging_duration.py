@@ -109,7 +109,19 @@ if __name__ == '__main__':
                                          output_name, 
                                          colors,
                                          types,
-                                         marker)
+                                         marker, method="regular")
     fig1.savefig("Aging_distance.png", dpi=100, bbox_inches="tight")
     fig1.savefig("Aging_distance.eps", dpi=100, bbox_inches="tight")
-    plt.show()
+    fig1 = utils.make_distance_fig_aging(directories,
+                                         descr,
+                                         dend_diam,
+                                         stims, what_species,
+                                         organization,
+                                         dur_dict,
+                                         reg_list,
+                                         output_name, 
+                                         colors,
+                                         types,
+                                         marker, method="fitexp")
+    fig1.savefig("Aging_distance_fitexp.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("Aging_distance_fitexp.eps", dpi=100, bbox_inches="tight")

@@ -76,7 +76,21 @@ if __name__ == '__main__':
                                                         dur_dict,
                                                         output_name, 
                                                         colors,
-                                                        types)
-    fig1.savefig("Aging_spatial_specificity_dissection.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("Aging_spatial_specificity_dissection.eps", dpi=100, bbox_inches="tight")
+                                                        types, method="regular")
+    fig1.savefig("Aging_spatial_specificity_dissection.png", dpi=100,
+                 bbox_inches="tight")
+    fig1.savefig("Aging_spatial_specificity_dissection.eps", dpi=100,
+                 bbox_inches="tight")
+    fig1 = utils.make_spatial_specificity_fig_sep_dends(directories,
+                                                        dend_diam,
+                                                        stims, what_species,
+                                                        dur_dict,
+                                                        output_name, 
+                                                        colors,
+                                                        types, method="fitexp")
+    fig1.savefig("Aging_spatial_specificity_dissection_fitexp.png", dpi=100,
+                 bbox_inches="tight")
+    fig1.savefig("Aging_spatial_specificity_dissection_fitexp.eps", dpi=100,
+                 bbox_inches="tight")
+
     plt.show()

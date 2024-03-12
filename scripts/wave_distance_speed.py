@@ -112,3 +112,8 @@ if __name__ == '__main__':
                                          colors, types)
     fig1.savefig("ER_load_distance_cam_no_cam.png", dpi=100, bbox_inches="tight")
     fig1.savefig("ER_load_speed_cam_no_cam.png", dpi=100, bbox_inches="tight")
+    fig1, fig2 = utils.make_distance_fig(fname, directories, descr, dend_diam,
+                                         stims, ["Ca"], reg_list, output_name,
+                                         colors, types, method="fitexp")
+    fig1.savefig("ER_load_distance_cam_no_cam_fitexp.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("ER_load_speed_cam_no_cam_fitexp.png", dpi=100, bbox_inches="tight")
