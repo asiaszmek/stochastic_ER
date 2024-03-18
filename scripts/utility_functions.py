@@ -428,7 +428,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
     decays = np.zeros((len(conc_dict), 1))
     shape = conc_dict["trial0"].shape[0]
     distance = np.linspace(-length/2, length/2, shape)
-    branch = np.zeros((len(conc_dict), shape))
+    branch = np.zeros((len(conc_dict), 1))
     duration = conc_dict["trial0"].shape[1]
     if shape % 2:
         start_1 = start_2 = shape//2 + 1
@@ -438,7 +438,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
 
     for i, concentration in enumerate(conc_dict.values()):
         ca_conc = np.zeros((shape,))
-        ca_conc_mean = concentration[:, :int(t_init/dt)].mean()
+        ca_conc_mean = concentration[:, :int(t_init/dt)].mean(axis=1)
         new_beg = int(t_init/dt)
         indices = []
         for j in range(start_2, shape):
@@ -448,7 +448,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
                 continue
             ca_conc[j] = concentration[j, new_beg+new_idx]
             if method == "regular":
-                if ca_conc[j] > limit*ca_conc_mean:
+                if ca_conc[j] > limit*ca_conc_mean[j]:
                     if not len(indices):
                         indices.append(j)
                     elif j+1 in indices or j-1 in indices:
@@ -462,7 +462,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
                 continue
             ca_conc[j] = concentration[j, new_beg+new_idx]
             if method == "regular":
-                if ca_conc[j] > limit*ca_conc_mean:
+                if ca_conc[j] > limit*ca_conc_mean[j]:
                     if not len(indices):
                         indices.append(j)
                     elif j+1 in indices or j-1 in indices:
@@ -472,248 +472,17 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
             decays[i] = len(indices)*dx/2
         else:
             popt, pcov = curve_fit(lambda t, a, b, c: a*np.exp(-abs(t)/b)+c,
-                                    distance, ca_conc-(ca_conc[0]+ca_conc[-1])/2)
+                                    distance,
+                                   ca_conc-(ca_conc[0]+ca_conc[-1])/2)
             decays[i] = popt[1]
-
-        branch[i] = (concentration[start_1, int(t_init/dt):].max()
-                     +concentration[start_2, int(t_init/dt):].max())/2
-
+        try:
+            branch[i] = (concentration[start_1, int(t_init/dt):].max()
+                         +concentration[start_2, int(t_init/dt):].max())/2
+        except ValueError:
+            continue
+    print(decays.T)
+    print(branch)
     return distance, branch, decays
-
-
-def ca_wave_propagation_figs(directiories_list, descr, dend_dict,
-                       what_species, region_list, output_name, color_list,
-                             label_list, what_type, marker_list, method="regular"):
-
-    fig1, ax1 = plt.subplots(2, len(dend_dict), figsize=(21, 10))
-    for k, directory in enumerate(directiories_list):
-        my_path = os.path.join("..", directory)
-        if len(descr):
-            description = descr[directory] 
-        im_list = {}
-        for i, key in enumerate(dend_dict.keys()):
-            im_list[key] = []
-            for j, fname in enumerate(dend_dict[key]):
-                if len(descr):
-                    new_fname = fname % description
-                else:
-                    new_fname = fname
-                my_file = os.path.join(my_path, new_fname)
-                try:
-                    times_dict, conc_dict = get_conc(my_file, ["Ca"],
-                                                     region_list, output_name)
-                except TypeError:
-                    continue
-                
-                im_list[key].append(conc_dict)
-                dt = times_dict["trial0"][1]-times_dict["trial0"][0]
-                length = get_length(my_file)
-                print(length)
-            for j, conc in enumerate(im_list[key]):
-                try:
-                    distance, branch, delay = fit_distance(conc_dict["Ca"], dt,
-                                                           method=method,
-                                                           length=length)
-                except TypeError:
-                    continue
-                
-                if k % 2:
-                    symbol = "o"
-                else:
-                    symbol = "d"
-                ax1[0][i].plot(distance, branch, color_list[j],
-                               marker=symbol,
-                               label=label_list[key][j]+" "+
-                               what_type[directory],
-                               linestyle="", fillstyle=marker_list[directory])
-                ax1[1][i].plot(distance, delay, color_list[j],
-                               marker=symbol,
-                               label=label_list[key][j]+" "+
-                               what_type[directory],
-                               linestyle="", fillstyle=marker_list[directory])
-                    
-            ax1[0][0].set_ylabel("Calcium amplitude (nM)", fontsize=15)
-            ax1[0][i].set_title("Injection %s" % key, fontsize=15)
-            ax1[0][i].set_yscale("log")
-            ax1[1][i].set_xlabel("Distance from stimulated site (um)",
-                                 fontsize=15)
-            ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
-            
-            
-    
-    ax1[0][2].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
-    for i, axes in enumerate(ax1):
-        ylim2 = max([max(ax.get_ylim()) for ax in axes])
-        ylim1 = min([min(ax.get_ylim()) for ax in axes])
-        for j, ax in enumerate(axes):
-            ax.set_ylim([ylim1, ylim2])
-            if j:
-                ax.set_yticks([])
-            if i<1:
-                ax.set_xticks([])
-            ax.tick_params(axis='both', which='major', labelsize=14)
-    return fig1
-
-
-def ca_wave_propagation_figs_bal_tubes(directiories_list,
-                                       descr, dend_dict,
-                                       what_species, region_list,
-                                       output_name,
-                                       color_list,
-                                       label_list, what_type,
-                                       marker_list, method="regular"):
-    symbol = "d"
-    fig1, ax1 = plt.subplots(2, len(dend_dict), figsize=(20, 10))
-    for k, directory in enumerate(directiories_list):
-        my_path = os.path.join("..", directory)
-        if len(descr):
-            description = descr[directory] 
-        im_list = {}
-        for i, key in enumerate(dend_dict.keys()):
-            im_list[key] = []
-            for j, fname in enumerate(dend_dict[key]):
-                if len(descr):
-                    new_fname = fname % description
-                else:
-                    new_fname = fname
-                my_file = os.path.join(my_path, new_fname)
-                try:
-                    conc_dict, times_dict = get_conc(my_file,
-                                                     ["Ca"],
-                                                     region_list,
-                                                     output_name)
-                except TypeError:
-                    continue
-
-                
-                im_list[key].append(conc_mean.T)
-                dt = times_dict["trial0"][1] - times_dict["trial0"][0]
-                length = get_length(my_file)
-            for j, conc in enumerate(im_list[key]):
-                try:
-                    distance, branch, delay = fit_distance(conc_dict["Ca"], dt,
-                                                           method=method,
-                                                           length=length)
-                except TypeError:
-                    continue
-                if j > 2:
-                    fillstyle = "none"
-                else:
-                    fillstyle = "full"
-                ax1[0][i].plot(distance, branch, color_list[j],
-                               marker=symbol,
-                               label=label_list[key][j]+" "+
-                               what_type[directory],
-                               linestyle="", fillstyle=fillstyle)
-                ax1[1][i].plot(distance, delay, color_list[j],
-                               marker=symbol,
-                               label=label_list[key][j]+" "+
-                               what_type[directory],
-                               linestyle="", fillstyle=fillstyle)
-                    
-            ax1[0][0].set_ylabel("Calcium amplitude (nM)", fontsize=15)
-            ax1[0][i].set_title("Injection %s" % key, fontsize=15)
-            ax1[0][i].set_yscale("log")
-            ax1[1][i].set_xlabel("Distance from stimulated site (um)",
-                                 fontsize=15)
-            ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
-            
-            
-    
-    ax1[0][2].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
-    for i, axes in enumerate(ax1):
-        ylim2 = max([max(ax.get_ylim()) for ax in axes])
-        ylim1 = min([min(ax.get_ylim()) for ax in axes])
-        for j, ax in enumerate(axes):
-            ax.set_ylim([ylim1, ylim2])
-            if j:
-                ax.set_yticks([])
-            if i<1:
-                ax.set_xticks([])
-            ax.tick_params(axis='both', which='major', labelsize=14)
-    return fig1
-
-
-
-def ca_wave_propagation_figs_different_paradigms(directiories_list,
-                                                 descr, paradigm_dict,
-                                                 what_species, region_list,
-                                                 output_name, color_list,
-                                                 label_list, what_type,
-                                                 marker_list, method="regular"):
-    symbol = "d"
-    fig1, ax1 = plt.subplots(2, len(paradigm_dict), figsize=(20, 10))
-    for k, directory in enumerate(directiories_list):
-        my_path = os.path.join("..", directory)
-        if len(descr):
-            description = descr[directory] 
-        im_list = {}
-        for i, key in enumerate(paradigm_dict.keys()):
-            im_list[key] = []
-            for j, fname in enumerate(paradigm_dict[key]):
-                
-                if len(descr):
-                    new_fname = fname % description
-                else:
-                    new_fname = fname
-                my_file = os.path.join(my_path, new_fname)
-                try:
-                    conc_dict, times_dict = get_conc(my_file, ["Ca"],
-                                                     region_list, output_name)
-                except TypeError:
-                    continue
-
-                
-                im_list[key].append(conc_mean.T)
-                dt = times_dict["trial0"][1] - times_dict["trial0"][0]
-                length = get_length(my_file)
-            for j, conc in enumerate(im_list[key]):
-                try:
-                    distance, branch, delay = fit_distance(conc_dict["Ca"], dt,
-                                                           method=method,
-                                                           length=length)
-                except TypeError:
-                    continue
-                if k%2:
-                    fillstyle = "none"
-                else:
-                    fillstyle = "full"
-                ax1[0][i].plot(distance, branch, color_list[j],
-                               marker=symbol,
-                               label=label_list[key][j]+" "+
-                               what_type[directory],
-                               linestyle="", fillstyle=fillstyle)
-                ax1[1][i].plot(distance, delay, color_list[j],
-                               marker=symbol,
-                               label=label_list[key][j]+" "+
-                               what_type[directory],
-                               linestyle="", fillstyle=fillstyle)
-                    
-            ax1[0][0].set_ylabel("Calcium amplitude (nM)", fontsize=15)
-            ax1[0][i].set_title("Injection duration %s ms" % key, fontsize=15)
-            ax1[0][i].set_yscale("log")
-            ax1[1][i].set_xlabel("Distance from stimulated site (um)",
-                                 fontsize=15)
-            ax1[1][0].set_ylabel("Ca wave delay (ms)", fontsize=15)
-            
-            
-    try:
-        ax1[0][2].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
-    except IndexError:
-        ax1[0][1].legend(loc='upper left', bbox_to_anchor=(1, 0.5))
-        
-    for i, axes in enumerate(ax1):
-        ylim2 = max([max(ax.get_ylim()) for ax in axes])
-        ylim1 = min([min(ax.get_ylim()) for ax in axes])
-        for j, ax in enumerate(axes):
-            ax.set_ylim([ylim1, ylim2])
-            if j:
-                ax.set_yticks([])
-            if i<1:
-                ax.set_xticks([])
-            ax.tick_params(axis='both', which='major', labelsize=14)
-    return fig1
-
 
 
 def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
@@ -756,31 +525,29 @@ def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
                     y.append(np.mean(delay))
                     y_err.append(np.std(delay)/(len(delay))**0.5)
                     b_diam = float(diam)
-                    if not branch.shape[1] % 2:
-                        x.append(np.mean(branch[:,
-                                                branch.shape[1]//2]+branch[:,
-                                                                           branch.shape[1]//2+1])/2000)
-                    else:
-                        x.append(np.mean(branch[:,
-                                                branch.shape[1]//2+1])/1000) 
+                    x.append(np.mean(branch/1000))
                 print(x, y, y_err)
                 if k == 0:
-                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker="d",
-                                label=types[d]+" diam "+diam,
-                                linestyle="")
+                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                 marker="d",
+                                 label=types[d]+" diam "+diam,
+                                 linestyle="")
 
                 if k == 1:
-                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker="o",
-                                label=types[d]+" diam "+diam,
-                                linestyle="")
+                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                 marker="o",
+                                 label=types[d]+" diam "+diam,
+                                 linestyle="")
                 if k == 2:
-                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker="d",
-                                label=types[d]+" diam "+diam, linestyle="",
-                                fillstyle="none")
+                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                 marker="d",
+                                 label=types[d]+" diam "+diam, linestyle="",
+                                 fillstyle="none")
                 if k == 3:
-                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker="o",
-                                label=types[d]+" diam "+diam, linestyle="",
-                                fillstyle="none")
+                    ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                 marker="o",
+                                 label=types[d]+" diam "+diam, linestyle="",
+                                 fillstyle="none")
     ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     ax1.set_ylabel("Spatial extent [um]", fontsize=20)
     
@@ -831,13 +598,7 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                         y.append(np.mean(delay))
                         y_err.append(np.std(delay)/len(delay)**0.5)
                         b_diam = float(diam)
-                        if not branch.shape[1] % 2:
-                            x.append(np.mean(branch[:,
-                                                    branch.shape[1]//2]+branch[:,
-                                                                               branch.shape[1]//2+1])/2000)
-                        else:
-                            x.append(np.mean(branch[:,
-                                                    branch.shape[1]//2+1])/1000)   
+                        x.append(np.mean(branch)/1000)  
                     print(x, y, y_err)
                     if k % 2:
                         ax1.errorbar(x, y, yerr=y_err,
@@ -897,13 +658,7 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                         y.append(np.mean(delay))
                         y_err.append(np.std(delay)/(len(delay))**0.5)
                         b_diam = float(diam)
-                        if not branch.shape[1] % 2:
-                            x.append(np.mean(branch[:,
-                                                    branch.shape[1]//2]+branch[:,
-                                                                               branch.shape[1]//2+1])/2000)
-                        else:
-                            x.append(np.mean(branch[:,
-                                                    branch.shape[1]//2+1])/1000)   
+                        x.append(np.mean(branch)/1000)  
                     print(x, y, y_err)
                     if not len(y):
                         continue
@@ -1038,10 +793,10 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                             continue
                         dend_length = get_length(my_file)
                         if not dend_length % 2:
-                            start_1, start_2 = int(branch_ca.shape[1]/2) + 1
+                            start_1, start_2 = len(d_ca)//2+1
                         else:
-                            start_1 = int(branch_ca.shape[1]/2)-1
-                            start_2 = int(branch_ca.shape[1]/2)
+                            start_1 = len(d_ca)//2+1
+                            start_2 = len(d_ca)//2+1
                        
 
                         x.append(delay_ca.mean())
@@ -1350,16 +1105,7 @@ def make_spatial_specificity_fig_sep_dends(directories,  dend_diam,
                         y_err.append(delay.std()
                                      /len(delay)**0.5)
                         b_diam = float(diam)
-                        if not branch.shape[1] % 2:
-                            x.append(np.mean(
-                                branch[:,
-                                       branch.shape[1]//2]
-                                +branch[:,
-                                        branch.shape[1]//2+1])/2000)
-                        else:
-                            x.append(
-                                np.mean(branch[:,
-                                               branch.shape[1]//2+1])/1000)   
+                        x.append(np.mean(branch)/1000)
                     print(x, y, y_err)
                     if not len(y):
                         continue
@@ -1529,12 +1275,12 @@ def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
                         
                         ca_means = np.zeros((len(conc_dict["Ca"].keys())))
                         t_decays1 = np.zeros((len(conc_dict["Ca"].keys())))
-                        if dend_length%2:
-                            start_1 = branch.shape[1]//2-1
-                            start_2 = branch.shape[1]//2+1
+                        if length%2:
+                            start_1 = len(distance)//2-1
+                            start_2 = len(distance)//2+1
                         else:
-                            start_1 = branch.shape[1]//2+1
-                            start_2 = branch.shape[1]//2+2
+                            start_1 = len(distance)//2+1
+                            start_2 = len(distance)//2+1
 
                         for i, trial in enumerate(conc_dict["Ca"].keys()):
                             time = times_dict[trial]
