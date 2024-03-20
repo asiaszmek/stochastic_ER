@@ -16,10 +16,8 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+   
     "Ca_wave_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
-
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
 }
 
@@ -115,7 +113,7 @@ if __name__ == '__main__':
         "SOCE_": "d",
         "": "o"
     }
-    organization = ["tubes"]
+    organization = ["tubes", "baloon"]
     fig1 = utils.make_distance_fig_aging(directories, descr,
                                          dend_diam,
                                          stims, what_species,
@@ -128,16 +126,4 @@ if __name__ == '__main__':
     fig1.savefig("ER_distance_cam_no_cam_tubes.eps", dpi=100,
                  bbox_inches="tight")
 
-    fig1 = utils.make_distance_fig_aging(directories, descr,
-                                         dend_diam,
-                                         stims, what_species,
-                                         organization,
-                                         dur_dict,
-                                         reg_list, output_name, 
-                                         colors, types, fillstyle,
-                                         method="fitexp")
-    fig1.savefig("ER_distance_cam_no_cam_tubes_fitexp.png", dpi=100,
-                 bbox_inches="tight")
-    fig1.savefig("ER_distance_cam_no_cam_tubes_fitexp.eps", dpi=100,
-                 bbox_inches="tight")
 

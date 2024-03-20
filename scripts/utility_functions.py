@@ -663,11 +663,13 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                     if not len(y):
                         continue
                     if not k % 2:
-                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker=marker[inh],
+                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                     marker=marker[inh],
                                      label=types[d]+" diam "+diam + dur_dict[inh],
                                      linestyle="", fillstyle="full")
                     else:
-                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam], marker=marker[inh],
+                        ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
+                                     marker=marker[inh],
                                      label=types[d]+" diam "+diam
                                      + dur_dict[inh],
                                      linestyle="", fillstyle="none")
@@ -1156,7 +1158,7 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
     d = directory
     for k, org in enumerate(organization):
         my_path = os.path.join("..", d)
-        for stim_type in [""]:
+        for stim_type in ["", "_3s_injection"]:
             for j, diam in enumerate(dend_diam):
                 
                 y = []
@@ -1196,14 +1198,14 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
                                  color=colors[d][diam],
                                  marker=marker[stim_type],
                                  label=types[org]
-                                 +stim_labels[stim_type],
+                                 +stim_labels[stim_type]+" diam "+str(diam),
                                  linestyle="", fillstyle="full")
                 else:
                     ax1.errorbar(x, y, yerr=y_err,
                                  color=colors[d][diam],
                                  marker=marker[stim_type],
                                  label=types[org]
-                                 +stim_labels[stim_type],
+                                 +stim_labels[stim_type]+" diam "+str(diam),
                                  linestyle="", fillstyle="none")
 
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
