@@ -109,7 +109,7 @@ Breit et al 2018 has RyR permeability 30 x higher than IP3RO
     <Product  specieID="Ca"               />
 
     <forwardRate> 1.667e-5 </forwardRate>
-    <reverseRate> 1.667e-5      </reverseRate>
+    <reverseRate>  4.1675e-06    </reverseRate>
     <Q10>   0.2   </Q10>
    </Reaction>
     

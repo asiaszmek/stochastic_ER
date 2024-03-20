@@ -82,7 +82,7 @@
      <Product specieID="RyRCaMO1"/>
      <Product specieID="Ca"/>
     <forwardRate>5e-3</forwardRate>
-    <reverseRate>5e-3</reverseRate>
+    <reverseRate>1.25e-3</reverseRate>
   </Reaction>
   <Reaction name = "RyRCaMflux2" id="RyRCaMflux2">
      <Reactant specieID="RyRCaMO2"/>
@@ -90,6 +90,6 @@
      <Product specieID="RyRCaMO2"/>
      <Product specieID="Ca"/>
     <forwardRate>5e-3</forwardRate>
-    <reverseRate>5e-3</reverseRate>
+    <reverseRate>1.25e-3</reverseRate>
   </Reaction>    
 </ReactionScheme>
