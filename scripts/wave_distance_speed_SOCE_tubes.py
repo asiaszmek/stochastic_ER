@@ -125,14 +125,4 @@ if __name__ == '__main__':
                  bbox_inches="tight")
     fig1.savefig("ER_distance_soce_no_soce_ctrl_tubes.eps", dpi=100,
                  bbox_inches="tight")
-    fig1 = utils.make_distance_fig_aging(directories, descr,
-                                         dend_diam,
-                                         stims, what_species,
-                                         organization,
-                                         dur_dict,
-                                         reg_list, output_name, 
-                                         colors, types, fillstyle, method="fitexp")
-    fig1.savefig("ER_distance_soce_no_soce_ctrl_tubes_fitexp.png", dpi=100,
-                 bbox_inches="tight")
-    fig1.savefig("ER_distance_soce_no_soce_ctrl_tubes_fitexp.eps", dpi=100,
-                 bbox_inches="tight")
+  

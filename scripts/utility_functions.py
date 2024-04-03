@@ -438,7 +438,8 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
 
     for i, concentration in enumerate(conc_dict.values()):
         ca_conc = np.zeros((shape,))
-        ca_conc_mean = concentration[:, :int(t_init/dt)].mean(axis=1)
+        ca_conc_mean = concentration[:, :int(t_init/dt)].mean()
+        print(ca_conc_mean)
         new_beg = int(t_init/dt)
         indices = []
         for j in range(start_2, shape):
@@ -448,7 +449,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
                 continue
             ca_conc[j] = concentration[j, new_beg+new_idx]
             if method == "regular":
-                if ca_conc[j] > limit*ca_conc_mean[j]:
+                if ca_conc[j] > limit*ca_conc_mean:
                     if not len(indices):
                         indices.append(j)
                     elif j+1 in indices or j-1 in indices:
@@ -462,7 +463,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
                 continue
             ca_conc[j] = concentration[j, new_beg+new_idx]
             if method == "regular":
-                if ca_conc[j] > limit*ca_conc_mean[j]:
+                if ca_conc[j] > limit*ca_conc_mean:
                     if not len(indices):
                         indices.append(j)
                     elif j+1 in indices or j-1 in indices:
@@ -474,6 +475,8 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
             popt, pcov = curve_fit(lambda t, a, b, c: a*np.exp(-abs(t)/b)+c,
                                     distance,
                                    ca_conc-(ca_conc[0]+ca_conc[-1])/2)
+            if popt[1] < 0 or popt[1]> 10:
+                continue
             decays[i] = popt[1]
         try:
             branch[i] = (concentration[start_1, int(t_init/dt):].max()
@@ -481,7 +484,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
         except ValueError:
             continue
     print(decays.T)
-    print(branch)
+    print(branch.T)
     return distance, branch, decays
 
 
@@ -552,7 +555,7 @@ def make_distance_fig(fname, directories_list, descr, dend_diam, stims,
     ax1.set_ylabel("Spatial extent [um]", fontsize=20)
     
     ax1.tick_params(axis='both', which='major', labelsize=14)
-    ax1.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
+    ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     return fig1
 
 
@@ -824,8 +827,8 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                         vox_ind, vols = get_dend_indices(my_grid,
                                                          region=reg_list)
                         volume = sum(vols)
-                        y_ER.append(min_mol.mean()*volume*4*6.022)
-                        y_ER_err.append(min_mol.std()/len(min_mol)**.5*volume*4*6.022)
+                        y_ER.append(min_mol.mean()*volume*4*6.022*1e-9)
+                        y_ER_err.append(min_mol.std()/len(min_mol)**.5*volume*4*6.022*1e-9)
                     print(x, x_err, y_ER, y_ER_err, y, y_err)
                     if not len(y):
                         continue
@@ -867,7 +870,7 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
     ax1.set_xlabel("min Ca in the ER [uM]", fontsize=20)
     ax1.set_ylabel("Spatial extent [um]", fontsize=20)
     ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax2.set_xlabel("min Ca molecules in the ER",
+    ax2.set_xlabel("min Ca molecules in the ER [1e9]",
                    fontsize=20)
     ax2.set_ylabel("Spatial extent [um]", fontsize=20)
     

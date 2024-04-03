@@ -118,7 +118,7 @@ directory ={
     }
 
 stim_types = ["_3s_injection", ""]
-fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 10))
+fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(5, 5))
 
 suffix = {"": "40 ms stim",
           "_3s_injection": "3 ms stim"}
@@ -167,9 +167,9 @@ for k, b_diam in enumerate(branch_diams):
 
 ax.set_ylabel("max(Calcium) [uM]", fontsize=20)
 ax.set_xlabel("total injected ions/diam [1/um]", fontsize=20)
-ax.tick_params(labelsize=14)
-ax.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
 
+ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+ax.tick_params(axis='both', which='major', labelsize=14)
 
 fig.savefig("Spatial_sum_cam.eps", dpi=100,
             bbox_inches="tight")

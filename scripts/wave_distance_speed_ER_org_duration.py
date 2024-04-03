@@ -106,11 +106,3 @@ if __name__ == '__main__':
                                        colors, types, marker)
     fig1.savefig("ER_org_distance.png", dpi=100, bbox_inches="tight")
     fig1.savefig("ER_org_distance.eps", dpi=100, bbox_inches="tight")
-    fig1 = utils.make_distance_fig_2_4(fname, directories, descr,
-                                       dend_diam,
-                                       stims, what_species,organization,
-                                       dur_dict,
-                                       reg_list, output_name, 
-                                       colors, types, marker, method="fitexp")
-    fig1.savefig("ER_org_distance_fitexp.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("ER_org_distance_fitexp.eps", dpi=100, bbox_inches="tight")

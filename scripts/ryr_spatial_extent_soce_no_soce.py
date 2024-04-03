@@ -87,7 +87,7 @@ for k, b_diam in enumerate(branch_diams):
 ax.set_ylabel("max(Calcium) [uM]", fontsize=20)
 ax.set_xlabel("total injected ions/diam [1/um]", fontsize=20)
 ax.tick_params(labelsize=14)
-ax.legend(loc='lower left', bbox_to_anchor=(1, 0.5))
+ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 
 fig.savefig("Spatial_sum_soce.eps", dpi=100,

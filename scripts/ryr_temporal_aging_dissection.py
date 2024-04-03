@@ -20,6 +20,7 @@ colors = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": 'k',
           "Ca_wave_PMCA_aging":"orange",
           "Ca_wave_aging":"r",
           "Ca_wave_RyR2CaM_aging":"darkolivegreen",
+          "Ca_wave_normal_SERCA_aging": "gold",
 }
 stim_dend = "dend26"
 
@@ -29,6 +30,7 @@ directories = {
     "Ca_wave_aging":"model_aging%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_RyR2CaM_aging":"model_RyR2CaM_aging%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_PMCA_aging":"model_aging%s_simple_SERCA_PMCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_normal_SERCA_aging":"model_aging%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
 }
 
 
@@ -69,6 +71,7 @@ if __name__ == '__main__':
         "Ca_wave_aging": "Old age",
         "Ca_wave_PMCA_aging": "Old age RyR",
         "Ca_wave_RyR2CaM_aging": "Old age PMCA",
+        "Ca_wave_normal_SERCA_aging":"Old age with ctrl SERCA",
     }
     output_name = "all"
     fig1 = utils.make_decay_constant_fig_sep_dends(directories,

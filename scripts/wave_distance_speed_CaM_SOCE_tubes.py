@@ -113,7 +113,7 @@ if __name__ == '__main__':
         "SOCE_": "d",
         "": "o"
     }
-    organization = ["tubes", "baloon"]
+    organization = ["tubes"]#, "baloon"]
     fig1 = utils.make_distance_fig_aging(directories, descr,
                                          dend_diam,
                                          stims, what_species,

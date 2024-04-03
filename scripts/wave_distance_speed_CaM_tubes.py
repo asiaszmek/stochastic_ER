@@ -16,23 +16,29 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_%s_simple_SERCA_SOCE%s_%s_diam_%s_um_50_um_%s_nM.h5",
-  
-    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "model_%s_simple_SERCA%s_%s_diam_%s_um_50_um_%s_nM.h5",
+   
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
 }
 
 descr = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyR2CaM",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "RyR2CaM",
+    "Ca_wave_simple_SERCA_SOCE": "RyR",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "RyR",
 }   
 
 types = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
-    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "no CaM no SOCE",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "ctrl",
+    "Ca_wave_simple_SERCA_SOCE": "no CaM",
+    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "no CaM",
 }
 
 marker = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "full",
+    "Ca_wave_simple_SERCA_SOCE": "none",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "none",
 }
 
@@ -40,10 +46,11 @@ stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
 symbol = {
-    "_Fura2": "d",
+    "SOCE_": "d",
     "": "o",
 }
 
+fname = "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5"
     
 NA = Avogadro*1e-23
 specie_dict = {
@@ -67,7 +74,7 @@ multiplier = {
     "Orai2STIM_4": 2,
     "Orai3STIM_4": 3,
 }
-
+label_list = []
 def Parser():
     parser = argparse.ArgumentParser(description='Generate figs of avg conc')
     parser.add_argument('--species', default="Ca",
@@ -97,16 +104,16 @@ if __name__ == '__main__':
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-    what_species = ["", "_Fura2"]
+    what_species = ["SOCE_", ""]
     dur_dict = {
-        "_Fura2": " Fura2",
-        "": ""
+        "SOCE_": " SOCE",
+        "": " no SOCE"
     }
     fillstyle = {
-        "_Fura2": "d",
+        "SOCE_": "d",
         "": "o"
     }
-    organization = ["tubes"]
+    organization = ["tubes"]#, "baloon"]
     fig1 = utils.make_distance_fig_aging(directories, descr,
                                          dend_diam,
                                          stims, what_species,
@@ -114,8 +121,9 @@ if __name__ == '__main__':
                                          dur_dict,
                                          reg_list, output_name, 
                                          colors, types, fillstyle)
-    fig1.savefig("ER_distance_cam_no_cam_Fura2.png", dpi=100,
+    fig1.savefig("ER_distance_cam_no_cam_tubes.png", dpi=100,
                  bbox_inches="tight")
-    fig1.savefig("ER_distance_cam_no_cam_Fura2.eps", dpi=100,
+    fig1.savefig("ER_distance_cam_no_cam_tubes.eps", dpi=100,
                  bbox_inches="tight")
+
 

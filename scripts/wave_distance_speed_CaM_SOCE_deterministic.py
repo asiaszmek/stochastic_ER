@@ -127,15 +127,3 @@ if __name__ == '__main__':
     fig1.savefig("ER_distance_no_cam_det_lim.eps", dpi=100,
                  bbox_inches="tight")
 
-    fig1 = utils.make_distance_fig_det(directories, descr,
-                                       dend_diam,
-                                       stims, what_species,
-                                       dur_dict,
-                                       reg_list, output_name, 
-                                       colors, types, symbol, marker,
-                                       method="fitexp")
-    fig1.savefig("ER_distance_no_cam_det_lim_fitexp.png", dpi=100,
-                 bbox_inches="tight")
-    fig1.savefig("ER_distance_no_cam_det_lim_fitexp.eps", dpi=100,
-                 bbox_inches="tight")
-

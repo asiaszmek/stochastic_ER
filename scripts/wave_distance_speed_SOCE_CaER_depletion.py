@@ -131,21 +131,4 @@ if __name__ == '__main__':
     fig2.savefig("ER_depletion_max_soce_no_soce_ctrl_tubes_mol_no_per_um.eps",
                  dpi=100,
                  bbox_inches="tight")
-    fig1, fig2 = utils.make_distance_fig_aging_CaER(directories,
-                                                    dend_diam,
-                                                    stims, what_species,
-                                                    organization,
-                                                    dur_dict,
-                                                    reg_list, output_name, 
-                                                    colors, types,
-                                                    method="fitexp")
-    fig1.savefig("ER_depletion_max_soce_no_soce_ctrl_tubes_fitexp.png", dpi=100,
-                 bbox_inches="tight")
-    fig1.savefig("ER_depletion_max_soce_no_soce_ctrl_tubes_fitexp.eps", dpi=100,
-                 bbox_inches="tight")
-    fig2.savefig("ER_depletion_max_soce_no_soce_ctrl_tubes_mol_no_per_um_fitexp.png",
-                 dpi=100,
-                 bbox_inches="tight")
-    fig2.savefig("ER_depletion_max_soce_no_soce_ctrl_tubes_mol_no_per_um_fitexp.eps",
-                 dpi=100,
-                 bbox_inches="tight")
+   

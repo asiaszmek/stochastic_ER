@@ -18,7 +18,10 @@ def get_fluo(full_name):
     conc_dict, time_dict = utils.get_conc(full_name, ["Fura2Ca"],
                                           reg_list,
                                           output_name)
-    dt = time_dict["trial0"][1] - time_dict["trial0"][0]
+    try:
+        dt = time_dict["trial0"][1] - time_dict["trial0"][0]
+    except IndexError:
+        return
     fura2 = utils.get_array(conc_dict,  "Fura2Ca")
     fura2 = np.array(fura2)
     
@@ -60,11 +63,11 @@ stim_labels = ["1 uM Ca injection", "2.5 uM Ca injection", "5 uM Ca injection"]
 branch_diams = [1.2, 2.4, 6.0]
 Fura_specie = "Fura2Ca"
 t_stim = 3000  # sec
-dye_base = "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.xmlFura2.h5"
-dye_base_RyR = "model_RyR_simple_SERCA_tubes_diam_%2.1f_um_50_um_%s_nMFura2.h5"
+dye_base = "model_RyR2CaM_simple_SERCA_SOCE_Fura2_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
+dye_base_RyR = "model_RyR_simple_SERCA_Fura2_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 nodye_base = "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5"
 
-fig, ax = plt.subplots(1, 3, figsize=(15, 12))
+fig, ax = plt.subplots(1, 3, figsize=(15, 10))
 
 #  Dye figs
 
@@ -73,6 +76,7 @@ for i, x in enumerate(ax):
     for k, b_diam in enumerate(branch_diams):
         fname = dye_base % (b_diam, stims[i])
         full_name = os.path.join(cur_dir, RyRCaM_SOCE_dir, fname)
+        print(full_name)
         try:
             fluo_vals, voxels = get_fluo(full_name)
             max_fluo_vals = fluo_vals.mean(axis=0)

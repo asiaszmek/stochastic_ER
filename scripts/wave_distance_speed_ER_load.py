@@ -104,11 +104,3 @@ if __name__ == '__main__':
                                    colors, types)
     fig1.savefig("ER_load_distance_tubes.png", dpi=100, bbox_inches="tight")
     fig1.savefig("ER_load_distance_tubes.eps", dpi=100, bbox_inches="tight")
-    fig1 = utils.make_distance_fig(fname, directories, descr, dend_diam,
-                                   stims, ["Ca"], reg_list, output_name,
-                                   colors, types, method="fitexp")
-    fig1.savefig("ER_load_distance_tubes_fitexp.png", dpi=100,
-                 bbox_inches="tight")
-    fig1.savefig("ER_load_distance_tubes_fitexp.eps", dpi=100,
-                 bbox_inches="tight")
-  
