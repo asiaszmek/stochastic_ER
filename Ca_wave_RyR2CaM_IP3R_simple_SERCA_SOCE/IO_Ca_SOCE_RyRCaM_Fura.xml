@@ -1,0 +1,45 @@
+<OutputScheme>
+<!--
+     Each file will have a set of concentrations in compartments
+     sampled according to a specific dt
+-->
+
+<!--
+    Every Output block must have in its definition one (and only)
+    instance of:
+     * filename
+    And might have one (and only) instance of:
+     * region or
+     * dt
+    If "region" is ommited then the concs for the whole system will be
+    saved.
+    If "dt" is ommited than the concs will be written at each time step.
+    So the "io file" will be dependent on information stated in the
+    "morph" (regions) and "model" (dt).
+-->
+
+  <OutputSet filename = "all"  dt="1.0">
+    <OutputSpecie name="Ca"/>
+    <OutputSpecie name="CaER"/>
+    <OutputSpecie name="CaOut"/>
+    <OutputSpecie name="RyRCaMO1"/>
+    <OutputSpecie name="RyRCaMO2"/>
+    <OutputSpecie name="Fura2Ca"/>
+  </OutputSet>
+  <OutputSet filename = "RyR_Orai"  dt="10.0">
+    <OutputSpecie name="RyRCaM"/>
+    <OutputSpecie name="RyRCaMC1"/>
+    <OutputSpecie name="RyRCaMC2"/>
+    <OutputSpecie name="RyRCaMC3"/>
+    <OutputSpecie name="RyRCaMC4"/>
+    <OutputSpecie name="RyRCaMC5"/>
+    <OutputSpecie name="STIM_2"/>
+    <OutputSpecie name="STIM_4"/>
+    <OutputSpecie name="STIM_2CaER"/>
+    <OutputSpecie name="Orai"/>
+    <OutputSpecie name="OraiSTIM_4"/>
+    <OutputSpecie name="Orai2STIM_4"/>
+    <OutputSpecie name="Orai3STIM_4"/>
+  </OutputSet>
+
+</OutputScheme>
