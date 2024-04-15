@@ -24,7 +24,8 @@
     <OutputSpecie name="CaOut"/>
     <OutputSpecie name="RyRCaMO1"/>
     <OutputSpecie name="RyRCaMO2"/>
-    <OutputSpecie name="Fura2Ca"/>
+    <OutputSpecie name="IP3RO"/>
+    <OutputSpecie name="IP3"/>
   </OutputSet>
   <OutputSet filename = "RyR_Orai"  dt="10.0">
     <OutputSpecie name="RyRCaM"/>
@@ -40,6 +41,18 @@
     <OutputSpecie name="OraiSTIM_4"/>
     <OutputSpecie name="Orai2STIM_4"/>
     <OutputSpecie name="Orai3STIM_4"/>
+    <OutputSpecie name="Plc"/>
+    <OutputSpecie name="PlcCa"/>
+    <OutputSpecie name="PlcCaPip2"/>
+    <OutputSpecie name="IP3R"/>
+    <OutputSpecie name="IP3RIP3"/>
+    <OutputSpecie name="IP3RC"/>
+    <OutputSpecie name="IP3RC2"/>
+    <OutputSpecie name="IP3RC3"/>
+    <OutputSpecie name="IP3RC4"/>
   </OutputSet>
 
+  <OutputSet filename = "Fura"  dt="50.0">
+    <OutputSpecie name="Fura2Ca"/>
+  </OutputSet>
 </OutputScheme>
