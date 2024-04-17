@@ -12,11 +12,6 @@ marker = {
     "_3s_injection": "o"
 }
 
-dur_dict = {
-    "": " 40 ms",
-    "_3s_injection": " 3 ms"
-}
-              
 
 colors = {"1.2": 'tab:blue',
           "2.4": 'tab:purple',
@@ -101,7 +96,6 @@ if __name__ == '__main__':
     fig1 = utils.make_distance_fig_2_4(fname, directories, descr,
                                        dend_diam,
                                        stims, what_species,organization,
-                                       dur_dict,
                                        reg_list, output_name, 
                                        colors, types, marker)
     fig1.savefig("ER_org_distance_aging.png", dpi=100, bbox_inches="tight")

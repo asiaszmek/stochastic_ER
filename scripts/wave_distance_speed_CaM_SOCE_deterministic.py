@@ -110,16 +110,11 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
     what_species = ["SOCE_", ""]
-    dur_dict = {
-        "SOCE_": " SOCE",
-        "": " no SOCE"
-    }
     
     organization = ["tubes"]
     fig1 = utils.make_distance_fig_det(directories, descr,
                                        dend_diam,
                                        stims, what_species,
-                                       dur_dict,
                                        reg_list, output_name, 
                                        colors, types, symbol, marker)
     fig1.savefig("ER_distance_no_cam_det_lim.png", dpi=100,

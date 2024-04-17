@@ -99,8 +99,8 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
         
-    fig1 = utils.make_distance_fig(fname, directories, descr, dend_diam,
-                                   stims, ["Ca"], reg_list, output_name,
-                                   colors, types)
+    fig1 = utils.make_distance_fig_ratio(fname, directories, descr, dend_diam,
+                                         stims, ["Ca"], reg_list, output_name,
+                                         colors, types)
     fig1.savefig("ER_load_distance_tubes.png", dpi=100, bbox_inches="tight")
     fig1.savefig("ER_load_distance_tubes.eps", dpi=100, bbox_inches="tight")

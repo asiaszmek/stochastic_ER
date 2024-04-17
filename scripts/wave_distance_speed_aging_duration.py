@@ -12,10 +12,6 @@ marker = {
     "_3s_injection": "o"
 }
 
-dur_dict = {
-    "": " 40 ms",
-    "_3s_injection": " 3 ms"
-}
               
 
 colors = {"1.2": 'tab:blue',
@@ -104,7 +100,6 @@ if __name__ == '__main__':
                                          dend_diam,
                                          stims, what_species,
                                          organization,
-                                         dur_dict,
                                          reg_list,
                                          output_name, 
                                          colors,

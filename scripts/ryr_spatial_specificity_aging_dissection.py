@@ -10,11 +10,6 @@ marker = {
     "_3s_injection": "o"
 }
 
-dur_dict = {
-    "": " 40 ms",
-    "_3s_injection": " 3 ms"
-}
-              
 
 colors = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": 'k',
           "Ca_wave_PMCA_aging":"orange",
@@ -67,16 +62,15 @@ if __name__ == '__main__':
     what_species = ["_SOCE", ""]
     types = {
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
-        "Ca_wave_aging": "Old age",
-        "Ca_wave_PMCA_aging": "Old age RyR",
-        "Ca_wave_RyR2CaM_aging": "Old age PMCA",
-        "Ca_wave_normal_SERCA_aging":"Old age with ctrl SERCA",
+        "Ca_wave_aging": "old age",
+        "Ca_wave_PMCA_aging": "ctrl + old age RyR",
+        "Ca_wave_RyR2CaM_aging": "old age + RyRCaM",
+        "Ca_wave_normal_SERCA_aging":"old age + ctrl SERCA",
     }
     output_name = "all"
     fig1 = utils.make_spatial_specificity_fig_sep_dends(directories,
                                                         dend_diam,
                                                         stims, what_species,
-                                                        dur_dict,
                                                         output_name, 
                                                         colors,
                                                         types, method="regular")
@@ -87,7 +81,6 @@ if __name__ == '__main__':
     fig1 = utils.make_spatial_specificity_fig_sep_dends(directories,
                                                         dend_diam,
                                                         stims, what_species,
-                                                        dur_dict,
                                                         output_name, 
                                                         colors,
                                                         types, method="fitexp")

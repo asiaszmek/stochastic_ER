@@ -105,10 +105,6 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
     what_species = ["SOCE_", ""]
-    dur_dict = {
-        "SOCE_": " SOCE",
-        "": " no SOCE"
-    }
     fillstyle = {
         "SOCE_": "d",
         "": "o"
@@ -118,7 +114,6 @@ if __name__ == '__main__':
                                          dend_diam,
                                          stims, what_species,
                                          organization,
-                                         dur_dict,
                                          reg_list, output_name, 
                                          colors, types, fillstyle)
     fig1.savefig("ER_distance_cam_no_cam_tubes.png", dpi=100,

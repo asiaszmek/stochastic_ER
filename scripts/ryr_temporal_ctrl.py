@@ -53,7 +53,7 @@ label_list = []
 
 if __name__ == '__main__':
 
-    organization = [ "tubes"]
+    organization = [ "tubes", "baloon"]
 
     types = {
     "baloon": "RyRCaM in dendritic membrane",

@@ -12,11 +12,7 @@ marker = {
     "_3s_injection": "o"
 }
 
-dur_dict = {
-    "": " 40 ms",
-    "_3s_injection": " 3 ms"
-}
-              
+            
 
 colors = {"1.2": 'tab:blue',
           "2.4": 'tab:purple',
@@ -104,11 +100,10 @@ if __name__ == '__main__':
                                          dend_diam,
                                          stims, what_species,
                                          organization,
-                                         dur_dict,
                                          reg_list,
                                          output_name, 
                                          colors,
                                          types,
-                                         marker, method="regular")
-    fig1.savefig("RyR_no_RyR_distance.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("RyR_no_RyR_distance.eps", dpi=100, bbox_inches="tight")
+                                         marker, method="fitexp")
+    fig1.savefig("RyR_no_RyR_distance_fitexp.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("RyR_no_RyR_distance_fitexp.eps", dpi=100, bbox_inches="tight")
