@@ -50,7 +50,7 @@ if __name__ == '__main__':
     if not fnames:
         sys.exit('Do specify at least one totals filename')
     chosen_specie = args.species
-    if chosen_specie in ["Ca", "CaER", "CaOut", "RyRO", "Fura"]:
+    if chosen_specie in ["Ca", "CaER", "CaOut", "RyRO", "IP3", "IP3R"]:
         output_name = "all"
     elif  chosen_specie in ["STIM_CaER", "Orai"]:
         output_name = "RyR_Orai"

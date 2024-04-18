@@ -19,7 +19,7 @@
     <NanoMolarity       specieID="CRTP" value="89000"/>
     <NanoMolarity       specieID="CRT" value="11000"/>
     <NanoMolarity specieID="IP3degrad" value="20" />
-    <NanoMolarity specieID="IP3" value="20" />
+    <NanoMolarity specieID="IP3" value="24" />
     <NanoMolarity specieID="IP3K" value="190" />
     <NanoMolarity specieID="IP3K_Ca2" value="10" />
     <NanoMolarity specieID="IP5P" value="220" />  
