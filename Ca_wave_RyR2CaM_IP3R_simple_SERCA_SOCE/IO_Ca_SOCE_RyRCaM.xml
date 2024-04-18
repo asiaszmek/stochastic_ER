@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <OutputScheme>
 <!--
      Each file will have a set of concentrations in compartments
@@ -26,6 +27,7 @@
     <OutputSpecie name="RyRCaMO1"/>
     <OutputSpecie name="RyRCaMO2"/>
     <OutputSpecie name="IP3RO"/>
+    <OutputSpecie name="CaMCa4"/>
   </OutputSet>
   <OutputSet filename = "RyR_Orai"  dt="10.0">
     <OutputSpecie name="RyRCaM"/>
