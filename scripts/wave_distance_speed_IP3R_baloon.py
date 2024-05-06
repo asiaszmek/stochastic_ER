@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     
     what_species = [""]#, "_3s_injection"]
-    organization = ["tubes"]
+    organization = ["baloon"]
     types = {
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyRCaM",
         "Ca_wave_RyR2CaM_IP3R_simple_SERCA_SOCE": "RyRCaM+Ip3R",
@@ -110,6 +110,6 @@ if __name__ == '__main__':
                                          colors,
                                          types,
                                          marker, method="regular")
-    fig1.savefig("IP3R_distance.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("IP3R_distance.eps", dpi=100, bbox_inches="tight")
+    fig1.savefig("IP3R_distance_baloon.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("IP3R_distance_baloon.eps", dpi=100, bbox_inches="tight")
     

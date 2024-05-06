@@ -90,6 +90,8 @@ if __name__ == '__main__':
                                                             specie_list,
                                                             reg_list, trial,
                                                             "__main__")
+            except TypeError:
+                break
             conc_dict[trial] = conc
             time = utils.get_times(my_file, trial, output_name)
             time_dict[trial] = time

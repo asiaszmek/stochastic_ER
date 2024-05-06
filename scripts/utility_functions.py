@@ -379,7 +379,10 @@ def get_dynamics_in_region(my_file, specie, region, trial,
     my_grid = get_grid_list(my_file)
     vox_ind, vols = get_dend_indices(my_grid, region=region)
     specie_list = get_all_species(my_file, output)
-    population = get_populations(my_file, trial, output)
+    try:
+        population = get_populations(my_file, trial, output)
+    except IOError:
+        return 
     specie_idx = []
     for sp in specie:
         specie_idx.append(specie_list.index(sp))
@@ -413,8 +416,10 @@ def get_conc(fullname, specie_list, region_list, output):
             continue
         try:
             for specie in specie_list:
-                pop, voxel = get_dynamics_in_region(my_file, specie, region_list,
+                pop, voxel = get_dynamics_in_region(my_file, specie,
+                                                    region_list,
                                                     trial, output)
+                
                 conc_dict[specie][trial] = pop.T
             time = get_times(my_file, trial, output)
             time_dict[trial] = time

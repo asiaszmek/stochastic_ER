@@ -56,6 +56,6 @@
     <PicoSD  specieID="PlcCaPip2"  value="32"    />
     <PicoSD  specieID="Pip2" value="9966"  />
     <PicoSD  specieID="PIkinase"   value="291"  />
-    <PicoSD  specieID="IP3degradPIk"   value="14"  />
+    <PicoSD  specieID="IP3degPIk"   value="14"  />
  </SurfaceDensitySet>
 </InitialConditions> 
