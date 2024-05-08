@@ -1064,7 +1064,7 @@ def make_decay_constant_fig(directories,  dend_diam,
 
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
-    ax1.set_ylabel("Temporal decay constant [m sec]", fontsize=20)
+    ax1.set_ylabel("Temporal decay [m sec]", fontsize=20)
     return fig1
 
 
@@ -1240,10 +1240,7 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
     if len(dend_diam) == 1:
         ax1 = [ax1]
-    stim_labels = {
-        "": " 40 ms",
-        "_3s_injection": " 3 ms"
-    }
+   
     marker = {
         "": "d",
         "_3s_injection": "o"
@@ -1295,18 +1292,18 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
                                  color=colors[d][diam],
                                  marker=marker[stim_type],
                                  label=types[org]
-                                 +stim_labels[stim_type]+" diam "+str(diam),
+                                 +" diam "+str(diam),
                                  linestyle="", fillstyle="full")
                 else:
                     ax1.errorbar(x, y, yerr=y_err,
                                  color=colors[d][diam],
                                  marker=marker[stim_type],
                                  label=types[org]
-                                 +stim_labels[stim_type]+" diam "+str(diam),
+                                 +" diam "+str(diam),
                                  linestyle="", fillstyle="none")
 
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax1.set_ylabel("Temporal decay constant [m sec]", fontsize=20)
+    ax1.set_ylabel("Temporal decay [m sec]", fontsize=20)
     ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     return fig1
 

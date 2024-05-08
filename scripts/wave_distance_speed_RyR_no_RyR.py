@@ -104,6 +104,6 @@ if __name__ == '__main__':
                                          output_name, 
                                          colors,
                                          types,
-                                         marker, method="fitexp")
-    fig1.savefig("RyR_no_RyR_distance_fitexp.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("RyR_no_RyR_distance_fitexp.eps", dpi=100, bbox_inches="tight")
+                                         marker)
+    fig1.savefig("RyR_no_RyR_distance.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("RyR_no_RyR_distance.eps", dpi=100, bbox_inches="tight")
