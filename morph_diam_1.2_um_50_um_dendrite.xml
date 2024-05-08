@@ -102,7 +102,7 @@
     <end x="25.0" y="1.0" z="0.0" r="0.6"/>
   </Segment>
   <Segment id="seg26" region="dend26">
-    <start on="seg25" at="end" r="0.6"/>
+    <start on="seg25" at="end" r="0.6" label="pointB"/>
     <end x="26.0" y="1.0" z="0.0" r="0.6"/>
   </Segment>
   <Segment id="seg27" region="dend27">
