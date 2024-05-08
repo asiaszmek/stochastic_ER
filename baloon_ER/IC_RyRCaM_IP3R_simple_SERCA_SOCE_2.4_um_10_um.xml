@@ -41,7 +41,7 @@
 
     <PicoSD specieID="RyRCaM"      value="5"    />
     <PicoSD specieID="Cyt_SERCA"       value="1405"     />
-    <PicoSD specieID="Cyt_SERCA_Ca"       value="2226"     />
+    <PicoSD specieID="Cyt_SERCA_Ca"       value="226"     />
     <PicoSD specieID="Cyt_SERCA_Ca2"       value="35"     />
     <PicoSD specieID="PMJ"       value="6"     />
     <PicoSD specieID="Orai"      value="198"     />
@@ -54,7 +54,7 @@
     <PicoSD  specieID="PlcCa"  value="36"    />
     <PicoSD  specieID="PlcCaPip2"  value="8"    />
     <PicoSD  specieID="Pip2" value="10000"  />
-    <PicoSD  specieID="PIkinase"   value="300"  />
+    <PicoSD  specieID="PIkinase"   value="295"  />
     <PicoSD specieID="IP3R"      value="30"     />
     <PicoSD specieID="IP3degPIk" value="4" />
   </SurfaceDensitySet>  
