@@ -1,6 +1,6 @@
 <StimulationSet>
   <InjectionStim specieID="Ca" injectionSite="pointB">
-    <onset>3000</onset>
+    <onset>5000</onset>
     <duration>3</duration>
     <rate>48000</rate>
     <end>8000</end>    
