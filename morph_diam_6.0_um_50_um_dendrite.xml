@@ -99,10 +99,10 @@
   </Segment>
   <Segment id="seg25" region="dend25">
     <start on="seg24" at="end" r="3.0"/>
-    <end x="25.0" y="1.0" z="0.0" r="3.0"/>
+    <end x="25.0" y="1.0" z="0.0" r="3.0"  label="pointB"/>
   </Segment>
   <Segment id="seg26" region="dend26">
-    <start on="seg25" at="end" r="3.0" label="pointB"/>
+    <start on="seg25" at="end" r="3.0"/>
     <end x="26.0" y="1.0" z="0.0" r="3.0"/>
   </Segment>
   <Segment id="seg27" region="dend27">
