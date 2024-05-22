@@ -667,7 +667,10 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                           species=["Ca"]):
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
 
-
+    dur_dict = {"": " EPSP",
+                "_3s_injection": " AP",
+                
+    }
     for d in directories:
         my_path = os.path.join("..", d)
         add = descr[d]
@@ -708,12 +711,12 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
                     if k % 2:
                         ax1.errorbar(x, y, yerr=y_err,
                                      color=colors[diam], marker=marker[inh],
-                                     label=types[org]+" diam "+ diam,
+                                     label=types[org]+" diam "+ diam+dur_dict[inh],
                                      linestyle="", fillstyle="full")
                     else:
                         ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
                                      marker=marker[inh],
-                                     label=types[org]+" diam "+diam,
+                                     label=types[org]+" diam "+diam+dur_dict[inh],
                                      linestyle="", fillstyle="none")
     ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     ax1.set_ylabel("Spatial extent [um]", fontsize=20)
@@ -726,6 +729,9 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                             stims, what_species, organization,
                              reg_list, output_name, 
                             colors, types, marker, method="regular"):
+    dur_dict = {"": " EPSP",
+                     "_3s_injection": " AP"
+                     }
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
@@ -769,12 +775,12 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                     if not k % 2:
                         ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
                                      marker=marker[inh],
-                                     label=types[d]+" diam "+diam,
+                                     label=types[d]+" diam "+diam+dur_dict[inh],
                                      linestyle="", fillstyle="full")
                     else:
                         ax1.errorbar(x, y, yerr=y_err, color=colors[diam],
                                      marker=marker[inh],
-                                     label=types[d]+" diam "+diam,              
+                                     label=types[d]+" diam "+diam+dur_dict[inh],              
                                      linestyle="", fillstyle="none")
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     ax1.set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
@@ -984,9 +990,11 @@ def fit_exp(time, ca_conc, dt, duration=2000, t_init=3000, spatial=False):
         max_idx = ca_conc.argmax()
         ca_conc_log = ca_conc[max_idx:duration+max_idx]
         new_time = time[max_idx:duration+max_idx]-time[max_idx]
-        
-        popt, pcov = curve_fit(lambda t, a, b, c: a*np.exp(-t/b)+c,
-                               new_time, ca_conc_log)
+        try:
+            popt, pcov = curve_fit(lambda t, a, b, c: a*np.exp(-t/b)+c,
+                                   new_time, ca_conc_log)
+        except RuntimeError:
+            return 0
         return popt[1]
     popt, pcov = curve_fit(lambda t, a, b, c: a*np.exp(-abs(t)/b)+c,
                            time, ca_conc-(ca_conc[0]+ca_conc[-1])/2)
@@ -999,7 +1007,8 @@ def make_decay_constant_fig(directories,  dend_diam,
                             output_name, 
                             colors, types):
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
-
+    dur_dict= {"": " EPSP",
+               "_3s_injection":" AP"}
     stim_labels = {
         "": " 40 ms",
         "_3s_injection": " 3 ms"
@@ -1013,7 +1022,7 @@ def make_decay_constant_fig(directories,  dend_diam,
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
         fname = directories[d]
-        for stim_type in [""]:#, "_3s_injection"]:
+        for stim_type in ["", "_3s_injection"]:
             for j, diam in enumerate(dend_diam):
                 for inh in what_species:
                     y = []
@@ -1053,13 +1062,13 @@ def make_decay_constant_fig(directories,  dend_diam,
                         ax1.errorbar(x, y,  yerr=y_err,
                                      color=colors[diam],
                                      marker=marker[stim_type],
-                                     label=types[d]+" diam "+diam,
+                                     label=types[d]+" diam "+diam+dur_dict[stim_type],
                                      linestyle="", fillstyle="full")
                     else:
                         ax1.errorbar(x, y, yerr=y_err,
                                      color=colors[diam],
                                      marker=marker[stim_type],
-                                     label=types[d]+" diam "+diam,
+                                     label=types[d]+" diam "+diam+dur_dict[stim_type],
                                      linestyle="", fillstyle="none")
 
     ax1.legend(loc='center left', bbox_to_anchor=(1, 0.5))

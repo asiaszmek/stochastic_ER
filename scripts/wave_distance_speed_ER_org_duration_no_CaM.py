@@ -12,7 +12,7 @@ marker = {
     "_3s_injection": "o"
 }
 
-            
+             
 
 colors = {"1.2": 'tab:blue',
           "2.4": 'tab:purple',
@@ -20,15 +20,18 @@ colors = {"1.2": 'tab:blue',
 
 stim_dend = "dend26"
 
-directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE":"model_%s%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_no_RyR_simple_SERCA_SOCE":"model_%s%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"}
+directories = [
+    "Ca_wave_simple_SERCA_SOCE",
+]
 
 descr = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyR2CaM",
-    "Ca_wave_no_RyR_simple_SERCA_SOCE": "noRyR",
+    "Ca_wave_simple_SERCA_SOCE": "RyR",
 }
 
+types = {
+    "baloon": "RyR in dendritic membrane",
+    "tubes": "uniformly distributed RyR",
+}
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
@@ -88,22 +91,13 @@ if __name__ == '__main__':
         reg_list.append("%s%d" %(base, i))
 
 
-    
+    fname = "model_%s%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"
     what_species = ["", "_3s_injection"]
-    organization = ["tubes"]
-    types = {
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
-        "Ca_wave_no_RyR_simple_SERCA_SOCE": "blocked RyR",
-    }
-    fig1 = utils.make_distance_fig_aging(directories,
-                                         descr,
-                                         dend_diam,
-                                         stims, what_species,
-                                         organization,
-                                         reg_list,
-                                         output_name, 
-                                         colors,
-                                         types,
-                                         marker)
-    fig1.savefig("RyR_no_RyR_distance.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("RyR_no_RyR_distance.eps", dpi=100, bbox_inches="tight")
+    organization = ["baloon", "tubes"]
+    fig1 = utils.make_distance_fig_2_4(fname, directories, descr,
+                                       dend_diam,
+                                       stims, what_species,organization,
+                                       reg_list, output_name, 
+                                       colors, types, marker)
+    fig1.savefig("ER_org_distance_no_CaM.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("ER_org_distance_no_CaM.eps", dpi=100, bbox_inches="tight")
