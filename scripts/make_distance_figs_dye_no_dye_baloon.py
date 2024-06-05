@@ -1,8 +1,5 @@
 import os
 import h5py
-if os.environ.get('DISPLAY', '') == '':
-    print('no display found. Using non-interactive Agg backend')
-    mpl.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import utility_functions as utils

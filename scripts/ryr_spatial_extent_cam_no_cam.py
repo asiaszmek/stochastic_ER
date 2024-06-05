@@ -4,10 +4,8 @@ import numpy as np
 from lxml import etree
 import sys
 from scipy.constants import Avogadro
-if os.environ.get('DISPLAY', '') == '':
-    print('no display found. Using non-interactive Agg backend')
-    mpl.use('Agg')
 import matplotlib.pyplot as plt
+
 import utility_functions as utils
 
 

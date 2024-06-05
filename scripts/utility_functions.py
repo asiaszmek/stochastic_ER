@@ -5,9 +5,6 @@ import numpy as np
 from lxml import etree
 import sys
 from scipy.constants import Avogadro
-if os.environ.get('DISPLAY', '') == '':
-    print('no display found. Using non-interactive Agg backend')
-    mpl.use('Agg')
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 limit = 2.5
