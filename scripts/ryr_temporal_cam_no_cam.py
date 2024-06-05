@@ -53,7 +53,7 @@ label_list = []
 
 
 if __name__ == '__main__':
-    what_species = ["_SOCE", ""]
+    what_species = ["_SOCE"]
     organization = ["tubes"]
     types = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",

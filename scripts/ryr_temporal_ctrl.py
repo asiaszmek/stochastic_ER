@@ -17,7 +17,6 @@ directories = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE":"model_RyR2CaM%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5",
     "Ca_wave_simple_SERCA_SOCE":"model_RyR%s_simple_SERCA%s_tubes_diam_%s_um_50_um_%s_nM.h5"}
 
-fname = "model_RyR2CaM%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"
 
 
 stims = [ "0175", "0350", "0700", "1050", "2000"]
