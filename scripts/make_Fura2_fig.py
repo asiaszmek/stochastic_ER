@@ -1,4 +1,7 @@
 import numpy as np
+if os.environ.get('DISPLAY', '') == '':
+    print('no display found. Using non-interactive Agg backend')
+    mpl.use('Agg')
 import matplotlib.pyplot as plt
 
 fname_list = {
@@ -48,5 +51,5 @@ if __name__ == "__main__":
     ax.set_xlabel("Time (s)")
     ax.legend()
 
-    plt.show()
+    fig.savefig("SOCE_test.png")
     

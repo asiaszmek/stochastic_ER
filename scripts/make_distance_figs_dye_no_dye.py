@@ -1,5 +1,8 @@
 import os
 import h5py
+if os.environ.get('DISPLAY', '') == '':
+    print('no display found. Using non-interactive Agg backend')
+    mpl.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import utility_functions as utils
@@ -125,4 +128,4 @@ set_ylim(ax, mini, maxi)
 fig.savefig("Ca_dye_effects.eps", dpi=100, bbox_inches="tight")
 fig.savefig("Ca_dye_effects.png", dpi=100, bbox_inches="tight")
 
-plt.show()
+

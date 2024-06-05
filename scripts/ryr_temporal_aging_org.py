@@ -1,7 +1,5 @@
 import os
 import h5py
-import matplotlib.pyplot as plt
-import numpy as np
 import utility_functions as utils
 
 
@@ -67,4 +65,4 @@ if __name__ == '__main__':
                                               types)
     fig1.savefig("ER_org_temporal_aging_ER_org.png", dpi=100, bbox_inches="tight")
     fig1.savefig("ER_org_temporal_aging_ER_org.eps", dpi=100, bbox_inches="tight")
-    plt.show()
+

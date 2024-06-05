@@ -1,10 +1,4 @@
 import os
-import h5py
-import numpy as np
-import sys
-import argparse
-from scipy.constants import Avogadro
-import matplotlib.pyplot as plt
 import utility_functions as utils
 
 marker = {
@@ -37,7 +31,7 @@ stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
     
-NA = Avogadro*1e-23
+
 specie_dict = {
     "Ca": ["Ca"],
     "CaOut": ["CaOut"],
@@ -60,30 +54,9 @@ multiplier = {
     "Orai3STIM_4": 3,
 }
 label_list = []
-def Parser():
-    parser = argparse.ArgumentParser(description='Generate figs of avg conc')
-    parser.add_argument('--species', default="Ca",
-                        help='Ca, RyRO, CaER, CaOut, RyR')
-
-    return parser
-
-
-
 
 
 if __name__ == '__main__':
-    fnames = []
-    args = Parser().parse_args()
-    chosen_specie = args.species
-    if chosen_specie in ["Ca", "CaER", "CaOut", "RyRO"]:
-        output_name = "all"
-    elif  chosen_specie in ["STIM_CaER", "Orai"]:
-        output_name = "RyR_Orai"
-
-    try:
-        specie_list = specie_dict[chosen_specie]
-    except AttributeError:
-        sys.exit("Unnkown specie %s" % s)
     base = "dend"
     reg_list = [base, "dend01", "dend02", "dend03", "dend04",
                 "dend05", "dend06", "dend07", "dend08", "dend09",]

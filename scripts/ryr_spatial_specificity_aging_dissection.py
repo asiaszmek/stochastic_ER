@@ -1,7 +1,4 @@
 import os
-import h5py
-import matplotlib.pyplot as plt
-import numpy as np
 import utility_functions as utils
 
 
@@ -89,4 +86,4 @@ if __name__ == '__main__':
     fig1.savefig("Aging_spatial_specificity_dissection_fitexp.eps", dpi=100,
                  bbox_inches="tight")
 
-    plt.show()
+

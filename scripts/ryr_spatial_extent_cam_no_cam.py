@@ -1,7 +1,4 @@
 import os
-import h5py
-import matplotlib.pyplot as plt
-import numpy as np
 import utility_functions as utils
 
 
@@ -176,4 +173,4 @@ fig.savefig("Spatial_sum_cam.eps", dpi=100,
 fig.savefig("Spatial_sum_cam.png", dpi=100,
             bbox_inches="tight")
 
-plt.show()
+
