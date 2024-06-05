@@ -727,11 +727,11 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
 
 def make_distance_fig_aging(directories, descr, dend_diam,
                             stims, what_species, organization,
-                             reg_list, output_name, 
+                            reg_list, output_name, 
                             colors, types, marker, method="regular"):
     dur_dict = {"": " EPSP",
-                     "_3s_injection": " bAP"
-                     }
+                "_3s_injection": " bAP"
+                }
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)

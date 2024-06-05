@@ -89,7 +89,7 @@ if __name__ == '__main__':
 
 
     
-    what_species = [""]#, "_3s_injection"]
+    what_species = ["", "_3s_injection"]
     organization = ["tubes"]
     types = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",

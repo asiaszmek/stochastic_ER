@@ -16,8 +16,8 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_RyR2CaM%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "model_RyR2CaM%s_simple_SERCA_%stubes_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model%s_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "model%s_RyR2CaM%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5",
     
 }
 
@@ -30,29 +30,15 @@ descr = {
 
 types = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "ctrl",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "no SOCE",
     "Ca_wave_simple_SERCA_SOCE": "no CaM",
     "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "no CaM",
-}
-
-marker = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "full",
-    "Ca_wave_simple_SERCA_SOCE": "none",
-    "Ca_wave_simple_SERCA_no_SOCE_Breit_2018": "none",
 }
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
-symbol = {
-    "SOCE_": "d",
-    "": "o",
-}
 
-fname = "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5"
-    
-NA = Avogadro*1e-23
 specie_dict = {
     "Ca": ["Ca"],
     "CaOut": ["CaOut"],
@@ -104,14 +90,10 @@ if __name__ == '__main__':
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-    what_species = ["SOCE_", ""]
+    what_species = ["", "_3s_injection"]
     dur_dict = {
-        "SOCE_": " SOCE",
-        "": " no SOCE"
-    }
-    fillstyle = {
-        "SOCE_": "d",
-        "": "o"
+        "": " EPSP",
+        "": " bAP"
     }
     organization = ["tubes"]
     fig1, fig2 = utils.make_distance_fig_aging_CaER(directories,

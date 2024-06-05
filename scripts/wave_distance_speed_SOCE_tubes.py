@@ -16,8 +16,8 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "model_%s_simple_SERCA_%s%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "model_%s%s_simple_SERCA_SOCE%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "model_%s%s_simple_SERCA_%s_diam_%s_um_50_um_%s_nM.h5",
     
 }
 
@@ -104,10 +104,10 @@ if __name__ == '__main__':
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-    what_species = ["SOCE_", ""]
-    fillstyle = {
-        "SOCE_": "d",
-        "": "o"
+    what_species = ["", "_3s_injection"]
+    marker = {
+    "": "d",
+    "_3s_injection": "o"
     }
     organization = ["tubes"]
     fig1 = utils.make_distance_fig_aging(directories, descr,
@@ -115,7 +115,8 @@ if __name__ == '__main__':
                                          stims, what_species,
                                          organization,
                                          reg_list, output_name, 
-                                         colors, types, fillstyle, method="regular")
+                                         colors, types, marker,
+                                         method="regular")
     fig1.savefig("ER_distance_soce_no_soce_ctrl_tubes.png", dpi=100,
                  bbox_inches="tight")
     fig1.savefig("ER_distance_soce_no_soce_ctrl_tubes.eps", dpi=100,
