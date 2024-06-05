@@ -29,8 +29,8 @@ descr = {
 }
 
 types = {
-    "baloon": "RyR in dendritic membrane",
-    "tubes": "uniformly distributed RyR",
+    "baloon": "RyR in EPJ",
+    "tubes": "uniform RyR",
 }
 
 stims = ["0175", "0350", "0700", "1050", "2000"]

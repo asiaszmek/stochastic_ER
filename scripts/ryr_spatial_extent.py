@@ -10,9 +10,9 @@ colors = {1.2: "tab:blue",
           6.0: "tab:green",
 }
 labels = {"no_SOCEbaloon": "no CaM no SOCE",
-          "baloon": "RyRCaM in dendritic membrane",
+          "baloon": "RyRCaM in EPJ",
           "no_SOCEtubes": "ctrl no SOCE",
-          "tubes": "uniformly distributed RyRCaM",
+          "tubes": "uniform RyRCaM",
 }
 
 

@@ -56,8 +56,8 @@ if __name__ == '__main__':
     organization = [ "tubes", "baloon"]
 
     types = {
-    "baloon": "RyRCaM in dendritic membrane",
-    "tubes": "uniformly distributed RyRCaM",
+    "baloon": "RyRCaM in EPJ",
+    "tubes": "uniform RyRCaM",
     }
     
     output_name = "all"

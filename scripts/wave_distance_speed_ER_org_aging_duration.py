@@ -28,8 +28,8 @@ descr = {
 }
 
 types = {
-    "baloon": "RyRCaM in dendritic membrane",
-    "tubes": "uniformly distributed RyRCaM",
+    "baloon": "RyRCaM in EPJ",
+    "tubes": "uniform RyRCaM",
 }
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
