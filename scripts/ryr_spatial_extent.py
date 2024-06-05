@@ -121,8 +121,8 @@ directory ={
 stim_types = ["_3s_injection", ""]
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 10))
 
-suffix = {"": "40 ms stim",
-          "_3s_injection": "3 ms stim"}
+suffix = {"": " EPSP",
+          "_3s_injection": " bAP"}
 
 
 for k, b_diam in enumerate(branch_diams):
@@ -149,20 +149,20 @@ for k, b_diam in enumerate(branch_diams):
                 x.append(injections[b_diam][stim][s]/b_diam)
             if inh == "tubes" and s == "":
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
-                        label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
+                        label=labels[inh]+" diam "+str(b_diam)+" EPSP",
                         linestyle="")
             elif inh == "baloon" and s == "":
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
-                        label=labels[inh]+" diam "+str(b_diam)+" 40 ms",
+                        label=labels[inh]+" diam "+str(b_diam)+" EPSP",
                         linestyle="",
                         fillstyle="none")
             elif inh == "tubes" and s == "_3s_injection":
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="o",
-                        label=labels[inh]+" diam "+str(b_diam)+" 3 ms",
+                        label=labels[inh]+" diam "+str(b_diam)+" bAP",
                         linestyle="")
             else:
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="o",
-                        label=labels[inh]+" diam "+str(b_diam)+" 3 ms",
+                        label=labels[inh]+" diam "+str(b_diam)+" bAP",
                         linestyle="", fillstyle="none")
 
 ax.set_ylabel("max(Calcium) [uM]", fontsize=20)

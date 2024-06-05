@@ -668,7 +668,7 @@ def make_distance_fig_2_4(fname, directories, descr, dend_diam,
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
 
     dur_dict = {"": " EPSP",
-                "_3s_injection": " AP",
+                "_3s_injection": " bAP",
                 
     }
     for d in directories:
@@ -730,7 +730,7 @@ def make_distance_fig_aging(directories, descr, dend_diam,
                              reg_list, output_name, 
                             colors, types, marker, method="regular"):
     dur_dict = {"": " EPSP",
-                     "_3s_injection": " AP"
+                     "_3s_injection": " bAP"
                      }
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
     for k, d in enumerate(directories):
@@ -858,8 +858,8 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
     fig2, ax2 = plt.subplots(1, 1, figsize=(5, 5))
     stim_labels = {
-        "": " 40 ms",
-        "_3s_injection": " 3 ms"
+        "": " EPSP",
+        "_3s_injection": " bAP"
     }
     marker = {
         "": "d",
@@ -1008,10 +1008,10 @@ def make_decay_constant_fig(directories,  dend_diam,
                             colors, types):
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
     dur_dict= {"": " EPSP",
-               "_3s_injection":" AP"}
+               "_3s_injection":" bAP"}
     stim_labels = {
-        "": " 40 ms",
-        "_3s_injection": " 3 ms"
+        "": " EPSP",
+        "_3s_injection": " bAP"
     }
     marker = {
         "": "d",
@@ -1326,8 +1326,8 @@ def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
     if len(dend_diam) == 1:
         ax1 = [ax1]
     stim_labels = {
-        "": " 40 ms",
-        "_3s_injection": " 3 ms"
+        "": " EPSP",
+        "_3s_injection": " bAP"
     }
     marker = {
         "": "d",
