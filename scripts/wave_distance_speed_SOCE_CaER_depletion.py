@@ -1,7 +1,7 @@
 import os
 import sys
 import utility_functions as utils
-
+output_name = "all"
 
 
 colors = {"1.2": 'tab:blue',
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     what_species = ["", "_3s_injection"]
     dur_dict = {
         "": " EPSP",
-        "": " bAP"
+        "_3s_injection": " bAP"
     }
     organization = ["tubes"]
     fig1, fig2 = utils.make_distance_fig_aging_CaER(directories,
