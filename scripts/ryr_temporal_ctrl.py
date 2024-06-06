@@ -22,7 +22,7 @@ directories = {
 stims = [ "0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 directory =  "Ca_wave_RyR2CaM_simple_SERCA_SOCE"
-fname = "model_RyR2CaM%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"
+
 
 
 specie_dict = {
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     }
     
     output_name = "all"
-    fig1 = utils.make_decay_constant_fig_ctrl(fname, directory,
+    fig1 = utils.make_decay_constant_fig_ctrl("model_RyR2CaM%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5", directory,
                                               dend_diam,
                                               stims,
                                               organization,
