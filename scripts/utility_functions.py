@@ -857,10 +857,6 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                                  colors, types, method="regular"):
     fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
     fig2, ax2 = plt.subplots(1, 1, figsize=(5, 5))
-    stim_labels = {
-        "": " EPSP",
-        "_3s_injection": " bAP"
-    }
     marker = {
         "": "d",
         "_3s_injection": "o"
@@ -937,34 +933,30 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
                     if not k % 2:
                         ax1.errorbar(y, x, xerr=y_err, yerr=x_err,
                                      color=colors[diam],
-                                     marker=marker[stim_type],
+                                     marker=marker[inh],
                                      label=types[d]+" diam "+diam
-                                     + dur_dict[inh]
-                                     +stim_labels[stim_type],
+                                     + dur_dict[inh],
                                      linestyle="", fillstyle="full")
                         ax2.errorbar(y_ER, x, xerr=y_ER_err, yerr=x_err,
                                      color=colors[diam],
-                                     marker=marker[stim_type],
+                                     marker=marker[inh],
                                      label=types[d]+" diam "+diam
-                                     + dur_dict[inh]
-                                     +stim_labels[stim_type],
+                                     + dur_dict[inh],
                                      linestyle="", fillstyle="full")
 
                         print(types[d]+" diam "+diam + dur_dict[inh], k, "full")
                     else:
                         ax1.errorbar(y, x, yerr=x_err, xerr=y_err,
                                      color=colors[diam],
-                                     marker=marker[stim_type],
+                                     marker=marker[inh],
                                      label=types[d]+" diam "+diam
-                                     + dur_dict[inh]
-                                     +stim_labels[stim_type],
+                                     + dur_dict[inh],
                                      linestyle="", fillstyle="none")
                         ax2.errorbar(y_ER, x, yerr=x_err, xerr=y_ER_err,
                                      color=colors[diam],
-                                     marker=marker[stim_type],
+                                     marker=marker[inh],
                                      label=types[d]+" diam "+diam
-                                     + dur_dict[inh]
-                                     +stim_labels[stim_type],
+                                     + dur_dict[inh],
                                      linestyle="", fillstyle="none")
 
                         print(types[d]+" diam "+diam + dur_dict[inh],k, "none")
