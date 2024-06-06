@@ -1253,7 +1253,7 @@ def make_decay_constant_fig_ctrl(fname, directory,  dend_diam,
     d = directory
     for k, org in enumerate(organization):
         my_path = os.path.join("..", d)
-        for stim_type in ["", "_3s_inejction"]:
+        for stim_type in ["", "_3s_injection"]:
             for j, diam in enumerate(dend_diam):
                 
                 y = []
