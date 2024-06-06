@@ -73,7 +73,7 @@ if __name__ == '__main__':
                                          stims, what_species,
                                          organization,
                                          reg_list,
-                                         output_name, 
+                                         "all", 
                                          colors,
                                          types,
                                          marker)

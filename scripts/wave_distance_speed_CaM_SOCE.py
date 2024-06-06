@@ -81,14 +81,15 @@ if __name__ == '__main__':
         "SOCE_": "d",
         "": "o"
     }
-    organization = ["baloon"]
+
+    organization = ["tubes"]
     fig1 = utils.make_distance_fig_aging(directories, descr,
                                          dend_diam,
                                          stims, what_species,
                                          organization,
-                                         reg_list, output_name, 
+                                         reg_list, "all", 
                                          colors, types, fillstyle)
-    fig1.savefig("ER_distance_cam_no_cam_baloon.png", dpi=100,
+    fig1.savefig("ER_distance_cam_no_cam.png", dpi=100,
                  bbox_inches="tight")
-    fig1.savefig("ER_distance_cam_no_cam_baloon.eps", dpi=100,
+    fig1.savefig("ER_distance_cam_no_cam.eps", dpi=100,
                  bbox_inches="tight")
