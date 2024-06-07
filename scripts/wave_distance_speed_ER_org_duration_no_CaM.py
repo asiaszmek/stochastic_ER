@@ -70,7 +70,7 @@ if __name__ == '__main__':
     fig1 = utils.make_distance_fig_2_4(fname, directories, descr,
                                        dend_diam,
                                        stims, what_species,organization,
-                                       reg_list, output_name, 
+                                       reg_list, "all", 
                                        colors, types, marker)
     fig1.savefig("ER_org_distance_no_CaM.png", dpi=100, bbox_inches="tight")
     fig1.savefig("ER_org_distance_no_CaM.eps", dpi=100, bbox_inches="tight")
