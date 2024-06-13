@@ -6,12 +6,12 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-ca_conc_file = "../RyR_CaM_assay/xu_meissner_RyR2CaM_po.csv"
+ca_conc_file = "xu_meissner_RyR2CaM_po.csv"
 
 model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
     <xi:include href="%s" />
-    <xi:include href="../RyR_CaM_assay/Morph.xml" />
+    <xi:include href="Morph.xml" />
     <xi:include href="%s" />
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the
