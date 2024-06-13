@@ -13,7 +13,8 @@ if __name__ == '__main__':
     for fname in sys.argv[1:]:
         my_file = h5py.File(fname, 'r')
         for trial in my_file.keys():
-            if trial != "model":
+
+            if trial.startswith("trial"):
                 utils.save_concentrations(my_file, fname[:-3], '__main__',
                                     trial=trial)
 
