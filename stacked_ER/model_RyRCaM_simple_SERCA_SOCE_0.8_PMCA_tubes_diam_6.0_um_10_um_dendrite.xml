@@ -3,7 +3,7 @@
     <!-- this file defines a single run of the calculation, using morphology and
 -	 reaction data brought in from other files --> 
     <xi:include href="../Rxn_RyR2CaM_SERCA_simple_0.8_PMCA.xml" />
-    <xi:include href="../morph_diam_6.0_um_10_um_dendrite.xml" />
+    <xi:include href="../morph_diam_6.0_um_50_um_dendrite.xml" />
     <xi:include href="IC_RyRCaM_simple_SERCA_SOCE_6.0_um_2_um_dendrite.xml" />
 
     <!--2D means the morphology is interpreted like a flatworm, 3D for
