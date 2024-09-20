@@ -84,13 +84,17 @@ if __name__ == '__main__':
                                                             specie_list,
                                                             reg_list, trial,
                                                             output_name)
+                time = utils.get_times(my_file, trial, output_name)
             except KeyError:
                 conc, voxels = utils.get_dynamics_in_region(my_file,
                                                             specie_list,
                                                             reg_list, trial,
                                                             "__main__")
+                time = utils.get_times(my_file, trial, "__main__")
             conc_dict[trial] = conc
-            time = utils.get_times(my_file, trial, output_name)
+        
+        
+        
             time_dict[trial] = time
         vmax = max([conc.max() for conc in conc_dict.values()])
         vmin = min([conc.min() for conc in conc_dict.values()])

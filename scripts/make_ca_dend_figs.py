@@ -12,8 +12,12 @@ NA = Avogadro*1e-23
 if __name__ == '__main__':
     specie_list = ["Ca"]
     specie = "Ca"
-    reg_list = ["dend", "dend01", "dend02", "dend03", "dend04", "dend05", "dend06",
-                 "dend07", "dend08", "dend09", "dend10", "dend11"]
+    base = "dend"
+    reg_list = [base, "dend01", "dend02", "dend03", "dend04", "dend05",
+                "dend06", "dend07", "dend08", "dend09",]
+    for i in range(10, 102, 1):
+        reg_list.append("%s%d" %(base, i))
+   
     figs, axes = [], []
     if len(sys.argv) == 1:
         sys.exit('No filename given')
@@ -46,14 +50,14 @@ if __name__ == '__main__':
                                                      time[-1]*1e-3,
                                                      voxels[0],
                                                      voxels[-1]],
-                           cmap=plt.get_cmap("Reds"), vmin=0, vmax=vmax)
+                           cmap=plt.get_cmap("Reds"))
             ax.set_xlabel("time (sec)", fontsize=14)
             ax.set_ylabel("dendrite (um)", fontsize=14)
             fig.colorbar(im)
             
             ax.set_title("%s dynamics in %s um dend" % (specie, diam),
                          fontsize=14)
-            fig.savefig(fname[:-3]+"_"+key+".svg", dpi=100,
+            fig.savefig(fname[:-3]+"_"+key+".png", dpi=100,
                         bbox_inches="tight")
     
     
