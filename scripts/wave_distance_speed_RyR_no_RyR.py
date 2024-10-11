@@ -67,15 +67,13 @@ if __name__ == '__main__':
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
         "Ca_wave_no_RyR_simple_SERCA_SOCE": "blocked RyR",
     }
-    fig1 = utils.make_distance_fig_aging(directories,
-                                         descr,
+    fig1 = utils.make_spatial_specificity_fig_sep_dends(directories,
+                                         
                                          dend_diam,
                                          stims, what_species,
-                                         organization,
-                                         reg_list,
+                                         
                                          "all", 
                                          colors,
-                                         types,
-                                         marker)
+                                         types)
     fig1.savefig("RyR_no_RyR_distance.png", dpi=100, bbox_inches="tight")
     fig1.savefig("RyR_no_RyR_distance.eps", dpi=100, bbox_inches="tight")
