@@ -1423,3 +1423,85 @@ def make_spatiotemporal_specificity_fig_sep_dends(directories,  dend_diam,
         
             
     return fig1
+
+
+
+
+def make_distace_fig_sep_dends(directories,  dend_diam,
+                               stims, what_species,
+                               output_name, 
+                               colors, types, method="regular"):
+    fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(15, 5))
+    fillstyle= ["full", "none"]
+    if len(dend_diam) == 1:
+        ax1 = [ax1]
+   
+    base = "dend"
+    reg_list = [base, "dend01", "dend02", "dend03", "dend04",
+                "dend05", "dend06", "dend07", "dend08", "dend09",]
+    for i in range(10, 102, 1):
+        reg_list.append("%s%d" %(base, i))
+ 
+    for k, d in enumerate(directories):
+        my_path = os.path.join("..", d)
+        fname = directories[d]
+        for stim_type in [""]:
+            for j, diam in enumerate(dend_diam):
+                for inh in what_species:
+                    y = []
+                    y_err = []
+                    x = []
+                    for i, stim in enumerate(stims):
+                        new_fname = fname % (stim_type, inh, diam, stim)
+                        my_file = os.path.join(my_path, new_fname)
+                        try:
+                            conc_dict, times_dict = get_conc(my_file,
+                                                             ["Ca"],
+                                                             reg_list,
+                                                             output_name)
+                        except TypeError:
+                            continue
+                        try:
+                            dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                        except KeyError:
+                            continue
+                        length = get_length(my_file)
+                        try:
+                            dist, branch, delay = fit_distance(conc_dict["Ca"],
+                                                               dt,
+                                                               method=method,
+                                                               length=length)
+                                                                    
+                        except TypeError:
+                            continue
+                        y.append(delay.mean())
+                        y_err.append(delay.std()
+                                     /len(delay)**0.5)
+                        b_diam = float(diam)
+                        x.append(np.mean(branch)/1000)
+                    print(x, y, y_err)
+                    if not len(y):
+                        continue
+
+                    ax1[j].errorbar(x, y,  yerr=y_err,
+                                    color=colors[diam],
+                                    fillstyle=fillstyle[i],
+                                    label=types[d],
+                                    linestyle="")
+
+
+    ax1[-1].legend(loc=1)
+    #ax1[0].legend(loc=1)
+    ax1[0].set_ylabel("Spatial extent [um]", fontsize=20)
+    mini = min([min(x.get_ylim()) for x in ax1])
+    maxi = max([max(x.get_ylim()) for x in ax1])
+    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
+    for i, diam in enumerate(dend_diam):
+        
+        ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
+        ax1[i].set_ylim([mini, maxi])
+        if i:
+            ax1[i].set_yticks([])
+        
+            
+    return fig1
