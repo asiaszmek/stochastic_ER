@@ -865,7 +865,7 @@ def make_distance_fig_aging_CaER(directories,  dend_diam,
     for k, d in enumerate(directories):
         my_path = os.path.join("..", d)
         fname = directories[d]
-        for stim_type in ["", "_3s_injection"]:
+        for stim_type in [""]:    #, "_3s_injection"]:
             for j, diam in enumerate(dend_diam):
                 for inh in what_species:
                     y = []

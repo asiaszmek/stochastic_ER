@@ -15,8 +15,8 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE":"model_%s%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_no_RyR_simple_SERCA_SOCE":"model_%s%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"}
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE":"model_RyR2CaM%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_no_RyR_simple_SERCA_SOCE":"model_noRyR%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"}
 
 descr = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyR2CaM",
@@ -61,7 +61,7 @@ if __name__ == '__main__':
 
 
     
-    what_species = ["", "_3s_injection"]
+    what_species = ["tubes"]
     organization = ["tubes"]
     types = {
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",

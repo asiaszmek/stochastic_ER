@@ -67,10 +67,10 @@ if __name__ == '__main__':
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-    what_species = ["", "_3s_injection"]
+    what_species = [""]
     dur_dict = {
-        "": " EPSP",
-        "_3s_injection": " bAP"
+        "": "",  #   EPSP",
+        #"_3s_injection": " bAP"
     }
     organization = ["tubes"]
     fig1, fig2 = utils.make_distance_fig_aging_CaER(directories,
