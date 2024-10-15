@@ -72,7 +72,7 @@ if __name__ == '__main__':
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
-        
+    output_name = "all"        
     fig1 = utils.make_distance_fig_ratio(fname, directories, descr, dend_diam,
                                          stims, ["Ca"], reg_list, output_name,
                                          colors, types)

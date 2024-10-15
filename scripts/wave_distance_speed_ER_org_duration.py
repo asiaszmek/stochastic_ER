@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
 
     fname = "model_%s%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5"
-    what_species = ["", "_3s_injection"]
+    what_species = [""]  # , "_3s_injection"]
     organization = ["baloon", "tubes"]
     fig1 = utils.make_distance_fig_2_4(fname, directories, descr,
                                        dend_diam,

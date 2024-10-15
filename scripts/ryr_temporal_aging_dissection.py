@@ -3,19 +3,16 @@ import h5py
 import utility_functions as utils
 
 
-marker = {
-    "": "d",
-    "_3s_injection": "o"
+colors ={
+
+        "1.2": 'tab:blue',
+        "2.4": 'tab:purple',
+        "6.0": 'tab:green'
+
 }
 
            
 
-colors = {"Ca_wave_RyR2CaM_simple_SERCA_SOCE": 'k',
-          "Ca_wave_PMCA_aging":"orange",
-          "Ca_wave_aging":"r",
-          "Ca_wave_RyR2CaM_aging":"darkolivegreen",
-          "Ca_wave_normal_SERCA_aging": "gold",
-}
 stim_dend = "dend26"
 
 directories = {
@@ -67,6 +64,22 @@ if __name__ == '__main__':
         "Ca_wave_RyR2CaM_aging": "old age + RyRCaM",
         "Ca_wave_normal_SERCA_aging":"old age + ctrl SERCA",
     }
+    marker = {
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "o",
+        "Ca_wave_aging": "o",
+        "Ca_wave_PMCA_aging": "d",
+        "Ca_wave_RyR2CaM_aging": "^",
+        "Ca_wave_normal_SERCA_aging":"s",
+    }
+    fillstyle = {
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
+        "Ca_wave_aging": "none",
+        "Ca_wave_PMCA_aging": "none",
+        "Ca_wave_RyR2CaM_aging": "none",
+        "Ca_wave_normal_SERCA_aging":"none",
+    }
+
+    
     output_name = "all"
     fig1 = utils.make_decay_constant_fig_sep_dends(directories,
                                                    dend_diam,
@@ -74,7 +87,7 @@ if __name__ == '__main__':
                                                    organization,
                                                    output_name, 
                                                    colors,
-                                                   types)
+                                                   types, marker, fillstyle)
     fig1.savefig("Aging_temporal_dissection.png", dpi=100, bbox_inches="tight")
     fig1.savefig("Aging_temporal_dissection.eps", dpi=100, bbox_inches="tight")
 

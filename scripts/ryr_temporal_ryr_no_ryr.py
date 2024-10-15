@@ -4,13 +4,7 @@ import numpy as np
 import utility_functions as utils
 
 
-marker = {
-    "": "d",
-    "_3s_injection": "o"
-}
-
              
-
 colors = {"1.2": 'tab:blue',
           "2.4": 'tab:purple',
           "6.0": 'tab:green'}
@@ -59,13 +53,23 @@ if __name__ == '__main__':
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyR2CaM",
         "Ca_wave_no_RyR_simple_SERCA_SOCE": "noRyR",
     }
+    marker = {
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "o",
+        "Ca_wave_no_RyR_simple_SERCA_SOCE": "o",
+    }
+    fillstyle= {
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "full",
+        "Ca_wave_no_RyR_simple_SERCA_SOCE": "none",
+    }
     output_name = "all"
-    fig1 = utils.make_decay_constant_fig(directories,
-                                         dend_diam,
-                                         stims, what_species,
-                                         organization,
-                                         output_name, 
-                                         colors,
-                                         types)
+    fig1 = utils.make_decay_constant_fig_sep_dends(directories,
+                                                   dend_diam,
+                                                   stims, what_species,
+                                                   organization,
+                                                   output_name, 
+                                                   colors,
+                                                   types,
+                                                   marker,
+                                                   fillstyle)
     fig1.savefig("RyR_no_RyR_temporal_short.png", dpi=100, bbox_inches="tight")
 

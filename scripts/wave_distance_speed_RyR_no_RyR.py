@@ -1,12 +1,6 @@
 import os
 import utility_functions as utils
 
-marker = {
-    "": "d",
-    "_3s_injection": "o"
-}
-
-            
 
 colors = {"1.2": 'tab:blue',
           "2.4": 'tab:purple',
@@ -62,7 +56,6 @@ if __name__ == '__main__':
 
     
     what_species = ["tubes"]
-    organization = ["tubes"]
     types = {
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
         "Ca_wave_no_RyR_simple_SERCA_SOCE": "blocked RyR",
@@ -72,7 +65,6 @@ if __name__ == '__main__':
                                              stims, what_species,
                                              "all", 
                                              colors,
-                                             marker,
-                                             types)
+                                             types, marker="o")
     fig1.savefig("RyR_no_RyR_distance.png", dpi=100, bbox_inches="tight")
     fig1.savefig("RyR_no_RyR_distance.eps", dpi=100, bbox_inches="tight")

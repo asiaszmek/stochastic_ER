@@ -16,8 +16,8 @@ colors = {"1.2": 'tab:blue',
 stim_dend = "dend26"
 
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE":"model_%s%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_aging":"model_%s%s_simple_SERCA_%s_diam_%s_um_50_um_%s_nM.h5"}
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE":"model_RyR2CaM%s_simple_SERCA_SOCE_%s_diam_%s_um_50_um_%s_nM.h5",
+    "Ca_wave_aging":"model_aging%s_simple_SERCA_%s_diam_%s_um_50_um_%s_nM.h5"}
 
 descr = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "RyR2CaM",
@@ -62,23 +62,21 @@ if __name__ == '__main__':
         reg_list.append("%s%d" %(base, i))
 
 
+
     
-    what_species = ["", "_3s_injection"]
-    organization = ["tubes"]
+    what_species = ["tubes"]#, "_3s_injection"]
+
     types = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
     "Ca_wave_aging": "Old age",
     }
-    fig1 = utils.make_distance_fig_aging(directories,
-                                         descr,
-                                         dend_diam,
-                                         stims, what_species,
-                                         organization,
-                                         reg_list,
-                                         "all", 
-                                         colors,
-                                         types,
-                                         marker, method="regular")
+    fig1 = utils.make_distance_fig_sep_dends(directories,
+                                             dend_diam,
+                                             stims, what_species,
+                                             "all", 
+                                             colors,
+                                             types,
+                                             marker="o", method="regular")
     fig1.savefig("Aging_distance.png", dpi=100, bbox_inches="tight")
     fig1.savefig("Aging_distance.eps", dpi=100, bbox_inches="tight")
    
