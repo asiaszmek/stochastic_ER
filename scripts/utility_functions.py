@@ -394,6 +394,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
                         indices.append(j)
         if method == "regular":
             dx = distance[1]-distance[0]
+            print(dx)
             decays[i] = len(indices)*dx/2
         else:
             try:
@@ -587,8 +588,8 @@ def make_injection_vs_min_CaER(directories,  dend_diam,
                                 label=types[k],
                                 linestyle="", fillstyle=fillstyle[k])
                     
-                ax1[j].legend(loc='upper left')
-    ax1[0].legend(loc='center left', bbox_to_anchor=(1, 0.5))
+                ax1[j].legend(loc='lower left')
+
     ax1[0].set_ylabel("min Ca molecules in the ER [1e9]",
                    fontsize=20)
     ax1[0].set_xlabel("Peak Ca at stimulated site [um]", fontsize=20)
