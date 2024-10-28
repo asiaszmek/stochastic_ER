@@ -22,11 +22,11 @@ stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
 if __name__ == '__main__':
-    types = [ "ctrl",  "ctrl + old age RyR", "ctrl + old age PMCA",
+    types = [ "ctrl",  "old age + ctrl RyR", "ctrl + old age RyR",
               "old age",]
 
-    marker = ["o", "s", "^", "o"]
-    fillstyle = ["full", "none", "none", "none"]
+    marker = ["o", "s", "s", "o"]
+    fillstyle = ["full", "none", "full", "none"]
 
     output_name = "all"
     fig1 = utils.make_distance_fig_sep_dends(directories,
