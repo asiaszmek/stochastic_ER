@@ -394,7 +394,6 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
                         indices.append(j)
         if method == "regular":
             dx = distance[1]-distance[0]
-            print(dx)
             decays[i] = len(indices)*dx/2
         else:
             try:

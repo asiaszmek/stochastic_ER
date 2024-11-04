@@ -11,7 +11,7 @@ def Parser():
                         help='input files')
     parser.add_argument('--labels', default=None,
                         help='File labels')
-    parser.add_argument('--units', default='[nM/l^3]',
+    parser.add_argument('--units', default='[nM/l]',
                         help='concentration units')
     parser.add_argument('--output_name', default='',
                         help='name of the output files')
