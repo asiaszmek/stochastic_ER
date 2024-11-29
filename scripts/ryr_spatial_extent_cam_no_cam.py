@@ -121,11 +121,12 @@ directory ={
     "_no_CaM": "Ca_wave_simple_SERCA_SOCE",
     }
 
-stim_types = ["_3s_injection", ""]
+stim_types = [ ""]
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(5, 5))
 
-suffix = {"": " EPSP",
-          "_3s_injection": " bAP"}
+suffix = {"": "",
+          #"_3s_injection": " bAP"
+          }
 
 
 for k, b_diam in enumerate(branch_diams):
@@ -153,21 +154,13 @@ for k, b_diam in enumerate(branch_diams):
             print(x, y, y_err)
             if inh == "_CaM" and s == "":
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
-                        label=labels[inh]+" diam "+str(b_diam)+" EPSP",
-                        linestyle="")
+                            label=labels[inh]+" diam "+str(b_diam),
+                            linestyle="")
             elif inh == "_no_CaM" and s == "":
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
-                        label=labels[inh]+" diam "+str(b_diam)+" EPSP",
-                        linestyle="",
-                        fillstyle="none")
-            elif inh == "_CaM" and s == "_3s_injection":
-                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="o",
-                        label=labels[inh]+" diam "+str(b_diam)+" bAP",
-                        linestyle="")
-            else:
-                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="o",
-                        label=labels[inh]+" diam "+str(b_diam)+" bAP",
-                        linestyle="", fillstyle="none")
+                            label=labels[inh]+" diam "+str(b_diam),
+                            linestyle="",
+                            fillstyle="none")
 
 ax.set_ylabel("max(Calcium) [uM]", fontsize=20)
 ax.set_xlabel("total injected ions/diam [1/um]", fontsize=20)
