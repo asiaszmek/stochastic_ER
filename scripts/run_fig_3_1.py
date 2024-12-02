@@ -27,7 +27,7 @@ directories = [
 ]
 
 
-types = [ "uniform RyRCaM", "RyRCaM in EPJ", "uniform RyR no CaM", "RyR in the EPJ no CaM" ]
+types = [ "uniform RyR2CaM", "RyR2CaM in EPJ", "uniform RyR2 no CaM", "RyR2 in the EPJ no CaM" ]
 marker = ["o", "^", "o", "^"]
 fillstyle = ["full", "full", "none", "none"]
 stims = ["0175", "0350", "0700", "1050", "2000"]

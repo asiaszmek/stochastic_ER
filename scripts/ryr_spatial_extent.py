@@ -1,4 +1,6 @@
 import os
+import numpy as np
+import matplotlib.pyplot as plt
 import utility_functions as utils
 
 
@@ -6,10 +8,8 @@ colors = {1.2: "tab:blue",
           2.4: "tab:purple",
           6.0: "tab:green",
 }
-labels = {"no_SOCEbaloon": "no CaM no SOCE",
-          "baloon": "RyRCaM in EPJ",
-          "no_SOCEtubes": "ctrl no SOCE",
-          "tubes": "uniform RyRCaM",
+labels = {"baloon": "RyR2CaM in EPJ",
+          "tubes": "uniform RyR2CaM",
 }
 
 

@@ -643,6 +643,8 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                 for i, stim in enumerate(stims):
                     new_fname = fname % (stim_type, diam, stim)
                     my_file = os.path.join(my_path, new_fname)
+                    if diam == "1.2" and new_fname.startswith("model_RyR_simple_SERCA_SOCE_") and stim == "0175":
+                        continue
                     try:
                         conc_dict, times_dict = get_conc(my_file,
                                                          ["Ca"],
@@ -663,8 +665,9 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                             t1 = fit_exp(time, ca, dt)
                         except ValueError:
                             continue
-                        t_decays1[i] = t1
-                        ca_means[i] = ca.max()/1000
+                        if t1 > 0:
+                            t_decays1[i] = t1
+                            ca_means[i] = ca.max()/1000
                     x.append(ca_means.mean())
                     y.append(t_decays1.mean())
                     y_err.append(t_decays1.std()/len(t_decays1)**0.5)

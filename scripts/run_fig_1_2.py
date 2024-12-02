@@ -26,7 +26,7 @@ dend_diam = ["1.2", "2.4", "6.0"]
 
 
 if __name__ == '__main__':
-    types = ["uniform RyRCaM", "RyRCaM in EPJ", "no RyR"]
+    types = ["uniform RyR2CaM", "RyR2CaM in EPJ", "no RyR2"]
     marker = [ "o", "^", "o" ]
     fillstyle= ["full", "full", "none"]
     output_name = "all"

@@ -2,6 +2,7 @@ import os
 import sys
 import h5py
 import numpy as np
+from scipy.fft import fft, fftfreq, fftshift
 import matplotlib.pyplot as plt
 import utility_functions as ut
 colors =  {
@@ -11,12 +12,12 @@ colors =  {
 }
 
 names_dict = {
-    "ctrl" : "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    "blocked RyR2": "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    "RyR no CaM": "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
-    "low PMCA": "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "low PMCA, RyR no CaM": "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "low PMCA, old age RyR": "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
+    "normal PMCA + RyR2CaM" : "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
+    "normal PMCA + no RyR2": "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
+    "normal PMCA + RyR2": "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
+    "low PMCA + RyR2CaM": "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    "low PMCA, RyR2 no CaM": "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    "low PMCA + 50% RyR2 + 50% RyR2CaM": "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
 }
 
 dend_diam = ["1.2", "2.4", "6.0"]
@@ -55,3 +56,4 @@ if __name__ == "__main__":
     fig1.savefig("mean_basal_ca.png", dpi=100,
                  bbox_inches="tight")
                     
+

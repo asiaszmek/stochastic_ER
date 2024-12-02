@@ -30,7 +30,7 @@ dend_diam = ["1.2", "2.4", "6.0"]
 
 
 if __name__ == '__main__':
-    types = ["uniform RyRCaM", "RyRCaM in EPJ", "old age uniform RyRCaM", "old age RyRCaM in EPJ"]
+    types = ["uniform RyR2CaM", "RyR2CaM in EPJ", "old age uniform RyR2 and RyR2CaM", "old age RyR2 and RyR2CaM in EPJ"]
     marker = [ "o", "^", "o" , "^"]
     fillstyle= ["full", "full", "none", "none"]
     output_name = "all"
