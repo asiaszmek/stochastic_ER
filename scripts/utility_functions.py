@@ -756,7 +756,10 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
                                 fillstyle=fillstyle[k],
                                 label=types[k], marker=marker[k],
                                 linestyle="")
-                ax1[j].legend(loc="lower right")
+                if len(directories) == 4 and j == 2:
+                    ax1[j].legend(loc="center right")
+                else:
+                    ax1[j].legend(loc="lower right")
     ax1[0].set_ylabel("Spatial extent [um]", fontsize=20)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
@@ -768,3 +771,36 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
         if i:
             ax1[i].set_yticks([])
     return fig1
+
+
+# fig.suptitle(path)
+# ax[0].imshow(new_conc,  aspect="auto",
+#              interpolation="none",
+#              origin="lower", extent = [0, 1000, 0.5, 51],
+#              cmap=plt.get_cmap("Reds"))
+# ax[1].imshow(edges,  aspect="auto",
+#              interpolation="none",
+#              origin="lower", extent = [0, 1000, 0.5, 51],
+#              cmap=plt.get_cmap("Reds"))
+# ax[2].imshow(new_conc,  aspect="auto",
+#              interpolation="none",
+#              origin="lower", extent = [0, 1000, 0.5, 51],
+#              cmap=plt.get_cmap("Reds"))
+
+# for clust in new_clusters:
+#     #print(clust)
+#     p0, p1 = clust
+#     ax[2].plot((p0[1]*0.2, p1[1]*0.2), (p0[0]/2+1/2,
+#                                         p0[0]/2+1/2),
+#                linewidth=1)
+#     ax[2].plot((p0[1]*0.2, p1[1]*0.2), (p1[0]/2+1/2,
+#                                         p1[0]/2+1/2),
+#                linewidth=1)
+#     ax[2].plot((p0[1]*0.2, p0[1]*0.2), (p0[0]/2+1/2,
+#                                         p1[0]/2+1/2),
+#                linewidth=1)
+#     ax[2].plot((p1[1]*0.2, p1[1]*0.2), (p0[0]/2+1/2,
+#                                         p1[0]/2+1/2),
+#                linewidth=1)
+
+# plt.show()
