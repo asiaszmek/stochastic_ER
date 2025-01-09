@@ -414,7 +414,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
     return distance, branch, decays
 
 
-def make_distance_fig_ratio(fname, directories_list, descr, dend_diam, stims,
+def make_distance_fig_ratio(directories_list, dend_diam, stims,
                             what_species, region_list, output_name,
                             colors, types, method="regular"):
     # 0 -- denominator,
@@ -426,13 +426,11 @@ def make_distance_fig_ratio(fname, directories_list, descr, dend_diam, stims,
 
 
     paradigm_dict = {
-        0: "",
-        1: "_3s_injection"}
+        0: ""}
     l = 0
-    inh = ""
-    for k, d in enumerate(directories_list):
+    for k, [d, fname] in enumerate(directories_list.items()):
         my_path = os.path.join("..", d)
-        add = descr[d]
+        
         im_list = {}
         if not k%2:
             res_den = {}
@@ -450,7 +448,7 @@ def make_distance_fig_ratio(fname, directories_list, descr, dend_diam, stims,
                 x_den[diam] = []
   
             for i, stim in enumerate(stims):
-                new_fname = fname % (add, inh, diam, stim)
+                new_fname = fname % (diam, stim)
                 my_file = os.path.join(my_path, new_fname)
                     
 
@@ -469,7 +467,9 @@ def make_distance_fig_ratio(fname, directories_list, descr, dend_diam, stims,
                                                        length=length)
                     
                 except KeyError:
-                    continue
+                    if k % 2:   #  numerator
+                        res_num[diam].append([])
+                        x_num[diam].append([])
                 if k % 2:   #  numerator
                     res_num[diam].append(delay)
                     x_num[diam].append(branch)
@@ -479,30 +479,29 @@ def make_distance_fig_ratio(fname, directories_list, descr, dend_diam, stims,
                     x_den[diam].append(branch)
             b_diam = float(diam)
             if k%2:
+                print(res_num[diam])
                 out_num = np.array(res_num[diam])
                 out_den = np.array(res_den[diam])
-                ratio = out_num/out_den
+                ratio = out_num/out_den[:len(out_num)]
                 x_num[diam] = np.array(x_num[diam])
                 x_den[diam] = np.array(x_den[diam])
                 y = ratio.mean(axis=1)
-                x = (x_num[diam]+x_den[diam]).mean(axis=1)/2
+                x = (x_num[diam]+x_den[diam][:len(out_num)]).mean(axis=1)/2
                 y_err = ratio.std(axis=1)/(len(y)**.5)
                 x = x.reshape((len(x),))
                 y = y.reshape((len(y),))
                 y_err = y_err.reshape((len(y_err),))
             if k == 1:
                 print(x, y, y_err)
-                print(types[d]+"/100% ER diam " +diam)
-                ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
+                ax1[j].errorbar(x, y, yerr=y_err,  color=colors[diam],
                              marker="o",
-                             label=types[d]+"/100% ER diam " +diam,
+                             label=types[d] +diam,
                              linestyle="")
             if k == 3:
                 print(x, y, y_err)
-                print(types[d]+"/100% ER diam " +diam)
                 ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
                              marker="o",
-                             label=types[d]+"/100% ER diam "+diam, linestyle="",
+                             label=types[d]+diam, linestyle="",
                              fillstyle="none")
             ax1[j].legend()
     ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
