@@ -14,13 +14,17 @@ colors =  {
 }
 
 names_dict = {
-    # "ctrl" : "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
+    "100%\n 100% \n0" : "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
     # "normal PMCA + no RyR2": "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
     # "normal PMCA + RyR2": "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
-    "low PMCA + RyR2CaM": "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-   "low PMCA, RyR2 no CaM": "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "low PMCA + 50% RyR2 + 50% RyR2CaM": "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
-   "low PMCA + 2x(50% RyR2 + 50% RyR2CaM)": "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
+    # "low PMCA, RyR2CaM": "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    "80%\n 100% \n 0":
+    "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    "80%\n 50%\n 50%": "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
+   "80%\n 0 \n 100%": "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    # "low PMCA, RyR2 no CaM, SOCE":
+    # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
+   "80%\n 100%\n 100%": "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
 }
 
 dend_diam = ["1.2", "2.4", "6.0"]
@@ -187,12 +191,22 @@ if __name__ == "__main__":
                     continue
                 where = np.where(new_conc > 2.5*76)
                 if not len(where[0]):
+                    peak_no.append(0)
+                    peak_dis.append(0)
+                    peak_width.append(0)
+                    peak_len.append(get_len(p1, p2))
+                    peak_amp.append(0)
+                    peak_start.append(0)
                     continue
-
+                
                 my_clusters = find_clusters(where)
                 new_clusters = purge_clusters(my_clusters)
                 peak_no.append(len(new_clusters))
-                peak_dist.extend(get_ipi(new_clusters))
+                peak_dis = get_ipi(new_clusters)
+                if len(peak_dist):
+                    peak_dist.extend(get_ipi(new_clusters))
+                else:
+                    peak_dist.append(0)
                                  
                 for j, nc in enumerate(new_clusters):
                     p1, p2 = nc
@@ -201,7 +215,11 @@ if __name__ == "__main__":
                     peak_amp.append(new_conc[p1[0]:p2[0]+1,
                                              p1[1]:p2[1]+1].max())
                     peak_start.append(new_conc[:, p1[1]].argmax()/2)
-
+                else:
+                    peak_width.append(0)
+                    peak_len.append(0)
+                    peak_amp.append(0)
+                    peak_start.append(0)
                     
             print(path)
             xlabels.append(key)
@@ -225,32 +243,32 @@ if __name__ == "__main__":
             dist_std.append(peak_dist.std()/len(peak_dist)**.5)
             
             if len(peak_start):
-                ax_m_peak_init[i].plot(peak_start, xlabels_for_peak_start,
+                ax_m_peak_init[i].plot(xlabels_for_peak_start, peak_start,
                                        color=colors[d],
                                        marker="o", linestyle="")
-        ax_peak_no.errorbar(y=xlabels, x=no_mean,
-                            xerr=no_std,
+        ax_peak_no.errorbar(x=xlabels, y=no_mean,
+                            yerr=no_std,
                             color=colors[d],
                             marker="o", linestyle="",
                             label="%s um diam" % d)
 
-        ax_m_peak_amp.errorbar(y=xlabels, x=amp_mean,
-                               xerr=amp_std,
+        ax_m_peak_amp.errorbar(x=xlabels, y=amp_mean,
+                               yerr=amp_std,
                                color=colors[d],
                                marker="o", linestyle="",
                                label="%s um diam" % d)
-        ax_m_peak_width.errorbar(y=xlabels, x=width_mean,
-                                 xerr=width_std,
+        ax_m_peak_width.errorbar(x=xlabels, y=width_mean,
+                                 yerr=width_std,
                                  color=colors[d],
                                  marker="o", linestyle="",
                                  label="%s um diam" % d)
-        ax_m_peak_len.errorbar(y=xlabels, x=len_mean,
-                               xerr=len_std,
+        ax_m_peak_len.errorbar(x=xlabels, y=len_mean,
+                               yerr=len_std,
                                color=colors[d],
                                marker="o", linestyle="",
                                label="%s um diam" % d)
-        ax_m_peak_dist.errorbar(y=xlabels, x=dist_mean,
-                                xerr=dist_std,
+        ax_m_peak_dist.errorbar(x=xlabels, y=dist_mean,
+                                yerr=dist_std,
                                 color=colors[d],
                                 marker="o", linestyle="",
                                 label="%s um diam" % d)
@@ -259,24 +277,61 @@ if __name__ == "__main__":
             ax_m_peak_init[i].set_yticklabels([])
 
         ax_m_peak_init[i].set_title("diam %s um" % d)
-        ax_m_peak_init[i].set_xlabel("initiation on dendrite [um]")
-
-    ax_peak_no.set_xlabel("# calcium peaks")
-    ax_m_peak_amp.set_xlabel("mean Ca peak amplitude (nM)")
-    ax_m_peak_width.set_xlabel("mean Ca peak width (s)")
-    ax_m_peak_len.set_xlabel("mean Ca peak len (s)")
-    ax_m_peak_dist.set_xlabel("mean interval between peaks (s)")
+        ax_m_peak_init[i].set_ylabel("initiation on dendrite [um]",
+                                     fontsize=20)
+        ax_m_peak_init[i].set_xticklabels(xlabels)
+    ax_peak_no.set_ylabel("# calcium peaks",
+                          fontsize=20)
+    ax_m_peak_amp.set_ylabel("Ca peak amplitude (nM)",
+                             fontsize=20)
+    ax_m_peak_width.set_ylabel("Ca peak width (s)",
+                               fontsize=20)
+    ax_m_peak_len.set_ylabel("Ca peak len (s)",
+                             fontsize=20)
+    ax_m_peak_dist.set_ylabel("inter-peak-interval (s)",
+                              fontsize=20)
         
-    ax_peak_no.set_yticklabels(xlabels)
-    ax_m_peak_amp.set_yticklabels(xlabels)
-    ax_m_peak_width.set_yticklabels(xlabels)
-    ax_m_peak_len.set_yticklabels(xlabels)
-    ax_m_peak_dist.set_yticklabels(xlabels)
+    ax_peak_no.set_xticklabels(xlabels)
+    ax_m_peak_amp.set_xticklabels(xlabels)
+    ax_m_peak_width.set_xticklabels(xlabels)
+    ax_m_peak_len.set_xticklabels(xlabels)
+    ax_m_peak_dist.set_xticklabels(xlabels)
+    legend = "PMCA kcat\nRyR2CaM\nRyR2"
     ax_peak_no.legend()
     ax_m_peak_amp.legend()
     ax_m_peak_width.legend()
     ax_m_peak_len.legend()
     ax_m_peak_dist.legend()
+    ax_m_peak_init[0].text(-1.25, min(ax_m_peak_init[0].get_ylim())
+                    -(max(ax_m_peak_init[0].get_ylim())
+                      -min(ax_m_peak_init[0].get_ylim()))*0.1388,
+                           legend,
+                    horizontalalignment='left')
+    ax_peak_no.text(-1.25, min(ax_peak_no.get_ylim())
+                    -(max(ax_peak_no.get_ylim())
+                      -min(ax_peak_no.get_ylim()))*0.1388,
+                           legend,
+                    horizontalalignment='left')
+    ax_m_peak_amp.text(-1.25, min(ax_m_peak_amp.get_ylim())
+                    -(max(ax_m_peak_amp.get_ylim())
+                      -min(ax_m_peak_amp.get_ylim()))*0.1388,
+                           legend,
+                    horizontalalignment='left')
+    ax_m_peak_width.text(-1.25, min(ax_m_peak_width.get_ylim())
+                    -(max(ax_m_peak_width.get_ylim())
+                      -min(ax_m_peak_width.get_ylim()))*0.1388,
+                           legend,
+                    horizontalalignment='left')
+    ax_m_peak_len.text(-1.25, min(ax_m_peak_len.get_ylim())
+                    -(max(ax_m_peak_len.get_ylim())
+                      -min(ax_m_peak_len.get_ylim()))*0.1388,
+                           legend,
+                    horizontalalignment='left')
+    ax_m_peak_dist.text(-1.25, min(ax_m_peak_dist.get_ylim())
+                    -(max(ax_m_peak_dist.get_ylim())
+                      -min(ax_m_peak_dist.get_ylim()))*0.1388,
+                           legend,
+                    horizontalalignment='left')
     
 
     fig_peak_no.savefig("mean_peak_no.png", dpi=100,

@@ -13,20 +13,38 @@ colors =  {
     "6.0": 'tab:green'
 }
 names_dict = {
-    "ctrl" :
+    # "ctrl" :
+    # "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
+    # "normal PMCA + no RyR2":
+    # "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
+    # "normal PMCA + RyR2":
+    # "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
+    # "low PMCA + RyR2CaM":
+    # "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    # "low PMCA, RyR2 no CaM":
+    # "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    # # "low PMCA, RyR2 no CaM, SOCE":
+    # # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    # "low PMCA + 50% RyR2 + 50% RyR2CaM":
+    # "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    # "low PMCA + 2x(50% RyR2 + 50% RyR2CaM)":
+    # "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    "100%\n 100% \n0" :
     "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    "normal PMCA + no RyR2":
+    "100%\n 0 \n 0":
     "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    "normal PMCA + RyR2":
+    "100%\n 0 \n 100%":
     "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
-    "low PMCA + RyR2CaM":
+    "80%\n 100% \n 0":
     "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "low PMCA, RyR2 no CaM":
+    "80%\n 0 \n 100%":
     "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "low PMCA + 50% RyR2 + 50% RyR2CaM":
+    # "low PMCA, RyR2 no CaM, SOCE":
+    # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    "80%\n 50%\n 50%":
     "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
-    "low PMCA + 2x(50% RyR2 + 50% RyR2CaM)":
-    "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
+    "80%\n 100%\n 100%":
+    "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
 }
 
 
@@ -78,14 +96,20 @@ if __name__ == "__main__":
             x_labels.append(key)
     
  
-        ax_m_ca[i].errorbar(y=x_labels, x=means, xerr=stds,
+        ax_m_ca[i].errorbar(x=x_labels, y=means, yerr=stds,
                         color=colors[d],
                         marker="o", linestyle="")
         ax_m_ca[i].set_title("diam %s um" % d)
         ax_m_ca[i].set_yticklabels([])
-        ax_m_ca[i].set_xlabel("mean Ca (nM)")
-        
-    ax_m_ca[0].set_yticklabels(x_labels)
+    ax_m_ca[0].set_ylabel("mean Ca (nM)",
+                          fontsize=20)
+    legend = "PMCA kcat\nRyR2CaM\nRyR2"
+   
+    ax_m_ca[0].text(-2.5, min(ax_m_ca[0].get_ylim())
+                    -(max(ax_m_ca[0].get_ylim())
+                      -min(ax_m_ca[0].get_ylim()))*0.1388, legend,
+                    horizontalalignment='left')
+    #ax_m_ca[0].set_xticklabels(x_labels, rotation=90)
     adjust_axes(ax_m_ca)
     fig_m_ca.savefig("mean_basal_ca.png", dpi=100,
                  bbox_inches="tight")
