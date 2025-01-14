@@ -479,7 +479,7 @@ def make_distance_fig_ratio(directories_list, dend_diam, stims,
                     x_den[diam].append(branch)
             b_diam = float(diam)
             if k%2:
-                print(res_num[diam])
+
                 out_num = np.array(res_num[diam])
                 out_den = np.array(res_den[diam])
                 ratio = out_num/out_den[:len(out_num)]
@@ -494,15 +494,22 @@ def make_distance_fig_ratio(directories_list, dend_diam, stims,
             if k == 1:
                 print(x, y, y_err)
                 ax1[j].errorbar(x, y, yerr=y_err,  color=colors[diam],
-                             marker="o",
-                             label=types[d] +diam,
-                             linestyle="")
+                                marker="o",
+                                label=types[d],
+                                linestyle="")
             if k == 3:
                 print(x, y, y_err)
                 ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
-                             marker="o",
-                             label=types[d]+diam, linestyle="",
-                             fillstyle="none")
+                                marker="d",
+                                label=types[d], linestyle="",
+                                fillstyle="none")
+            if k == 5:
+                print(x, y, y_err)
+                ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
+                                marker="d",
+                                label=types[d], linestyle="",
+                                fillstyle="fill")
+
             ax1[j].legend()
     ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     ax1[0].set_ylabel("Spatial extent ratio [um]", fontsize=20)
