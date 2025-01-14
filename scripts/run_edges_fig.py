@@ -14,7 +14,7 @@ colors =  {
 }
 
 names_dict = {
-    "100%\n 100% \n0" : "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
+   
     # "normal PMCA + no RyR2": "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
     # "normal PMCA + RyR2": "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
     # "low PMCA, RyR2CaM": "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
@@ -141,6 +141,15 @@ def get_ipi(clusters):
     return peak_dist
 
 
+def adjust_axes(ax):
+    mini = min([min(x.get_ylim()) for x in ax])
+    maxi = max([max(x.get_ylim()) for x in ax])
+    for x in ax:
+      
+        x.set_ylim([mini, maxi])
+
+
+
 if __name__ == "__main__":
     data_dir = os.path.join("..", "stacked_ER")
     x_labels = list(names_dict.keys())
@@ -162,7 +171,7 @@ if __name__ == "__main__":
                                                    figsize=(len(dend_diam)*5,
                                                             5))
    
-    
+    ax_m_peak_init = ax_m_peak_init
     for i, d in enumerate(dend_diam):
         no_mean = []
         no_std = []
@@ -177,6 +186,7 @@ if __name__ == "__main__":
         xlabels = []
         for key, fname in names_dict.items():
             path = os.path.join(data_dir, fname % d)
+            print(path)
             my_file = h5py.File(path)
             grid_list = ut.get_grid_list(my_file)
             peak_no = []
@@ -190,11 +200,12 @@ if __name__ == "__main__":
                 if new_conc is None:
                     continue
                 where = np.where(new_conc > 2.5*76)
+              
                 if not len(where[0]):
                     peak_no.append(0)
-                    peak_dis.append(0)
+                    peak_dist.append(0)
                     peak_width.append(0)
-                    peak_len.append(get_len(p1, p2))
+                    peak_len.append(0)
                     peak_amp.append(0)
                     peak_start.append(0)
                     continue
@@ -202,7 +213,7 @@ if __name__ == "__main__":
                 my_clusters = find_clusters(where)
                 new_clusters = purge_clusters(my_clusters)
                 peak_no.append(len(new_clusters))
-                peak_dis = get_ipi(new_clusters)
+                peak_dist = get_ipi(new_clusters)
                 if len(peak_dist):
                     peak_dist.extend(get_ipi(new_clusters))
                 else:
@@ -221,15 +232,14 @@ if __name__ == "__main__":
                     peak_amp.append(0)
                     peak_start.append(0)
                     
-            print(path)
+            
             xlabels.append(key)
-            print(peak_start)
+            
             peak_no = np.array(peak_no)
             peak_amp = np.array(peak_amp)
             peak_width = np.array(peak_width)
             peak_len = np.array(peak_len)
             peak_dist = np.array(peak_dist)
-            
             xlabels_for_peak_start = [key]*len(peak_start)
             no_mean.append(peak_no.mean())
             no_std.append(peak_no.std()/len(peak_no)**.5)
@@ -302,6 +312,7 @@ if __name__ == "__main__":
     ax_m_peak_width.legend()
     ax_m_peak_len.legend()
     ax_m_peak_dist.legend()
+    adjust_axes(ax_m_peak_init)
     ax_m_peak_init[0].text(-1.25, min(ax_m_peak_init[0].get_ylim())
                     -(max(ax_m_peak_init[0].get_ylim())
                       -min(ax_m_peak_init[0].get_ylim()))*0.1388,
@@ -341,6 +352,8 @@ if __name__ == "__main__":
     fig_m_peak_dist.savefig("mean_peak_dist.png", dpi=100,
                             bbox_inches="tight")
     fig_m_peak_width.savefig("mean_peak_width.png", dpi=100,
+                            bbox_inches="tight")
+    fig_m_peak_len.savefig("mean_peak_len.png", dpi=100,
                             bbox_inches="tight")
     fig_m_peak_init.savefig("peak_init.png", dpi=100,
                             bbox_inches="tight")

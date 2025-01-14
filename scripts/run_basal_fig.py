@@ -53,11 +53,11 @@ output = "__main__"
 
 
 def adjust_axes(ax):
-    mini = min([min(x.get_xlim()) for x in ax])
-    maxi = max([max(x.get_xlim()) for x in ax])
+    mini = min([min(x.get_ylim()) for x in ax])
+    maxi = max([max(x.get_ylim()) for x in ax])
     for x in ax:
       
-        x.set_xlim([mini, maxi])
+        x.set_ylim([mini, maxi])
 
 
 if __name__ == "__main__":
@@ -100,16 +100,17 @@ if __name__ == "__main__":
                         color=colors[d],
                         marker="o", linestyle="")
         ax_m_ca[i].set_title("diam %s um" % d)
-        ax_m_ca[i].set_yticklabels([])
+        if i:
+            ax_m_ca[i].set_yticklabels([])
     ax_m_ca[0].set_ylabel("mean Ca (nM)",
                           fontsize=20)
     legend = "PMCA kcat\nRyR2CaM\nRyR2"
-   
+    adjust_axes(ax_m_ca)
     ax_m_ca[0].text(-2.5, min(ax_m_ca[0].get_ylim())
                     -(max(ax_m_ca[0].get_ylim())
                       -min(ax_m_ca[0].get_ylim()))*0.1388, legend,
                     horizontalalignment='left')
     #ax_m_ca[0].set_xticklabels(x_labels, rotation=90)
-    adjust_axes(ax_m_ca)
+   
     fig_m_ca.savefig("mean_basal_ca.png", dpi=100,
                  bbox_inches="tight")
