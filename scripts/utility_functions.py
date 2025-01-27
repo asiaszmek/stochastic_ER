@@ -414,7 +414,7 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
     return distance, branch, decays
 
 
-def make_distance_fig_ratio(directories_list, dend_diam, stims,
+def make_distance_fig_ratio(dir_list, directories_dict, dend_diam, stims,
                             what_species, region_list, output_name,
                             colors, types, method="regular"):
     # 0 -- denominator,
@@ -428,7 +428,8 @@ def make_distance_fig_ratio(directories_list, dend_diam, stims,
     paradigm_dict = {
         0: ""}
     l = 0
-    for k, [d, fname] in enumerate(directories_list.items()):
+    for k, d in enumerate(dir_list):
+        fname = directories_dict[d]
         my_path = os.path.join("..", d)
         
         im_list = {}
@@ -479,7 +480,6 @@ def make_distance_fig_ratio(directories_list, dend_diam, stims,
                     x_den[diam].append(branch)
             b_diam = float(diam)
             if k%2:
-
                 out_num = np.array(res_num[diam])
                 out_den = np.array(res_den[diam])
                 ratio = out_num/out_den[:len(out_num)]
@@ -491,16 +491,18 @@ def make_distance_fig_ratio(directories_list, dend_diam, stims,
                 x = x.reshape((len(x),))
                 y = y.reshape((len(y),))
                 y_err = y_err.reshape((len(y_err),))
+            elif k:
+                print(out_num, out_den)
             if k == 1:
                 print(x, y, y_err)
                 ax1[j].errorbar(x, y, yerr=y_err,  color=colors[diam],
-                                marker="o",
+                                marker="d",
                                 label=types[d],
-                                linestyle="")
+                                linestyle="", fillstyle="none")
             if k == 3:
                 print(x, y, y_err)
                 ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
-                                marker="d",
+                                marker="o",
                                 label=types[d], linestyle="",
                                 fillstyle="none")
             if k == 5:
@@ -508,7 +510,7 @@ def make_distance_fig_ratio(directories_list, dend_diam, stims,
                 ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
                                 marker="d",
                                 label=types[d], linestyle="",
-                                fillstyle="fill")
+                                fillstyle="full")
 
             ax1[j].legend()
     ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
