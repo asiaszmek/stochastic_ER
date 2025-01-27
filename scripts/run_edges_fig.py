@@ -1,7 +1,6 @@
 import os
 import sys
 import h5py
-from skimage.transform import hough_line, hough_line_peaks, probabilistic_hough_line
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,13 +17,15 @@ names_dict = {
     # "normal PMCA + no RyR2": "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
     # "normal PMCA + RyR2": "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
     # "low PMCA, RyR2CaM": "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "80%\n 100% \n 0":
+    "80%\n100%\n0%":
     "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "80%\n 50%\n 50%": "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
-   "80%\n 0 \n 100%": "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    # "low PMCA, RyR2 no CaM, SOCE":
+    "80%\n50%\n50%": "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
+   "80%\n0\n100%": "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    # "80%\n0\n100%\n100%":
     # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
-   "80%\n 100%\n 100%": "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
+    "80%\n100%\n100%": "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    "80%\n200%\n200%": "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
+    
 }
 
 dend_diam = ["1.2", "2.4", "6.0"]
@@ -209,15 +210,12 @@ if __name__ == "__main__":
                     peak_amp.append(0)
                     peak_start.append(0)
                     continue
-                
+
                 my_clusters = find_clusters(where)
                 new_clusters = purge_clusters(my_clusters)
                 peak_no.append(len(new_clusters))
-                peak_dist = get_ipi(new_clusters)
-                if len(peak_dist):
-                    peak_dist.extend(get_ipi(new_clusters))
-                else:
-                    peak_dist.append(0)
+                peak_dist.append(len(new_clusters)/(new_conc.shape[1]*0.2))
+                
                                  
                 for j, nc in enumerate(new_clusters):
                     p1, p2 = nc
@@ -298,7 +296,7 @@ if __name__ == "__main__":
                                fontsize=20)
     ax_m_peak_len.set_ylabel("Ca peak len (s)",
                              fontsize=20)
-    ax_m_peak_dist.set_ylabel("inter-peak-interval (s)",
+    ax_m_peak_dist.set_ylabel("peak frequency (Hz)",
                               fontsize=20)
         
     ax_peak_no.set_xticklabels(xlabels)
@@ -306,7 +304,7 @@ if __name__ == "__main__":
     ax_m_peak_width.set_xticklabels(xlabels)
     ax_m_peak_len.set_xticklabels(xlabels)
     ax_m_peak_dist.set_xticklabels(xlabels)
-    legend = "PMCA kcat\nRyR2CaM\nRyR2"
+    legend = "PMCA kcat\nRyR2CaM\nRyR2"#\nSOCE"
     ax_peak_no.legend()
     ax_m_peak_amp.legend()
     ax_m_peak_width.legend()

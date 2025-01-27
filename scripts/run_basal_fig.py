@@ -29,22 +29,24 @@ names_dict = {
     # "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
     # "low PMCA + 2x(50% RyR2 + 50% RyR2CaM)":
     # "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
-    "100%\n 100% \n0" :
+    "100%\n100%\n0%" :
     "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    "100%\n 0 \n 0":
+    "100%\n0\n0%":
     "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    "100%\n 0 \n 100%":
+    "100%\n0\n100%%":
     "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
-    "80%\n 100% \n 0":
-    "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "80%\n 0 \n 100%":
+    # "80%\n100%\n0\n100%":
+    # "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+    "80%\n0\n100%":
     "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    # "low PMCA, RyR2 no CaM, SOCE":
-    # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
-    "80%\n 50%\n 50%":
+    "80%\n0\n100%%":
+    "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    "80%\n50%\n50%":
     "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
-    "80%\n 100%\n 100%":
+    "80%\n100%\n100%":
     "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    "80%\n200%\n200%":
+    "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
 }
 
 
@@ -104,7 +106,7 @@ if __name__ == "__main__":
             ax_m_ca[i].set_yticklabels([])
     ax_m_ca[0].set_ylabel("mean Ca (nM)",
                           fontsize=20)
-    legend = "PMCA kcat\nRyR2CaM\nRyR2"
+    legend = "PMCA kcat\nRyR2CaM\nRyR2" #\nSOCE"
     adjust_axes(ax_m_ca)
     ax_m_ca[0].text(-2.5, min(ax_m_ca[0].get_ylim())
                     -(max(ax_m_ca[0].get_ylim())
