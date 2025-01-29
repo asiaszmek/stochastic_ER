@@ -435,17 +435,21 @@ def make_distance_fig_ratio(dir_list, directories_dict, dend_diam, stims,
         im_list = {}
         if not k%2:
             res_den = {}
+            res_den_error = {}
             x_den = {}
         if k%2:
             res_num = {}
+            res_num_error = {}
             x_num = {}
 
         for j, diam in enumerate(dend_diam):
             if k%2 and diam not in res_num:
                 res_num[diam] = []
                 x_num[diam] = []
+                res_num_error[diam]=[]
             elif not k%2 and diam not in res_den:
                 res_den[diam] = []
+                res_den_error[diam] = []
                 x_den[diam] = []
   
             for i, stim in enumerate(stims):
@@ -466,33 +470,38 @@ def make_distance_fig_ratio(dir_list, directories_dict, dend_diam, stims,
                     dist, branch, delay = fit_distance(conc_dict["Ca"],
                                                        dt, method=method,
                                                        length=length)
-                    
                 except KeyError:
                     if k % 2:   #  numerator
                         res_num[diam].append([])
                         x_num[diam].append([])
+                        res_num_error[diam].append([])
                 if k % 2:   #  numerator
-                    res_num[diam].append(delay)
+                    res_num[diam].append(delay.mean())
+                    res_num_error[diam].append(delay.std()/len(delay)**0.5)
                     x_num[diam].append(branch)
                   
                 else:
-                    res_den[diam].append(delay)
+                    res_den[diam].append(delay.mean())
+                    res_den_error[diam].append(delay.std()/len(delay)**0.5)
                     x_den[diam].append(branch)
             b_diam = float(diam)
             if k%2:
                 out_num = np.array(res_num[diam])
                 out_den = np.array(res_den[diam])
-                ratio = out_num/out_den[:len(out_num)]
+                err_num = np.array(res_num_error[diam])
+                err_den = np.array(res_den_error[diam])
+
+                ratio = out_num/out_den
                 x_num[diam] = np.array(x_num[diam])
                 x_den[diam] = np.array(x_den[diam])
-                y = ratio.mean(axis=1)
+                print(ratio)
+                y = ratio
                 x = (x_num[diam]+x_den[diam][:len(out_num)]).mean(axis=1)/2
-                y_err = ratio.std(axis=1)/(len(y)**.5)
+                y_err = ((err_num/out_den)**2+(ratio/out_den*err_den)**2)**0.5
                 x = x.reshape((len(x),))
                 y = y.reshape((len(y),))
                 y_err = y_err.reshape((len(y_err),))
-            elif k:
-                print(out_num, out_den)
+            
             if k == 1:
                 print(x, y, y_err)
                 ax1[j].errorbar(x, y, yerr=y_err,  color=colors[diam],
