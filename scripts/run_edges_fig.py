@@ -214,8 +214,7 @@ if __name__ == "__main__":
                 my_clusters = find_clusters(where)
                 new_clusters = purge_clusters(my_clusters)
                 peak_no.append(len(new_clusters))
-                peak_dist.append(len(new_clusters)/(new_conc.shape[1]*0.2))
-                
+                peak_dist.append(len(new_clusters)/((new_conc.shape[1]-1)*0.2))
                                  
                 for j, nc in enumerate(new_clusters):
                     p1, p2 = nc
