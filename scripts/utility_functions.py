@@ -433,8 +433,6 @@ def make_distance_fig_ratio(dir_list, directories_dict, dend_diam, stims,
     for k, d in enumerate(dir_list):
         fname = directories_dict[d]
         my_path = os.path.join("..", d)
-        
-        im_list = {}
         if not k%2:
             res_den = {}
             res_den_error = {}
@@ -546,11 +544,6 @@ def make_distance_fig_ratio(dir_list, directories_dict, dend_diam, stims,
 def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                                  what_species, region_list, output_name,
                                  colors, types, method="regular"):
-    # 0 -- denominator,
-    # 1 -- numerator,
-    # 2 -- denominator,
-    # 3 -- numerator
-    
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
 
 
@@ -595,18 +588,20 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                 res[diam].append(delay.mean())
                 error[diam].append(delay.std()/len(delay)**0.5)
                 x_val[diam].append(branch)
-            
-            
 
-    for i in range(4):
-        for j, d in enumerate(diam_dict):
-            #ratio = out_num/out_den
-            #y_err = ((err_num/out_den)**2+(ratio/out_den*err_den)**2)**0.5
-            ax1[j].bar(x, y, color=colors[diam],
-                            hatch=hatch_possibilities[i],
-                            label=types[i],
-                            linestyle="", fillstyle="none")
+    for j, d in enumerate(diam_dict):
+        y = []
+        for i in range(4):
+            dir_1 =ratio_set[i][0]
+            dir_2 =ratio_set[i][1]
+            numerator = np.array(res[dir_1][d])
+            denominator = np.array(res[dir_2][d])
+            y.append((numerator/denominator).std())
+        ax1[j].bar(range(4), y, color=colors[diam],
+                   hatch=hatch_possibilities[i],
+                   linestyle="", fillstyle="none")
     ax1[0].legend()
+    ax1[0].set_xlabelticks(types, rotation=90)
     ax1[0].set_xlabel("Paradigm", fontsize=20)
     ax1[0].set_ylabel("RMSD of spatial extent [um]", fontsize=20)
     mini = min([min(x.get_ylim()) for x in ax1])
