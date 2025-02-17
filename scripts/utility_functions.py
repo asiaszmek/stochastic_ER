@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
 
+
+hatch_possibilites = ["/", "-", "+", "o"}
 limit = 2.5
 NA = Avogadro*1e-23
 spine = ['PSD', 'head', 'neck']
@@ -520,10 +522,93 @@ def make_distance_fig_ratio(dir_list, directories_dict, dend_diam, stims,
                                 marker="d",
                                 label=types[d], linestyle="",
                                 fillstyle="full")
+            if k == 7:
+                print(x, y, y_err)
+                ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
+                                marker="o",
+                                label=types[d], linestyle="",
+                                fillstyle="full")
 
             ax1[j].legend()
     ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
     ax1[0].set_ylabel("Spatial extent ratio [um]", fontsize=20)
+    mini = min([min(x.get_ylim()) for x in ax1])
+    maxi = max([max(x.get_ylim()) for x in ax1])
+
+    for i, diam in enumerate(dend_diam):
+        
+        ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
+        ax1[i].set_ylim([mini, maxi])
+        if i:
+            ax1[i].set_yticks([])
+    return fig1
+
+def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
+                                 what_species, region_list, output_name,
+                                 colors, types, method="regular"):
+    # 0 -- denominator,
+    # 1 -- numerator,
+    # 2 -- denominator,
+    # 3 -- numerator
+    
+    fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
+
+
+    paradigm_dict = {
+        0: ""}
+    l = 0
+    res = {}
+    error= {}
+    x_val = {}
+    for k, d in enumerate(directories_dict.keys()):
+        fname = directories_dict[d]
+        my_path = os.path.join("..", d)
+        res[d] = {}
+        error[d]= {}
+        x_val[d] = {}
+        for j, diam in enumerate(dend_diam):
+            if diam not in res_num[d]:
+                res[d][diam] = []
+                x_val[d][diam] = []
+                error[d][diam]=[]
+            for i, stim in enumerate(stims):
+                new_fname = fname % (diam, stim)
+                my_file = os.path.join(my_path, new_fname)
+                conc_dict, times_dict = get_conc(my_file,
+                                                 what_species,
+                                                 region_list,
+                                                 output_name)
+                try:
+                    dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                except KeyError:
+                    continue
+                length = get_length(my_file)
+                try:
+                    dist, branch, delay = fit_distance(conc_dict["Ca"],
+                                                       dt, method=method,
+                                                       length=length)
+                except KeyError:
+                    res[d][diam].append([])
+                    x_val[d][diam].append([])
+                    error[d][diam].append([])
+                
+                res[diam].append(delay.mean())
+                error[diam].append(delay.std()/len(delay)**0.5)
+                x_val[diam].append(branch)
+            
+            
+
+    for i in range(4):
+        for j, d in enumerate(diam_dict):
+            #ratio = out_num/out_den
+            #y_err = ((err_num/out_den)**2+(ratio/out_den*err_den)**2)**0.5
+            ax1[j].bar(x, y, color=colors[diam],
+                            hatch=hatch_possibilities[i],
+                            label=types[i],
+                            linestyle="", fillstyle="none")
+    ax1[0].legend()
+    ax1[0].set_xlabel("Paradigm", fontsize=20)
+    ax1[0].set_ylabel("RMSD of spatial extent [um]", fontsize=20)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
 
