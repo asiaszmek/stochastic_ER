@@ -10,7 +10,7 @@ from scipy.optimize import curve_fit
 
 
 
-hatch_possibilites = ["/", "-", "+", "o"}
+hatch_possibilities = ["/", "-", "+", "o"]
 limit = 2.5
 NA = Avogadro*1e-23
 spine = ['PSD', 'head', 'neck']
@@ -545,7 +545,7 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                                  what_species, region_list, output_name,
                                  colors, types, method="regular"):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
-
+    xs = list(range(1, 5))
 
     paradigm_dict = {
         0: ""}
@@ -560,7 +560,7 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
         error[d]= {}
         x_val[d] = {}
         for j, diam in enumerate(dend_diam):
-            if diam not in res_num[d]:
+            if diam not in res[d]:
                 res[d][diam] = []
                 x_val[d][diam] = []
                 error[d][diam]=[]
@@ -585,25 +585,26 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                     x_val[d][diam].append([])
                     error[d][diam].append([])
                 
-                res[diam].append(delay.mean())
-                error[diam].append(delay.std()/len(delay)**0.5)
-                x_val[diam].append(branch)
+                res[d][diam].append(delay.mean())
+                error[d][diam].append(delay.std()/len(delay)**0.5)
+                x_val[d][diam].append(branch)
 
-    for j, d in enumerate(diam_dict):
-        y = []
-        for i in range(4):
+    for j, d in enumerate(dend_diam):
+        for i in range(len(ratio_set)):
             dir_1 =ratio_set[i][0]
             dir_2 =ratio_set[i][1]
+            print(dir_1, dir_2,)
+        
             numerator = np.array(res[dir_1][d])
             denominator = np.array(res[dir_2][d])
-            y.append((numerator/denominator).std())
-        ax1[j].bar(range(4), y, color=colors[diam],
-                   hatch=hatch_possibilities[i],
-                   linestyle="", fillstyle="none")
-    ax1[0].legend()
-    ax1[0].set_xlabelticks(types, rotation=90)
+            print(np.mean(numerator/denominator-1))
+            val = (sum(((numerator-denominator)/denominator)**2)/len(numerator))**0.5
+            print(val)
+            ax1[j].bar(i+1, val, color=colors[d], hatch=hatch_possibilities[i])
+        ax1[j].set_xticks(xs)   
+        ax1[j].set_xticklabels(types, rotation=90)
     ax1[0].set_xlabel("Paradigm", fontsize=20)
-    ax1[0].set_ylabel("RMSD of spatial extent [um]", fontsize=20)
+    ax1[0].set_ylabel("RMS normalized error of spatial extent [um]", fontsize=20)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
 
