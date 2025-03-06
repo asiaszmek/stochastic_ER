@@ -13,34 +13,16 @@ colors =  {
     "6.0": 'tab:green'
 }
 names_dict = {
-    # "ctrl" :
-    # "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    # "normal PMCA + no RyR2":
-    # "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    # "normal PMCA + RyR2":
-    # "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
-    # "low PMCA + RyR2CaM":
-    # "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    # "low PMCA, RyR2 no CaM":
-    # "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    # # "low PMCA, RyR2 no CaM, SOCE":
-    # # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
-    # "low PMCA + 50% RyR2 + 50% RyR2CaM":
-    # "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
-    # "low PMCA + 2x(50% RyR2 + 50% RyR2CaM)":
-    # "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
     "100%\n100%\n0%" :
     "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
     "100%\n0\n0%":
     "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
     "100%\n0\n100%%":
     "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
-    # "80%\n100%\n0\n100%":
-    # "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
     "80%\n0\n100%":
     "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "80%\n0\n100%%":
-    "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    # "80%\n0\n100%%":
+    # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
     "80%\n50%\n50%":
     "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
     "80%\n100%\n100%":
@@ -104,7 +86,7 @@ if __name__ == "__main__":
         ax_m_ca[i].set_title("diam %s um" % d)
         if i:
             ax_m_ca[i].set_yticklabels([])
-    ax_m_ca[0].set_ylabel("mean Ca (nM)",
+    ax_m_ca[0].set_ylabel("mean intracellular Ca (nM)",
                           fontsize=20)
     legend = "PMCA kcat\nRyR2CaM\nRyR2" #\nSOCE"
     adjust_axes(ax_m_ca)

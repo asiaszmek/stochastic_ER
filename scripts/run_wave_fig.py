@@ -162,7 +162,6 @@ if __name__ == "__main__":
         xlabels = []
         for key, fname in names_dict.items():
             path = os.path.join(data_dir, fname % d)
-            print(path)
             my_file = h5py.File(path)
             grid_list = ut.get_grid_list(my_file)
             peak_no = []
@@ -173,7 +172,6 @@ if __name__ == "__main__":
                     continue
                 peak = 0
                 where = np.where(new_conc > 2.5*76)
-                print(where)
                 if len(where[0]):
                     prev = where[0][0]
                     peak = 1
@@ -183,7 +181,6 @@ if __name__ == "__main__":
                         else:
                             peak += 1
                             prev = idx
-                print(peak)
                 peak_no.append(peak)
                 length.append(len(new_conc)*0.2)
             xlabels.append(key)
@@ -192,7 +189,6 @@ if __name__ == "__main__":
             f_mean.append(m_f)
             f_std.append(std_f)
 
-        print(xlabels, f_mean, f_std)    
         ax_wave_f.errorbar(x=xlabels, y=f_mean,
                             yerr=f_std,
                             color=colors[d],

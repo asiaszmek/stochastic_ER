@@ -23,7 +23,7 @@ dend_diam = ["1.2", "2.4", "6.0"]
    
 
 if __name__ == '__main__':
-    types = ["ctrl", "blocked RyR",]
+    types = ["RyR2CaM", "blocked RyR2",]
     markers = ["o", "o"]
     fillstyle = ["full", "none"]
     fig1 = utils.make_distance_fig_sep_dends(directories,

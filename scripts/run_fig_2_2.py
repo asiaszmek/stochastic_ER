@@ -18,7 +18,7 @@ directories = [
 ]
 
 
-types = [ "ctrl", "ctrl no SOCE"]
+types = [ "RyR2CaM+SOCE", "RyR2CaM"]
 marker = ["o", "o"]
 fillstyle = ["full", "none"]
 stims = ["0175", "0350", "0700", "1050", "2000"]

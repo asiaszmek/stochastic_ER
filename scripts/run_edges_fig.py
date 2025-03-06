@@ -287,15 +287,15 @@ if __name__ == "__main__":
         ax_m_peak_init[i].set_ylabel("initiation on dendrite [um]",
                                      fontsize=20)
         ax_m_peak_init[i].set_xticklabels(xlabels)
-    ax_peak_no.set_ylabel("# calcium peaks",
+    ax_peak_no.set_ylabel("# intracellular Ca peaks",
                           fontsize=20)
-    ax_m_peak_amp.set_ylabel("Ca peak amplitude (nM)",
+    ax_m_peak_amp.set_ylabel("intracelllar Ca peak amplitude (nM)",
                              fontsize=20)
-    ax_m_peak_width.set_ylabel("Ca peak width (s)",
+    ax_m_peak_width.set_ylabel("intracellular Ca peak width (s)",
                                fontsize=20)
-    ax_m_peak_len.set_ylabel("Ca peak len (s)",
+    ax_m_peak_len.set_ylabel("intracellular Ca peak len (s)",
                              fontsize=20)
-    ax_m_peak_dist.set_ylabel("peak frequency (Hz)",
+    ax_m_peak_dist.set_ylabel("Intracellular Ca peak frequency (Hz)",
                               fontsize=20)
         
     ax_peak_no.set_xticklabels(xlabels)

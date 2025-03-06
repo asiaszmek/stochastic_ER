@@ -22,7 +22,7 @@ stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
 if __name__ == '__main__':
-    types = [ "ctrl",  "old age + ctrl RyR2", "ctrl + old age RyR2",
+    types = [ "ctrl",  "old age + RyR2CaM", "ctrl + 100% RyR2+100% RyR2CaM",
               "old age",]
 
     marker = ["o", "s", "s", "o"]
