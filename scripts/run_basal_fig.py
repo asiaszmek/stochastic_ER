@@ -6,7 +6,7 @@ from scipy.fft import fft, fftfreq, fftshift
 import matplotlib.pyplot as plt
 import utility_functions as ut
 
-
+plt.rcParams['text.usetex'] = True
 colors =  {
     "1.2": 'tab:blue',
     "2.4": 'tab:purple',
@@ -83,11 +83,11 @@ if __name__ == "__main__":
         ax_m_ca[i].errorbar(x=x_labels, y=means, yerr=stds,
                         color=colors[d],
                         marker="o", linestyle="")
-        ax_m_ca[i].set_title("diam %s um" % d)
+        ax_m_ca[i].set_title(r"diam %s  $\mathrm{\mu m}$" % d)
         if i:
             ax_m_ca[i].set_yticklabels([])
-    ax_m_ca[0].set_ylabel("mean intracellular Ca (nM)",
-                          fontsize=20)
+    ax_m_ca[0].set_ylabel(r"mean $\mathrm{Ca_i}$ (nM)",
+                          fontsize=15)
     legend = "PMCA kcat\nRyR2CaM\nRyR2" #\nSOCE"
     adjust_axes(ax_m_ca)
     ax_m_ca[0].text(-2.5, min(ax_m_ca[0].get_ylim())

@@ -6,6 +6,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import utility_functions as ut
+
+
+plt.rcParams['text.usetex'] = True
 colors =  {
     "1.2": 'tab:blue',
     "2.4": 'tab:purple',
@@ -154,8 +157,6 @@ def adjust_axes(ax):
 if __name__ == "__main__":
     data_dir = os.path.join("..", "stacked_ER")
     x_labels = list(names_dict.keys())
-    fig_peak_no, ax_peak_no = plt.subplots(1, 1,
-                                           figsize=(1*5, 5))
     fig_m_peak_amp, ax_m_peak_amp = plt.subplots(1, 1,
                                                  figsize=(1*5,
                                                           5))
@@ -190,7 +191,6 @@ if __name__ == "__main__":
             print(path)
             my_file = h5py.File(path)
             grid_list = ut.get_grid_list(my_file)
-            peak_no = []
             peak_amp = []
             peak_width = []
             peak_len = []
@@ -203,7 +203,6 @@ if __name__ == "__main__":
                 where = np.where(new_conc > 2.5*76)
               
                 if not len(where[0]):
-                    peak_no.append(0)
                     peak_dist.append(0)
                     peak_width.append(0)
                     peak_len.append(0)
@@ -213,7 +212,6 @@ if __name__ == "__main__":
 
                 my_clusters = find_clusters(where)
                 new_clusters = purge_clusters(my_clusters)
-                peak_no.append(len(new_clusters))
                 peak_dist.append(len(new_clusters)/((new_conc.shape[1]-1)*0.2))
                                  
                 for j, nc in enumerate(new_clusters):
@@ -232,14 +230,11 @@ if __name__ == "__main__":
             
             xlabels.append(key)
             
-            peak_no = np.array(peak_no)
             peak_amp = np.array(peak_amp)
             peak_width = np.array(peak_width)
             peak_len = np.array(peak_len)
             peak_dist = np.array(peak_dist)
             xlabels_for_peak_start = [key]*len(peak_start)
-            no_mean.append(peak_no.mean())
-            no_std.append(peak_no.std()/len(peak_no)**.5)
             amp_mean.append(peak_amp.mean())
             amp_std.append(peak_amp.std()/len(peak_amp)**.5)
             width_mean.append(peak_width.mean())
@@ -253,58 +248,50 @@ if __name__ == "__main__":
                 ax_m_peak_init[i].plot(xlabels_for_peak_start, peak_start,
                                        color=colors[d],
                                        marker="o", linestyle="")
-        ax_peak_no.errorbar(x=xlabels, y=no_mean,
-                            yerr=no_std,
-                            color=colors[d],
-                            marker="o", linestyle="",
-                            label="%s um diam" % d)
+       
 
         ax_m_peak_amp.errorbar(x=xlabels, y=amp_mean,
                                yerr=amp_std,
                                color=colors[d],
                                marker="o", linestyle="",
-                               label="%s um diam" % d)
+                               label=r"%s $\mathrm{\mu m}$ diam" % d)
         ax_m_peak_width.errorbar(x=xlabels, y=width_mean,
                                  yerr=width_std,
                                  color=colors[d],
                                  marker="o", linestyle="",
-                                 label="%s um diam" % d)
+                                 label=r"%s $\mathrm{\mu m}$ diam" % d)
         ax_m_peak_len.errorbar(x=xlabels, y=len_mean,
                                yerr=len_std,
                                color=colors[d],
                                marker="o", linestyle="",
-                               label="%s um diam" % d)
+                               label=r"%s  $\mathrm{\mu m}$ diam" % d)
         ax_m_peak_dist.errorbar(x=xlabels, y=dist_mean,
                                 yerr=dist_std,
                                 color=colors[d],
                                 marker="o", linestyle="",
-                                label="%s um diam" % d)
+                                label=r"%s  $\mathrm{\mu m}$ diam" % d)
                                 
         if i:
             ax_m_peak_init[i].set_yticklabels([])
 
-        ax_m_peak_init[i].set_title("diam %s um" % d)
-        ax_m_peak_init[i].set_ylabel("initiation location [um]",
-                                     fontsize=20)
+        ax_m_peak_init[i].set_title(r"diam %s  $\mathrm{\mu m}$" % d)
+        ax_m_peak_init[i].set_ylabel(r"initiation location $(\mathrm{\mu m})$",
+                                     fontsize=15)
         ax_m_peak_init[i].set_xticklabels(xlabels)
-    ax_peak_no.set_ylabel("# intracellular Ca peaks",
-                          fontsize=20)
-    ax_m_peak_amp.set_ylabel("intracelllar Ca peak amplitude (nM)",
-                             fontsize=20)
-    ax_m_peak_width.set_ylabel("intracellular Ca peak width (s)",
-                               fontsize=20)
-    ax_m_peak_len.set_ylabel("intracellular Ca peak len (s)",
-                             fontsize=20)
-    ax_m_peak_dist.set_ylabel("Intracellular Ca peak frequency (Hz)",
-                              fontsize=20)
+    ax_m_peak_amp.set_ylabel(r"$\mathrm{Ca_i}$ amplitude (nM)",
+                             fontsize=15)
+    ax_m_peak_width.set_ylabel(r"$\mathrm{Ca_i}$ peak width (s)",
+                               fontsize=15)
+    ax_m_peak_len.set_ylabel(r"$\mathrm{Ca_i}$ peak length (s)",
+                             fontsize=15)
+    ax_m_peak_dist.set_ylabel(r"$\mathrm{Ca_i}$ peak frequency (Hz)",
+                              fontsize=15)
         
-    ax_peak_no.set_xticklabels(xlabels)
     ax_m_peak_amp.set_xticklabels(xlabels)
     ax_m_peak_width.set_xticklabels(xlabels)
     ax_m_peak_len.set_xticklabels(xlabels)
     ax_m_peak_dist.set_xticklabels(xlabels)
     legend = "PMCA kcat\nRyR2CaM\nRyR2"#\nSOCE"
-    ax_peak_no.legend()
     ax_m_peak_amp.legend()
     ax_m_peak_width.legend()
     ax_m_peak_len.legend()
@@ -313,11 +300,6 @@ if __name__ == "__main__":
     ax_m_peak_init[0].text(-1.25, min(ax_m_peak_init[0].get_ylim())
                     -(max(ax_m_peak_init[0].get_ylim())
                       -min(ax_m_peak_init[0].get_ylim()))*0.1388,
-                           legend,
-                    horizontalalignment='left')
-    ax_peak_no.text(-1.25, min(ax_peak_no.get_ylim())
-                    -(max(ax_peak_no.get_ylim())
-                      -min(ax_peak_no.get_ylim()))*0.1388,
                            legend,
                     horizontalalignment='left')
     ax_m_peak_amp.text(-1.25, min(ax_m_peak_amp.get_ylim())
@@ -342,8 +324,6 @@ if __name__ == "__main__":
                     horizontalalignment='left')
     
 
-    fig_peak_no.savefig("mean_peak_no.png", dpi=100,
-                 bbox_inches="tight")
     fig_m_peak_amp.savefig("mean_peak_amp.png", dpi=100,
                  bbox_inches="tight")
     fig_m_peak_dist.savefig("mean_peak_dist.png", dpi=100,

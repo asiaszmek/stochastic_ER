@@ -10,6 +10,7 @@ from scipy.optimize import curve_fit
 
 
 
+plt.rcParams['text.usetex'] = True
 hatch_possibilities = ["/", "-", "+", "o"]
 marker = ["d", "o", "v", "^"]
 limit = 2.5
@@ -417,130 +418,6 @@ def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
     return distance, branch, decays
 
 
-def make_distance_fig_ratio(dir_list, directories_dict, dend_diam, stims,
-                            what_species, region_list, output_name,
-                            colors, types, method="regular"):
-    # 0 -- denominator,
-    # 1 -- numerator,
-    # 2 -- denominator,
-    # 3 -- numerator
-    
-    fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
-
-
-    paradigm_dict = {
-        0: ""}
-    l = 0
-    for k, d in enumerate(dir_list):
-        fname = directories_dict[d]
-        my_path = os.path.join("..", d)
-        if not k%2:
-            res_den = {}
-            res_den_error = {}
-            x_den = {}
-        if k%2:
-            res_num = {}
-            res_num_error = {}
-            x_num = {}
-
-        for j, diam in enumerate(dend_diam):
-            if k%2 and diam not in res_num:
-                res_num[diam] = []
-                x_num[diam] = []
-                res_num_error[diam]=[]
-            elif not k%2 and diam not in res_den:
-                res_den[diam] = []
-                res_den_error[diam] = []
-                x_den[diam] = []
-  
-            for i, stim in enumerate(stims):
-                new_fname = fname % (diam, stim)
-                my_file = os.path.join(my_path, new_fname)
-                    
-
-                conc_dict, times_dict = get_conc(my_file,
-                                                 what_species,
-                                                 region_list,
-                                                 output_name)
-                try:
-                    dt = times_dict["trial0"][1]-times_dict["trial0"][0]
-                except KeyError:
-                    continue
-                length = get_length(my_file)
-                try:
-                    dist, branch, delay = fit_distance(conc_dict["Ca"],
-                                                       dt, method=method,
-                                                       length=length)
-                except KeyError:
-                    if k % 2:   #  numerator
-                        res_num[diam].append([])
-                        x_num[diam].append([])
-                        res_num_error[diam].append([])
-                if k % 2:   #  numerator
-                    res_num[diam].append(delay.mean())
-                    res_num_error[diam].append(delay.std()/len(delay)**0.5)
-                    x_num[diam].append(branch)
-                  
-                else:
-                    res_den[diam].append(delay.mean())
-                    res_den_error[diam].append(delay.std()/len(delay)**0.5)
-                    x_den[diam].append(branch)
-            b_diam = float(diam)
-            if k%2:
-                out_num = np.array(res_num[diam])
-                out_den = np.array(res_den[diam])
-                err_num = np.array(res_num_error[diam])
-                err_den = np.array(res_den_error[diam])
-
-                ratio = out_num/out_den
-                x_num[diam] = np.array(x_num[diam])
-                x_den[diam] = np.array(x_den[diam])
-                print(ratio)
-                y = ratio
-                x = (x_num[diam]+x_den[diam][:len(out_num)]).mean(axis=1)/2
-                y_err = ((err_num/out_den)**2+(ratio/out_den*err_den)**2)**0.5
-                x = x.reshape((len(x),))
-                y = y.reshape((len(y),))
-                y_err = y_err.reshape((len(y_err),))
-            
-            if k == 1:
-                print(x, y, y_err)
-                ax1[j].errorbar(x, y, yerr=y_err,  color=colors[diam],
-                                marker="d",
-                                label=types[d],
-                                linestyle="", fillstyle="none")
-            if k == 3:
-                print(x, y, y_err)
-                ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
-                                marker="o",
-                                label=types[d], linestyle="",
-                                fillstyle="none")
-            if k == 5:
-                print(x, y, y_err)
-                ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
-                                marker="d",
-                                label=types[d], linestyle="",
-                                fillstyle="full")
-            if k == 7:
-                print(x, y, y_err)
-                ax1[j].errorbar(x, y, yerr=y_err, color=colors[diam],
-                                marker="o",
-                                label=types[d], linestyle="",
-                                fillstyle="full")
-
-            ax1[j].legend()
-    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=15)
-    ax1[0].set_ylabel("Spatial extent ratio [um]", fontsize=15)
-    mini = min([min(x.get_ylim()) for x in ax1])
-    maxi = max([max(x.get_ylim()) for x in ax1])
-
-    for i, diam in enumerate(dend_diam):
-        
-        ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
-        ax1[i].set_ylim([mini, maxi])
-        if i:
-            ax1[i].set_yticks([])
-    return fig1
 
 def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                                  what_species, region_list, output_name,
@@ -615,13 +492,13 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
         ax1[j].tick_params(axis='x', labelsize=15)
         ax1[j].tick_params(axis='y', labelsize=15)
     ax1[0].set_xlabel("Paradigm", fontsize=15)
-    ax1[0].set_ylabel("% error", fontsize=15)
+    ax1[0].set_ylabel(r"\% error", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
 
     for i, diam in enumerate(dend_diam):
         
-        ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
+        ax1[i].set_title(r"dend diam %3.2f $\mathrm{\mu  m}$", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -701,13 +578,13 @@ def make_injection_vs_min_CaER(directories,  dend_diam,
         ax1[0].legend(handles=legend, loc='lower left')
     ax1[0].set_ylabel("min Ca molecules in the ER [1e9]",
                       fontsize=15)
-    ax1[0].set_xlabel("Peak Ca at stimulated site [um]", fontsize=15)
+    ax1[0].set_xlabel("Peak Ca at stimulated site $\mathrm(\mu m)$", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
  
     for i, diam in enumerate(dend_diam):
         
-        ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
+        ax1[i].set_title(r"dend diam %3.2f $\mathrm{\mu  m}$", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -801,13 +678,13 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
    
     if legend is not None:
         ax1[0].legend(handles=legend)
-    ax1[0].set_ylabel("Time decay [m sec]", fontsize=15)
+    ax1[0].set_ylabel("Time decay (ms)", fontsize=15)
     mini = 50
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=15)
+    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathr{\mu M})", fontsize=15)
     for i, diam in enumerate(dend_diam):
         if title:
-            ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
+            ax1[i].set_title(r"dend diam %3.2f $\mathrm{\mu  m}$", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -880,47 +757,16 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
                         ax1[j].legend(loc="lower right", prop={'size': 10})
     if legend is not None:
         ax1[0].legend(handles=legend)
-    ax1[0].set_ylabel("Spatial extent [um]", fontsize=15)
+    ax1[0].set_ylabel("Spatial extent $(\mathrm{\mu m})$", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=15)
+    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})$", fontsize=15)
     for i, diam in enumerate(dend_diam):
         if title:
-            ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
+            ax1[i].set_title(r"dend diam %3.2f $\mathrm{\mu m}$", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
     return fig1
 
 
-# fig.suptitle(path)
-# ax[0].imshow(new_conc,  aspect="auto",
-#              interpolation="none",
-#              origin="lower", extent = [0, 1000, 0.5, 51],
-#              cmap=plt.get_cmap("Reds"))
-# ax[1].imshow(edges,  aspect="auto",
-#              interpolation="none",
-#              origin="lower", extent = [0, 1000, 0.5, 51],
-#              cmap=plt.get_cmap("Reds"))
-# ax[2].imshow(new_conc,  aspect="auto",
-#              interpolation="none",
-#              origin="lower", extent = [0, 1000, 0.5, 51],
-#              cmap=plt.get_cmap("Reds"))
-
-# for clust in new_clusters:
-#     #print(clust)
-#     p0, p1 = clust
-#     ax[2].plot((p0[1]*0.2, p1[1]*0.2), (p0[0]/2+1/2,
-#                                         p0[0]/2+1/2),
-#                linewidth=1)
-#     ax[2].plot((p0[1]*0.2, p1[1]*0.2), (p1[0]/2+1/2,
-#                                         p1[0]/2+1/2),
-#                linewidth=1)
-#     ax[2].plot((p0[1]*0.2, p0[1]*0.2), (p0[0]/2+1/2,
-#                                         p1[0]/2+1/2),
-#                linewidth=1)
-#     ax[2].plot((p1[1]*0.2, p1[1]*0.2), (p0[0]/2+1/2,
-#                                         p1[0]/2+1/2),
-#                linewidth=1)
-
-# plt.show()

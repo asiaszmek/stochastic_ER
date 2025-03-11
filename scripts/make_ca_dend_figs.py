@@ -6,7 +6,9 @@ import sys
 from scipy.constants import Avogadro
 import utility_functions as utils
 
+
 NA = Avogadro*1e-23
+plt.rcParams['text.usetex'] = True
 
 
 if __name__ == '__main__':
@@ -51,11 +53,11 @@ if __name__ == '__main__':
                                                      voxels[0],
                                                      voxels[-1]],
                            cmap=plt.get_cmap("Reds"))
-            ax.set_xlabel("time (sec)", fontsize=14)
-            ax.set_ylabel("dendrite (um)", fontsize=14)
+            ax.set_xlabel(r"time (s)", fontsize=14)
+            ax.set_ylabel(r"dendrite $(\mathrm{\mu m})$", fontsize=14)
             fig.colorbar(im)
             
-            ax.set_title("%s dynamics in %s um dend" % (specie, diam),
+            ax.set_title(r"%s dynamics in %s $\mathrm{\mu m}$ dend" % (specie, diam),
                          fontsize=14)
             fig.savefig(fname[:-3]+"_"+key+".png", dpi=100,
                         bbox_inches="tight")

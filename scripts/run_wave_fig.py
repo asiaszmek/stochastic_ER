@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import utility_functions as ut
+plt.rcParams['text.usetex'] = True
 colors =  {
     "1.2": 'tab:blue',
     "2.4": 'tab:purple',
@@ -193,11 +194,11 @@ if __name__ == "__main__":
                             yerr=f_std,
                             color=colors[d],
                             marker="o", linestyle="",
-                            label="%s um diam" % d)
+                            label=r"%s $\mathrm{\mu m}$ diam" % d)
 
                                 
-    ax_wave_f.set_ylabel("Ca wave frequency (Hz)",
-                          fontsize=20)
+    ax_wave_f.set_ylabel(r"$\mathrm{Ca_i}$ wave frequency (Hz)",
+                          fontsize=15)
         
     ax_wave_f.set_xticklabels(xlabels)
    
