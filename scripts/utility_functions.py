@@ -11,6 +11,7 @@ from scipy.optimize import curve_fit
 
 
 hatch_possibilities = ["/", "-", "+", "o"]
+marker = ["d", "o", "v", "^"]
 limit = 2.5
 NA = Avogadro*1e-23
 spine = ['PSD', 'head', 'neck']
@@ -528,14 +529,14 @@ def make_distance_fig_ratio(dir_list, directories_dict, dend_diam, stims,
                                 fillstyle="full")
 
             ax1[j].legend()
-    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
-    ax1[0].set_ylabel("Spatial extent ratio [um]", fontsize=20)
+    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=15)
+    ax1[0].set_ylabel("Spatial extent ratio [um]", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
 
     for i, diam in enumerate(dend_diam):
         
-        ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
+        ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -588,29 +589,39 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                 res[d][diam].append(delay.mean())
                 error[d][diam].append(delay.std()/len(delay)**0.5)
                 x_val[d][diam].append(branch)
-
     for j, d in enumerate(dend_diam):
+        val = []
+        val_error = []
         for i in range(len(ratio_set)):
-            dir_1 =ratio_set[i][0]
-            dir_2 =ratio_set[i][1]
+            dir_1 = ratio_set[i][0]
+            dir_2 = ratio_set[i][1]
             print(dir_1, dir_2,)
         
             numerator = np.array(res[dir_1][d])
             denominator = np.array(res[dir_2][d])
-            print(np.mean(numerator/denominator-1))
-            val = (sum(((numerator-denominator)/denominator)**2)/len(numerator))**0.5
-            print(val)
-            ax1[j].bar(i+1, val, color=colors[d], hatch=hatch_possibilities[i])
+            point = numerator/denominator-1
+            print(point)
+            val.append(point.mean())
+            val_error.append(point.std()/len(point)**0.5)
+
+            ax1[j].plot([i+1]*len(point),  point, color=colors[d],
+                        fillstyle="none", marker=marker[i])
+        print(xs, val, val_error)
+        ax1[j].errorbar(xs,
+                        val, yerr=val_error, marker="s", linestyle="",
+                        color=colors[d], fillstyle="full")
         ax1[j].set_xticks(xs)   
         ax1[j].set_xticklabels(types, rotation=90)
-    ax1[0].set_xlabel("Paradigm", fontsize=20)
-    ax1[0].set_ylabel("RMS normalized error of spatial extent [um]", fontsize=20)
+        ax1[j].tick_params(axis='x', labelsize=15)
+        ax1[j].tick_params(axis='y', labelsize=15)
+    ax1[0].set_xlabel("Paradigm", fontsize=15)
+    ax1[0].set_ylabel("% error", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
 
     for i, diam in enumerate(dend_diam):
         
-        ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
+        ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -619,7 +630,7 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
 
 def make_injection_vs_min_CaER(directories,  dend_diam,
                                stims,  output_name, 
-                               colors, types, marker, fillstyle):
+                               colors, types, marker, fillstyle, legend=None):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
     base = "dend"
     reg_list = [base, "dend01", "dend02", "dend03", "dend04",
@@ -684,18 +695,19 @@ def make_injection_vs_min_CaER(directories,  dend_diam,
                                 marker=marker[k],
                                 label=types[k],
                                 linestyle="", fillstyle=fillstyle[k])
-                    
-                ax1[j].legend(loc='lower left')
-
+                if legend is None:    
+                    ax1[j].legend(loc='lower left')
+    if legend is not None:
+        ax1[0].legend(handles=legend, loc='lower left')
     ax1[0].set_ylabel("min Ca molecules in the ER [1e9]",
-                   fontsize=20)
-    ax1[0].set_xlabel("Peak Ca at stimulated site [um]", fontsize=20)
+                      fontsize=15)
+    ax1[0].set_xlabel("Peak Ca at stimulated site [um]", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
  
     for i, diam in enumerate(dend_diam):
         
-        ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
+        ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -725,7 +737,8 @@ def fit_exp(time, ca_conc, dt, duration=2000, t_init=3000, spatial=False):
 
 def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                                       stims, output_name, 
-                                      colors, types, marker, fillstyle):
+                                      colors, types, marker,
+                                      fillstyle, legend=None, title=True):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(5*len(dend_diam), 5))
     if len(dend_diam) == 1:
         ax1 = [ax1]
@@ -781,15 +794,20 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                                 label=types[k],
                                 fillstyle=fillstyle[k],
                                 linestyle="")
-                ax1[j].legend(loc="upper left")
-
-    ax1[0].set_ylabel("Temporal decay constant [m sec]", fontsize=20)
-    mini = min([min(x.get_ylim()) for x in ax1])
+                if legend is None:
+                    ax1[j].legend(loc="upper left", prop={"size": 10})
+                ax1[j].tick_params(axis='x', labelsize=15)
+                ax1[j].tick_params(axis='y', labelsize=15)
+   
+    if legend is not None:
+        ax1[0].legend(handles=legend)
+    ax1[0].set_ylabel("Time decay [m sec]", fontsize=15)
+    mini = 50
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
+    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=15)
     for i, diam in enumerate(dend_diam):
-        
-        ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
+        if title:
+            ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -800,7 +818,7 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
                                 stims, 
                                 output_name, 
                                 colors, types, marker, fillstyle,
-                                method="regular"):
+                                method="regular", legend=None, title=True):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
     if len(dend_diam) == 1:
         ax1 = [ax1]
@@ -848,23 +866,27 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
                 print(x, y, y_err)
                 if not len(y):
                     continue
-
+                ax1[j].tick_params(axis='x', labelsize=15)
+                ax1[j].tick_params(axis='y', labelsize=15)
                 ax1[j].errorbar(x, y,  yerr=y_err,
                                 color=colors[diam],
                                 fillstyle=fillstyle[k],
                                 label=types[k], marker=marker[k],
                                 linestyle="")
-                if len(directories) == 4 and j == 2:
-                    ax1[j].legend(loc="center right")
-                else:
-                    ax1[j].legend(loc="lower right")
-    ax1[0].set_ylabel("Spatial extent [um]", fontsize=20)
+                if legend is None:
+                    if len(directories) == 4 and j == 2:
+                        ax1[j].legend(loc="center right", prop={'size': 10})
+                    else:
+                        ax1[j].legend(loc="lower right", prop={'size': 10})
+    if legend is not None:
+        ax1[0].legend(handles=legend)
+    ax1[0].set_ylabel("Spatial extent [um]", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=20)
+    ax1[0].set_xlabel("Peak Ca at stimulated site [uM]", fontsize=15)
     for i, diam in enumerate(dend_diam):
-        
-        ax1[i].set_title("dend diam "+diam+  " um", fontsize=20)
+        if title:
+            ax1[i].set_title("dend diam "+diam+  " um", fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])

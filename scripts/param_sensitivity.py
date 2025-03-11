@@ -31,12 +31,12 @@ directories = {
 }
 
 types = {
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "CaM",
-    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "CaM + 110%ER",
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "CaM",
-    "Ca_wave_RyR2CaM_0.8_PMCA": "CaM + 80% PMCA activity",
-    "Ca_wave_RyR2CaM_120_PMCA": "CaM + 120% PMCA",
-     "Ca_wave_2xRyR2CaM_simple_SERCA_SOCE": "CaM + 200% RyR2",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE": "ctrl",
+    "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_largerER": "110%ER",
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE": "ctrl",
+    "Ca_wave_RyR2CaM_0.8_PMCA": "80% PMCA activity",
+    "Ca_wave_RyR2CaM_120_PMCA": "120% PMCA",
+    "Ca_wave_2xRyR2CaM_simple_SERCA_SOCE": "200% RyR2",
 }
 
 

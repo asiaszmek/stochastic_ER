@@ -284,7 +284,7 @@ if __name__ == "__main__":
             ax_m_peak_init[i].set_yticklabels([])
 
         ax_m_peak_init[i].set_title("diam %s um" % d)
-        ax_m_peak_init[i].set_ylabel("initiation on dendrite [um]",
+        ax_m_peak_init[i].set_ylabel("initiation location [um]",
                                      fontsize=20)
         ax_m_peak_init[i].set_xticklabels(xlabels)
     ax_peak_no.set_ylabel("# intracellular Ca peaks",

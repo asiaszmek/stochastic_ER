@@ -2,8 +2,8 @@ import os
 import utility_functions as utils
 
 colors = {"1.2": 'tab:blue',
-          "2.4": 'tab:purple',
-          "6.0": 'tab:green'}
+          "2.4": 'tab:green',
+          "6.0": 'tab:purple'}
 
 
 directories = [
@@ -31,14 +31,14 @@ types = [ "uniform RyR2CaM", "RyR2CaM in EPJ", "uniform RyR2 no CaM", "RyR2 in t
 marker = ["o", "^", "o", "^"]
 fillstyle = ["full", "full", "none", "none"]
 stims = ["0175", "0350", "0700", "1050", "2000"]
-dend_diam = ["1.2", "2.4", "6.0"]
+dend_diam = ["1.2"]
 
 
 if __name__ == '__main__':
     fig1 = utils.make_distance_fig_sep_dends(directories, dend_diam,
                                              stims, "all", 
                                              colors, types, marker,
-                                             fillstyle)
+                                             fillstyle, title=False)
     fig1.savefig("ER_distance_cam_no_cam.png", dpi=100,
                  bbox_inches="tight")
     fig1.savefig("ER_distance_cam_no_cam.eps", dpi=100,

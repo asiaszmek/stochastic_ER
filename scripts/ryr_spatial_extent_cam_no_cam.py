@@ -5,13 +5,18 @@ from lxml import etree
 import sys
 from scipy.constants import Avogadro
 import matplotlib.pyplot as plt
-
+from matplotlib.patches import Rectangle
 import utility_functions as utils
+
+import matplotlib.legend as mlegend
+from matplotlib.patches import Rectangle
+from matplotlib.lines import Line2D
+
 
 
 colors = {1.2: "tab:blue",
-          2.4: "tab:green",
-          6.0: "tab:purple",
+          2.4: "tab:purple",
+          6.0: "tab:green",
 }
 labels = {"no_SOCE_no_CaM": "no CaM no SOCE",
           "_no_CaM": "no CaM",
@@ -154,18 +159,44 @@ for k, b_diam in enumerate(branch_diams):
             print(x, y, y_err)
             if inh == "_CaM" and s == "":
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
-                            label=labels[inh]+" diam "+str(b_diam),
                             linestyle="")
             elif inh == "_no_CaM" and s == "":
                 ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d",
-                            label=labels[inh]+" diam "+str(b_diam),
                             linestyle="",
                             fillstyle="none")
 
-ax.set_ylabel("max(Calcium) [uM]", fontsize=20)
-ax.set_xlabel("total injected ions/diam [1/um]", fontsize=20)
+ims1 = Line2D([0], [0], color="tab:blue", marker="d", fillstyle="full",
+              lw=0)
+ims2 = Line2D([0], [0], color="tab:purple", marker="d", fillstyle="full",
+              lw=0)
+ims3 = Line2D([0], [0], color="tab:green", marker="d", fillstyle="full",
+              lw=0)
 
-ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+ims4 = Line2D([0], [0], color="tab:blue", marker="d", fillstyle="none",
+              lw=0)
+ims5 = Line2D([0], [0], color="tab:purple", marker="d", fillstyle="none",
+              lw=0)
+ims6 = Line2D([0], [0], color="tab:green", marker="d", fillstyle="none",
+              lw=0)
+ax.tick_params(axis='x', labelsize=15)
+ax.tick_params(axis='y', labelsize=15)
+ax.set_ylabel("max(Calcium) [uM]", fontsize=15)
+ax.set_xlabel("total injected ions/diam [1/um]", fontsize=15)
+extra = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
+legend_handle = [extra, extra, extra, extra, ims1, ims4, extra, ims2, ims5, extra, ims3, ims6]
+label_col_1 = ["diam"]
+label_j_1 = ["ctrl"]
+label_j_2 = ["no CaM"]
+
+label_empty = [""]
+legend_labels = np.concatenate([label_col_1, label_j_1, label_j_2,
+                                ["1.2 um"], label_empty * 2,
+                                ["2.4 um"], label_empty * 2,
+                                ["6.0 um"], label_empty * 2])
+ax.legend(legend_handle, legend_labels, 
+          ncol = 4, shadow = True, handletextpad = -2)
+
+#ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax.tick_params(axis='both', which='major', labelsize=14)
 
 fig.savefig("Spatial_sum_cam.eps", dpi=100,

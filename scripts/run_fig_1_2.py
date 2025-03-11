@@ -2,7 +2,17 @@ import os
 import h5py
 import numpy as np
 import utility_functions as utils
+from matplotlib.lines import Line2D
 
+
+legend_elements = [
+    Line2D([0], [0], color='k', marker="o", fillstyle="full",
+           lw=0, label='uniform RyR2CaM'),
+    Line2D([0], [0], color="k", marker='^', fillstyle="full",
+           lw=0, label="RyR2CaM in EPJ"),
+    Line2D([0], [0], color="k", marker='o', fillstyle="none",
+           lw=0, label="no RyR2"),
+]
             
 colors = {"1.2": 'tab:blue',
           "2.4": 'tab:purple',
@@ -37,6 +47,7 @@ if __name__ == '__main__':
                                                    colors,
                                                    types,
                                                    marker,
-                                                   fillstyle)
+                                                   fillstyle,
+                                                   legend=legend_elements)
     fig1.savefig("RyR_no_RyR_temporal_short.png", dpi=100, bbox_inches="tight")
 
