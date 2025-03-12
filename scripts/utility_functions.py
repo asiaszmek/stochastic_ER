@@ -342,7 +342,8 @@ def get_conc(fullname, specie_list, region_list, output):
             continue
         try:
             for specie in specie_list:
-                pop, voxel = get_dynamics_in_region(my_file, specie, region_list,
+                pop, voxel = get_dynamics_in_region(my_file, specie,
+                                                    region_list,
                                                     trial, output)
                 conc_dict[specie][trial] = pop.T
             time = get_times(my_file, trial, output)
@@ -498,7 +499,8 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
 
     for i, diam in enumerate(dend_diam):
         
-        ax1[i].set_title(r"dend diam %3.2f $\mathrm{\mu  m}$", fontsize=15)
+        ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+                         fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -584,7 +586,8 @@ def make_injection_vs_min_CaER(directories,  dend_diam,
  
     for i, diam in enumerate(dend_diam):
         
-        ax1[i].set_title(r"dend diam %3.2f $\mathrm{\mu  m}$", fontsize=15)
+        ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+                         fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -681,10 +684,11 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
     ax1[0].set_ylabel("Time decay (ms)", fontsize=15)
     mini = 50
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathr{\mu M})", fontsize=15)
+    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})", fontsize=15)
     for i, diam in enumerate(dend_diam):
         if title:
-            ax1[i].set_title(r"dend diam %3.2f $\mathrm{\mu  m}$", fontsize=15)
+            ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+                             fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
@@ -763,7 +767,8 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
     ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})$", fontsize=15)
     for i, diam in enumerate(dend_diam):
         if title:
-            ax1[i].set_title(r"dend diam %3.2f $\mathrm{\mu m}$", fontsize=15)
+            ax1[i].set_title(r"dend diam %s $\mathrm{\mu m}$" % diam,
+                             fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
             ax1[i].set_yticks([])
