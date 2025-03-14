@@ -477,7 +477,7 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
         
             numerator = np.array(res[dir_1][d])
             denominator = np.array(res[dir_2][d])
-            point = numerator/denominator-1
+            point = (numerator/denominator-1)*100
             print(point)
             val.append(point.mean())
             val_error.append(point.std()/len(point)**0.5)
@@ -580,7 +580,7 @@ def make_injection_vs_min_CaER(directories,  dend_diam,
         ax1[0].legend(handles=legend, loc='lower left')
     ax1[0].set_ylabel("min Ca molecules in the ER [1e9]",
                       fontsize=15)
-    ax1[0].set_xlabel("Peak Ca at stimulated site $\mathrm(\mu m)$", fontsize=15)
+    ax1[0].set_xlabel("Peak Ca at stimulated site $\mathrm{(\mu M)}$", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
  
@@ -684,7 +684,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
     ax1[0].set_ylabel("Time decay (ms)", fontsize=15)
     mini = 50
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})", fontsize=15)
+    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})$", fontsize=15)
     for i, diam in enumerate(dend_diam):
         if title:
             ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
@@ -769,7 +769,7 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
         if title:
             ax1[i].set_title(r"dend diam %s $\mathrm{\mu m}$" % diam,
                              fontsize=15)
-        ax1[i].set_ylim([mini, maxi])
+        ax1[i].set_ylim([0, maxi])
         if i:
             ax1[i].set_yticks([])
     return fig1

@@ -92,9 +92,12 @@ if __name__ == "__main__":
     adjust_axes(ax_m_ca)
     ax_m_ca[0].text(-2.5, min(ax_m_ca[0].get_ylim())
                     -(max(ax_m_ca[0].get_ylim())
-                      -min(ax_m_ca[0].get_ylim()))*0.1388, legend,
-                    horizontalalignment='left')
+                      -min(ax_m_ca[0].get_ylim()))*0.1698, legend,
+                    horizontalalignment='left', fontsize=15)
     #ax_m_ca[0].set_xticklabels(x_labels, rotation=90)
-   
+    for ax in ax_m_ca:
+        ax.tick_params(axis='x', labelsize=15)
+        ax.tick_params(axis='y', labelsize=15)
+
     fig_m_ca.savefig("mean_basal_ca.png", dpi=100,
                  bbox_inches="tight")

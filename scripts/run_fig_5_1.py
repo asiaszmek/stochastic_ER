@@ -17,15 +17,13 @@ directories = [
     ["Ca_wave_PMCA_aging", "model_aging%s_simple_SERCA_PMCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
     ["Ca_wave_normal_SERCA_aging", "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
 ]
-
-
 legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
                           lw=0, label='ctrl'),
                    Line2D([0], [0], color="k", marker='s', fillstyle="none",
-                          lw=0, label='old age - RyR2 + RyR2CaM'),
-                   Line2D([0], [0], color="k", marker='s', fillstyle="none",
-                          lw=0, label='ctrl+ RyR2'),
-                   Line2D([0], [0], color='k', marker="o", fillstyle="full",
+                          lw=0, label='old age with RyR2CaM'),
+                   Line2D([0], [0], color="k", marker='s', fillstyle="full",
+                          lw=0, label='ctrl + RyR2 no CaM'),
+                   Line2D([0], [0], color='k', marker="o", fillstyle="none",
                           lw=0, label='old age'),]
 
 

@@ -30,10 +30,10 @@ directories = {
     "model_2xRyR2CaM_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5", 
 }
 
-types = ["80% PMCA activity",
-         "110%ER",
-         "120% PMCA",
-         "200% RyR2",
+types = [r"80\% PMCA activity",
+         r"110\%ER",
+         r"120\% PMCA",
+         r"200\% RyR2",
          ]
 
 

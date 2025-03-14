@@ -201,15 +201,16 @@ if __name__ == "__main__":
                           fontsize=15)
         
     ax_wave_f.set_xticklabels(xlabels)
-   
+    ax_wave_f.tick_params(axis='x', labelsize=15)
+    ax_wave_f.tick_params(axis='y', labelsize=15)
     legend = "PMCA kcat\nRyR2CaM\nRyR2"#\nSOCE"
     ax_wave_f.legend()
    
     ax_wave_f.text(-1.25, min(ax_wave_f.get_ylim())
                     -(max(ax_wave_f.get_ylim())
-                      -min(ax_wave_f.get_ylim()))*0.1388,
+                      -min(ax_wave_f.get_ylim()))*0.1698,
                            legend,
-                    horizontalalignment='left')
+                    horizontalalignment='left', fontsize=15)
     
 
     fig_wave_f.savefig("mean_wave_frequency.png", dpi=100,

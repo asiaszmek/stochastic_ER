@@ -296,32 +296,44 @@ if __name__ == "__main__":
     ax_m_peak_width.legend()
     ax_m_peak_len.legend()
     ax_m_peak_dist.legend()
+    ax_m_peak_amp.tick_params(axis='x', labelsize=15)
+    ax_m_peak_amp.tick_params(axis='y', labelsize=15)
+    ax_m_peak_width.tick_params(axis='x', labelsize=15)
+    ax_m_peak_width.tick_params(axis='y', labelsize=15)
+    ax_m_peak_len.tick_params(axis='x', labelsize=15)
+    ax_m_peak_len.tick_params(axis='y', labelsize=15)
+    ax_m_peak_dist.tick_params(axis='x', labelsize=15)
+    ax_m_peak_dist.tick_params(axis='y', labelsize=15)
+    for ax in ax_m_peak_init:
+        ax.tick_params(axis='x', labelsize=15)
+        ax.tick_params(axis='y', labelsize=15)
+        
     adjust_axes(ax_m_peak_init)
     ax_m_peak_init[0].text(-1.25, min(ax_m_peak_init[0].get_ylim())
                     -(max(ax_m_peak_init[0].get_ylim())
-                      -min(ax_m_peak_init[0].get_ylim()))*0.1388,
+                      -min(ax_m_peak_init[0].get_ylim()))*0.1698,
                            legend,
-                    horizontalalignment='left')
+                           horizontalalignment='left', fontsize=15)
     ax_m_peak_amp.text(-1.25, min(ax_m_peak_amp.get_ylim())
                     -(max(ax_m_peak_amp.get_ylim())
-                      -min(ax_m_peak_amp.get_ylim()))*0.1388,
+                      -min(ax_m_peak_amp.get_ylim()))*0.1698,
                            legend,
-                    horizontalalignment='left')
+                    horizontalalignment='left', fontsize=15)
     ax_m_peak_width.text(-1.25, min(ax_m_peak_width.get_ylim())
                     -(max(ax_m_peak_width.get_ylim())
-                      -min(ax_m_peak_width.get_ylim()))*0.1388,
+                      -min(ax_m_peak_width.get_ylim()))*0.1698,
                            legend,
-                    horizontalalignment='left')
+                    horizontalalignment='left', fontsize=15)
     ax_m_peak_len.text(-1.25, min(ax_m_peak_len.get_ylim())
                     -(max(ax_m_peak_len.get_ylim())
-                      -min(ax_m_peak_len.get_ylim()))*0.1388,
+                      -min(ax_m_peak_len.get_ylim()))*0.1698,
                            legend,
-                    horizontalalignment='left')
+                    horizontalalignment='left', fontsize=15)
     ax_m_peak_dist.text(-1.25, min(ax_m_peak_dist.get_ylim())
                     -(max(ax_m_peak_dist.get_ylim())
-                      -min(ax_m_peak_dist.get_ylim()))*0.1388,
+                      -min(ax_m_peak_dist.get_ylim()))*0.1698,
                            legend,
-                    horizontalalignment='left')
+                    horizontalalignment='left', fontsize=15)
     
 
     fig_m_peak_amp.savefig("mean_peak_amp.png", dpi=100,

@@ -26,8 +26,8 @@ stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
 
 if __name__ == '__main__':
-    types = [ "ctrl",  "80% PMCA kcat", "110% Ca in ER",
-              "120% PMCA",]
+    types = [ r"ctrl",  r"80\% PMCA kcat", r"110\% Ca in ER",
+              r"120\% PMCA",]
 
     marker = ["o", "s", "s", "o"]
     fillstyle = ["full", "none", "full", "none"]

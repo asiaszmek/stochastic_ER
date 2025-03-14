@@ -180,7 +180,7 @@ ims6 = Line2D([0], [0], color="tab:green", marker="d", fillstyle="none",
               lw=0)
 ax.tick_params(axis='x', labelsize=15)
 ax.tick_params(axis='y', labelsize=15)
-ax.set_ylabel(r"max(Ca) $(\mathrm{\mu M})$", fontsize=15)
+ax.set_ylabel(r"$\max(\mathrm{Ca_i})$ $(\mathrm{\mu M})$", fontsize=15)
 ax.set_xlabel(r"total injected ions/diam $(\mathrm{1/\mu m})$", fontsize=15)
 extra = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0)
 legend_handle = [extra, extra, extra, extra, ims1, ims4, extra, ims2, ims5, extra, ims3, ims6]
