@@ -27,11 +27,13 @@
   </OutputSet>
   <OutputSet filename = "RyR_Orai"  dt="10.0">
     <OutputSpecie name="RyRCaM"/>
-    <OutputSpecie name="RyRCaMC1"/>
-    <OutputSpecie name="RyRCaMC2"/>
-    <OutputSpecie name="RyRCaMC3"/>
-    <OutputSpecie name="RyRCaMC4"/>
-    <OutputSpecie name="RyRCaMC5"/>
+    <OutputSpecie name="Ca1RyRCaM"/>
+    <OutputSpecie name="Ca2RyRCaM"/>
+    <OutputSpecie name="Ca3RyRCaM"/>
+    <OutputSpecie name="Ca4RyRCaM"/>
+    <OutputSpecie name="Ca4RyRCaMC"/>
+    <OutputSpecie name="RyRCaMI"/>
+
     <OutputSpecie name="STIM_2"/>
     <OutputSpecie name="STIM_4"/>
     <OutputSpecie name="STIM_2CaER"/>
