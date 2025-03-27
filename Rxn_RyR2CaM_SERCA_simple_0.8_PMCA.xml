@@ -135,7 +135,7 @@
     <reverseRate>36.e-3</reverseRate>
     <Q10>0.2</Q10>
   </Reaction>
-
+  <Specie name="CaER" id="CaER" kdiff="10." kdiffunit="mu2/s"/>
   <Specie name="RyRCaM" id="RyRCaM" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Ca1RyRCaM" id="Ca1RyRCaM" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Ca2RyRCaM" id="Ca2RyRCaM" kdiff="0" kdiffunit="mu2/s"/>
