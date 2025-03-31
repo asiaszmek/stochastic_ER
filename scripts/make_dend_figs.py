@@ -9,7 +9,7 @@ specie_dict = {
     "Ca": ["Ca"],
     "CaOut": ["CaOut"],
     "CaER": ["CaER"],
-    "RyRO": ["RyRO1", "RyRO2"],
+    "RyRO": ["RyRCaMO1", "RyRCaMO2"],
     "STIM_CaER": ["STIM_2CaER"],
     "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"],
     "Fura": ["Fura2Ca"],
