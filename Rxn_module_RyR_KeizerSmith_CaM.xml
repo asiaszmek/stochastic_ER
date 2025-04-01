@@ -16,15 +16,15 @@
     <Reactant specieID="RyRCaM"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC1"/>
-    <forwardRate>60e-9</forwardRate>
-    <reverseRate>0.175</reverseRate>
+    <forwardRate>10e-11</forwardRate>
+    <reverseRate>1.</reverseRate>
  </Reaction>
 
   <Reaction name = "RyRCaMa" id="RyRCaMa">
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMO1"/>
-    <forwardRate>5e-12</forwardRate>
+    <forwardRate>5e-10</forwardRate>
     <reverseRate>4800e-3</reverseRate>
  </Reaction>
    
@@ -49,7 +49,7 @@
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC2" />
-    <forwardRate>10000e-15</forwardRate>
+    <forwardRate>10000e-13</forwardRate>
     <reverseRate>1.248e-2</reverseRate>
   </Reaction>
 
@@ -58,10 +58,12 @@
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC3"/>
     <forwardRate>1.5e-15</forwardRate>
-    <reverseRate>3.0</reverseRate>
+    <reverseRate>3.</reverseRate>
  </Reaction>
-      <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
- 
+
+   <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
+
+
    <Reaction name = "RyRCaMflux1" id="RyRCaMflux1">
      <Reactant specieID="RyRCaMO1"/>
      <Reactant specieID="CaER"/>
@@ -78,5 +80,5 @@
     <forwardRate>5e-3</forwardRate>
     <reverseRate>5e-3</reverseRate>
   </Reaction>
-  
+
 </ReactionScheme>

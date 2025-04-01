@@ -147,15 +147,15 @@
     <Reactant specieID="RyRCaM"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC1"/>
-    <forwardRate>60e-9</forwardRate>
-    <reverseRate>0.175</reverseRate>
+    <forwardRate>10e-11</forwardRate>
+    <reverseRate>1.</reverseRate>
  </Reaction>
 
   <Reaction name="RyRCaMa" id="RyRCaMa">
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMO1"/>
-    <forwardRate>5e-12</forwardRate>
+    <forwardRate>5e-10</forwardRate>
     <reverseRate>4800e-3</reverseRate>
  </Reaction>
    
@@ -180,7 +180,7 @@
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC2"/>
-    <forwardRate>10000e-15</forwardRate>
+    <forwardRate>10000e-13</forwardRate>
     <reverseRate>1.248e-2</reverseRate>
   </Reaction>
 
@@ -189,9 +189,10 @@
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC3"/>
     <forwardRate>1.5e-15</forwardRate>
-    <reverseRate>3.0</reverseRate>
+    <reverseRate>3.</reverseRate>
  </Reaction>
-      <Reaction name="RyRCaMflux1" id="RyRCaMflux1">
+
+   <Reaction name="RyRCaMflux1" id="RyRCaMflux1">
      <Reactant specieID="RyRCaMO1"/>
      <Reactant specieID="CaER"/>
      <Product specieID="RyRCaMO1"/>
@@ -207,7 +208,7 @@
     <forwardRate>5e-3</forwardRate>
     <reverseRate>5e-3</reverseRate>
   </Reaction>
-  
+
 <Specie name="Cyt_SERCA" id="Cyt_SERCA" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Cyt_SERCA_Ca" id="Cyt_SERCA_Ca" kdiff="0" kdiffunit="mu2/s"/>
   <Specie name="Cyt_SERCA_Ca2" id="Cyt_SERCA_Ca2" kdiff="0" kdiffunit="mu2/s"/>

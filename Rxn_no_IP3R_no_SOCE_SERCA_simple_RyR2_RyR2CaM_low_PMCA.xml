@@ -273,56 +273,57 @@
      Keizer and Smith -->
 
 
- <Reaction name = "RyRCaMe" id="RyRCaMe">
+<Reaction name="RyRCaMe" id="RyRCaMe">
     <Reactant specieID="RyRCaM"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC1"/>
-    <forwardRate>7.8125e-12</forwardRate>
-    <reverseRate>0.0125</reverseRate>
+    <forwardRate>10e-11</forwardRate>
+    <reverseRate>1.</reverseRate>
  </Reaction>
 
-  <Reaction name = "RyRCaMa" id="RyRCaMa">
+  <Reaction name="RyRCaMa" id="RyRCaMa">
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMO1"/>
-    <forwardRate>2.5e-12</forwardRate>
+    <forwardRate>5e-10</forwardRate>
     <reverseRate>4800e-3</reverseRate>
  </Reaction>
    
 
-  <Reaction name = "RyRCaMb" id="RyRCaMb">
+  <Reaction name="RyRCaMb" id="RyRCaMb">
     <Reactant specieID="RyRCaMO1"/>
     <Reactant specieID="Ca" power="4"/>
-    <Product specieID="RyRCaMO2" />
-    <forwardRate>5e-14</forwardRate>
-    <reverseRate>0.13</reverseRate>
+    <Product specieID="RyRCaMO2"/>
+    <forwardRate>5e-12</forwardRate>
+    <reverseRate>13</reverseRate>
   </Reaction>
 
-   <Reaction name = "RyRCaMc" id="RyRCaMc">
+   <Reaction name="RyRCaMc" id="RyRCaMc">
     <Reactant specieID="RyRCaMC2"/>
     <Reactant specieID="Ca" power="4"/>
-    <Product specieID="RyRCaMO2" />
+    <Product specieID="RyRCaMO2"/>
     <forwardRate>3.3333e-16</forwardRate>
     <reverseRate>66.667e-2</reverseRate>
   </Reaction>
 
-  <Reaction name = "RyRCaMd" id="RyRCaMd">
+  <Reaction name="RyRCaMd" id="RyRCaMd">
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
-    <Product specieID="RyRCaMC2" />
-    <forwardRate>5000e-14</forwardRate>
-    <reverseRate>1.248e-1</reverseRate>
+    <Product specieID="RyRCaMC2"/>
+    <forwardRate>10000e-13</forwardRate>
+    <reverseRate>1.248e-2</reverseRate>
   </Reaction>
 
-  <Reaction name = "RyRCaMf" id="RyRCaMf">
+  <Reaction name="RyRCaMf" id="RyRCaMf">
     <Reactant specieID="RyRCaMC2"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC3"/>
     <forwardRate>1.5e-15</forwardRate>
-    <reverseRate>3.0</reverseRate>
+    <reverseRate>3.</reverseRate>
  </Reaction>
 
--  <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
+
+  <!--Sobie et al. 2002 (Saleet Jafri's) states 4/ms, Keizer and Levine 5/ms for small ER-->
  
    <Reaction name = "RyRCaMflux1" id="RyRCaMflux1">
      <Reactant specieID="RyRCaMO1"/>
