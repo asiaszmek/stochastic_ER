@@ -16,15 +16,15 @@
     <Reactant specieID="RyRCaM"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC1"/>
-    <forwardRate>7.8125e-12</forwardRate>
-    <reverseRate>0.0125</reverseRate>
+    <forwardRate>60e-9</forwardRate>
+    <reverseRate>0.175</reverseRate>
  </Reaction>
 
   <Reaction name = "RyRCaMa" id="RyRCaMa">
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMO1"/>
-    <forwardRate>2.5e-12</forwardRate>
+    <forwardRate>5e-12</forwardRate>
     <reverseRate>4800e-3</reverseRate>
  </Reaction>
    
@@ -33,8 +33,8 @@
     <Reactant specieID="RyRCaMO1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMO2" />
-    <forwardRate>5e-14</forwardRate>
-    <reverseRate>0.13</reverseRate>
+    <forwardRate>5e-12</forwardRate>
+    <reverseRate>13</reverseRate>
   </Reaction>
 
    <Reaction name = "RyRCaMc" id="RyRCaMc">
@@ -49,8 +49,8 @@
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC2" />
-    <forwardRate>5000e-14</forwardRate>
-    <reverseRate>1.248e-1</reverseRate>
+    <forwardRate>10000e-15</forwardRate>
+    <reverseRate>1.248e-2</reverseRate>
   </Reaction>
 
   <Reaction name = "RyRCaMf" id="RyRCaMf">
