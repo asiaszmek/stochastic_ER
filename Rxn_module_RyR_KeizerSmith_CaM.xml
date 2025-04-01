@@ -17,15 +17,15 @@
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMC1"/>
     <forwardRate>7.8125e-12</forwardRate>
-    <reverseRate>12.5</reverseRate>
+    <reverseRate>0.0125</reverseRate>
  </Reaction>
 
   <Reaction name = "RyRCaMa" id="RyRCaMa">
     <Reactant specieID="RyRCaMC1"/>
     <Reactant specieID="Ca" power="4"/>
     <Product specieID="RyRCaMO1"/>
-    <forwardRate>5e-12</forwardRate>
-    <reverseRate>9600e-3</reverseRate>
+    <forwardRate>2.5e-12</forwardRate>
+    <reverseRate>4800e-3</reverseRate>
  </Reaction>
    
 
