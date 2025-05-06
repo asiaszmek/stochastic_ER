@@ -29,7 +29,7 @@ types = [ "RyR2CaM+SOCE", "RyR2CaM"]
 marker = ["o", "o"]
 fillstyle = ["full", "none"]
 stims = ["0175", "0350", "0700", "1050", "2000"]
-dend_diam = ["1.2", "2.4", "6.0"]
+dend_diam = ["2.4"] #["1.2", "2.4", "6.0"]
 
 
 if __name__ == '__main__':

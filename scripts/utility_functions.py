@@ -511,74 +511,88 @@ def make_injection_vs_min_CaER(directories,  dend_diam,
                                stims,  output_name, 
                                colors, types, marker, fillstyle, legend=None):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
+    if len(dend_diam) == 1:
+        ax1 =[ax1]
     base = "dend"
     reg_list = [base, "dend01", "dend02", "dend03", "dend04",
                 "dend05", "dend06", "dend07", "dend08", "dend09",]
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
+    stim_type=""
+    x = {}
+    x_err = {}
+    y = {}
+    y_err = {}
 
     for k, (d, fname) in enumerate(directories):
         my_path = os.path.join("..", d)
-        for stim_type in [""]:    #, "_3s_injection"]:
-            for j, diam in enumerate(dend_diam):
-                x = []
-                x_err = []
-                y = []
-                y_err = []
-                for i, stim in enumerate(stims):
-                    new_fname = fname % (stim_type, diam, stim)
-                    my_file = os.path.join(my_path, new_fname)
-                    try:
-                        conc_dict, times_dict = get_conc(my_file,
+        x[k] = {}
+        x_err[k] = {}
+        y [k] = {}
+        y_err[k] = {}
+ 
+        for j, diam in enumerate(dend_diam):
+            x[k][diam] = []
+            x_err[k][diam] = []
+            y[k][diam] = []
+            y_err[k][diam] = []
+            
+            for i, stim in enumerate(stims):
+                new_fname = fname % (stim_type, diam, stim)
+                my_file = os.path.join(my_path, new_fname)
+                try:
+                    conc_dict, times_dict = get_conc(my_file,
                                                          ["Ca", "CaER"],
                                                          reg_list,
                                                          output_name)
-                    except TypeError:
-                        continue
-                    try:
-                        dt = times_dict["trial0"][1]-times_dict["trial0"][0]
-                    except KeyError:
-                        continue
-                    branch = np.zeros((len(conc_dict["Ca"]), 1))
-                    length = get_length(my_file)
-                    dend_length = get_length(my_file)
-                    shape = conc_dict["Ca"]["trial0"].shape[0]
-                    if shape % 2:
-                        start_1, start_2 = shape//2+1
-                    else:
-                        start_1 = shape//2-1
-                        start_2 = shape//2
-                    print(start_1, start_2)
-                    min_mol = np.zeros((len(conc_dict["Ca"]), 1))
-                    for i, key in enumerate(conc_dict["CaER"].keys()):
-                        conc = conc_dict["CaER"][key][:, int(t_init/dt):].sum(axis=0)
-                        conc_ca = conc_dict["Ca"][key]
-                        branch[i] = (conc_dict["Ca"][key][start_1, int(t_init/dt):].max()+conc_dict["Ca"][key][start_2, int(t_init/dt):].max())/2000
-                        min_mol[i] = min(conc)
-
-                    b_diam = float(diam)
-                    myfile = h5py.File(my_file)
-                    my_grid = get_grid_list(myfile)
-                    vox_ind, vols = get_dend_indices(my_grid,
-                                                     region=reg_list)
-                    volume = sum(vols)
-                    x.append(np.mean(branch))
-                    x_err.append(np.std(branch)/len(branch)**0.5)
-                    y.append(min_mol.mean()*volume*4*6.022*1e-9)
-                    y_err.append(min_mol.std()/len(min_mol)**.5*volume*4*6.022*1e-9)
-                print(x,x_err, y, y_err)
-                if not len(y):
+                except TypeError:
                     continue
-                ax1[j].errorbar(x, y, xerr=x_err, yerr=y_err,
-                                color=colors[diam],
-                                marker=marker[k],
-                                label=types[k],
-                                linestyle="", fillstyle=fillstyle[k])
-                if legend is None:    
-                    ax1[j].legend(loc='lower left')
-    if legend is not None:
-        ax1[0].legend(handles=legend, loc='lower left')
-    ax1[0].set_ylabel("min Ca molecules in the ER [1e9]",
+                try:
+                    dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                except KeyError:
+                    continue
+                branch = np.zeros((len(conc_dict["Ca"]), 1))
+                length = get_length(my_file)
+                dend_length = get_length(my_file)
+                shape = conc_dict["Ca"]["trial0"].shape[0]
+                if shape % 2:
+                    start_1, start_2 = shape//2+1
+                else:
+                    start_1 = shape//2-1
+                    start_2 = shape//2
+                print(start_1, start_2)
+                min_mol = np.zeros((len(conc_dict["Ca"]), 1))
+                for i, key in enumerate(conc_dict["CaER"].keys()):
+                    conc = conc_dict["CaER"][key][:, int(t_init/dt):].sum(axis=0)
+                    conc_ca = conc_dict["Ca"][key]
+                    branch[i] = (conc_dict["Ca"][key][start_1,
+                                                      int(t_init/dt):].max()
+                                 +conc_dict["Ca"][key][start_2,
+                                                       int(t_init/dt):].max())/2000
+                    min_mol[i] = min(conc)
+
+                b_diam = float(diam)
+                myfile = h5py.File(my_file)
+                my_grid = get_grid_list(myfile)
+                vox_ind, vols = get_dend_indices(my_grid,
+                                                 region=reg_list)
+                volume = sum(vols)
+                x[k][diam].append(np.mean(branch))
+                x_err[k][diam].append(np.std(branch)/len(branch)**0.5)
+                y[k][diam].append(min_mol.mean()*volume*4*6.022*1e-9)
+                y_err[k][diam].append(min_mol.std()/len(min_mol)**.5*volume*4*6.022*1e-9)
+    print(x,x_err, y, y_err)
+    for j, diam in enumerate(dend_diam):
+        new_x = np.array(x[0][diam])+np.array(x[1][diam])/2
+        new_y = np.array(y[1][diam])/np.array(y[0][diam])
+        new_err = np.sqrt((np.array(y_err[1][diam])/np.array(y[0][diam]))**2
+                          +(np.array(y_err[0][diam])*np.array(y[1][diam])/(np.array(y[0][diam])**2))**2)
+        
+        ax1[j].errorbar(new_x, new_y, yerr=new_err,
+                        color=colors[diam],
+                        marker=marker[k],
+                        linestyle="", fillstyle=fillstyle[k])
+    ax1[0].set_ylabel("\% min Ca molecules in the ER",
                       fontsize=15)
     ax1[0].set_xlabel("Peak Ca at stimulated site $\mathrm{(\mu M)}$", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
