@@ -32,10 +32,10 @@ legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
 
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
-dend_diam = ["1.2", "2.4", "6.0"]
+dend_diam = ["1.2"]#, "2.4", "6.0"]
 
 if __name__ == '__main__':
-    types = [ "ctrl",  "old age - RyR2 + RyR2CaM","ctrl with low PMCA","ctrl with 200\% Ca buffers", "ctrl + RyR2",
+    types = [ "ctrl",  "ctrl - RyR2CaM + RyR2 no CaM", "ctrl with low PMCA activity" ,"ctrl with 200\% Ca buffers","old age - RyR2 no CaM + RyR2CaM",
               "old age",]
     marker = ["o", "o", "^", "^", "s","s", ]
     fillstyle = ["full", "none", "full", "none", "full", "none"]
@@ -47,8 +47,8 @@ if __name__ == '__main__':
                                                    output_name, 
                                                    colors,
                                                    types, marker,
-                                                   fillstyle,
-                                                   legend=legend_elements)
+                                                   fillstyle)#,
+                                                   #legend=legend_elements)
     fig1.savefig("Aging_temporal_dissection.png", dpi=100,
                  bbox_inches="tight")
     fig1.savefig("Aging_temporal_dissection.eps", dpi=100,

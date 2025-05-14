@@ -3,8 +3,8 @@ import utility_functions as utils
 from matplotlib.lines import Line2D
 
 colors = {"1.2": 'tab:blue',
-          "2.4": 'tab:green',
-          "6.0": 'tab:purple'}
+          "2.4": 'tab:purple',
+          "6.0": 'tab:green'}
 
 
 directories = [

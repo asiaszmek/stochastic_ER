@@ -774,7 +774,7 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
                     else:
                         ax1[j].legend(loc="lower right", prop={'size': 10})
     if legend is not None:
-        ax1[0].legend(handles=legend)
+        ax1[-1].legend(handles=legend)
     ax1[0].set_ylabel("Spatial extent $(\mathrm{\mu m})$", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
