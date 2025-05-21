@@ -599,7 +599,8 @@ def make_injection_vs_min_CaER(directories,  dend_diam,
     maxi = max([max(x.get_ylim()) for x in ax1])
  
     for i, diam in enumerate(dend_diam):
-        
+        ax1[i].tick_params(axis='x', labelsize=15)
+        ax1[i].tick_params(axis='y', labelsize=15)
         ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
                          fontsize=15)
         ax1[i].set_ylim([mini, maxi])
