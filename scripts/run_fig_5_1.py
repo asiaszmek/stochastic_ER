@@ -21,10 +21,10 @@ directories = [
 legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
                           lw=0, label='ctrl'),
                    Line2D([0], [0], color="k", marker='o', fillstyle="none",
-                          lw=0, label='ctrl - RyR2CaM + RyR2 no CaM'),
+                          lw=0, label='ctrl with old age RyR2'),
                    
                    Line2D([0], [0], color="k", marker='s', fillstyle="full",
-                          lw=0, label='old age - RyR2 no CaM + RyR2CaM'),
+                          lw=0, label='old age with ctrl RyR2'),
                    Line2D([0], [0], color='k', marker="s", fillstyle="none",
                           lw=0, label='old age'),]
 
