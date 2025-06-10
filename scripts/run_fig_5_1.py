@@ -24,7 +24,7 @@ legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
                           lw=0, label='ctrl with old age RyR2'),
                    
                    Line2D([0], [0], color="k", marker='s', fillstyle="full",
-                          lw=0, label='old age with ctrl RyR2'),
+                          lw=0, label='old age with fully inhibited RyR2'),
                    Line2D([0], [0], color='k', marker="s", fillstyle="none",
                           lw=0, label='old age'),]
 
@@ -33,7 +33,7 @@ stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2"]#, "2.4", "6.0"]
 
 if __name__ == '__main__':
-    types = [ "ctrl", "ctrl + RyR2", "old age - RyR2 no CaM + RyR2CaM", 
+    types = [ "ctrl", "ctrl + RyR2", "old age with fully inhibited RyR2", 
               "old age",]
     marker = ["o", "o",  "s","s", ]
     fillstyle = ["full", "none", "full", "none"]

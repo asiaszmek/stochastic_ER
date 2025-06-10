@@ -507,7 +507,7 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
     return fig1
 
 
-def make_injection_vs_min_CaER(directories,  dend_diam,
+def make_dip_CaER(directories,  dend_diam,
                                stims,  output_name, 
                                colors, types, marker, fillstyle, legend=None):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))

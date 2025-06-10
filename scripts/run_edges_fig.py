@@ -27,6 +27,8 @@ names_dict = {
     # "80%\n0\n100%\n100%":
     # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
     "80%\n100%\n100%": "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    "80%\n0\n200%": "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
+
      "80%\n200%\n200%": "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
     
 }
@@ -158,19 +160,19 @@ if __name__ == "__main__":
     data_dir = os.path.join("..", "stacked_ER")
     x_labels = list(names_dict.keys())
     fig_m_peak_amp, ax_m_peak_amp = plt.subplots(1, 1,
-                                                 figsize=(1*5,
+                                                 figsize=(1*7,
                                                           5))
     fig_m_peak_width, ax_m_peak_width = plt.subplots(1, 1,
-                                                     figsize=(1*5,
+                                                     figsize=(1*7,
                                                               5))
     fig_m_peak_len, ax_m_peak_len = plt.subplots(1, 1,
-                                                 figsize=(1*5,
+                                                 figsize=(1*7,
                                                               5)) 
     fig_m_peak_dist, ax_m_peak_dist = plt.subplots(1, 1,
-                                                   figsize=(1*5,
+                                                   figsize=(1*7,
                                                             5))
     fig_m_peak_init, ax_m_peak_init = plt.subplots(1, len(dend_diam),
-                                                   figsize=(len(dend_diam)*5,
+                                                   figsize=(len(dend_diam)*7,
                                                             5))
    
     ax_m_peak_init = ax_m_peak_init

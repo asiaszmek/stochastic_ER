@@ -22,9 +22,10 @@ names_dict = {
     "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
     "80%\n50%\n50%": "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
     "80%\n0\n100%": "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    # "80%\n0\n100%\n100%":
-    # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
+ 
     "80%\n100%\n100%": "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
+     "80%\n0\n200%":
+     "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
      "80%\n200%\n200%": "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
     
 }
@@ -156,7 +157,7 @@ if __name__ == "__main__":
     data_dir = os.path.join("..", "stacked_ER")
     x_labels = list(names_dict.keys())
     fig_wave_f, ax_wave_f = plt.subplots(1, 1,
-                                         figsize=(1*5, 5))
+                                         figsize=(1*7, 5))
     for i, d in enumerate(dend_diam):
         f_mean = []
         f_std = []
