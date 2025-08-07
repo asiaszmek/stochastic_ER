@@ -469,7 +469,6 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                 x_val[d][diam].append(branch)
     for j, d in enumerate(dend_diam):
         val = []
-        val_error = []
         for i in range(len(ratio_set)):
             dir_1 = ratio_set[i][0]
             dir_2 = ratio_set[i][1]
@@ -479,15 +478,14 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
             denominator = np.array(res[dir_2][d])
             point = (numerator/denominator-1)*100
             print(point)
-            val.append(point.mean())
-            val_error.append(point.std()/len(point)**0.5)
-
+            val.append(point)
             ax1[j].plot([i+1]*len(point),  point, color=colors[d],
-                        fillstyle="none", marker=marker[i])
-        print(xs, val, val_error)
-        ax1[j].errorbar(xs,
-                        val, yerr=val_error, marker="s", linestyle="",
-                        color=colors[d], fillstyle="full")
+                        fillstyle="none", marker=marker[i], linestyle="")
+        ax1[j].boxplot(val)
+        print(xs, val)
+        # ax1[j].errorbar(xs,
+        #                 val, yerr=val_error, marker="s", linestyle="",
+        #                 color=colors[d], fillstyle="full")
         ax1[j].set_xticks(xs)   
         ax1[j].set_xticklabels(types, rotation=90)
         ax1[j].tick_params(axis='x', labelsize=15)
