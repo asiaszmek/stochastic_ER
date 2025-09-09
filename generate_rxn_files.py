@@ -202,14 +202,6 @@ if __name__ == "__main__":
    
 
     my_rxn_f = read_in_files(file_list_ER_RyR2CaM_simple_SERCA_Fura2)
-    with  open("Rxn_RyR2CaM_SERCA_simple_Fura2.xml", "w") as f:
-        f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
-    
-    my_rxn_f = read_in_files(file_list_ER_RyR2CaM_no_SOCE_simple_SERCA_Fura2)
-    with open("Rxn_RyR2CaM_no_SOCE_SERCA_simple_Fura2.xml", "w") as f:
-        f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
-
-    my_rxn_f = read_in_files(file_list_ER_RyR2CaM_simple_SERCA_Fura2)
     with open("Rxn_RyR2CaM_SERCA_simple.xml", "w") as f:
         f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
     my_rxn_f = read_in_files(file_list_ER_RyR2CaM_no_SOCE_simple_SERCA_Fura2)
@@ -232,6 +224,3 @@ if __name__ == "__main__":
     with open("Rxn_no_IP3R_no_SOCE_SERCA_simple_RyR2.xml", "w") as f:
         f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
 
-    my_rxn_f = read_in_files(file_list_ER_no_IP3R_no_SOCE_simple_SERCA_Fura2)
-    with open("Rxn_no_IP3R_no_SOCE_SERCA_simple_RyR2_Fura2.xml", "w") as f:
-        f.write(etree.tostring(my_rxn_f, pretty_print=True).decode("utf-8"))
