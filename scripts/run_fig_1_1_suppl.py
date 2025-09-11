@@ -39,6 +39,6 @@ if __name__ == '__main__':
                                              "all", 
                                              colors,
                                              types, markers,
-                                             fillstyle)
+                                             fillstyle, find_middle=True)
     fig1.savefig("RyR_AP_distance.png", dpi=100, bbox_inches="tight")
     fig1.savefig("RyR_AP_distance.eps", dpi=100, bbox_inches="tight")

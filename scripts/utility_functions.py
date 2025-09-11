@@ -354,75 +354,74 @@ def get_conc(fullname, specie_list, region_list, output):
     return conc_dict, time_dict
 
 
-def fit_distance(conc_dict, dt, t_init=3000, method="regular", length=51):
+def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
     decays = np.zeros((len(conc_dict), 1))
     shape = conc_dict["trial0"].shape[0]
-    distance = np.linspace(-length/2, length/2, shape)
     branch = np.zeros((len(conc_dict), 1))
     duration = conc_dict["trial0"].shape[1]
-    if shape % 2:
-        start_1 = start_2 = shape//2 + 1
+    if find_middle:
+        find_middle = np.argmax(conc_dict["trial0"])
+        full_shape = conc_dict["trial0"].shape
+        idx_pair = np.unravel_index(find_middle, full_shape)
+        start_1 = start_2 = idx_pair[0]
+        distance = np.linspace(0, length/shape*(shape-start_1), shape-start_1)
+       
     else:
-        start_1 = shape//2-1
-        start_2 = shape//2
-
+        if shape % 2:
+            start_1 = start_2 = shape//2 + 1
+        else:
+            start_1 = shape//2-1
+            start_2 = shape//2
+    
     for i, concentration in enumerate(conc_dict.values()):
         ca_conc = np.zeros((shape,))
         ca_conc_mean = concentration[:, :int(t_init/dt)].mean()
         new_beg = int(t_init/dt)
         indices = []
+
         for j in range(start_2, shape):
-            try:
-                new_idx = concentration[j, new_beg:].argmax()
-            except ValueError:
-                continue
+
+            new_idx = concentration[j, new_beg:].argmax()
             ca_conc[j] = concentration[j, new_beg+new_idx]
-            if method == "regular":
-                if ca_conc[j] > limit*ca_conc_mean:
-                    if not len(indices):
-                        indices.append(j)
-                    elif j+1 in indices or j-1 in indices:
-                        indices.append(j)
+            
+            if ca_conc[j] > limit*ca_conc_mean:
+                if not len(indices):
+                    indices.append(j)
+                elif j+1 in indices or j-1 in indices:
+                    indices.append(j)
         new_beg = int(t_init/dt)         
         for j in range(start_1, -1, -1):
-            
             try:
                 new_idx = concentration[j, new_beg:].argmax()
             except ValueError:
                 continue
             ca_conc[j] = concentration[j, new_beg+new_idx]
-            if method == "regular":
-                if ca_conc[j] > limit*ca_conc_mean:
-                    if not len(indices):
-                        indices.append(j)
-                    elif j+1 in indices or j-1 in indices:
-                        indices.append(j)
-        if method == "regular":
-            dx = distance[1]-distance[0]
+
+            if ca_conc[j] > limit*ca_conc_mean:
+                if not len(indices):
+                    indices.append(j)
+                elif j+1 in indices or j-1 in indices:
+                    indices.append(j)
+        print(indices)
+        dx = distance[1]-distance[0]
+        if start_1 == start_2 == shape//2 + 1:
             decays[i] = len(indices)*dx/2
         else:
-            try:
-                popt, pcov = curve_fit(lambda t, a, b, c:
-                                       a*np.exp(-abs(t)/b)+c,
-                                       distance,
-                                       ca_conc-(ca_conc[0]+ca_conc[-1])/2)
-            except RuntimeError:
-                continue
-            if popt[1] < 0 or popt[1]> 10:
-                continue
-            decays[i] = popt[1]
-        try:
-            branch[i] = (concentration[start_1, int(t_init/dt):].max()
-                         +concentration[start_2, int(t_init/dt):].max())/2
-        except ValueError:
-            continue
+            new_indices = []
+            idxes = max(start_1, start_2)
+            for idx in range(idxes):
+                if idx not in indices:
+                    new_indices.append(idx)
+                decays[i] = len(new_indices)*dx
+        branch[i] = (concentration[start_1, int(t_init/dt):].max()
+                     +concentration[start_2, int(t_init/dt):].max())/2
     return distance, branch, decays
 
 
 
 def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                                  what_species, region_list, output_name,
-                                 colors, types, method="regular"):
+                                 colors, types):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
     xs = list(range(1, 5))
 
@@ -457,8 +456,7 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                 length = get_length(my_file)
                 try:
                     dist, branch, delay = fit_distance(conc_dict["Ca"],
-                                                       dt, method=method,
-                                                       length=length)
+                                                       dt, length=length)
                 except KeyError:
                     res[d][diam].append([])
                     x_val[d][diam].append([])
@@ -708,11 +706,8 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
     return fig1
 
 
-def make_distance_fig_sep_dends(directories,  dend_diam,
-                                stims, 
-                                output_name, 
-                                colors, types, marker, fillstyle,
-                                method="regular", legend=None, title=True):
+def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name, colors, types,
+                                marker, fillstyle, legend=None, title=True, find_middle=False):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
     if len(dend_diam) == 1:
         ax1 = [ax1]
@@ -747,9 +742,7 @@ def make_distance_fig_sep_dends(directories,  dend_diam,
                     length = get_length(my_file)
                     try:
                         dist, branch, delay = fit_distance(conc_dict["Ca"],
-                                                           dt,
-                                                           method=method,
-                                                           length=length)
+                                                           dt, length=length, find_middle=find_middle)
                                                                     
                     except TypeError:
                         continue
