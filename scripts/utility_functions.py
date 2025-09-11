@@ -377,7 +377,7 @@ def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
         ca_conc = np.zeros((shape,))
         ca_conc_mean = concentration[:, :int(t_init/dt)].mean()
         new_beg = int(t_init/dt)
-        indices = []
+        indices = set()
 
         for j in range(start_2, shape):
 
@@ -386,9 +386,9 @@ def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
             
             if ca_conc[j] > limit*ca_conc_mean:
                 if not len(indices):
-                    indices.append(j)
+                    indices.add(j)
                 elif j+1 in indices or j-1 in indices:
-                    indices.append(j)
+                    indices.add(j)
         new_beg = int(t_init/dt)         
         for j in range(start_1, -1, -1):
             try:
@@ -399,20 +399,21 @@ def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
 
             if ca_conc[j] > limit*ca_conc_mean:
                 if not len(indices):
-                    indices.append(j)
+                    indices.add(j)
                 elif j+1 in indices or j-1 in indices:
-                    indices.append(j)
+                    indices.add(j)
         print(indices)
         dx = distance[1]-distance[0]
-        if start_1 == start_2 == shape//2 + 1:
-            decays[i] = len(indices)*dx/2
-        else:
-            new_indices = []
-            idxes = max(start_1, start_2)
-            for idx in range(idxes):
-                if idx not in indices:
-                    new_indices.append(idx)
-                decays[i] = len(new_indices)*dx
+        if start_1 == start_2:
+            for j in range(1, start_1+1):
+                if start_1+j in indices and start_1-j in indices:
+                    indices.remove(start_1-j)
+        else:      
+            for j in range(0, start_1+1):
+                if start_1-j in indices and start_2+j in indices:
+                    indices.remove(start1-j)
+        print(indices, start_1, start_2)
+        decays[i] = len(indices)*dx
         branch[i] = (concentration[start_1, int(t_init/dt):].max()
                      +concentration[start_2, int(t_init/dt):].max())/2
     return distance, branch, decays
