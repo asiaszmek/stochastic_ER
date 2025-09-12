@@ -15,7 +15,7 @@ model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <xi:include href="../%s" />
     <xi:include href="Morph.xml" />
     <xi:include href="%s" />
-    <xi:include href="IO_Ca.xml"/>
+    <xi:include href="../IO_Ca.xml"/>
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the
 results (also, 3D may not work yet...)  -->
@@ -107,7 +107,7 @@ IC_text = {
     """,
 
 }
-IO_text ={
+../IO_text ={
     "KL":
     """<OutputScheme>
   <OutputSet filename = "all"  dt=".1">
@@ -365,8 +365,8 @@ if __name__ == "__main__":
     else:
         model = sys.argv[1]
         
-    f = open("IO_Ca.xml", "w")
-    f.write(IO_text[model])
+    f = open("../IO_Ca.xml", "w")
+    f.write(../IO_text[model])
     f.close()
     exp_res = np.loadtxt(ca_conc_file, skiprows=1, delimiter=',')
     ca_conc_list = exp_res[:, 0]
