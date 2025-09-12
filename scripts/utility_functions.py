@@ -372,6 +372,7 @@ def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
         else:
             start_1 = shape//2-1
             start_2 = shape//2
+        distance = np.linspace(-length/2, length/2, shape)
     
     for i, concentration in enumerate(conc_dict.values()):
         ca_conc = np.zeros((shape,))
@@ -402,7 +403,6 @@ def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
                     indices.add(j)
                 elif j+1 in indices or j-1 in indices:
                     indices.add(j)
-        print(indices)
         dx = distance[1]-distance[0]
         if start_1 == start_2:
             for j in range(1, start_1+1):
@@ -411,8 +411,7 @@ def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
         else:      
             for j in range(0, start_1+1):
                 if start_1-j in indices and start_2+j in indices:
-                    indices.remove(start1-j)
-        print(indices, start_1, start_2)
+                    indices.remove(start_1-j)
         decays[i] = len(indices)*dx
         branch[i] = (concentration[start_1, int(t_init/dt):].max()
                      +concentration[start_2, int(t_init/dt):].max())/2
