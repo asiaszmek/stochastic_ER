@@ -17,34 +17,28 @@ directories = [
         "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_simple_SERCA_SOCE",
-        "model_RyR%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
+        "Ca_wave_normal_SERCA_aging",
+        "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_simple_SERCA_SOCE",
-        "model_RyR%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
-    ],
-
+        "Ca_wave_normal_SERCA_aging",
+        "model_aging%s_simple_SERCA_baloon_diam_%s_um_50_um_%s_nM.h5"
+    ]
 ]
-
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
-
-legend_elements = [
-    Line2D([0], [0], color='k', marker="o", fillstyle="full",
-           lw=0, label='uniform RyR2CaM'),
-    Line2D([0], [0], color="k", marker='^', fillstyle="full",
-           lw=0, label="RyR2CaM in EPJ"),
-    Line2D([0], [0], color="k", marker='o', fillstyle="none",
-           lw=0, label="uniform RyR2 no CaM"),
-    Line2D([0], [0], color="k", marker='^', fillstyle="none",
-           lw=0, label="RyR2 in EPJ no CaM"),
-]
-
+legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
+                          lw=0, label='uniform RyR2CaM'),
+                   Line2D([0], [0], color="k", marker='^', fillstyle="full",
+                          lw=0, label="RyR2CaM in EPJ"),
+                   Line2D([0], [0], color="k", marker='o', fillstyle="none",
+                          lw=0, label="old age uniform"),
+                   Line2D([0], [0], color='k', marker="^", fillstyle="none",
+                          lw=0, label='old age EPJ'),]
 
 
 if __name__ == '__main__':
-    types = [ "uniform RyR2CaM", "RyR2CaM in EPJ", "uniform RyR2 no CaM", "RyR2 in EPJ no CaM" ]
+    types = ["uniform RyR2CaM", "RyR2CaM in EPJ", "old age uniform RyR2 and RyR2CaM", "old age RyR2 and RyR2CaM in EPJ"]
     marker = [ "o", "^", "o" , "^"]
     fillstyle= ["full", "full", "none", "none"]
     output_name = "all"
@@ -57,5 +51,5 @@ if __name__ == '__main__':
                                                    marker,
                                                    fillstyle,
                                                    legend=legend_elements)
-    fig1.savefig("CaM_no_CaM_temporal_short.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("Aging_temporal_short.png", dpi=100, bbox_inches="tight")
 

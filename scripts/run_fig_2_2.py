@@ -1,63 +1,61 @@
 import os
+import h5py
+import numpy as np
 import utility_functions as utils
-import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-
-legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
-                          lw=0, label='ctrl'),
-                   Line2D([0], [0], color="k", marker='o', fillstyle="none",
-                          lw=0, label="no SOCE"),
-                  ]
-
+            
 colors = {"1.2": 'tab:blue',
           "2.4": 'tab:purple',
           "6.0": 'tab:green'}
-
-
 directories = [
     [
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-        "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_2.4_um_50_um_0700_nM.h5"
+        "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
-        "model_RyR2CaM_simple_SERCA_tubes_diam_2.4_um_50_um_0700_nM.h5"
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+        "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
     ],
+    [
+        "Ca_wave_simple_SERCA_SOCE",
+        "model_RyR%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
+    ],
+    [
+        "Ca_wave_simple_SERCA_SOCE",
+        "model_RyR%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
+    ],
+
+]
+
+stims = ["0175", "0350", "0700", "1050", "2000"]
+dend_diam = ["1.2", "2.4", "6.0"]
+
+legend_elements = [
+    Line2D([0], [0], color='k', marker="o", fillstyle="full",
+           lw=0, label='uniform RyR2CaM'),
+    Line2D([0], [0], color="k", marker='^', fillstyle="full",
+           lw=0, label="RyR2CaM in EPJ"),
+    Line2D([0], [0], color="k", marker='o', fillstyle="none",
+           lw=0, label="uniform RyR2 no CaM"),
+    Line2D([0], [0], color="k", marker='^', fillstyle="none",
+           lw=0, label="RyR2 in EPJ no CaM"),
 ]
 
 
-types = [ "RyR2CaM+SOCE", "RyR2CaM"]
-marker = ["o", "o"]
-fillstyle = ["full", "none"]
-stims = ["0175", "0350", "0700", "1050", "2000"]
-dend_diam = [ "2.4"]
-base = "dend"
-reg_list = [base, "dend01", "dend02", "dend03", "dend04",
-            "dend05", "dend06", "dend07", "dend08", "dend09",]
-for i in range(10, 102, 1):
-    reg_list.append("%s%d" %(base, i))
-linestyles = ["solid", "dotted"]
-trial = "trial1"
-if __name__ == '__main__':
-    fig1, ax1 = plt.subplots(1, 1, figsize=(5, 5))
-    for k, (d, fname) in enumerate(directories):
-        my_path = os.path.join("..", d, fname)
-        conc_dict, times_dict = utils.get_conc(my_path,
-                                               ["CaER"],
-                                               reg_list,
-                                               "all")
-        length = len(times_dict[trial])
-        print(conc_dict["CaER"][trial].min())
-        ca_er = conc_dict["CaER"][trial].sum(axis=0)
 
-        ax1.plot(times_dict[trial]/1000, ca_er, label=types[k], color="tab:purple", linestyle=linestyles[k])
-        print(min(ca_er))
-    ax1.set_xlabel("time (s)", fontsize=15)
-    ax1.set_ylabel("CaER $(\mu\mathrm{M})$", fontsize=15)
-    ax1.tick_params(axis='x', labelsize=15)
-    ax1.tick_params(axis='y', labelsize=15)
-    ax1.legend()
-    fig1.savefig("min_CaER_SOCE_no_SOCE.png", dpi=100,
-                 bbox_inches="tight")
-    fig1.savefig("min_CaER_SOCE_no_SOCE.eps", dpi=100,
-                bbox_inches="tight")
+if __name__ == '__main__':
+    types = [ "uniform RyR2CaM", "RyR2CaM in EPJ", "uniform RyR2 no CaM", "RyR2 in EPJ no CaM" ]
+    marker = [ "o", "^", "o" , "^"]
+    fillstyle= ["full", "full", "none", "none"]
+    output_name = "all"
+    fig1 = utils.make_decay_constant_fig_sep_dends(directories,
+                                                   dend_diam,
+                                                   stims,
+                                                   output_name, 
+                                                   colors,
+                                                   types,
+                                                   marker,
+                                                   fillstyle,
+                                                   legend=legend_elements)
+    fig1.savefig("CaM_no_CaM_temporal_short.png", dpi=100, bbox_inches="tight")
+

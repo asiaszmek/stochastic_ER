@@ -2,54 +2,53 @@ import os
 import utility_functions as utils
 from matplotlib.lines import Line2D
 
-colors = {"1.2": 'tab:blue',
-          "2.4": 'tab:purple',
-          "6.0": 'tab:green'}
+
+colors ={
+
+        "1.2": 'tab:blue',
+        "2.4": 'tab:purple',
+        "6.0": 'tab:green'
+
+}
+
 directories = [
-    [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-        "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
-    ],
-    [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-        "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
-    ],
-    [
-        "Ca_wave_normal_SERCA_aging",
-        "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
-    ],
-    [
-        "Ca_wave_normal_SERCA_aging",
-        "model_aging%s_simple_SERCA_baloon_diam_%s_um_50_um_%s_nM.h5"
-    ]
+    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE", "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    ["Ca_wave_simple_SERCA_no_SOCE_Breit_2018", "model_RyR%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    
+    ["Ca_wave_RyR2CaM_aging", "model_RyR2CaM_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    ["Ca_wave_normal_SERCA_aging", "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
 ]
+legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
+                          lw=0, label='ctrl'),
+                   Line2D([0], [0], color="k", marker='o', fillstyle="none",
+                          lw=0, label='ctrl with old age RyR2'),
+                   
+                   Line2D([0], [0], color="k", marker='s', fillstyle="full",
+                          lw=0, label='old age with fully inhibited RyR2'),
+                   Line2D([0], [0], color='k', marker="s", fillstyle="none",
+                          lw=0, label='old age'),]
+
 
 stims = ["0175", "0350", "0700", "1050", "2000"]
-dend_diam = ["1.2", "2.4", "6.0"]
-
-legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
-                          lw=0, label='uniform RyR2CaM'),
-                   Line2D([0], [0], color="k", marker='^', fillstyle="full",
-                          lw=0, label="RyR2CaM in EPJ"),
-                   Line2D([0], [0], color="k", marker='o', fillstyle="none",
-                          lw=0, label="old age uniform"),
-                   Line2D([0], [0], color='k', marker="^", fillstyle="none",
-                          lw=0, label='old age EPJ'),]
-
-
+dend_diam = ["1.2"]#, "2.4", "6.0"]
 
 if __name__ == '__main__':
-    types = ["uniform RyR2CaM", "RyR2CaM in EPJ", "old age uniform RyR2 and RyR2CaM", "old age RyR2 and RyR2CaM in EPJ"]
-    markers = ["o", "^", "o", "^"]
-    fillstyle = ["full", "full", "none", "none"]
+    types = [ "ctrl", "ctrl + RyR2", "old age with fully inhibited RyR2", 
+              "old age",]
+    marker = ["o", "o",  "s","s", ]
+    fillstyle = ["full", "none", "full", "none"]
 
+    output_name = "all"
     fig1 = utils.make_distance_fig_sep_dends(directories,
                                              dend_diam,
                                              stims,
-                                             "all", 
+                                             output_name, 
                                              colors,
-                                             types, marker=markers,
-                                             fillstyle=fillstyle,
-                                             legend=legend_elements)
-    fig1.savefig("Aging_distance.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("Aging_distance.eps", dpi=100, bbox_inches="tight")
+                                             types, marker, fillstyle,
+                                             method="regular")
+    fig1.savefig("Aging_spatial_specificity_dissection.png", dpi=100,
+                 bbox_inches="tight")
+    fig1.savefig("Aging_spatial_specificity_dissection.eps", dpi=100,
+                 bbox_inches="tight")
+
+
