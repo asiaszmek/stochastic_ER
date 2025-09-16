@@ -17,19 +17,28 @@ colors =  {
 
 names_dict = {
    
-    # "normal PMCA + no RyR2": "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5",
-    # "normal PMCA + RyR2": "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5",
-    # "low PMCA, RyR2CaM": "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
+   
     "80%\n100%\n0%":
-    "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    "80%\n50%\n50%": "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
-   "80%\n0\n100%": "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5",
-    # "80%\n0\n100%\n100%":
-    # "model_RyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
-    "80%\n100%\n100%": "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5",
-    "80%\n0\n200%": "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5",
+    os.path.join("model_RyRCaM_0.8_PMCA",
+    "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
+    "80%\n50%\n50%":
+    os.path.join("model_RyR_RyRCaM_0.8_PMCA",
+                 "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
+   "80%\n0\n100%":
+    os.path.join("model_RyR_0.8_PMCA",
+                 "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
 
-     "80%\n200%\n200%": "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"
+
+    "80%\n100%\n100%":
+    os.path.join("model_2x_RyR_RyRCaM_0.8_PMCA",
+                 "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
+    "80%\n0\n200%":
+    os.path.join("model_2xRyR_0.8_PMCA",
+                 "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5"),
+
+    "80%\n200%\n200%":
+    os.path.join("model_4x_RyR_RyRCaM_0.8_PMCA",
+                 "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5")
     
 }
 
@@ -157,7 +166,7 @@ def adjust_axes(ax):
 
 
 if __name__ == "__main__":
-    data_dir = os.path.join("..", "fig_5_6_7")
+    data_dir = ".."
     x_labels = list(names_dict.keys())
     fig_m_peak_amp, ax_m_peak_amp = plt.subplots(1, 1,
                                                  figsize=(1*7,
