@@ -16,15 +16,15 @@ dir_list = [
     "Ca_wave_2xRyR2CaM_simple_SERCA_SOCE"],
 ]    
 directories = {
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE":
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s":
     "model_RyR2CaM_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5", 
-    "Ca_wave_RyR2CaM_0.8_PMCA":
+    "Ca_wave_RyR2CaM_0.8_PMCA_%s":
     "model_RyR2CaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_50_um_%s_nM.h5" ,
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE_largerER":
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE_largerER_%s":
     "model_RyR2CaM_largerER_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_RyR2CaM_120_PMCA":
+    "Ca_wave_RyR2CaM_120_PMCA_%s":
     "model_RyR2CaM_simple_SERCA_SOCE_120_PMCA_tubes_diam_%s_um_50_um_%s_nM.h5",
-    "Ca_wave_2xRyR2CaM_simple_SERCA_SOCE":
+    "Ca_wave_2xRyR2CaM_simple_SERCA_SOCE_%s":
     "model_2xRyR2CaM_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5", 
 }
 

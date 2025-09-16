@@ -12,11 +12,14 @@ colors ={
 }
 
 directories = [
-    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE", "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"],
-    ["Ca_wave_simple_SERCA_no_SOCE_Breit_2018", "model_RyR%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
-    
-    ["Ca_wave_RyR2CaM_aging", "model_RyR2CaM_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
-    ["Ca_wave_normal_SERCA_aging", "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
+     "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    ["Ca_wave_simple_SERCA_no_SOCE_%s",
+     "model_RyR%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    ["Ca_wave_RyR2CaM_aging_%s",
+     "model_RyR2CaM_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    ["Ca_wave_normal_SERCA_aging_%s",
+     "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
 ]
 legend_elements = [Line2D([0], [0], color='k', marker="o", fillstyle="full",
                           lw=0, label='ctrl'),
@@ -44,8 +47,7 @@ if __name__ == '__main__':
                                              stims,
                                              output_name, 
                                              colors,
-                                             types, marker, fillstyle,
-                                             method="regular")
+                                             types, marker, fillstyle)
     fig1.savefig("Aging_spatial_specificity_dissection.png", dpi=100,
                  bbox_inches="tight")
     fig1.savefig("Aging_spatial_specificity_dissection.eps", dpi=100,

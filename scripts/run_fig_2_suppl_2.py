@@ -10,16 +10,16 @@ colors = {"1.2": 'tab:blue',
           "6.0": 'tab:green'}
 directories = [
     [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_AP",
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_AP_%s",
         "model_RyR2CaM_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_simple_SERCA_SOCE_AP",
+        "Ca_wave_simple_SERCA_SOCE_AP_%s",
         "model_RyR_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ]
     ,
     [
-        "Ca_wave_no_RyR_simple_SERCA_SOCE_AP",
+        "Ca_wave_no_RyR_simple_SERCA_SOCE_AP_%s",
         "model_noRyR_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ]
 ]

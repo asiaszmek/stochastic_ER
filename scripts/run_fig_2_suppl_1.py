@@ -25,8 +25,6 @@ reg_list = ["dend25", "dend26", "dend27"]
 file_path = os.path.abspath(__file__) 
 list_fp = os.path.split(file_path) 
 cur_dir = os.path.join(os.path.join(list_fp[0], "..")) 
-basic_RyR_SOCE_dir = "Ca_wave_simple_SERCA_SOCE" 
-RyRCaM_SOCE_dir = "Ca_wave_RyR2CaM_simple_SERCA_SOCE" 
 output_name = "all" 
 stims = ["0175", "0350", "0700", "1050", "2000"] 
 stim_label = "2 uM Ca injection" 
@@ -117,8 +115,8 @@ fname = {
     } 
  
 directory ={ 
-    "_CaM": "Ca_wave_RyR2CaM_simple_SERCA_SOCE", 
-    "_no_CaM": "Ca_wave_simple_SERCA_SOCE", 
+    "_CaM": "Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s", 
+    "_no_CaM": "Ca_wave_simple_SERCA_SOCE_%s", 
     } 
  
 stim_types = [ ""] 
@@ -137,7 +135,8 @@ for k, b_diam in enumerate(branch_diams):
             x = [] 
             for stim in stims: 
                 fname_SOCE = fname[inh] % (s, b_diam, stim) 
-                full_name = os.path.join(cur_dir, directory[inh], fname_SOCE) 
+                full_name = os.path.join(cur_dir, directory[inh] % b_diam,
+                                         fname_SOCE) 
                 ca_dict, time_dict = utils.get_conc(full_name, ["Ca"], 
                                                     reg_list, 
                                                     output_name) 

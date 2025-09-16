@@ -15,11 +15,11 @@ colors = {"1.2": 'tab:blue',
 
 directories = [
     [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
         "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE",
+        "Ca_wave_RyR2CaM_simple_SERCA_no_SOCE_%s",
         "model_RyR2CaM%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
 ]
@@ -29,7 +29,7 @@ types = [ "RyR2CaM+SOCE", "RyR2CaM"]
 marker = ["o", "o"]
 fillstyle = ["full", "none"]
 stims = ["0175", "0350", "0700", "1050", "2000"]
-dend_diam = ["2.4"] #["1.2", "2.4", "6.0"]
+dend_diam = ["2.4"] 
 
 
 if __name__ == '__main__':

@@ -7,19 +7,19 @@ colors = {"1.2": 'tab:blue',
           "6.0": 'tab:green'}
 directories = [
     [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
         "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_baloon",
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_baloon_%s",
         "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_normal_SERCA_aging",
+        "Ca_wave_normal_SERCA_aging_%s",
         "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_normal_SERCA_aging_baloon",
+        "Ca_wave_normal_SERCA_aging_baloon_%s",
         "model_aging%s_simple_SERCA_baloon_diam_%s_um_50_um_%s_nM.h5"
     ]
 ]

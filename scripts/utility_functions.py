@@ -444,7 +444,7 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
                 error[d][diam]=[]
             for i, stim in enumerate(stims):
                 new_fname = fname % (diam, stim)
-                my_file = os.path.join(my_path, new_fname)
+                my_file = os.path.join(my_path % diam, new_fname)
                 conc_dict, times_dict = get_conc(my_file,
                                                  what_species,
                                                  region_list,
@@ -644,7 +644,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                 x = []
                 for i, stim in enumerate(stims):
                     new_fname = fname % (stim_type, diam, stim)
-                    my_file = os.path.join(my_path, new_fname)
+                    my_file = os.path.join(my_path % diam, new_fname)
                     if diam == "1.2" and new_fname.startswith("model_RyR_simple_SERCA_SOCE_") and stim == "0175":
                         continue
                     try:
@@ -706,8 +706,9 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
     return fig1
 
 
-def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name, colors, types,
-                                marker, fillstyle, legend=None, title=True, find_middle=False):
+def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
+                                colors, types, marker, fillstyle, legend=None,
+                                title=True, find_middle=False):
     fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
     if len(dend_diam) == 1:
         ax1 = [ax1]
@@ -726,8 +727,9 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name, col
                 y_err = []
                 x = []
                 for i, stim in enumerate(stims):
+                    print(fname)
                     new_fname = fname % (stim_type, diam, stim)
-                    my_file = os.path.join(my_path, new_fname)
+                    my_file = os.path.join(my_path % diam, new_fname)
                     try:
                         conc_dict, times_dict = get_conc(my_file,
                                                          ["Ca"],
