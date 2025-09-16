@@ -23,7 +23,7 @@ directories = [
         "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE",
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_baloon",
         "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
