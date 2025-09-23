@@ -58,4 +58,5 @@ if __name__ == '__main__':
                                                    fillstyle,
                                                    legend=legend_elements)
     fig1.savefig("CaM_no_CaM_temporal_short.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("CaM_no_CaM_temporal_short.eps", dpi=100, bbox_inches="tight")
 

@@ -6,14 +6,14 @@ colors = {"1.2": 'tab:blue',
           "2.4": 'tab:purple',
           "6.0": 'tab:green'}
 dir_list = [
-    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-    "Ca_wave_RyR2CaM_0.8_PMCA"],
-    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-    "Ca_wave_RyR2CaM_simple_SERCA_SOCE_largerER"],
-    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-    "Ca_wave_RyR2CaM_120_PMCA"],
-    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE",
-    "Ca_wave_2xRyR2CaM_simple_SERCA_SOCE"],
+    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
+    "Ca_wave_RyR2CaM_0.8_PMCA_%s"],
+    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
+    "Ca_wave_RyR2CaM_simple_SERCA_SOCE_largerER_%s"],
+    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
+    "Ca_wave_RyR2CaM_120_PMCA_%s"],
+    ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
+    "Ca_wave_2xRyR2CaM_simple_SERCA_SOCE_%s"],
 ]    
 directories = {
     "Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s":

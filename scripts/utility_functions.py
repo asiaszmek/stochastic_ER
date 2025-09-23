@@ -470,7 +470,6 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
         for i in range(len(ratio_set)):
             dir_1 = ratio_set[i][0]
             dir_2 = ratio_set[i][1]
-            print(dir_1, dir_2,)
         
             numerator = np.array(res[dir_1][d])
             denominator = np.array(res[dir_2][d])

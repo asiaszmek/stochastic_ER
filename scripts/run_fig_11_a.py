@@ -1,12 +1,8 @@
+import os
 import h5py
-import numpy as np
-import matplotlib.pyplot as plt 
-from lxml import etree
-from scipy.constants import Avogadro
 import utility_functions as utils
+import matplotlib.pyplot as plt
 
-
-NA = Avogadro*1e-23
 plt.rcParams['text.usetex'] = True
 
 
@@ -20,15 +16,16 @@ if __name__ == '__main__':
         reg_list.append("%s%d" %(base, i))
     fnames = [
         os.path.join("..",
-                     "stacked_ER",
+                     "model_RyR_RyRCaM_0.8_PMCA",
                      "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_2.4_um_2_um_dendrite.h5"),
         os.path.join("..",
-                     "stacked_ER",
-                     "model_RyR_0.8_PMCA_simple_SERCA_tubes_diam_2.4_um_2_um_dendrite.h5")
+                     "model_RyR_0.8_PMCA",
+                     "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_2.4_um_10_um_dendrite.h5")
     ]
     figs, axes = [], []
     for fname in fnames:
         my_file = h5py.File(fname, 'r')
+        new_fname = os.path.split(fname)[-1]
         conc_dict = {}
         time_dict = {}
         for trial in my_file.keys():
@@ -43,10 +40,6 @@ if __name__ == '__main__':
         vmin = 0
         vmax = 1200
         diam = fname.split("diam_")[-1][:3]
-        # for key in conc_dict:
-        #     new_max = conc_dict[key].max()
-        #     if new_max > vmax:
-        #         vmax = new_max
         for key in conc_dict:
             fig, ax = plt.subplots(1, 1)
             time = time_dict[key]
@@ -57,15 +50,15 @@ if __name__ == '__main__':
                                                      voxels[0],
                                                      voxels[-1]],
                            cmap=plt.get_cmap("Reds"))
-            ax.set_xlabel(r"time (s)", fontsize=14)
-            ax.set_ylabel(r"dendrite $(\mathrm{\mu m})$", fontsize=14)
+            ax.set_xlabel(r"time (s)", fontsize=15)
+            ax.set_ylabel(r"dendrite $(\mathrm{\mu m})$", fontsize=15)
             fig.colorbar(im)
             
             ax.set_title(r"%s dynamics in %s $\mathrm{\mu m}$ dend" % (specie, diam),
                          fontsize=14)
-            fig.savefig(fname[:-3]+"_"+key+".png", dpi=100,
+            fig.savefig(new_fname[:-3]+"_"+key+".png", dpi=100,
                         bbox_inches="tight")
-            fig.savefig(fname[:-3]+"_"+key+".eps", dpi=100,
+            fig.savefig(new_fname[:-3]+"_"+key+".eps", dpi=100,
                         bbox_inches="tight")
     
     

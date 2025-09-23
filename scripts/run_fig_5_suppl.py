@@ -18,25 +18,25 @@ colors =  {
 names_dict = {
    
    
-    "80%\n100%\n0%":
+    "80\%\n100\%\n0\%":
     os.path.join("model_RyRCaM_0.8_PMCA",
     "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
-    "80%\n50%\n50%":
+    "80\%\n50\%\n50\%":
     os.path.join("model_RyR_RyRCaM_0.8_PMCA",
                  "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-   "80%\n0\n100%":
+   "80\%\n0\%\n100\%":
     os.path.join("model_RyR_0.8_PMCA",
                  "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
 
 
-    "80%\n100%\n100%":
+    "80\%\n100\%\n100\%":
     os.path.join("model_2x_RyR_RyRCaM_0.8_PMCA",
                  "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    "80%\n0\n200%":
+    "80\%\n0\n200\%":
     os.path.join("model_2xRyR_0.8_PMCA",
                  "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5"),
 
-    "80%\n200%\n200%":
+    "80\%\n200\%\n200\%":
     os.path.join("model_4x_RyR_RyRCaM_0.8_PMCA",
                  "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5")
     
@@ -302,7 +302,7 @@ if __name__ == "__main__":
     ax_m_peak_width.set_xticklabels(xlabels)
     ax_m_peak_len.set_xticklabels(xlabels)
     ax_m_peak_dist.set_xticklabels(xlabels)
-    legend = "PMCA kcat\nRyR2CaM\nRyR2"#\nSOCE"
+    legend = "PMCA kcat\nRyR2CaM\nRyR2"
     ax_m_peak_amp.legend()
     ax_m_peak_width.legend()
     ax_m_peak_len.legend()
@@ -348,7 +348,7 @@ if __name__ == "__main__":
     
 
     fig_m_peak_amp.savefig("mean_peak_amp.png", dpi=100,
-                 bbox_inches="tight")
+                           bbox_inches="tight")
     fig_m_peak_dist.savefig("mean_peak_dist.png", dpi=100,
                             bbox_inches="tight")
     fig_m_peak_width.savefig("mean_peak_width.png", dpi=100,
@@ -356,4 +356,14 @@ if __name__ == "__main__":
     fig_m_peak_len.savefig("mean_peak_len.png", dpi=100,
                             bbox_inches="tight")
     fig_m_peak_init.savefig("peak_init.png", dpi=100,
+                            bbox_inches="tight")
+    fig_m_peak_amp.savefig("mean_peak_amp.eps", dpi=100,
+                           bbox_inches="tight")
+    fig_m_peak_dist.savefig("mean_peak_dist.eps", dpi=100,
+                            bbox_inches="tight")
+    fig_m_peak_width.savefig("mean_peak_width.eps", dpi=100,
+                            bbox_inches="tight")
+    fig_m_peak_len.savefig("mean_peak_len.eps", dpi=100,
+                            bbox_inches="tight")
+    fig_m_peak_init.savefig("peak_init.eps", dpi=100,
                             bbox_inches="tight")

@@ -50,4 +50,5 @@ if __name__ == '__main__':
                                                    fillstyle,
                                                    legend=legend_elements)
     fig1.savefig("RyR_no_RyR_temporal_short.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("RyR_no_RyR_temporal_short.eps", dpi=100, bbox_inches="tight")
 

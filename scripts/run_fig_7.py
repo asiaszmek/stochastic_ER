@@ -15,23 +15,23 @@ colors =  {
 
 names_dict = {
    
-    "80%\n100%\n0%":
+    "80\%\n100\%\n0\%":
     os.path.join("model_RyRCaM_0.8_PMCA",
                  "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
-    "80%\n50%\n50%":
+    "80\%\n50\%\n50\%":
     os.path.join("model_RyR_RyRCaM_0.8_PMCA",
                  "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    "80%\n0\n100%":
+    "80\%\n0\n100\%":
     os.path.join("model_RyR_0.8_PMCA",
                  "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
  
-    "80%\n100%\n100%":
+    "80\%\n100\%\n100\%":
     os.path.join("model_2x_RyR_RyRCaM_0.8_PMCA",
                   "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    "80%\n0\n200%":
+    "80\%\n0\n200\%":
     os.path.join("model_2xRyR_0.8_PMCA",
                  "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    "80%\n200%\n200%":
+    "80\%\n200\%\n200\%":
     os.path.join("model_4x_RyR_RyRCaM_0.8_PMCA",
                  "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5")
     
@@ -222,4 +222,6 @@ if __name__ == "__main__":
     
 
     fig_wave_f.savefig("mean_wave_frequency.png", dpi=100,
+                       bbox_inches="tight")
+    fig_wave_f.savefig("mean_wave_frequency.eps", dpi=100,
                        bbox_inches="tight")
