@@ -31,9 +31,7 @@ names_dict = {
     "80\%\n0\n200\%":
     os.path.join("model_2xRyR_0.8_PMCA",
                  "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    "80\%\n200\%\n200\%":
-    os.path.join("model_4x_RyR_RyRCaM_0.8_PMCA",
-                 "model_4x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5")
+    
     
 }
 
