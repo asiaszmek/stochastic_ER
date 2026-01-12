@@ -4,7 +4,7 @@
  
   <Segment id="seg01" region="dend01">
     <start x="0.0" y="1.0" z="0.0" r="1.2"/>
-    <end x="1.0" y="1.0" z="0.0" r="1.2"/>
+    <end x="1.0" y="1.0" z="0.0" r="1.2" label="pointC"/>
   </Segment>
   <Segment id="seg02" region="dend02">
     <start on="seg01" at="end" r="1.2"/>
@@ -101,7 +101,7 @@
   </Segment>
   <Segment id="seg25" region="dend25">
     <start on="seg24" at="end" r="1.2"/>
-    <end x="25.0" y="1.0" z="0.0" r="1.2"/>
+    <end x="25.0" y="1.0" z="0.0" r="1.2"  label="pointB"/>
   </Segment>
   <Segment id="seg26" region="dend26">
     <start on="seg25" at="end" r="1.2"/>

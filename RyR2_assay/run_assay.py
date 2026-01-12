@@ -15,7 +15,7 @@ model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <xi:include href="../%s" />
     <xi:include href="Morph.xml" />
     <xi:include href="%s" />
-    <xi:include href="IO_Ca.xml"/>
+    <xi:include href="../IO_Ca.xml"/>
     <!--2D means the morphology is interpreted like a flatworm, 3D for
 roundworms. The 2D case is good for testing as it is easy to visualize the
 results (also, 3D may not work yet...)  -->
@@ -107,7 +107,7 @@ IC_text = {
     """,
 
 }
-IO_text ={
+../IO_text ={
     "KL":
     """<OutputScheme>
   <OutputSet filename = "all"  dt=".1">
@@ -368,8 +368,8 @@ if __name__ == "__main__":
     else:
         model = sys.argv[1]
         
-    f = open("IO_Ca.xml", "w")
-    f.write(IO_text[model])
+    f = open("../IO_Ca.xml", "w")
+    f.write(../IO_text[model])
     f.close()
     exp_res = np.loadtxt(ca_conc_file, skiprows=1, delimiter=',')
     ca_conc_list = exp_res[:, 0]
@@ -412,32 +412,34 @@ if __name__ == "__main__":
     np.savetxt(res_fname1, output, delimiter=",", header="Ca [nM], po")
     np.savetxt(res_fname2, mean_times_a, delimiter=",",
                header="Ca [nM], mean open time, mean closed time")
-    fig, ax = plt.subplots(1, 2, figsize=(15, 10))
+    fig, ax = plt.subplots(1, 2, figsize=(15, 12))
     ax[0].set_xscale('log')
-    ax[0].plot(exp_res[:, 0], exp_res[:, 1], "d", color="tab:blue", label="experimental data")
-    ax[0].plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red", label="model data")
+    ax[0].plot(exp_res[:, 0], exp_res[:, 1], "d", color="tab:blue",
+               label="experimental data", ms=10)
+    ax[0].plot(output[:, 0]*1e-9, output[:, 1], "d", color="tab:red",
+               label="model data", ms=10)
     ax[0].legend()
-    ax[0].tick_params(axis='x', labelsize=14)
-    ax[0].tick_params(axis='y', labelsize=14)
-    ax[0].set_xlabel("Concentration [M]", fontsize=14)
-    ax[0].set_ylabel("RyR2 open probability", fontsize=14)
+    ax[0].tick_params(axis='x', labelsize=20)
+    ax[0].tick_params(axis='y', labelsize=20)
+    ax[0].set_xlabel("Concentration [M]", fontsize=20)
+    ax[0].set_ylabel("RyR2 open probability", fontsize=20)
     ax[1].set_xscale('log')
     ax[1].set_yscale('log')
     ax[1].plot(exp_open[:, 0], exp_open[:, 1], "d", color="tab:blue",
-            label="exp open")
+            label="exp open", ms=10)
     ax[1].plot(exp_closed[:, 0], exp_closed[:, 1], "d", color="tab:green",
-            label="exp closed")
+            label="exp closed", ms=10)
     ax[1].plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 1], "d",
-            label="model open", color="tab:cyan")
+            label="model open", color="tab:cyan", ms=10)
     ax[1].plot(mean_times_a[:, 0]*1e-9, mean_times_a[:, 2], "d",
-            label="model closed", color="tab:olive")
+            label="model closed", color="tab:olive", ms=10)
     
     ax[1].legend()
-    ax[1].tick_params(axis='x', labelsize=14)
-    ax[1].tick_params(axis='y', labelsize=14)
-
-    ax[1].set_xlabel("Concentration [M]", fontsize=14)
-    ax[1].set_ylabel("Time [ms]", fontsize=14)
+    ax[1].tick_params(axis='x', labelsize=20)
+    ax[1].tick_params(axis='y', labelsize=20)
+    ax[1].set_ylim([0.1, 3000])
+    ax[1].set_xlabel("Concentration [M]", fontsize=20)
+    ax[1].set_ylabel("Time [ms]", fontsize=20)
 
     fig.savefig("open_closed_times_KeizerSmith_original.png",
                 dpi=200, bbox_inches="tight")

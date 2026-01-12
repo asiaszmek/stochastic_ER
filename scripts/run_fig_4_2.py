@@ -1,0 +1,54 @@
+import os
+import h5py
+import numpy as np
+import utility_functions as utils
+from matplotlib.lines import Line2D
+
+
+legend_elements = [
+    Line2D([0], [0], color='k', marker="o", fillstyle="full",
+           lw=0, label='uniform RyR2CaM'),
+    Line2D([0], [0], color="k", marker='^', fillstyle="full",
+           lw=0, label="RyR2CaM in EPJ"),
+    Line2D([0], [0], color="k", marker='o', fillstyle="none",
+           lw=0, label="no RyR2"),
+]
+            
+colors = {"1.2": 'tab:blue',
+          "2.4": 'tab:purple',
+          "6.0": 'tab:green'}
+directories = [
+    [
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
+        "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
+    ],
+    [
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_baloon_%s",
+        "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
+    ],
+    [
+        "Ca_wave_no_RyR_simple_SERCA_SOCE_%s",
+        "model_noRyR%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
+    ]
+]
+stims = ["0175", "0350", "0700", "1050", "2000"]
+dend_diam = ["1.2", "2.4", "6.0"]
+
+
+if __name__ == '__main__':
+    types = ["uniform RyR2CaM", "RyR2CaM in EPJ", "no RyR2"]
+    marker = [ "o", "^", "o" ]
+    fillstyle= ["full", "full", "none"]
+    output_name = "all"
+    fig1 = utils.make_decay_constant_fig_sep_dends(directories,
+                                                   dend_diam,
+                                                   stims,
+                                                   output_name, 
+                                                   colors,
+                                                   types,
+                                                   marker,
+                                                   fillstyle,
+                                                   legend=legend_elements)
+    fig1.savefig("RyR_no_RyR_temporal_short.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("RyR_no_RyR_temporal_short.eps", dpi=100, bbox_inches="tight")
+

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<InitialConditions>
-  <ConcentrationSet>
-    <NanoMolarity specieID="RyR"      value="10"    />
-  </ConcentrationSet>
-</InitialConditions>

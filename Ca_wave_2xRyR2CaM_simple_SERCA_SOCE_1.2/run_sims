@@ -1,0 +1,5 @@
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../neurord-3.2.3-all-deps.jar -Dneurord.trials=10 model_2xRyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0175_nM.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../neurord-3.2.3-all-deps.jar -Dneurord.trials=10 model_2xRyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0350_nM.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../neurord-3.2.3-all-deps.jar -Dneurord.trials=10 model_2xRyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_0700_nM.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../neurord-3.2.3-all-deps.jar -Dneurord.trials=10 model_2xRyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_1050_nM.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar../neurord-3.2.3-all-deps.jar -Dneurord.trials=10 model_2xRyR2CaM_simple_SERCA_SOCE_tubes_diam_1.2_um_50_um_2000_nM.xml

@@ -1,0 +1,3 @@
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../neurord-3.2.3-all-deps.jar -Dneurord.trials=4 model_RyRCaM_simple_SERCA_SOCE_tubes_diam_1.2_um_10_um_dendrite.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../neurord-3.2.3-all-deps.jar -Dneurord.trials=4 model_RyRCaM_simple_SERCA_SOCE_tubes_diam_2.4_um_10_um_dendrite.xml
+/usr/lib/jvm/java-8-openjdk-amd64/bin/java -jar ../neurord-3.2.3-all-deps.jar -Dneurord.trials=4 model_RyRCaM_simple_SERCA_SOCE_tubes_diam_6.0_um_10_um_dendrite.xml

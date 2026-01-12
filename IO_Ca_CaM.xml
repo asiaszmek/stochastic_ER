@@ -1,0 +1,20 @@
+<OutputScheme>
+  <OutputSet filename = "all"  dt=".01">
+    <OutputSpecie name="Ca"/>
+    <OutputSpecie name="CaM"/>
+    <OutputSpecie name="RyR"/>
+    <OutputSpecie name="RyRO1"/>
+    <OutputSpecie name="RyRO2"/>
+    <OutputSpecie name="RyRC1"/>
+    <OutputSpecie name="RyRC2"/>
+    <OutputSpecie name="RyRC3"/>
+    <OutputSpecie name="RyRCaM"/>
+    <OutputSpecie name="RyRCaMO1"/>
+    <OutputSpecie name="RyRCaMO2"/>
+    <OutputSpecie name="RyRCaMC1"/>
+    <OutputSpecie name="RyRCaMC2"/>
+    <OutputSpecie name="RyRCaMC3"/>
+    <OutputSpecie name="RyRCaMC4"/>
+    <OutputSpecie name="RyRCaMC5"/>
+  </OutputSet>
+</OutputScheme>

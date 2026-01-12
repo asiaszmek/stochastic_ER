@@ -10,11 +10,6 @@ RyR2_assay/*xml
 RyR2_assay/*dig
 RyR2_assay/*csv
 RyR2_assay/*xcf
-RyR_CaM_assay/*xml
-RyR_CaM_assay/*dig
-RyR_CaM_assay/*csv
-RyR_CaM_assay/*jpg
-RyR_CaM_assay/*xcf
 RyR2_CaM/*xml
 RyR2_CaM/*dig
 RyR2_CaM/*csv
@@ -24,3 +19,4 @@ RyR2_CaM/*xcf
 */*eps
 */*/*eps
 */__pycache__/*
+*zip

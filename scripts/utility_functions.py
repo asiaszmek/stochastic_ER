@@ -1,12 +1,39 @@
 #!/usr/bin/env python
+import os
 import h5py
 import numpy as np
 from lxml import etree
 import sys
 from scipy.constants import Avogadro
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
 
+
+
+plt.rcParams['text.usetex'] = True
+hatch_possibilities = ["/", "-", "+", "o"]
+marker = ["d", "o", "v", "^"]
+limit = 2.5
 NA = Avogadro*1e-23
 spine = ['PSD', 'head', 'neck']
+t_init = 3000
+window = 50
+
+
+def get_array(conc_dict, specie):
+    mini  = min([conc_dict[specie][key].shape[-1]
+                 for key in conc_dict[specie].keys()])
+
+    no = len(conc_dict[specie].keys())
+    voxels = conc_dict[specie]["trial0"].shape[0]
+    out = np.zeros((no, voxels, mini))
+    for i, trial in enumerate(conc_dict[specie].keys()):
+        out[i] = conc_dict[specie][trial][:,:mini]
+    return out
+    
+
+def moving_average(x, w):
+    return np.convolve(x, np.ones(w), 'valid') / w
 
 
 def nano_molarity(N, V):
@@ -17,6 +44,17 @@ def pico_sd(N, S):
     return 10 * N / S / NA
 
 
+def get_length(My_file):
+    if isinstance(My_file, str):
+        try:
+            my_file = h5py.File(My_file)
+        except FileNotFoundError:
+            return
+    else:
+        my_file = My_file    
+    grid = get_grid_list(my_file)
+    return grid[-1][3] - grid[0][0]
+    
 def get_grid_list(My_file):
     return np.array(My_file['model']['grid'])
 
@@ -244,7 +282,7 @@ def save_concentrations(my_file, fname_base, output, trial='trial0'):
                                                  trial, spine_name))
 
 
-def get_dend_indices(grid, region="dend"):
+def get_dend_indices(grid, region=["dend"]):
     out = {}
     volumes = {}
     if not isinstance(region, list):
@@ -285,30 +323,462 @@ def get_dynamics_in_region(my_file, specie, region, trial,
     return out, voxel_list
 
 
-def get_conc(fullname, specie_list, region_list, output_name):
-    print(fullname)
-    my_file = h5py.File(fullname)
+def get_conc(fullname, specie_list, region_list, output):
+    if isinstance(specie_list, str):
+        specie_list = [specie_list]
     conc_dict = {}
     time_dict = {}
-
+    for specie in specie_list:
+        conc_dict[specie] = {}
+    try:
+        my_file = h5py.File(fullname)
+        print(fullname)
+    except FileNotFoundError:
+        print("File not found", fullname)
+        return conc_dict, time_dict
+    
     for trial in my_file.keys():
         if trial == "model":
             continue
-        conc, voxels = get_dynamics_in_region(my_file,
-                                                    specie_list,
-                                                    region_list, trial,
-                                                    output_name)
-        conc_dict[trial] = conc
-        time = get_times(my_file, trial, output_name)
-        time_dict[trial] = time
-    lmin = min([len(conc) for conc in conc_dict.values()])
+        try:
+            for specie in specie_list:
+                pop, voxel = get_dynamics_in_region(my_file, specie,
+                                                    region_list,
+                                                    trial, output)
+                conc_dict[specie][trial] = pop.T
+            time = get_times(my_file, trial, output)
+            time_dict[trial] = time
+        except IOError:
+            print("Something wrong with", fullname)
+            break
+    return conc_dict, time_dict
+
+
+def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
+    decays = np.zeros((len(conc_dict), 1))
+    shape = conc_dict["trial0"].shape[0]
+    branch = np.zeros((len(conc_dict), 1))
+    duration = conc_dict["trial0"].shape[1]
+    if find_middle:
+        find_middle = np.argmax(conc_dict["trial0"])
+        full_shape = conc_dict["trial0"].shape
+        idx_pair = np.unravel_index(find_middle, full_shape)
+        start_1 = start_2 = idx_pair[0]
+        distance = np.linspace(0, length/shape*(shape-start_1), shape-start_1)
+       
+    else:
+        if shape % 2:
+            start_1 = start_2 = shape//2 + 1
+        else:
+            start_1 = shape//2-1
+            start_2 = shape//2
+        distance = np.linspace(-length/2, length/2, shape)
     
-    time_end = min([time[-1] for time in time_dict.values()])
-    time_len = min([len(time) for time in time_dict.values()])
-    time = np.linspace(0, time_end, time_len)
-    shape2 = max([conc.shape[1] for conc in conc_dict.values()])
-    conc_mean = np.zeros((lmin, shape2))
-    for conc in conc_dict.values():
-        conc_mean[:lmin, :] += conc[:lmin, :]
-    conc_mean /= len(conc_dict)
-    return voxels, time, conc_mean
+    for i, concentration in enumerate(conc_dict.values()):
+        ca_conc = np.zeros((shape,))
+        ca_conc_mean = concentration[:, :int(t_init/dt)].mean()
+        new_beg = int(t_init/dt)
+        indices = set()
+
+        for j in range(start_2, shape):
+
+            new_idx = concentration[j, new_beg:].argmax()
+            ca_conc[j] = concentration[j, new_beg+new_idx]
+            
+            if ca_conc[j] > limit*ca_conc_mean:
+                if not len(indices):
+                    indices.add(j)
+                elif j+1 in indices or j-1 in indices:
+                    indices.add(j)
+        new_beg = int(t_init/dt)         
+        for j in range(start_1, -1, -1):
+            try:
+                new_idx = concentration[j, new_beg:].argmax()
+            except ValueError:
+                continue
+            ca_conc[j] = concentration[j, new_beg+new_idx]
+
+            if ca_conc[j] > limit*ca_conc_mean:
+                if not len(indices):
+                    indices.add(j)
+                elif j+1 in indices or j-1 in indices:
+                    indices.add(j)
+        dx = distance[1]-distance[0]
+        if start_1 == start_2:
+            for j in range(1, start_1+1):
+                if start_1+j in indices and start_1-j in indices:
+                    indices.remove(start_1-j)
+        else:      
+            for j in range(0, start_1+1):
+                if start_1-j in indices and start_2+j in indices:
+                    indices.remove(start_1-j)
+        decays[i] = len(indices)*dx
+        branch[i] = (concentration[start_1, int(t_init/dt):].max()
+                     +concentration[start_2, int(t_init/dt):].max())/2
+    return distance, branch, decays
+
+
+
+def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
+                                 what_species, region_list, output_name,
+                                 colors, types):
+    fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
+    xs = list(range(1, 5))
+
+    paradigm_dict = {
+        0: ""}
+    l = 0
+    res = {}
+    error= {}
+    x_val = {}
+    for k, d in enumerate(directories_dict.keys()):
+        fname = directories_dict[d]
+        my_path = os.path.join("..", d)
+        res[d] = {}
+        error[d]= {}
+        x_val[d] = {}
+        for j, diam in enumerate(dend_diam):
+            if diam not in res[d]:
+                res[d][diam] = []
+                x_val[d][diam] = []
+                error[d][diam]=[]
+            for i, stim in enumerate(stims):
+                new_fname = fname % (diam, stim)
+                my_file = os.path.join(my_path % diam, new_fname)
+                conc_dict, times_dict = get_conc(my_file,
+                                                 what_species,
+                                                 region_list,
+                                                 output_name)
+                try:
+                    dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                except KeyError:
+                    continue
+                length = get_length(my_file)
+                try:
+                    dist, branch, delay = fit_distance(conc_dict["Ca"],
+                                                       dt, length=length)
+                except KeyError:
+                    res[d][diam].append([])
+                    x_val[d][diam].append([])
+                    error[d][diam].append([])
+                
+                res[d][diam].append(delay.mean())
+                error[d][diam].append(delay.std()/len(delay)**0.5)
+                x_val[d][diam].append(branch)
+    for j, d in enumerate(dend_diam):
+        val = []
+        for i in range(len(ratio_set)):
+            dir_1 = ratio_set[i][0]
+            dir_2 = ratio_set[i][1]
+        
+            numerator = np.array(res[dir_1][d])
+            denominator = np.array(res[dir_2][d])
+            point = (numerator/denominator-1)*100
+            print(point)
+            val.append(point)
+            ax1[j].plot([i+1]*len(point),  point, color=colors[d],
+                        fillstyle="none", marker=marker[i], linestyle="")
+        ax1[j].boxplot(val)
+        print(xs, val)
+        # ax1[j].errorbar(xs,
+        #                 val, yerr=val_error, marker="s", linestyle="",
+        #                 color=colors[d], fillstyle="full")
+        ax1[j].set_xticks(xs)   
+        ax1[j].set_xticklabels(types, rotation=90)
+        ax1[j].tick_params(axis='x', labelsize=15)
+        ax1[j].tick_params(axis='y', labelsize=15)
+    ax1[0].set_xlabel("Paradigm", fontsize=15)
+    ax1[0].set_ylabel(r"\% error", fontsize=15)
+    mini = min([min(x.get_ylim()) for x in ax1])
+    maxi = max([max(x.get_ylim()) for x in ax1])
+
+    for i, diam in enumerate(dend_diam):
+        
+        ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+                         fontsize=15)
+        ax1[i].set_ylim([mini, maxi])
+        if i:
+            ax1[i].set_yticks([])
+    return fig1
+
+
+def make_dip_CaER(directories,  dend_diam,
+                               stims,  output_name, 
+                               colors, types, marker, fillstyle, legend=None):
+    fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
+    if len(dend_diam) == 1:
+        ax1 =[ax1]
+    base = "dend"
+    reg_list = [base, "dend01", "dend02", "dend03", "dend04",
+                "dend05", "dend06", "dend07", "dend08", "dend09",]
+    for i in range(10, 102, 1):
+        reg_list.append("%s%d" %(base, i))
+    stim_type=""
+    x = {}
+    x_err = {}
+    y = {}
+    y_err = {}
+
+    for k, (d, fname) in enumerate(directories):
+        my_path = os.path.join("..", d)
+        x[k] = {}
+        x_err[k] = {}
+        y [k] = {}
+        y_err[k] = {}
+ 
+        for j, diam in enumerate(dend_diam):
+            x[k][diam] = []
+            x_err[k][diam] = []
+            y[k][diam] = []
+            y_err[k][diam] = []
+            
+            for i, stim in enumerate(stims):
+                new_fname = fname % (stim_type, diam, stim)
+                my_file = os.path.join(my_path, new_fname)
+                try:
+                    conc_dict, times_dict = get_conc(my_file,
+                                                         ["Ca", "CaER"],
+                                                         reg_list,
+                                                         output_name)
+                except TypeError:
+                    continue
+                try:
+                    dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                except KeyError:
+                    continue
+                branch = np.zeros((len(conc_dict["Ca"]), 1))
+                length = get_length(my_file)
+                dend_length = get_length(my_file)
+                shape = conc_dict["Ca"]["trial0"].shape[0]
+                if shape % 2:
+                    start_1, start_2 = shape//2+1
+                else:
+                    start_1 = shape//2-1
+                    start_2 = shape//2
+                print(start_1, start_2)
+                min_mol = np.zeros((len(conc_dict["Ca"]), 1))
+                for i, key in enumerate(conc_dict["CaER"].keys()):
+                    conc = conc_dict["CaER"][key][:, int(t_init/dt):].sum(axis=0)
+                    conc_ca = conc_dict["Ca"][key]
+                    branch[i] = (conc_dict["Ca"][key][start_1,
+                                                      int(t_init/dt):].max()
+                                 +conc_dict["Ca"][key][start_2,
+                                                       int(t_init/dt):].max())/2000
+                    min_mol[i] = min(conc)
+
+                b_diam = float(diam)
+                myfile = h5py.File(my_file)
+                my_grid = get_grid_list(myfile)
+                vox_ind, vols = get_dend_indices(my_grid,
+                                                 region=reg_list)
+                volume = sum(vols)
+                x[k][diam].append(np.mean(branch))
+                x_err[k][diam].append(np.std(branch)/len(branch)**0.5)
+                y[k][diam].append(min_mol.mean()*volume*4*6.022*1e-9)
+                y_err[k][diam].append(min_mol.std()/len(min_mol)**.5*volume*4*6.022*1e-9)
+    print(x,x_err, y, y_err)
+    for j, diam in enumerate(dend_diam):
+        new_x = np.array(x[0][diam])+np.array(x[1][diam])/2
+        new_y = np.array(y[1][diam])/np.array(y[0][diam])
+        new_err = np.sqrt((np.array(y_err[1][diam])/np.array(y[0][diam]))**2
+                          +(np.array(y_err[0][diam])*np.array(y[1][diam])/(np.array(y[0][diam])**2))**2)
+        
+        ax1[j].errorbar(new_x, new_y, yerr=new_err,
+                        color=colors[diam],
+                        marker=marker[k],
+                        linestyle="", fillstyle=fillstyle[k])
+    ax1[0].set_ylabel("\% min Ca molecules in the ER",
+                      fontsize=15)
+    ax1[0].set_xlabel("Peak Ca at stimulated site $\mathrm{(\mu M)}$", fontsize=15)
+    mini = min([min(x.get_ylim()) for x in ax1])
+    maxi = max([max(x.get_ylim()) for x in ax1])
+ 
+    for i, diam in enumerate(dend_diam):
+        ax1[i].tick_params(axis='x', labelsize=15)
+        ax1[i].tick_params(axis='y', labelsize=15)
+        ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+                         fontsize=15)
+        ax1[i].set_ylim([mini, maxi])
+        if i:
+            ax1[i].set_yticks([])
+    return fig1
+
+
+def fit_exp(time, ca_conc, dt, duration=2000, t_init=3000, spatial=False):
+    if not spatial:
+        ca_conc_mean = ca_conc[:int(t_init/dt)].mean()
+        ca_conc = ca_conc[int(t_init/dt):] - ca_conc_mean
+        
+        time = time[int(t_init/dt):] - t_init
+        max_idx = ca_conc.argmax()
+        ca_conc_log = ca_conc[max_idx:duration+max_idx]
+        new_time = time[max_idx:duration+max_idx]-time[max_idx]
+        try:
+            popt, pcov = curve_fit(lambda t, a, b, c: a*np.exp(-t/b)+c,
+                                   new_time, ca_conc_log)
+        except RuntimeError:
+            return 0
+        return popt[1]
+    popt, pcov = curve_fit(lambda t, a, b, c: a*np.exp(-abs(t)/b)+c,
+                           time, ca_conc-(ca_conc[0]+ca_conc[-1])/2)
+
+    return popt[1]
+ 
+
+def make_decay_constant_fig_sep_dends(directories,  dend_diam,
+                                      stims, output_name, 
+                                      colors, types, marker,
+                                      fillstyle, legend=None, title=True):
+    fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(5*len(dend_diam), 5))
+    if len(dend_diam) == 1:
+        ax1 = [ax1]
+    
+    reg_list = ["dend26"]
+    for k, (d, fname) in enumerate(directories):
+        my_path = os.path.join("..", d)
+        for stim_type in [""]:  #  , "_3s_injection"]:
+            for j, diam in enumerate(dend_diam):
+                y = []
+                y_err = []
+                x = []
+                for i, stim in enumerate(stims):
+                    new_fname = fname % (stim_type, diam, stim)
+                    my_file = os.path.join(my_path % diam, new_fname)
+                    if diam == "1.2" and new_fname.startswith("model_RyR_simple_SERCA_SOCE_") and stim == "0175":
+                        continue
+                    try:
+                        conc_dict, times_dict = get_conc(my_file,
+                                                         ["Ca"],
+                                                         reg_list,
+                                                         output_name)
+                    except TypeError:
+                        continue
+                    try:
+                        dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                    except KeyError:
+                        continue
+                    ca_means = np.zeros((len(conc_dict["Ca"].keys())))
+                    t_decays1 = np.zeros((len(conc_dict["Ca"].keys())))
+                    for i, trial in enumerate(conc_dict["Ca"].keys()):
+                        time = times_dict[trial]
+                        ca = conc_dict["Ca"][trial].mean(axis=0)
+                        try:
+                            t1 = fit_exp(time, ca, dt)
+                        except ValueError:
+                            continue
+                        if t1 > 0:
+                            t_decays1[i] = t1
+                            ca_means[i] = ca.max()/1000
+                    x.append(ca_means.mean())
+                    y.append(t_decays1.mean())
+                    y_err.append(t_decays1.std()/len(t_decays1)**0.5)
+                        
+                        
+                print(x, y, y_err)
+                if not len(y):
+                    continue
+
+                ax1[j].errorbar(x, y,  yerr=y_err,
+                                color=colors[diam],
+                                marker=marker[k],
+                                label=types[k],
+                                fillstyle=fillstyle[k],
+                                linestyle="")
+                if legend is None:
+                    ax1[j].legend(loc="upper left", prop={"size": 10})
+                ax1[j].tick_params(axis='x', labelsize=15)
+                ax1[j].tick_params(axis='y', labelsize=15)
+   
+    if legend is not None:
+        ax1[0].legend(handles=legend)
+    ax1[0].set_ylabel("Time decay (ms)", fontsize=15)
+    mini = 50
+    maxi = max([max(x.get_ylim()) for x in ax1])
+    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})$", fontsize=15)
+    for i, diam in enumerate(dend_diam):
+        if title:
+            ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+                             fontsize=15)
+        ax1[i].set_ylim([mini, maxi])
+        if i:
+            ax1[i].set_yticks([])
+    return fig1
+
+
+def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
+                                colors, types, marker, fillstyle, legend=None,
+                                title=True, find_middle=False):
+    fig1, ax1 = plt.subplots(1, len(dend_diam), figsize=(len(dend_diam)*5, 5))
+    if len(dend_diam) == 1:
+        ax1 = [ax1]
+
+    base = "dend"
+    reg_list = [base, "dend01", "dend02", "dend03", "dend04",
+                "dend05", "dend06", "dend07", "dend08", "dend09",]
+    for i in range(10, 102, 1):
+        reg_list.append("%s%d" %(base, i))
+ 
+    for k, (d, fname) in enumerate(directories):
+        my_path = os.path.join("..", d)
+        for stim_type in [""]:
+            for j, diam in enumerate(dend_diam):
+                y = []
+                y_err = []
+                x = []
+                for i, stim in enumerate(stims):
+                    print(fname)
+                    new_fname = fname % (stim_type, diam, stim)
+                    my_file = os.path.join(my_path % diam, new_fname)
+                    try:
+                        conc_dict, times_dict = get_conc(my_file,
+                                                         ["Ca"],
+                                                         reg_list,
+                                                         output_name)
+                    except TypeError:
+                        continue
+                    try:
+                        dt = times_dict["trial0"][1]-times_dict["trial0"][0]
+                    except KeyError:
+                        continue
+                    length = get_length(my_file)
+                    try:
+                        dist, branch, delay = fit_distance(conc_dict["Ca"],
+                                                           dt, length=length, find_middle=find_middle)
+                                                                    
+                    except TypeError:
+                        continue
+                    y.append(delay.mean())
+                    y_err.append(delay.std()/len(delay)**0.5)
+                    b_diam = float(diam)
+                    x.append(np.mean(branch)/1000)
+                print(x, y, y_err)
+                if not len(y):
+                    continue
+                ax1[j].tick_params(axis='x', labelsize=15)
+                ax1[j].tick_params(axis='y', labelsize=15)
+                ax1[j].errorbar(x, y,  yerr=y_err,
+                                color=colors[diam],
+                                fillstyle=fillstyle[k],
+                                label=types[k], marker=marker[k],
+                                linestyle="")
+                if legend is None:
+                    if len(directories) == 4 and j == 2:
+                        ax1[j].legend(loc="center right", prop={'size': 10})
+                    else:
+                        ax1[j].legend(loc="lower right", prop={'size': 10})
+    if legend is not None:
+        ax1[-1].legend(handles=legend)
+    ax1[0].set_ylabel("Spatial extent $(\mathrm{\mu m})$", fontsize=15)
+    mini = min([min(x.get_ylim()) for x in ax1])
+    maxi = max([max(x.get_ylim()) for x in ax1])
+    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})$", fontsize=15)
+    for i, diam in enumerate(dend_diam):
+        if title:
+            ax1[i].set_title(r"dend diam %s $\mathrm{\mu m}$" % diam,
+                             fontsize=15)
+        ax1[i].set_ylim([0, maxi])
+        if i:
+            ax1[i].set_yticks([])
+    return fig1
+
+

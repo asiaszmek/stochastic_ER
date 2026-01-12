@@ -1,0 +1,380 @@
+<StimulationSet>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>1000</onset>
+    <duration>10</duration>
+    <rate>17.834103</rate>
+    <end>1010</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>2010</onset>
+    <duration>10</duration>
+    <rate>28.369534579756696</rate>
+    <end>2020</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>3020</onset>
+    <duration>10</duration>
+    <rate>74.03832977163046</rate>
+    <end>3030</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>4030</onset>
+    <duration>10</duration>
+    <rate>74.98153152596167</rate>
+    <end>4040</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>5040</onset>
+    <duration>10</duration>
+    <rate>106.54686992501847</rate>
+    <end>5050</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>6050</onset>
+    <duration>10</duration>
+    <rate>114.03948189345313</rate>
+    <end>6060</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>7060</onset>
+    <duration>10</duration>
+    <rate>118.80969788596053</rate>
+    <end>7070</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>8070</onset>
+    <duration>10</duration>
+    <rate>164.06651988119026</rate>
+    <end>8080</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>9080</onset>
+    <duration>10</duration>
+    <rate>253.7008058359335</rate>
+    <end>9090</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>10090</onset>
+    <duration>10</duration>
+    <rate>255.19450974629916</rate>
+    <end>10100</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>11100</onset>
+    <duration>10</duration>
+    <rate>260.1454157448055</rate>
+    <end>11110</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>12110</onset>
+    <duration>10</duration>
+    <rate>263.1930537398545</rate>
+    <end>12120</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>13120</onset>
+    <duration>10</duration>
+    <rate>313.8223917368069</rate>
+    <end>13130</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>14130</onset>
+    <duration>10</duration>
+    <rate>351.5384176861776</rate>
+    <end>14140</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>15140</onset>
+    <duration>10</duration>
+    <rate>398.33712764846155</rate>
+    <end>15150</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>16150</onset>
+    <duration>10</duration>
+    <rate>461.61476560166284</rate>
+    <end>16160</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>17160</onset>
+    <duration>10</duration>
+    <rate>479.2742015383852</rate>
+    <end>17170</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>18170</onset>
+    <duration>10</duration>
+    <rate>548.1291375207259</rate>
+    <end>18180</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>19180</onset>
+    <duration>10</duration>
+    <rate>621.9590714518707</rate>
+    <end>19190</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>20190</onset>
+    <duration>10</duration>
+    <rate>636.0287993780408</rate>
+    <end>20200</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>21200</onset>
+    <duration>10</duration>
+    <rate>698.4391253639711</rate>
+    <end>21210</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>22210</onset>
+    <duration>10</duration>
+    <rate>781.0746853015607</rate>
+    <end>22220</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>23220</onset>
+    <duration>10</duration>
+    <rate>892.1147132189253</rate>
+    <end>23230</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>24230</onset>
+    <duration>10</duration>
+    <rate>1686.4399991078851</rate>
+    <end>24240</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>25240</onset>
+    <duration>10</duration>
+    <rate>2451.12007831356</rate>
+    <end>25250</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>26250</onset>
+    <duration>10</duration>
+    <rate>4981.38237754888</rate>
+    <end>26260</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>27260</onset>
+    <duration>10</duration>
+    <rate>5067.149895018618</rate>
+    <end>27270</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>28270</onset>
+    <duration>10</duration>
+    <rate>5090.76005493285</rate>
+    <end>28280</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>29280</onset>
+    <duration>10</duration>
+    <rate>5271.209134909239</rate>
+    <end>29290</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>30290</onset>
+    <duration>10</duration>
+    <rate>5759.67443472879</rate>
+    <end>30300</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>31300</onset>
+    <duration>10</duration>
+    <rate>7281.927454240326</rate>
+    <end>31310</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>32310</onset>
+    <duration>10</duration>
+    <rate>7894.10517271807</rate>
+    <end>32320</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>33320</onset>
+    <duration>10</duration>
+    <rate>8375.704252105894</rate>
+    <end>33330</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>34330</onset>
+    <duration>10</duration>
+    <rate>71749.5897916243</rate>
+    <end>34340</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>35340</onset>
+    <duration>10</duration>
+    <rate>72407.30132825041</rate>
+    <end>35350</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>36350</onset>
+    <duration>10</duration>
+    <rate>72575.9453275927</rate>
+    <end>36360</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>37360</onset>
+    <duration>10</duration>
+    <rate>261892.08592742402</rate>
+    <end>37370</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>38370</onset>
+    <duration>10</duration>
+    <rate>265770.8977381079</rate>
+    <end>38380</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>39380</onset>
+    <duration>10</duration>
+    <rate>296789.34773422906</rate>
+    <end>39390</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>40390</onset>
+    <duration>10</duration>
+    <rate>329964.03170321067</rate>
+    <end>40400</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>41400</onset>
+    <duration>10</duration>
+    <rate>357440.9576700359</rate>
+    <end>41410</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>42410</onset>
+    <duration>10</duration>
+    <rate>462482.07764255896</rate>
+    <end>42420</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>43420</onset>
+    <duration>10</duration>
+    <rate>655483.0895375179</rate>
+    <end>43430</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>44430</onset>
+    <duration>10</duration>
+    <rate>665565.5913445168</rate>
+    <end>44440</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>45440</onset>
+    <duration>10</duration>
+    <rate>752188.3773344343</rate>
+    <end>45450</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>46450</onset>
+    <duration>10</duration>
+    <rate>1659577.4192478117</rate>
+    <end>46460</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>47460</onset>
+    <duration>10</duration>
+    <rate>1730407.8983404227</rate>
+    <end>47470</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>48470</onset>
+    <duration>10</duration>
+    <rate>1880862.4382695917</rate>
+    <end>48480</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>49480</onset>
+    <duration>10</duration>
+    <rate>2061191.0581191375</rate>
+    <end>49490</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>50490</onset>
+    <duration>10</duration>
+    <rate>2589769.537938809</rate>
+    <end>50500</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>51500</onset>
+    <duration>10</duration>
+    <rate>2965484.2774102306</rate>
+    <end>51510</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>52510</onset>
+    <duration>10</duration>
+    <rate>4510142.857034516</rate>
+    <end>52520</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>53520</onset>
+    <duration>10</duration>
+    <rate>4517370.455489857</rate>
+    <end>53530</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>54530</onset>
+    <duration>10</duration>
+    <rate>4772384.275482629</rate>
+    <end>54540</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>55540</onset>
+    <duration>10</duration>
+    <rate>4791416.955227615</rate>
+    <end>55550</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>56550</onset>
+    <duration>10</duration>
+    <rate>5008967.715208583</rate>
+    <end>56560</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>57560</onset>
+    <duration>10</duration>
+    <rate>7495623.494991032</rate>
+    <end>57570</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>58570</onset>
+    <duration>10</duration>
+    <rate>7570067.772504377</rate>
+    <end>58580</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>59580</onset>
+    <duration>10</duration>
+    <rate>9128458.792429931</rate>
+    <end>59590</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>60590</onset>
+    <duration>10</duration>
+    <rate>9335649.99087154</rate>
+    <end>60600</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>61600</onset>
+    <duration>10</duration>
+    <rate>11493088.590664348</rate>
+    <end>61610</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>62610</onset>
+    <duration>10</duration>
+    <rate>14386537.78850691</rate>
+    <end>62620</end>
+  </InjectionStim>
+  <InjectionStim specieID="Ca" injectionSite="dend">
+    <onset>63620</onset>
+    <duration>10</duration>
+    <rate>20926311.18561346</rate>
+    <end>63630</end>
+  </InjectionStim>
+</StimulationSet>

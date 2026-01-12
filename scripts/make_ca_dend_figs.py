@@ -1,19 +1,64 @@
+import sys
+import argparse
+
 import h5py
 import numpy as np
 import matplotlib.pyplot as plt 
 from lxml import etree
-import sys
+
 from scipy.constants import Avogadro
 import utility_functions as utils
 
+
 NA = Avogadro*1e-23
+plt.rcParams['text.usetex'] = True
+specie_dict = {
+    "Ca": ["Ca"],
+    "CaOut": ["CaOut"],
+    "CaER": ["CaER"],
+    "RyR2O": ["RyR2CaMO1", "RyR2CaMO2"],
+    "RyR3O": ["RyR3CaMO1", "RyR3CaMO2"],
+    "STIM_CaER": ["STIM_2CaER"],
+    "Orai": ["OraiSTIM_4", "Orai2STIM_4", "Orai3STIM_4"],
+    "Fura": ["Fura2Ca"],
+ 
+}
+multiplier = {
+    "Ca": 1,
+    "CaOut": 1,
+    "CaER": 1,
+    "RyRO1": 1,
+    "RyRO2": 1,
+    "STIM_2CaER": 1,
+    "OraiSTIM_4": 1,
+    "Orai2STIM_4": 2,
+    "Orai3STIM_4": 3,
+    "Fura2Ca": 1,
+}
+def Parser():
+    parser = argparse.ArgumentParser(description='Generate figs of avg conc')
+    parser.add_argument('input', nargs='+',
+                        help='input h5 files')
+    parser.add_argument('--species', default="Ca",
+                        help='Ca, RyRO, CaER, CaOut, RyRO, Fura')
+    parser.add_argument('--scale', default="linear",
+                        help='linear, log')
+
+    return parser
+
+    
+
 
 
 if __name__ == '__main__':
     specie_list = ["Ca"]
     specie = "Ca"
-    reg_list = ["dend", "dend01", "dend02", "dend03", "dend04", "dend05", "dend06",
-                 "dend07", "dend08", "dend09", "dend10", "dend11"]
+    base = "dend"
+    reg_list = [base, "dend01", "dend02", "dend03", "dend04", "dend05",
+                "dend06", "dend07", "dend08", "dend09",]
+    for i in range(10, 102, 1):
+        reg_list.append("%s%d" %(base, i))
+   
     figs, axes = [], []
     if len(sys.argv) == 1:
         sys.exit('No filename given')
@@ -46,14 +91,14 @@ if __name__ == '__main__':
                                                      time[-1]*1e-3,
                                                      voxels[0],
                                                      voxels[-1]],
-                           cmap=plt.get_cmap("Reds"), vmin=0, vmax=vmax)
-            ax.set_xlabel("time (sec)", fontsize=14)
-            ax.set_ylabel("dendrite (um)", fontsize=14)
+                           cmap=plt.get_cmap("Reds"))
+            ax.set_xlabel(r"time (s)", fontsize=14)
+            ax.set_ylabel(r"dendrite $(\mathrm{\mu m})$", fontsize=14)
             fig.colorbar(im)
             
-            ax.set_title("%s dynamics in %s um dend" % (specie, diam),
+            ax.set_title(r"%s dynamics in %s $\mathrm{\mu m}$ dend" % (specie, diam),
                          fontsize=14)
-            fig.savefig(fname[:-3]+"_"+key+".svg", dpi=100,
+            fig.savefig(fname[:-3]+"_"+key+".png", dpi=100,
                         bbox_inches="tight")
     
     
