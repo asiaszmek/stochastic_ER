@@ -18,21 +18,21 @@ colors =  {
 names_dict = {
    
    
-    "80\%\n100\%\n0\%":
+    r"80\%\n100\%\n0\%":
     os.path.join("model_RyRCaM_0.8_PMCA",
     "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
-    "80\%\n50\%\n50\%":
+    r"80\%\n50\%\n50\%":
     os.path.join("model_RyR_RyRCaM_0.8_PMCA",
                  "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-   "80\%\n0\%\n100\%":
+   r"80\%\n0\%\n100\%":
     os.path.join("model_RyR_0.8_PMCA",
                  "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
 
 
-    "80\%\n100\%\n100\%":
+    r"80\%\n100\%\n100\%":
     os.path.join("model_2x_RyR_RyRCaM_0.8_PMCA",
                  "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    "80\%\n0\n200\%":
+    r"80\%\n0\n200\%":
     os.path.join("model_2xRyR_0.8_PMCA",
                  "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5"),
 
@@ -262,44 +262,44 @@ if __name__ == "__main__":
                                yerr=amp_std,
                                color=colors[d],
                                marker="o", linestyle="",
-                               label=r"%s $\mathrm{\mu m}$ diam" % d)
+                               label=r"%s $\unit{\micro\metre}$ diam" % d)
         ax_m_peak_width.errorbar(x=xlabels, y=width_mean,
                                  yerr=width_std,
                                  color=colors[d],
                                  marker="o", linestyle="",
-                                 label=r"%s $\mathrm{\mu m}$ diam" % d)
+                                 label=r"%s $\unit{\micro\metre}$ diam" % d)
         ax_m_peak_len.errorbar(x=xlabels, y=len_mean,
                                yerr=len_std,
                                color=colors[d],
                                marker="o", linestyle="",
-                               label=r"%s  $\mathrm{\mu m}$ diam" % d)
+                               label=r"%s  $\unit{\micro\metre}$ diam" % d)
         ax_m_peak_dist.errorbar(x=xlabels, y=dist_mean,
                                 yerr=dist_std,
                                 color=colors[d],
                                 marker="o", linestyle="",
-                                label=r"%s  $\mathrm{\mu m}$ diam" % d)
+                                label=r"%s  $\unit{\micro\metre}$ diam" % d)
                                 
         if i:
             ax_m_peak_init[i].set_yticklabels([])
 
-        ax_m_peak_init[i].set_title(r"diam %s  $\mathrm{\mu m}$" % d)
-        ax_m_peak_init[i].set_ylabel(r"initiation location $(\mathrm{\mu m})$",
+        ax_m_peak_init[i].set_title(r"diam %s  $\unit{\micro\metre}$" % d)
+        ax_m_peak_init[i].set_ylabel(r"initiation location $(\unit{\micro\metre})$",
                                      fontsize=15)
         ax_m_peak_init[i].set_xticklabels(xlabels)
-    ax_m_peak_amp.set_ylabel(r"$\mathrm{Ca_i}$ amplitude (nM)",
+    ax_m_peak_amp.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ amplitude ($\unit{\nano\molar}$)",
                              fontsize=15)
-    ax_m_peak_width.set_ylabel(r"$\mathrm{Ca_i}$ peak width (s)",
+    ax_m_peak_width.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak width ($\unit{second}$)",
                                fontsize=15)
-    ax_m_peak_len.set_ylabel(r"$\mathrm{Ca_i}$ peak length (s)",
+    ax_m_peak_len.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak length ($\unit{\second}$)",
                              fontsize=15)
-    ax_m_peak_dist.set_ylabel(r"$\mathrm{Ca_i}$ peak frequency (Hz)",
+    ax_m_peak_dist.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak frequency ($\unit{\Hertz}$)",
                               fontsize=15)
         
     ax_m_peak_amp.set_xticklabels(xlabels)
     ax_m_peak_width.set_xticklabels(xlabels)
     ax_m_peak_len.set_xticklabels(xlabels)
     ax_m_peak_dist.set_xticklabels(xlabels)
-    legend = "PMCA kcat\nRyR2CaM\nRyR2"
+    legend = r"PMCA kcat\nRyR2CaM\nRyR2"
     ax_m_peak_amp.legend()
     ax_m_peak_width.legend()
     ax_m_peak_len.legend()

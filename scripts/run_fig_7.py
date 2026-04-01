@@ -12,8 +12,8 @@ import matplotlib.legend as mlegend
 from matplotlib.patches import Rectangle 
 from matplotlib.lines import Line2D 
  
-plt.rcParams['text.usetex'] = True 
- 
+
+#rcParams["text.latex.preamble"]+="\usepackage{sfmath}"
 colors = {1.2: "tab:blue", 
           2.4: "tab:purple", 
           6.0: "tab:green", 
@@ -174,8 +174,8 @@ ims6 = Line2D([0], [0], color="tab:green", marker="d", fillstyle="none",
               lw=0) 
 ax.tick_params(axis='x', labelsize=15) 
 ax.tick_params(axis='y', labelsize=15) 
-ax.set_ylabel(r"$\max(\mathrm{Ca_i})$ $(\mathrm{\mu M})$", fontsize=15) 
-ax.set_xlabel(r"total injected ions/diam $(\mathrm{1/\mu m})$", fontsize=15) 
+ax.set_ylabel(r"$\max(\mathrm{Ca^{2+}_i})$ $(\unit{\micro \molar})$", fontsize=15) 
+ax.set_xlabel(r"total injected ions/diam $(\unit{\micro\metre})$", fontsize=15) 
 extra = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0) 
 legend_handle = [extra, extra, extra, extra, ims1, ims4, extra, ims2, ims5, extra, ims3, ims6] 
 label_col_1 = ["diam"] 
@@ -184,9 +184,9 @@ label_j_2 = ["no CaM"]
  
 label_empty = [""] 
 legend_labels = np.concatenate([label_col_1, label_j_1, label_j_2, 
-                                [r"1.2 $\mathrm{\mu m}$"], label_empty * 2, 
-                                [r"2.4 $\mathrm{\mu m}$"], label_empty * 2, 
-                                [r"6.0 $\mathrm{\mu m}$"], label_empty * 2]) 
+                                [r"1.2 $\unit{\micro\metre}$"], label_empty * 2, 
+                                [r"2.4 $\unit{\micro\metre}$"], label_empty * 2, 
+                                [r"6.0 $\unit{\micro\metre}$"], label_empty * 2]) 
 ax.legend(legend_handle, legend_labels,  
           ncol = 4, shadow = True, handletextpad = -2) 
  

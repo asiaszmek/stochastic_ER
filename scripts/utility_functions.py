@@ -8,9 +8,17 @@ from scipy.constants import Avogadro
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 
+plt.rcParams.update({
+    "text.usetex": True,
+    "font.family": "sans-serif",
+    "font.sans-serif": "Helvetica",
+})
 
+plt.rcParams["text.latex.preamble"]+=r"\usepackage{sfmath}"
+plt.rcParams["text.latex.preamble"]+=r"\usepackage{siunitx}"
+plt.rcParams["text.latex.preamble"]+=r"\DeclareSIUnit{\molar}{M}"
+plt.rcParams["text.latex.preamble"]+=r"\DeclareSIUnit{\Molar}{M}"
 
-plt.rcParams['text.usetex'] = True
 hatch_possibilities = ["/", "-", "+", "o"]
 marker = ["d", "o", "v", "^"]
 limit = 2.5
@@ -487,14 +495,14 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
         ax1[j].set_xticklabels(types, rotation=90)
         ax1[j].tick_params(axis='x', labelsize=15)
         ax1[j].tick_params(axis='y', labelsize=15)
-    ax1[0].set_xlabel("Paradigm", fontsize=15)
+    ax1[0].set_xlabel(r"Paradigm", fontsize=15)
     ax1[0].set_ylabel(r"\% error", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
 
     for i, diam in enumerate(dend_diam):
         
-        ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+        ax1[i].set_title(r"dend diam %s $\unit{\micro\metre}$" % diam,
                          fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
@@ -587,16 +595,16 @@ def make_dip_CaER(directories,  dend_diam,
                         color=colors[diam],
                         marker=marker[k],
                         linestyle="", fillstyle=fillstyle[k])
-    ax1[0].set_ylabel("\% min Ca molecules in the ER",
+    ax1[0].set_ylabel(r"\% min $\mathrm{Ca^{2+}_i}$ molecules in the ER",
                       fontsize=15)
-    ax1[0].set_xlabel("Peak Ca at stimulated site $\mathrm{(\mu M)}$", fontsize=15)
+    ax1[0].set_xlabel(r"Peak $\mathrm{Ca^{2+}_i}$ at stimulated site ($\unit{\micro\Molar})$", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
  
     for i, diam in enumerate(dend_diam):
         ax1[i].tick_params(axis='x', labelsize=15)
         ax1[i].tick_params(axis='y', labelsize=15)
-        ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+        ax1[i].set_title(r"dend diam %s $\unit{\micro\metre}$" % diam,
                          fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
@@ -641,6 +649,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                 y = []
                 y_err = []
                 x = []
+                x_err =[]
                 for i, stim in enumerate(stims):
                     new_fname = fname % (stim_type, diam, stim)
                     my_file = os.path.join(my_path % diam, new_fname)
@@ -672,13 +681,13 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                     x.append(ca_means.mean())
                     y.append(t_decays1.mean())
                     y_err.append(t_decays1.std()/len(t_decays1)**0.5)
-                        
+                    x_err.append(ca_means.std()/len(ca_means)**0.5)
                         
                 print(x, y, y_err)
                 if not len(y):
                     continue
 
-                ax1[j].errorbar(x, y,  yerr=y_err,
+                ax1[j].errorbar(x, y,  yerr=y_err, xerr=x_err,
                                 color=colors[diam],
                                 marker=marker[k],
                                 label=types[k],
@@ -691,13 +700,13 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
    
     if legend is not None:
         ax1[0].legend(handles=legend)
-    ax1[0].set_ylabel("Time decay (ms)", fontsize=15)
+    ax1[0].set_ylabel(r"Time decay ($\unit{\milli\second}$)", fontsize=15)
     mini = 50
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})$", fontsize=15)
+    ax1[0].set_xlabel(r"Peak $\mathrm{Ca^{2+}_i}$ at stimulated site $(\unit{\micro\Molar})$", fontsize=15)
     for i, diam in enumerate(dend_diam):
         if title:
-            ax1[i].set_title(r"dend diam %s $\mathrm{\mu  m}$" % diam,
+            ax1[i].set_title(r"dend diam %s $\unit{\micro\metre}$" % diam,
                              fontsize=15)
         ax1[i].set_ylim([mini, maxi])
         if i:
@@ -725,6 +734,7 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
                 y = []
                 y_err = []
                 x = []
+                x_err = []
                 for i, stim in enumerate(stims):
                     print(fname)
                     new_fname = fname % (stim_type, diam, stim)
@@ -751,12 +761,13 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
                     y_err.append(delay.std()/len(delay)**0.5)
                     b_diam = float(diam)
                     x.append(np.mean(branch)/1000)
-                print(x, y, y_err)
+                    x_err.append((branch/1000).std()/len(branch)**0.5)
+                print(x, y, y_err, x_err)
                 if not len(y):
                     continue
                 ax1[j].tick_params(axis='x', labelsize=15)
                 ax1[j].tick_params(axis='y', labelsize=15)
-                ax1[j].errorbar(x, y,  yerr=y_err,
+                ax1[j].errorbar(x, y,  yerr=y_err, xerr=x_err,
                                 color=colors[diam],
                                 fillstyle=fillstyle[k],
                                 label=types[k], marker=marker[k],
@@ -768,13 +779,13 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
                         ax1[j].legend(loc="lower right", prop={'size': 10})
     if legend is not None:
         ax1[-1].legend(handles=legend)
-    ax1[0].set_ylabel("Spatial extent $(\mathrm{\mu m})$", fontsize=15)
+    ax1[0].set_ylabel(r"Spatial extent $(\unit{\micro\metre})$", fontsize=15)
     mini = min([min(x.get_ylim()) for x in ax1])
     maxi = max([max(x.get_ylim()) for x in ax1])
-    ax1[0].set_xlabel("Peak Ca at stimulated site $(\mathrm{\mu M})$", fontsize=15)
+    ax1[0].set_xlabel(r"Peak $\mathrm{Ca^{2+}_i}$ at stimulated site $(\unit{\micro\Molar})$", fontsize=15)
     for i, diam in enumerate(dend_diam):
         if title:
-            ax1[i].set_title(r"dend diam %s $\mathrm{\mu m}$" % diam,
+            ax1[i].set_title(r"dend diam %s $\unit{\micro\metre}$" % diam,
                              fontsize=15)
         ax1[i].set_ylim([0, maxi])
         if i:

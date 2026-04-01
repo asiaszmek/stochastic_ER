@@ -51,10 +51,10 @@ if __name__ == '__main__':
                                                      voxels[-1]],
                            cmap=plt.get_cmap("Reds"))
             ax.set_xlabel(r"time (s)", fontsize=15)
-            ax.set_ylabel(r"dendrite $(\mathrm{\mu m})$", fontsize=15)
+            ax.set_ylabel(r"dendrite $(\unit{\micro\metre})$", fontsize=15)
             fig.colorbar(im)
             
-            ax.set_title(r"%s dynamics in %s $\mathrm{\mu m}$ dend" % (specie, diam),
+            ax.set_title(r"%s dynamics in %s $\unit{\micro\metre}$ dend" % (specie, diam),
                          fontsize=14)
             fig.savefig(new_fname[:-3]+"_"+key+".png", dpi=100,
                         bbox_inches="tight")

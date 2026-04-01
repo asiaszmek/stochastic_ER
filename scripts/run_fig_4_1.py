@@ -5,10 +5,10 @@ from matplotlib.lines import Line2D
 
 legend_elements = [
     Line2D([0], [0], color='k', marker="o", fillstyle="full",
-           lw=0, label='uniform RyR2CaM'),
-    Line2D([0], [0], color="k", marker='^', fillstyle="full",
-           lw=0, label="RyR2CaM in EPJ"),
+           lw=0, label='RyR2CaM'),
     Line2D([0], [0], color="k", marker='o', fillstyle="none",
+           lw=0, label="RyR2 no CaM"),
+    Line2D([0], [0], color="k", marker='*', fillstyle="none",
            lw=0, label="no RyR2"),
 ]
             
@@ -21,9 +21,13 @@ directories = [
         "Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
         "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
+    # [
+    #     "Ca_wave_RyR2CaM_simple_SERCA_SOCE_baloon_%s",
+    #     "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
+    # ],
     [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_baloon_%s",
-        "model_RyR2CaM%s_simple_SERCA_SOCE_baloon_diam_%s_um_50_um_%s_nM.h5"
+        "Ca_wave_simple_SERCA_SOCE_%s",
+        "model_RyR%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
     [
         "Ca_wave_no_RyR_simple_SERCA_SOCE_%s",
@@ -36,9 +40,9 @@ dend_diam = ["1.2", "2.4", "6.0"]
 
 
 if __name__ == '__main__':
-    types = ["uniform RyR2CaM", "RyR2CaM in EPJ", "blocked RyR2"]
-    markers = ["o", "^", "o"]
-    fillstyle = ["full", "full", "none"]
+    types = ["uniform RyR2CaM", "RyR2 no CaM", "blocked RyR2"]
+    markers = ["o", "o", "*"]
+    fillstyle = ["full", "none", "none"]
 
     fig1 = utils.make_distance_fig_sep_dends(directories,
                                              dend_diam,

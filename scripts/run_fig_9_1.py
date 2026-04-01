@@ -14,8 +14,8 @@ colors ={
 directories = [
     ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
      "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"],
-    ["Ca_wave_simple_SERCA_no_SOCE_%s",
-     "model_RyR%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    # ["Ca_wave_simple_SERCA_no_SOCE_%s",
+    #  "model_RyR%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
     ["Ca_wave_RyR2CaM_aging_%s",
      "model_RyR2CaM_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
     ["Ca_wave_normal_SERCA_aging_%s",
@@ -36,10 +36,12 @@ stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2"]#, "2.4", "6.0"]
 
 if __name__ == '__main__':
-    types = [ "ctrl", "ctrl + RyR2", "old age with fully inhibited RyR2", 
-              "old age",]
+    types = [ r"ctrl", #"ctrl + RyR2",
+              r"old age with fully inhibited RyR2", 
+              r"old age",]
     marker = ["o", "o",  "s","s", ]
-    fillstyle = ["full", "none", "full", "none"]
+    fillstyle = ["full",# "none",
+                 "full", "none"]
 
     output_name = "all"
     fig1 = utils.make_distance_fig_sep_dends(directories,

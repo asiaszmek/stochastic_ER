@@ -12,8 +12,8 @@ colors ={
 directories = [
     ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
      "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"],
-    ["Ca_wave_simple_SERCA_no_SOCE_%s",
-     "model_RyR%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
+    # ["Ca_wave_simple_SERCA_no_SOCE_%s",
+    #  "model_RyR%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
     ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_2x_buffers_%s",
      "model_RyR2CaM%s_simple_SERCA_SOCE_2x_buffer_tubes_diam_%s_um_50_um_%s_nM.h5"],
     ["Ca_wave_normal_SERCA_aging_%s", "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
@@ -33,10 +33,13 @@ stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2"]#, "2.4", "6.0"]
 
 if __name__ == '__main__':
-    types = [ "ctrl",  "ctrl with old age RyR2", "ctrl + 200\% Ca buffers",
-              "old age",]
-    marker = ["o", "o", "^","s", ]
-    fillstyle = ["full", "none",  "none", "none"]
+    types = [ r"ctrl",  #"ctrl with old age RyR2",
+              r"ctrl + 200\% $\mathrm{Ca^{2+}}$ buffers",
+              r"old age",]
+    marker = ["o",# "o",
+              "^","s", ]
+    fillstyle = ["full", #"none",
+                 "none", "none"]
 
     output_name = "all"
     fig1 = utils.make_decay_constant_fig_sep_dends(directories,
