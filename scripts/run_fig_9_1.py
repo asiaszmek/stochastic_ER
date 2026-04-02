@@ -41,7 +41,7 @@ if __name__ == '__main__':
               r"old age",]
     marker = ["o", "o",  "s","s", ]
     fillstyle = ["full",# "none",
-                 "full", "none"]
+                 "none", "full"]
 
     output_name = "all"
     fig1 = utils.make_distance_fig_sep_dends(directories,
