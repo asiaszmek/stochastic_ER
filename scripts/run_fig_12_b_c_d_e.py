@@ -18,21 +18,21 @@ colors =  {
 names_dict = {
    
    
-    r"80\%\n100\%\n0\%":
+    " 80\%\n100\%\n 0\%":
     os.path.join("model_RyRCaM_0.8_PMCA",
     "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
-    r"80\%\n50\%\n50\%":
+    " 80\%\n 50\%\n 50\%":
     os.path.join("model_RyR_RyRCaM_0.8_PMCA",
                  "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-   r"80\%\n0\%\n100\%":
+   " 80\%\n  0\%\n100\%":
     os.path.join("model_RyR_0.8_PMCA",
                  "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
 
 
-    r"80\%\n100\%\n100\%":
+    " 80\%\n100\%\n100\%":
     os.path.join("model_2x_RyR_RyRCaM_0.8_PMCA",
                  "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    r"80\%\n0\n200\%":
+    " 80\%\n  0\n200\%":
     os.path.join("model_2xRyR_0.8_PMCA",
                  "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5"),
 
@@ -292,14 +292,14 @@ if __name__ == "__main__":
                                fontsize=15)
     ax_m_peak_len.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak length ($\unit{\second}$)",
                              fontsize=15)
-    ax_m_peak_dist.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak frequency ($\unit{\Hertz}$)",
+    ax_m_peak_dist.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak frequency ($\unit{\hertz}$)",
                               fontsize=15)
         
     ax_m_peak_amp.set_xticklabels(xlabels)
     ax_m_peak_width.set_xticklabels(xlabels)
     ax_m_peak_len.set_xticklabels(xlabels)
     ax_m_peak_dist.set_xticklabels(xlabels)
-    legend = r"PMCA kcat\nRyR2CaM\nRyR2"
+    legend = "PMCA kcat\nRyR2CaM\nRyR2"
     ax_m_peak_amp.legend()
     ax_m_peak_width.legend()
     ax_m_peak_len.legend()
