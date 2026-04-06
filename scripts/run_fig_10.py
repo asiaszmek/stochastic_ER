@@ -13,28 +13,28 @@ colors =  {
     "6.0": 'tab:green'
 }
 names_dict = {
-    r"100\%\n  0\%\n  0\%":
+    "100\%\n  0\%\n  0\%":
     os.path.join("model_noRyR",
                  "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5"),
-    r"100\%\n100\%\n  0\%" :
+    "100\%\n100\%\n  0\%" :
     os.path.join("model_RyRCaM",
                  "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5"),
-    r"100\%\n  0\%\n100\%":
+    "100\%\n  0\%\n100\%":
     os.path.join("model_RyR",
                  "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5"),
-    r" 80\%\n100\%\n  0\%":
+    " 80\%\n100\%\n  0\%":
     os.path.join("model_RyRCaM_0.8_PMCA", 
     "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
-    r" 80\%\n  0\%\n100\%":
+    " 80\%\n  0\%\n100\%":
     os.path.join("model_RyR_0.8_PMCA",
                  "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
-    r" 80\%\n 50\%\n 50\%":
+    " 80\%\n 50\%\n 50\%":
     os.path.join("model_RyR_RyRCaM_0.8_PMCA",
                  "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    r" 80\%\n100\%\n100\%":
+    " 80\%\n100\%\n100\%":
     os.path.join("model_2x_RyR_RyRCaM_0.8_PMCA",
     "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
-    r" 80\%\n  0\%\n200\%":
+    " 80\%\n  0\%\n200\%":
     os.path.join("model_2xRyR_0.8_PMCA",
                  "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5"),
 
@@ -98,7 +98,7 @@ if __name__ == "__main__":
             ax_m_ca[i].set_yticklabels([])
     ax_m_ca[0].set_ylabel(r"mean $\mathrm{Ca^{2+}_i}$ (nM)",
                           fontsize=15)
-    legend = r"PMCA kcat\nRyR2CaM\n   RyR2"
+    legend = "PMCA kcat\nRyR2CaM\n   RyR2"
     adjust_axes(ax_m_ca)
     ax_m_ca[0].text(-2.5, min(ax_m_ca[0].get_ylim())
                     -(max(ax_m_ca[0].get_ylim())

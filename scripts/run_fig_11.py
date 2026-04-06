@@ -54,8 +54,7 @@ if __name__ == '__main__':
             ax.set_ylabel(r"dendrite $(\unit{\micro\metre})$", fontsize=15)
             fig.colorbar(im)
             
-            ax.set_title(r"%s dynamics in %s $\unit{\micro\metre}$ dend" % (specie, diam),
-                         fontsize=14)
+            ax.set_title(r"$\mathrm{Ca_i^{2+}}$ dynamics in %s $\unit{\micro\metre}$ dend" %  diam, fontsize=14)
             fig.savefig(new_fname[:-3]+"_"+key+".png", dpi=100,
                         bbox_inches="tight")
             fig.savefig(new_fname[:-3]+"_"+key+".eps", dpi=100,
