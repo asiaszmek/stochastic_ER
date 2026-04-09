@@ -6,9 +6,9 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 
-ca_conc_file = "../RyR2_CaM/ryr_cam_po_1_uM_CaM.csv" #"JGP_201110706_Fig2_RyR2_po_pca.csv"
-ryr_op_fname = "../RyR2_CaM/ryr_cam_to_1_uM_CaM.csv" #"JGP_201110706_Fig2_RyR2_to_po.csv"
-ryr_cl_fname = "../RyR2_CaM/ryr_cam_tc_1_uM_CaM.csv" #"JGP_201110706_Fig2_RyR2_tc_po.csv"
+ca_conc_file = "po_xu_meissner_Cam.csv" #"JGP_201110706_Fig2_RyR2_po_pca.csv"
+ryr_op_fname = "to_meissner_xu_Cam.csv" #"JGP_201110706_Fig2_RyR2_to_po.csv"
+ryr_cl_fname = "tc_meissner_xu_Cam.csv" #"JGP_201110706_Fig2_RyR2_tc_po.csv"
 
 model_text = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SDRun xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://stochdiff.textensor.org">
