@@ -288,9 +288,9 @@ if __name__ == "__main__":
         ax_m_peak_init[i].set_xticklabels(xlabels)
     ax_m_peak_amp.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ amplitude ($\unit{\nano\molar}$)",
                              fontsize=15)
-    ax_m_peak_width.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak width ($\unit{second}$)",
+    ax_m_peak_width.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak duration ($\unit{\second}$)",
                                fontsize=15)
-    ax_m_peak_len.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak length ($\unit{\second}$)",
+    ax_m_peak_len.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak spatial spread ($\unit{\micro\metre}$)",
                              fontsize=15)
     ax_m_peak_dist.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak frequency ($\unit{\hertz}$)",
                               fontsize=15)
