@@ -38,7 +38,7 @@ results (also, 3D may not work yet...)  -->
 
     </discretization>
 
-    <fixedStepDt>1e-4</fixedStepDt>
+    <fixedStepDt>1e-5</fixedStepDt>
 
 
     <!-- the tolerace is not used yet -->
