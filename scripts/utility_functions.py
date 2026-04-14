@@ -340,7 +340,7 @@ def get_conc(fullname, specie_list, region_list, output):
         conc_dict[specie] = {}
     try:
         my_file = h5py.File(fullname)
-        print(fullname)
+        #print(fullname)
     except FileNotFoundError:
         print("File not found", fullname)
         return conc_dict, time_dict
@@ -363,9 +363,9 @@ def get_conc(fullname, specie_list, region_list, output):
 
 
 def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
-    decays = np.zeros((len(conc_dict), 1))
+    decays = np.zeros((len(conc_dict), ))
     shape = conc_dict["trial0"].shape[0]
-    branch = np.zeros((len(conc_dict), 1))
+    branch = np.zeros((len(conc_dict), ))
     duration = conc_dict["trial0"].shape[1]
     if find_middle:
         find_middle = np.argmax(conc_dict["trial0"])
@@ -421,8 +421,8 @@ def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
                 if start_1-j in indices and start_2+j in indices:
                     indices.remove(start_1-j)
         decays[i] = len(indices)*dx
-        branch[i] = (concentration[start_1, int(t_init/dt):].max()
-                     +concentration[start_2, int(t_init/dt):].max())/2
+        branch[i] = (concentration[start_1, int(t_init/dt):]+
+                     +concentration[start_2, int(t_init/dt):]).max()/2
     return distance, branch, decays
 
 
@@ -584,7 +584,7 @@ def make_dip_CaER(directories,  dend_diam,
                 x_err[k][diam].append(np.std(branch)/len(branch)**0.5)
                 y[k][diam].append(min_mol.mean()*volume*4*6.022*1e-9)
                 y_err[k][diam].append(min_mol.std()/len(min_mol)**.5*volume*4*6.022*1e-9)
-    print(x,x_err, y, y_err)
+    #print(x,x_err, y, y_err)
     for j, diam in enumerate(dend_diam):
         new_x = np.array(x[0][diam])+np.array(x[1][diam])/2
         new_y = np.array(y[1][diam])/np.array(y[0][diam])
@@ -612,7 +612,7 @@ def make_dip_CaER(directories,  dend_diam,
     return fig1
 
 
-def fit_exp(time, ca_conc, dt, duration=2000, t_init=3000, spatial=False):
+def fit_exp(time, ca_conc, dt, duration=1000, t_init=3000, spatial=False):
     if not spatial:
         ca_conc_mean = ca_conc[:int(t_init/dt)].mean()
         ca_conc = ca_conc[int(t_init/dt):] - ca_conc_mean
@@ -653,8 +653,8 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                 for i, stim in enumerate(stims):
                     new_fname = fname % (stim_type, diam, stim)
                     my_file = os.path.join(my_path % diam, new_fname)
-                    if diam == "1.2" and new_fname.startswith("model_RyR_simple_SERCA_SOCE_") and stim == "0175":
-                        continue
+                    # if diam == "1.2" and new_fname.startswith("model_RyR_simple_SERCA_SOCE_") and stim == "0175":
+                    #     continue
                     try:
                         conc_dict, times_dict = get_conc(my_file,
                                                          ["Ca"],
@@ -678,12 +678,14 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                         if t1 > 0:
                             t_decays1[i] = t1
                             ca_means[i] = ca.max()/1000
+                        print("%s,%s,%4.2f,%4.2f" %(d[:-3], diam,
+                                                       ca.max()/1000, t1))
                     x.append(ca_means.mean())
                     y.append(t_decays1.mean())
                     y_err.append(t_decays1.std()/len(t_decays1)**0.5)
                     x_err.append(ca_means.std()/len(ca_means)**0.5)
-                        
-                print(x, y, y_err)
+                    #print(d, diam, x[-1], ca_means.var(), t_decays1.mean(), t_decays1.var())
+                # print(x, y, y_err)
                 if not len(y):
                     continue
 
@@ -736,7 +738,7 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
                 x = []
                 x_err = []
                 for i, stim in enumerate(stims):
-                    print(fname)
+                    #print(fname)
                     new_fname = fname % (stim_type, diam, stim)
                     my_file = os.path.join(my_path % diam, new_fname)
                     try:
@@ -754,15 +756,19 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
                     try:
                         dist, branch, delay = fit_distance(conc_dict["Ca"],
                                                            dt, length=length, find_middle=find_middle)
-                                                                    
                     except TypeError:
                         continue
+                    for l, b in enumerate(branch):
+                        print("%s,%s,%4.2f,%4.2f" %(d[:-3], diam,
+                                                       b/1000, delay[l]))
+                        
                     y.append(delay.mean())
                     y_err.append(delay.std()/len(delay)**0.5)
                     b_diam = float(diam)
                     x.append(np.mean(branch)/1000)
                     x_err.append((branch/1000).std()/len(branch)**0.5)
-                print(x, y, y_err, x_err)
+                    #print(d, diam, x[-1], (branch/1000).var(), y[-1], delay.var())
+                #print(x, y, y_err, x_err)
                 if not len(y):
                     continue
                 ax1[j].tick_params(axis='x', labelsize=15)
