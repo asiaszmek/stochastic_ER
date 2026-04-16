@@ -1,199 +1,115 @@
-import os 
-import h5py 
-import numpy as np 
-from lxml import etree 
-import sys 
-from scipy.constants import Avogadro 
-import matplotlib.pyplot as plt 
-from matplotlib.patches import Rectangle 
-import utility_functions as utils 
- 
-import matplotlib.legend as mlegend 
-from matplotlib.patches import Rectangle 
-from matplotlib.lines import Line2D 
- 
+import os
+import sys
+import h5py
+import numpy as np
+from scipy.fft import fft, fftfreq, fftshift
+import matplotlib.pyplot as plt
+import utility_functions as ut
 
-#rcParams["text.latex.preamble"]+="\usepackage{sfmath}"
-colors = {1.2: "tab:blue", 
-          2.4: "tab:purple", 
-          6.0: "tab:green", 
-} 
+plt.rcParams['text.usetex'] = True
+colors =  {
+    "1.2": 'tab:blue',
+    "2.4": 'tab:purple',
+    "6.0": 'tab:green'
+}
+names_dict = {
+    "100\%\n  0\%\n  0\%":
+    os.path.join("model_noRyR",
+                 "model_noRyR_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5"),
+    "100\%\n100\%\n  0\%" :
+    os.path.join("model_RyRCaM",
+                 "model_RyRCaM_simple_SERCA_SOCE_tubes_diam_%s_um_10_um_dendrite.h5"),
+    "100\%\n  0\%\n100\%":
+    os.path.join("model_RyR",
+                 "model_RyR_simple_SERCA_SOCE_tubes_diam_%s_um_2_um_dendrite.h5"),
+    " 80\%\n100\%\n  0\%":
+    os.path.join("model_RyRCaM_0.8_PMCA", 
+    "model_RyRCaM_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
+    " 80\%\n  0\%\n100\%":
+    os.path.join("model_RyR_0.8_PMCA",
+                 "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_%s_um_10_um_dendrite.h5"),
+    " 80\%\n 50\%\n 50\%":
+    os.path.join("model_RyR_RyRCaM_0.8_PMCA",
+                 "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
+    " 80\%\n100\%\n100\%":
+    os.path.join("model_2x_RyR_RyRCaM_0.8_PMCA",
+    "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_%s_um_2_um_dendrite.h5"),
+    " 80\%\n  0\%\n200\%":
+    os.path.join("model_2xRyR_0.8_PMCA",
+                 "model_2xRyR_simple_SERCA_SOCE_0.8_PMCA_tubes_diam_%s_um_2_um_dendrite.h5"),
+
  
+}
+
+
+dend_diam = ["1.2", "2.4", "6.0"]
+output = "__main__"
+
+
+def adjust_axes(ax):
+    mini = min([min(x.get_ylim()) for x in ax])
+    maxi = max([max(x.get_ylim()) for x in ax])
+    for x in ax:
+      
+        x.set_ylim([mini, maxi])
+
+
+if __name__ == "__main__":
+    data_dir = ".."
+    x_labels = []
+    x_labels_pmca = []
+    fig_m_ca, ax_m_ca = plt.subplots(1, len(dend_diam),
+                                           figsize=(len(dend_diam)*7, 5))
+
+    for i, d in enumerate(dend_diam):
+        means = []
+        stds = []
+        x_labels = []
+        
+        for key, fname in names_dict.items():
+            path = os.path.join(data_dir, fname % d)
+            my_file = h5py.File(path)
+            grid_list = ut.get_grid_list(my_file)
+            conc_list = []
+            conc_std = []
+            for trial in ["trial0", "trial1", "trial2", "trial3"]:
+                data = ut.get_populations(my_file, trial=trial,
+                                          output=output)
+                specie_idx = ut.get_all_species(my_file,
+                                                output=output).index("Ca")
+                volume = sum(list(ut.region_volumes(my_file).values()))
+                
+                tot_conc =  ut.nano_molarity(data[:, :,
+                                                  specie_idx].sum(axis=1),
+                                         volume)
+                conc_list.append(tot_conc.mean())
+                conc_std.append(tot_conc.std())
+
+            means.append(np.mean(conc_list))
+            stds.append(sum([s**2 for s in conc_std])**0.5/2)
+            x_labels.append(key)
+    
  
-reg_list = ["dend25", "dend26", "dend27"] 
- 
-file_path = os.path.abspath(__file__) 
-list_fp = os.path.split(file_path) 
-cur_dir = os.path.join(os.path.join(list_fp[0], "..")) 
-output_name = "all" 
-stims = ["0175", "0350", "0700", "1050", "2000"] 
-stim_label = "2 uM Ca injection" 
-branch_diams = [1.2, 2.4, 6.0] 
- 
-injections = { 
-    1.2:{ 
-        "0175":{ 
-            "":20*1200, 
-            "_3s_injection":1.5*12000, 
-        }, 
- 
-        "0350":{ 
-            "":40*1200, 
-            "_3s_injection":3*12000, 
-        }, 
-        "0700":{ 
-            "":40*2400, 
-            "_3s_injection":3*24000, 
-        }, 
-        "1050":{ 
-            "":40*4000, 
-            "_3s_injection":3*40000, 
-        }, 
-         "2000":{ 
-            "":40*4800, 
-            "_3s_injection":3*48000, 
-        }, 
-    }, 
-    2.4:{ 
-        "0175":{ 
-            "":20*2000, 
-            "_3s_injection":1.5*20000, 
-        }, 
- 
-        "0350":{ 
-            "":40*2000, 
-            "_3s_injection":3*20000, 
-        }, 
-        "0700":{ 
-            "":40*4000, 
-            "_3s_injection":3*40000, 
-        }, 
-        "1050":{ 
-            "":40*6000, 
-            "_3s_injection":3*60000, 
-        }, 
-        "2000":{ 
-            "":40*8000, 
-            "_3s_injection":3*80000, 
-        }, 
-    }, 
-    6.0:{ 
-        "0175":{ 
-            "":20*4000, 
-            "_3s_injection":1.5*40000, 
-        }, 
- 
-        "0350":{ 
-            "":40*4000, 
-            "_3s_injection":3*40000, 
-        }, 
-         
-        "0700":{ 
-            "": 40*8000, 
-            "_3s_injection":3*80000, 
-        }, 
-        "1050":{ 
-            "":40*12000, 
-            "_3s_injection":3*120000, 
-        }, 
-        "2000":{ 
-            "":40*16000, 
-            "_3s_injection":3*160000, 
-        }, 
-    }, 
-} 
- 
-t_start = 3000 
-idx_start = t_start 
- 
-base_SOCE = "model_RyR%s_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5" 
-CaM_SOCE = "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%2.1f_um_50_um_%s_nM.h5" 
- 
-fname = { 
-    "_CaM": CaM_SOCE, 
-    "_no_CaM": base_SOCE 
-    } 
- 
-directory ={ 
-    "_CaM": "Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s", 
-    "_no_CaM": "Ca_wave_simple_SERCA_SOCE_%s", 
-    } 
- 
-stim_types = [ ""] 
-fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(5, 5)) 
- 
-suffix = {"": "", 
-          #"_3s_injection": " bAP" 
-          } 
- 
- 
-for k, b_diam in enumerate(branch_diams): 
-    for inh in ["_no_CaM", "_CaM"]: 
-        for j, s in enumerate(stim_types): 
-            y = [] 
-            y_err = [] 
-            x = [] 
-            for stim in stims: 
-                fname_SOCE = fname[inh] % (s, b_diam, stim) 
-                full_name = os.path.join(cur_dir, directory[inh] % b_diam,
-                                         fname_SOCE) 
-                ca_dict, time_dict = utils.get_conc(full_name, ["Ca"], 
-                                                    reg_list, 
-                                                    output_name) 
-                try: 
-                    ca_out = utils.get_array(ca_dict, "Ca") 
-                except ValueError: 
-                    continue 
-                ca = np.array(ca_out)/1000 
-                ca = ca.mean(axis=1) 
-                output = ca.max(axis=1) 
-                y.append(np.mean(output)) 
-                x.append(injections[b_diam][stim][s]/b_diam) 
-                y_err.append(output.std()/len(output)**0.5) 
-            print(x, y, y_err) 
-            if inh == "_CaM" and s == "": 
-                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d", 
-                            linestyle="") 
-            elif inh == "_no_CaM" and s == "": 
-                ax.errorbar(x, y, yerr=y_err, color=colors[b_diam], marker="d", 
-                            linestyle="", 
-                            fillstyle="none") 
- 
-ims1 = Line2D([0], [0], color="tab:blue", marker="d", fillstyle="full", 
-              lw=0) 
-ims2 = Line2D([0], [0], color="tab:purple", marker="d", fillstyle="full", 
-              lw=0) 
-ims3 = Line2D([0], [0], color="tab:green", marker="d", fillstyle="full", 
-              lw=0) 
- 
-ims4 = Line2D([0], [0], color="tab:blue", marker="d", fillstyle="none", 
-              lw=0) 
-ims5 = Line2D([0], [0], color="tab:purple", marker="d", fillstyle="none", 
-              lw=0) 
-ims6 = Line2D([0], [0], color="tab:green", marker="d", fillstyle="none", 
-              lw=0) 
-ax.tick_params(axis='x', labelsize=15) 
-ax.tick_params(axis='y', labelsize=15) 
-ax.set_ylabel(r"$\max(\mathrm{Ca^{2+}_i})$ $(\unit{\micro \molar})$", fontsize=15) 
-ax.set_xlabel(r"total injected ions/diam $(\unit{\micro\metre})$", fontsize=15) 
-extra = Rectangle((0, 0), 1, 1, fc="w", fill=False, edgecolor='none', linewidth=0) 
-legend_handle = [extra, extra, extra, extra, ims1, ims4, extra, ims2, ims5, extra, ims3, ims6] 
-label_col_1 = ["diam"] 
-label_j_1 = ["ctrl"] 
-label_j_2 = ["no CaM"] 
- 
-label_empty = [""] 
-legend_labels = np.concatenate([label_col_1, label_j_1, label_j_2, 
-                                [r"1.2 $\unit{\micro\metre}$"], label_empty * 2, 
-                                [r"2.4 $\unit{\micro\metre}$"], label_empty * 2, 
-                                [r"6.0 $\unit{\micro\metre}$"], label_empty * 2]) 
-ax.legend(legend_handle, legend_labels,  
-          ncol = 4, shadow = True, handletextpad = -2) 
- 
-#ax.legend(loc='center left', bbox_to_anchor=(1, 0.5)) 
-ax.tick_params(axis='both', which='major', labelsize=14) 
- 
-fig.savefig("Spatial_sum_cam.eps", dpi=100, 
-            bbox_inches="tight") 
-fig.savefig("Spatial_sum_cam.png", dpi=100, 
-            bbox_inches="tight")
+        ax_m_ca[i].errorbar(x=x_labels, y=means, yerr=stds,
+                        color=colors[d],
+                        marker="o", linestyle="")
+        ax_m_ca[i].set_title(r"diam %s  $\unit{\micro\metre}$" % d)
+        if i:
+            ax_m_ca[i].set_yticklabels([])
+    ax_m_ca[0].set_ylabel(r"mean $\mathrm{Ca^{2+}_i}$ (nM)",
+                          fontsize=15)
+    legend = "PMCA kcat\nRyR2CaM\n   RyR2"
+    adjust_axes(ax_m_ca)
+    ax_m_ca[0].text(-2.5, min(ax_m_ca[0].get_ylim())
+                    -(max(ax_m_ca[0].get_ylim())
+                      -min(ax_m_ca[0].get_ylim()))*0.1698, legend,
+                    horizontalalignment='left', fontsize=15)
+   
+    for ax in ax_m_ca:
+        ax.tick_params(axis='x', labelsize=15)
+        ax.tick_params(axis='y', labelsize=15)
+
+    fig_m_ca.savefig("mean_basal_ca.png", dpi=100,
+                 bbox_inches="tight")
+    fig_m_ca.savefig("mean_basal_ca.eps", dpi=100,
+                 bbox_inches="tight")

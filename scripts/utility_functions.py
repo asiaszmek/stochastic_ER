@@ -653,8 +653,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                 for i, stim in enumerate(stims):
                     new_fname = fname % (stim_type, diam, stim)
                     my_file = os.path.join(my_path % diam, new_fname)
-                    # if diam == "1.2" and new_fname.startswith("model_RyR_simple_SERCA_SOCE_") and stim == "0175":
-                    #     continue
+                   
                     try:
                         conc_dict, times_dict = get_conc(my_file,
                                                          ["Ca"],
@@ -668,7 +667,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                         continue
                     ca_means = np.zeros((len(conc_dict["Ca"].keys())))
                     t_decays1 = np.zeros((len(conc_dict["Ca"].keys())))
-                    for i, trial in enumerate(conc_dict["Ca"].keys()):
+                    for l, trial in enumerate(conc_dict["Ca"].keys()):
                         time = times_dict[trial]
                         ca = conc_dict["Ca"][trial].mean(axis=0)
                         try:
@@ -678,14 +677,15 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                         if t1 > 0:
                             t_decays1[i] = t1
                             ca_means[i] = ca.max()/1000
-                        print("%s,%s,%4.2f,%4.2f" %(d[:-3], diam,
-                                                       ca.max()/1000, t1))
+                    # for l in range(len(conc_dict["Ca"].keys())):
+                    #    print("%s,%s,%4.2f,%4.2f" %(d[:-3], diam,
+                    #                                ca_means.mean(), t1))
                     x.append(ca_means.mean())
                     y.append(t_decays1.mean())
                     y_err.append(t_decays1.std()/len(t_decays1)**0.5)
                     x_err.append(ca_means.std()/len(ca_means)**0.5)
                     #print(d, diam, x[-1], ca_means.var(), t_decays1.mean(), t_decays1.var())
-                # print(x, y, y_err)
+                print(x, y, y_err)
                 if not len(y):
                     continue
 
@@ -759,8 +759,8 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
                     except TypeError:
                         continue
                     for l, b in enumerate(branch):
-                        print("%s,%s,%4.2f,%4.2f" %(d[:-3], diam,
-                                                       b/1000, delay[l]))
+                        print("%s,%s,%4.3f,%4.2f" %(d[:-3], diam,
+                                                    branch.mean()/1000, delay[l]))
                         
                     y.append(delay.mean())
                     y_err.append(delay.std()/len(delay)**0.5)
