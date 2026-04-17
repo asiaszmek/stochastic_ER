@@ -7,7 +7,7 @@ import sys
 from scipy.constants import Avogadro
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-
+v = 0.12 #this only works for the thin dendrites
 plt.rcParams.update({
     "text.usetex": True,
     "font.family": "sans-serif",
@@ -389,7 +389,6 @@ def fit_distance(conc_dict, dt, t_init=3000, length=51, find_middle=False):
         indices = set()
 
         for j in range(start_2, shape):
-
             new_idx = concentration[j, new_beg:].argmax()
             ca_conc[j] = concentration[j, new_beg+new_idx]
             
@@ -651,6 +650,7 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                 x = []
                 x_err =[]
                 for i, stim in enumerate(stims):
+                    deterministic = False
                     new_fname = fname % (stim_type, diam, stim)
                     my_file = os.path.join(my_path % diam, new_fname)
                    
@@ -661,6 +661,21 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                                                          output_name)
                     except TypeError:
                         continue
+                    except OSError:
+                        new_file = open(my_file)
+                        header = new_file.readline().split()
+                        data = np.loadtxt(new_file, max_rows=518)
+                        times_dict = {}
+                        times_dict["trial0"] = data[:, 0]
+                        conc_dict = {}
+                        conc_dict["Ca"] = {}
+                        new_conc = np.zeros((data.shape[0], (data.shape[-1]-1)//3))
+                        
+                        for i in range((data.shape[-1]-1)//3):
+                            new_conc[:, i] = nano_molarity(data[:,1+3*i] + data[:, 1+3*i+1] + data[:,1+ 3*i+2], 3*v)
+                        conc_dict["Ca"]["trial0"] = new_conc.T    
+                        
+                        deterministic = True
                     try:
                         dt = times_dict["trial0"][1]-times_dict["trial0"][0]
                     except KeyError:
@@ -668,24 +683,28 @@ def make_decay_constant_fig_sep_dends(directories,  dend_diam,
                     ca_means = np.zeros((len(conc_dict["Ca"].keys())))
                     t_decays1 = np.zeros((len(conc_dict["Ca"].keys())))
                     for l, trial in enumerate(conc_dict["Ca"].keys()):
+                        
                         time = times_dict[trial]
                         ca = conc_dict["Ca"][trial].mean(axis=0)
                         try:
-                            t1 = fit_exp(time, ca, dt)
+                            if deterministic:
+                                t1 = fit_exp(time, ca, dt, t_init=100)
+                            else:
+                                t1 = fit_exp(time, ca, dt)
                         except ValueError:
                             continue
                         if t1 > 0:
-                            t_decays1[i] = t1
-                            ca_means[i] = ca.max()/1000
-                    # for l in range(len(conc_dict["Ca"].keys())):
-                    #    print("%s,%s,%4.2f,%4.2f" %(d[:-3], diam,
-                    #                                ca_means.mean(), t1))
+                            t_decays1[l] = t1
+                            ca_means[l] = ca.max()/1000
+                    for l in range(len(conc_dict["Ca"].keys())):
+                       print("%s,%s,%4.2f,%4.2f" %(d[:-3], diam,
+                                                ca_means[l], t_decays1[l]))
                     x.append(ca_means.mean())
                     y.append(t_decays1.mean())
                     y_err.append(t_decays1.std()/len(t_decays1)**0.5)
                     x_err.append(ca_means.std()/len(ca_means)**0.5)
                     #print(d, diam, x[-1], ca_means.var(), t_decays1.mean(), t_decays1.var())
-                print(x, y, y_err)
+                #print(x, y, y_err)
                 if not len(y):
                     continue
 
@@ -741,6 +760,7 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
                     #print(fname)
                     new_fname = fname % (stim_type, diam, stim)
                     my_file = os.path.join(my_path % diam, new_fname)
+                    deterministic=False
                     try:
                         conc_dict, times_dict = get_conc(my_file,
                                                          ["Ca"],
@@ -748,14 +768,40 @@ def make_distance_fig_sep_dends(directories,  dend_diam, stims, output_name,
                                                          output_name)
                     except TypeError:
                         continue
+                    except OSError:
+                        new_file = open(my_file)
+                        header = new_file.readline().split()
+                        data = np.loadtxt(new_file, max_rows=518)
+                        times_dict = {}
+                        times_dict["trial0"] = data[:, 0]
+                        conc_dict = {}
+                        conc_dict["Ca"] = {}
+                        new_conc = np.zeros((data.shape[0], (data.shape[-1]-1)//3))
+                        
+                        for i in range((data.shape[-1]-1)//3):
+                            new_conc[:, i] = nano_molarity(data[:,1+3*i] + data[:, 1+3*i+1] + data[:,1+ 3*i+2], 3*v)
+                        conc_dict["Ca"]["trial0"] = new_conc.T    
+                        
+                        deterministic = True
                     try:
                         dt = times_dict["trial0"][1]-times_dict["trial0"][0]
                     except KeyError:
                         continue
-                    length = get_length(my_file)
                     try:
-                        dist, branch, delay = fit_distance(conc_dict["Ca"],
-                                                           dt, length=length, find_middle=find_middle)
+                        length = get_length(my_file)
+                    except OSError:
+                        length = (data.shape[-1]-1)//3
+                    try:
+                        if deterministic:
+                            dist, branch, delay = fit_distance(conc_dict["Ca"],
+                                                               dt,t_init=100,
+                                                               length=length,
+                                                               find_middle=find_middle)
+                        else:
+                            dist, branch, delay = fit_distance(conc_dict["Ca"],
+                                                               dt,
+                                                               length=length,
+                                                               find_middle=find_middle)
                     except TypeError:
                         continue
                     for l, b in enumerate(branch):
