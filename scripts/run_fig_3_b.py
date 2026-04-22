@@ -7,7 +7,7 @@ from matplotlib.lines import Line2D
 
 legend_elements = [
     Line2D([0], [0], color='k', marker="o", fillstyle="full",
-           lw=0, label='RyR2CaM'),
+           lw=0, label='2xRyR2CaM'),
     Line2D([0], [0], color="k", marker='o', fillstyle="none",
            lw=0, label="RyR2 no CaM"),
     Line2D([0], [0], color="k", marker='*', fillstyle="none",
@@ -33,7 +33,11 @@ directories = [
     [
         "Ca_wave_no_RyR_simple_SERCA_SOCE_%s",
         "model_noRyR%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
-    ]
+    ],
+     [
+        "Ca_wave_normal_SERCA_aging_%s",
+        "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"
+    ],
 ]
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2", "2.4", "6.0"]
@@ -53,5 +57,5 @@ if __name__ == '__main__':
                                                    marker,
                                                    fillstyle,
                                                    legend=legend_elements)
-    fig1.savefig("RyR_no_RyR_temporal_short.png", dpi=100, bbox_inches="tight")
-    fig1.savefig("RyR_no_RyR_temporal_short.eps", dpi=100, bbox_inches="tight")
+    fig1.savefig("RyR_no_2xRyR_temporal_short.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("RyR_no_2xRyR_temporal_short.eps", dpi=100, bbox_inches="tight")

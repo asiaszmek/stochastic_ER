@@ -40,7 +40,7 @@ dend_diam = ["1.2", "2.4", "6.0"]
 
 
 if __name__ == '__main__':
-    types = ["uniform RyR2CaM", "RyR2 no CaM", "blocked RyR2"]
+    types = ["RyR2CaM", "RyR2 no CaM", "blocked RyR2"]
     markers = ["o", "o", "*"]
     fillstyle = ["full", "none", "none"]
 
