@@ -39,9 +39,9 @@ if __name__ == '__main__':
     types = [ r"ctrl", #"ctrl + RyR2",
               r"old age with fully inhibited RyR2", 
               r"old age",]
-    marker = ["o", "o",  "s","s", ]
+    marker = ["o", "s",  "o" ]
     fillstyle = ["full",# "none",
-                 "none", "full"]
+                 "none", "none"]
 
     output_name = "all"
     fig1 = utils.make_distance_fig_sep_dends(directories,

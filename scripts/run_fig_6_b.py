@@ -37,9 +37,9 @@ if __name__ == '__main__':
               r"ctrl + 200\% $\mathrm{Ca^{2+}}$ buffers",
               r"old age",]
     marker = ["o",# "o",
-              "^","s", ]
+              "s","o", ]
     fillstyle = ["full", #"none",
-                 "none", "none"]
+                 "full", "none"]
 
     output_name = "all"
     fig1 = utils.make_decay_constant_fig_sep_dends(directories,
