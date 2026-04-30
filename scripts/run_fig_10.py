@@ -1,7 +1,7 @@
 import os
 import sys
 import h5py
-
+from matplotlib.patches import Rectangle
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -156,7 +156,7 @@ def adjust_axes(ax):
       
         x.set_ylim([mini, maxi])
 
-
+dt = 0.2 # s
 
 if __name__ == "__main__":
     data_dir = ".."
@@ -175,6 +175,7 @@ if __name__ == "__main__":
             length = []
             for trial in ["trial0", "trial1", "trial2", "trial3", "trial4"]:
                 new_conc = get_ca_conc(my_file, trial)
+
                 if new_conc is None:
                     continue
                 peak = 0
@@ -189,7 +190,7 @@ if __name__ == "__main__":
                             peak += 1
                             prev = idx
                 peak_no.append(peak)
-                length.append(len(new_conc)*0.2)
+                length.append(len(new_conc)*dt)
             xlabels.append(key)
             m_f = (np.array(peak_no)/np.array(length)).mean()
             std_f = (np.array(peak_no)/np.array(length)).std()/(len(peak_no))**0.5
@@ -211,7 +212,10 @@ if __name__ == "__main__":
     ax_wave_f.tick_params(axis='y', labelsize=15)
     legend = "PMCA kcat\nRyR2CaM\nRyR2"#\nSOCE"
     ax_wave_f.legend()
-   
+    rect = Rectangle((2.5,-0.001), 1, 0.01, edgecolor="r", facecolor="none")
+    ax_wave_f.add_patch(rect)
+    ax_wave_f.text(2.5,0.009901, "AD model", color="r")
+    
     ax_wave_f.text(-1.25, min(ax_wave_f.get_ylim())
                     -(max(ax_wave_f.get_ylim())
                       -min(ax_wave_f.get_ylim()))*0.1698,

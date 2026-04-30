@@ -35,7 +35,7 @@ dend_diam = ["1.2"]
 
 
 if __name__ == '__main__':
-    types = ["RyR2CaM", "RyR2 no CaM", "RyR2CaM deterministic","RyR2 no CaM deterministic" ]
+    types = ["ctrl", "RyR2 no CaM", "ctrl deterministic","RyR2 no CaM deterministic" ]
     markers = ["o", "o", 'd', "d"]
     fillstyle = ["full", "none", "full", "none"]
 

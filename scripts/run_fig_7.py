@@ -3,6 +3,7 @@ import sys
 import h5py
 import numpy as np
 from scipy.fft import fft, fftfreq, fftshift
+from matplotlib.patches import Rectangle
 import matplotlib.pyplot as plt
 import utility_functions as ut
 
@@ -94,6 +95,12 @@ if __name__ == "__main__":
                         color=colors[d],
                         marker="o", linestyle="")
         ax_m_ca[i].set_title(r"diam %s  $\unit{\micro\metre}$" % d)
+        rect = Rectangle((5.5,60), 1, 80, edgecolor="r", facecolor="none")
+        ax_m_ca[i].add_patch(rect)
+        ax_m_ca[i].text(5.5,141, "AD model", color="r")
+        rect = Rectangle((0.5,60), 1, 80, edgecolor="b", facecolor="none")
+        ax_m_ca[i].add_patch(rect)
+        ax_m_ca[i].text(0.5,141, "ctrl", color="b")
         if i:
             ax_m_ca[i].set_yticklabels([])
     ax_m_ca[0].set_ylabel(r"mean $\mathrm{Ca^{2+}_i}$ (nM)",

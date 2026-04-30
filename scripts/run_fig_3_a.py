@@ -5,7 +5,7 @@ from matplotlib.lines import Line2D
 
 legend_elements = [
     Line2D([0], [0], color='k', marker="o", fillstyle="full",
-           lw=0, label='RyR2CaM'),
+           lw=0, label='ctrl'),
     Line2D([0], [0], color="k", marker='o', fillstyle="none",
            lw=0, label="RyR2 no CaM"),
     Line2D([0], [0], color="k", marker='*', fillstyle="none",

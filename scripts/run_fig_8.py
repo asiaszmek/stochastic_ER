@@ -16,11 +16,14 @@ if __name__ == '__main__':
         reg_list.append("%s%d" %(base, i))
     fnames = [
         os.path.join("..",
-                     "model_RyR_RyRCaM_0.8_PMCA",
-                     "model_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_2.4_um_2_um_dendrite.h5"),
+                     "model_2x_RyR_RyRCaM_0.8_PMCA",
+                     "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_2.4_um_2_um_dendrite.h5"),
+         os.path.join("..",
+                     "model_2x_RyR_RyRCaM_0.8_PMCA",
+                     "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_1.2_um_2_um_dendrite.h5"),
         os.path.join("..",
-                     "model_RyR_0.8_PMCA",
-                     "model_RyR_simple_SERCA_0.8_PMCA_tubes_diam_2.4_um_10_um_dendrite.h5")
+                     "model_2x_RyR_RyRCaM_0.8_PMCA",
+                     "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_6.0_um_2_um_dendrite.h5"),
     ]
     figs, axes = [], []
     for fname in fnames:

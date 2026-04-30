@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import utility_functions as ut
-
+from matplotlib.patches import Rectangle
 
 plt.rcParams['text.usetex'] = True
 colors =  {
@@ -294,12 +294,6 @@ if __name__ == "__main__":
                              fontsize=15)
     ax_m_peak_dist.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak frequency ($\unit{\hertz}$)",
                               fontsize=15)
-        
-    ax_m_peak_amp.set_xticklabels(xlabels)
-    ax_m_peak_width.set_xticklabels(xlabels)
-    ax_m_peak_len.set_xticklabels(xlabels)
-    ax_m_peak_dist.set_xticklabels(xlabels)
-    legend = "PMCA kcat\nRyR2CaM\nRyR2"
     ax_m_peak_amp.legend()
     ax_m_peak_width.legend()
     ax_m_peak_len.legend()
@@ -312,6 +306,30 @@ if __name__ == "__main__":
     ax_m_peak_len.tick_params(axis='y', labelsize=15)
     ax_m_peak_dist.tick_params(axis='x', labelsize=15)
     ax_m_peak_dist.tick_params(axis='y', labelsize=15)
+    rect = Rectangle((2.5, 200), 1, 300, edgecolor="r", facecolor="none")
+    ax_m_peak_amp.add_patch(rect)
+    
+    rect = Rectangle((2.5, 0), 1, 0.04, edgecolor="r", facecolor="none")
+    ax_m_peak_dist.add_patch(rect)
+
+    rect = Rectangle((2.5,20), 1, 30, edgecolor="r", facecolor="none")
+    ax_m_peak_len.add_patch(rect)
+
+    rect = Rectangle((2.5,5), 1, 25, edgecolor="r", facecolor="none")
+    ax_m_peak_width.add_patch(rect)
+
+    ax_m_peak_amp.text(2.5,505, "AD model", color="r")
+    ax_m_peak_width.text(2.5,30.3, "AD model", color="r")
+    ax_m_peak_len.text(2.5,50.5, "AD model", color="r")
+    ax_m_peak_dist.text(2.5, 0.041, "AD model", color="r")
+    ax_m_peak_amp.set_xticklabels(xlabels)
+    ax_m_peak_width.set_xticklabels(xlabels)
+    ax_m_peak_len.set_xticklabels(xlabels)
+    ax_m_peak_dist.set_xticklabels(xlabels)
+    legend = "PMCA kcat\nRyR2CaM\nRyR2"
+
+    
+    
     for ax in ax_m_peak_init:
         ax.tick_params(axis='x', labelsize=15)
         ax.tick_params(axis='y', labelsize=15)
