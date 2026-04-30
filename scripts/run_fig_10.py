@@ -39,17 +39,6 @@ dend_diam = ["1.2", "2.4", "6.0"]
 output = "__main__"
 
         
-def find_coords(P0, P1):
-    return [[min(P0[0], P1[0]), min(P0[1], P1[1])],
-            [max(P0[0], P1[0]), max(P0[1], P1[1])]]
-
-
-def is_y(miny, maxy, old_miny, old_maxy):
-    if miny <= old_maxy and miny >= old_miny :
-        return True
-    if maxy <= old_maxy and maxy >= old_miny:
-        return True
-
 
 def get_ca_conc(my_file, trial, output=output):
     try:
@@ -70,91 +59,6 @@ def get_ca_conc(my_file, trial, output=output):
               
     return new_conc
 
-
-def find_clusters(idx_array):
-    clusters = [[[idx_array[0][0], idx_array[1][0]],
-                 [idx_array[0][0], idx_array[1][0]]]]
-    indices = zip(idx_array[0][1:], idx_array[1][1:])
-    for i in range(len(idx_array[0][1:])):
-        new_x, new_y = idx_array[0][i+1], idx_array[1][i+1]
-        for  j, c in enumerate(clusters):
-            if c[0][0]-10 <= new_x <= c[1][0]+10:
-                if c[0][1]-4 <= new_y <= c[1][1]+4:
-                    new_minx = min([c[0][0], c[1][0], new_x])
-                    new_maxx = max([c[0][0], c[1][0], new_x])
-                    new_miny = min([c[0][1], c[1][1], new_y])
-                    new_maxy = max([c[0][1], c[1][1], new_y])
-                    clusters[j] = [[new_minx, new_miny],
-                                   [new_maxx, new_maxy]]
-                    break
-        else:
-            clusters.append([[new_x, new_y], [new_x, new_y]])
-    return clusters
-
-
-def purge_clusters(clusters):
-    new_clusters = []
-    for i, c in enumerate(clusters):
-        new_p1, new_p2 = c
-        for j, nc in enumerate(new_clusters):
-            p1, p2 = nc
-            if (p1[0] <= new_p1[0] <= p2[0]
-                or p1[0] <= new_p2[0] <= p2[0]):
-                if (p1[1] <= new_p1[1] <= p2[1]
-                    or p1[1]<= new_p2[1] <=p2[1]):
-                    c_minx = min([p1[0], p2[0],
-                                  new_p1[0], new_p2[0]])
-                    c_maxx = max([p1[0], p2[0],
-                                  new_p1[0], new_p2[0]])
-                    c_miny = min([p1[1], p2[1],
-                                  new_p1[1], new_p2[1]])
-                    c_maxy = max([p1[1], p2[1],
-                                  new_p1[1], new_p2[1]])
-                    new_clusters[j] = [[c_minx, c_miny],
-                                       [c_maxx, c_maxy]]
-                    break
-        else:   
-            if  c[1][1] - c[0][1]>=5 and c[1][0] - c[0][0]>=5:
-                new_clusters.append(c)
-    if len(new_clusters):
-        new_clusters = sorted(new_clusters, key=lambda x:x[0][0])
-    return new_clusters
-
-
-def get_width(p01, p02):
-    return (p02[1] - p01[1])*0.2
-
-
-def get_len(p01, p02):
-    return (p02[0]-p01[0])/2+0.5
-
-
-def max_amp(conc, p01, p02):
-    return conc[p01[0]:p02[0]+1, p01[1]:p02[1]+1].max()
-
-
-def peak_init(conc, p01):
-    return conc[:, p01[1]].argmax()/2
-
-
-def get_ipi(clusters):
-    peak_dist = []
-    for j, nc in enumerate(new_clusters):
-        p1, p2 = nc
-        if j:
-            o_p1, o_p2 = new_clusters[j-1]
-            new_t = (p2[1]+p1[1])/2*0.2
-            old_t = (o_p2[1]+o_p1[1])/2*0.2
-            peak_dist.append(abs(new_t - old_t))
-    return peak_dist
-
-
-def adjust_axes(ax):
-    mini = min([min(x.get_ylim()) for x in ax])
-    maxi = max([max(x.get_ylim()) for x in ax])
-    for x in ax:
-      
-        x.set_ylim([mini, maxi])
 
 dt = 0.2 # s
 

@@ -41,19 +41,8 @@ names_dict = {
 
 dend_diam = ["1.2", "2.4", "6.0"]
 output = "__main__"
-
         
-def find_coords(P0, P1):
-    return [[min(P0[0], P1[0]), min(P0[1], P1[1])],
-            [max(P0[0], P1[0]), max(P0[1], P1[1])]]
-
-
-def is_y(miny, maxy, old_miny, old_maxy):
-    if miny <= old_maxy and miny >= old_miny :
-        return True
-    if maxy <= old_maxy and maxy >= old_miny:
-        return True
-
+dt = 0.2 # s
 
 def get_ca_conc(my_file, trial, output=output):
     try:
@@ -71,7 +60,7 @@ def get_ca_conc(my_file, trial, output=output):
     new_conc = np.reshape(conc, (data.shape[0],
                                  102,
                                  len(volume)//102)).mean(axis=2).T
-              
+  
     return new_conc
 
 
@@ -126,7 +115,7 @@ def purge_clusters(clusters):
 
 
 def get_width(p01, p02):
-    return (p02[1] - p01[1])*0.2
+    return (p02[1] - p01[1])*dt
 
 
 def get_len(p01, p02):
@@ -135,22 +124,6 @@ def get_len(p01, p02):
 
 def max_amp(conc, p01, p02):
     return conc[p01[0]:p02[0]+1, p01[1]:p02[1]+1].max()
-
-
-def peak_init(conc, p01):
-    return conc[:, p01[1]].argmax()/2
-
-
-def get_ipi(clusters):
-    peak_dist = []
-    for j, nc in enumerate(new_clusters):
-        p1, p2 = nc
-        if j:
-            o_p1, o_p2 = new_clusters[j-1]
-            new_t = (p2[1]+p1[1])/2*0.2
-            old_t = (o_p2[1]+o_p1[1])/2*0.2
-            peak_dist.append(abs(new_t - old_t))
-    return peak_dist
 
 
 def adjust_axes(ax):
@@ -177,11 +150,6 @@ if __name__ == "__main__":
     fig_m_peak_dist, ax_m_peak_dist = plt.subplots(1, 1,
                                                    figsize=(1*7,
                                                             5))
-    fig_m_peak_init, ax_m_peak_init = plt.subplots(1, len(dend_diam),
-                                                   figsize=(len(dend_diam)*7,
-                                                            5))
-   
-    ax_m_peak_init = ax_m_peak_init
     for i, d in enumerate(dend_diam):
         no_mean = []
         no_std = []
@@ -203,7 +171,6 @@ if __name__ == "__main__":
             peak_width = []
             peak_len = []
             peak_dist = []
-            peak_start = []
             for trial in ["trial0", "trial1", "trial2", "trial3", "trial4"]:
                 new_conc = get_ca_conc(my_file, trial)
                 if new_conc is None:
@@ -215,12 +182,11 @@ if __name__ == "__main__":
                     peak_width.append(0)
                     peak_len.append(0)
                     peak_amp.append(0)
-                    peak_start.append(0)
                     continue
 
                 my_clusters = find_clusters(where)
                 new_clusters = purge_clusters(my_clusters)
-                peak_dist.append(len(new_clusters)/((new_conc.shape[1]-1)*0.2))
+                peak_dist.append(len(new_clusters)/((new_conc.shape[1]-1)*dt))
                                  
                 for j, nc in enumerate(new_clusters):
                     p1, p2 = nc
@@ -228,12 +194,10 @@ if __name__ == "__main__":
                     peak_len.append(get_len(p1, p2))
                     peak_amp.append(new_conc[p1[0]:p2[0]+1,
                                              p1[1]:p2[1]+1].max())
-                    peak_start.append(new_conc[:, p1[1]].argmax()/2)
                 else:
                     peak_width.append(0)
                     peak_len.append(0)
                     peak_amp.append(0)
-                    peak_start.append(0)
                     
             
             xlabels.append(key)
@@ -242,7 +206,7 @@ if __name__ == "__main__":
             peak_width = np.array(peak_width)
             peak_len = np.array(peak_len)
             peak_dist = np.array(peak_dist)
-            xlabels_for_peak_start = [key]*len(peak_start)
+
             amp_mean.append(peak_amp.mean())
             amp_std.append(peak_amp.std()/len(peak_amp)**.5)
             width_mean.append(peak_width.mean())
@@ -252,10 +216,6 @@ if __name__ == "__main__":
             dist_mean.append(peak_dist.mean())
             dist_std.append(peak_dist.std()/len(peak_dist)**.5)
             
-            if len(peak_start):
-                ax_m_peak_init[i].plot(xlabels_for_peak_start, peak_start,
-                                       color=colors[d],
-                                       marker="o", linestyle="")
        
 
         ax_m_peak_amp.errorbar(x=xlabels, y=amp_mean,
@@ -279,13 +239,6 @@ if __name__ == "__main__":
                                 marker="o", linestyle="",
                                 label=r"%s  $\unit{\micro\metre}$ diam" % d)
                                 
-        if i:
-            ax_m_peak_init[i].set_yticklabels([])
-
-        ax_m_peak_init[i].set_title(r"diam %s  $\unit{\micro\metre}$" % d)
-        ax_m_peak_init[i].set_ylabel(r"initiation location $(\unit{\micro\metre})$",
-                                     fontsize=15)
-        ax_m_peak_init[i].set_xticklabels(xlabels)
     ax_m_peak_amp.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ amplitude ($\unit{\nano\molar}$)",
                              fontsize=15)
     ax_m_peak_width.set_ylabel(r"$\mathrm{Ca^{2+}_i}$ peak duration ($\unit{\second}$)",
@@ -328,18 +281,6 @@ if __name__ == "__main__":
     ax_m_peak_dist.set_xticklabels(xlabels)
     legend = "PMCA kcat\nRyR2CaM\nRyR2"
 
-    
-    
-    for ax in ax_m_peak_init:
-        ax.tick_params(axis='x', labelsize=15)
-        ax.tick_params(axis='y', labelsize=15)
-        
-    adjust_axes(ax_m_peak_init)
-    ax_m_peak_init[0].text(-1.25, min(ax_m_peak_init[0].get_ylim())
-                    -(max(ax_m_peak_init[0].get_ylim())
-                      -min(ax_m_peak_init[0].get_ylim()))*0.1698,
-                           legend,
-                           horizontalalignment='left', fontsize=15)
     ax_m_peak_amp.text(-1.25, min(ax_m_peak_amp.get_ylim())
                     -(max(ax_m_peak_amp.get_ylim())
                       -min(ax_m_peak_amp.get_ylim()))*0.1698,
@@ -370,8 +311,6 @@ if __name__ == "__main__":
                             bbox_inches="tight")
     fig_m_peak_len.savefig("mean_peak_len.png", dpi=100,
                             bbox_inches="tight")
-    fig_m_peak_init.savefig("peak_init.png", dpi=100,
-                            bbox_inches="tight")
     fig_m_peak_amp.savefig("mean_peak_amp.eps", dpi=100,
                            bbox_inches="tight")
     fig_m_peak_dist.savefig("mean_peak_dist.eps", dpi=100,
@@ -379,6 +318,4 @@ if __name__ == "__main__":
     fig_m_peak_width.savefig("mean_peak_width.eps", dpi=100,
                             bbox_inches="tight")
     fig_m_peak_len.savefig("mean_peak_len.eps", dpi=100,
-                            bbox_inches="tight")
-    fig_m_peak_init.savefig("peak_init.eps", dpi=100,
                             bbox_inches="tight")
