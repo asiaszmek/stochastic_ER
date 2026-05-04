@@ -37,7 +37,7 @@ dend_diam = ["1.2"]#, "2.4", "6.0"]
 
 if __name__ == '__main__':
     types = [ r"ctrl", #"ctrl + RyR2",
-              r"old age with fully inhibited RyR2", 
+              r"old age with ctrl RyR2", 
               r"old age",]
     marker = ["o", "s",  "o" ]
     fillstyle = ["full",# "none",

@@ -17,18 +17,14 @@ directories = [
         "Ca_wave_simple_SERCA_SOCE_AP_%s",
         "model_RyR_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
     ],
-    [
-        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_AP_%s",
-        "model_RyR2CaM_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM_det-all-conc.txt.out"
-    ],
-    [
-        "Ca_wave_simple_SERCA_SOCE_AP_%s",
-        "model_RyR_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM_det-all-conc.txt.out"
-    ],
-   
-   
-    
-   
+    # [
+    #     "Ca_wave_RyR2CaM_simple_SERCA_SOCE_AP_%s",
+    #     "model_RyR2CaM_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM_det-all-conc.txt.out"
+    # ],
+    # [
+    #     "Ca_wave_simple_SERCA_SOCE_AP_%s",
+    #     "model_RyR_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM_det-all-conc.txt.out"
+    # ],
 ]
 stims = ["0175", "0350", "0700", "1050", "2000"]
 dend_diam = ["1.2"]
