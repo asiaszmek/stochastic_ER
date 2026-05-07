@@ -500,10 +500,11 @@ def make_distance_fig_ratio_bars(ratio_set, directories_dict, dend_diam, stims,
     maxi = max([max(x.get_ylim()) for x in ax1])
 
     for i, diam in enumerate(dend_diam):
-        
+        xmin, xmax = ax1[i].get_xlim()
         ax1[i].set_title(r"dend diam %s $\unit{\micro\metre}$" % diam,
                          fontsize=15)
         ax1[i].set_ylim([mini, maxi])
+        ax1[i].plot([xmin, xmax], [0, 0], "k")
         if i:
             ax1[i].set_yticks([])
     return fig1

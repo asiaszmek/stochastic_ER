@@ -28,7 +28,7 @@ labels = {"Ca_wave_normal_SERCA_aging": r"old age",
           "Ca_wave_RyR2CaM_simple_SERCA_SOCE_2x_buffers":  r"ctrl + 200\% $\mathrm{Ca^{2+}}$ buffers",
 }
 if __name__ == "__main__":
-    fname = "temporal_decay_4_cond.csv"
+    fname = "temporal_decay_Fig_6.csv"
     my_data = pd.read_csv(fname)
     conditions = ["Ca_wave_RyR2CaM_simple_SERCA_SOCE", "Ca_wave_no_RyR_simple_SERCA_SOCE",
                   "Ca_wave_simple_SERCA_SOCE", "Ca_wave_normal_SERCA_aging",

@@ -12,8 +12,8 @@ colors ={
 directories = [
     ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_%s",
      "model_RyR2CaM%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"],
-    # ["Ca_wave_simple_SERCA_no_SOCE_%s",
-    #  "model_RyR%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
+     ["Ca_wave_simple_SERCA_SOCE_%s",
+      "model_RyR%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"],
     ["Ca_wave_RyR2CaM_simple_SERCA_SOCE_2x_buffers_%s",
      "model_RyR2CaM%s_simple_SERCA_SOCE_2x_buffer_tubes_diam_%s_um_50_um_%s_nM.h5"],
     ["Ca_wave_normal_SERCA_aging_%s", "model_aging%s_simple_SERCA_tubes_diam_%s_um_50_um_%s_nM.h5"],
@@ -34,11 +34,11 @@ dend_diam = ["1.2"]#, "2.4", "6.0"]
 
 if __name__ == '__main__':
     types = [ r"ctrl",  #"ctrl with old age RyR2",
-              r"ctrl + 200\% $\mathrm{Ca^{2+}}$ buffers",
+              r"ctrl + 200\% $\mathrm{Ca^{2+}}$ buffers", r"RyR2 no CaM",
               r"old age",]
-    marker = ["o",# "o",
-              "s","o", ]
-    fillstyle = ["full", #"none",
+    marker = ["o", "s",
+              "^","o", ]
+    fillstyle = ["full", "full",
                  "full", "none"]
 
     output_name = "all"
