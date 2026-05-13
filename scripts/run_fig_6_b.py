@@ -34,7 +34,7 @@ dend_diam = ["1.2"]#, "2.4", "6.0"]
 
 if __name__ == '__main__':
     types = [ r"ctrl",  #"ctrl with old age RyR2",
-              r"ctrl + 200\% $\mathrm{Ca^{2+}}$ buffers", r"RyR2 no CaM",
+              r"ctrl + 200\% $\mathrm{Ca_i^{2+}}$ buffers", r"RyR2 no CaM",
               r"old age",]
     marker = ["o", "s",
               "^","o", ]

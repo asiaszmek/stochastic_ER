@@ -15,9 +15,6 @@ if __name__ == '__main__':
     for i in range(10, 102, 1):
         reg_list.append("%s%d" %(base, i))
     fnames = [
-        os.path.join("..",
-                     "model_2x_RyR_RyRCaM_0.8_PMCA",
-                     "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_2.4_um_2_um_dendrite.h5"),
          os.path.join("..",
                      "model_2x_RyR_RyRCaM_0.8_PMCA",
                      "model_2x_RyR_RyRCaM_0.8_PMCA_simple_SERCA_tubes_diam_1.2_um_2_um_dendrite.h5"),
@@ -44,10 +41,15 @@ if __name__ == '__main__':
         for key in conc_dict:
             fig, ax = plt.subplots(1, 1)
             time = time_dict[key]
-            im = ax.imshow(conc_dict[key].T, aspect="auto",
+            dt = time[1] - time[0]
+            t_start = int(800000/dt)
+            t_stop = int(900000/dt)
+
+            new_conc = conc_dict[key][t_start:t_stop]
+            im = ax.imshow(new_conc.T, aspect="auto",
                            interpolation="none",
-                           origin="lower", extent = [time[0]*1e-3,
-                                                     time[-1]*1e-3,
+                           origin="lower", extent = [800,
+                                                     900,
                                                      voxels[0],
                                                      voxels[-1]],
                            cmap=plt.get_cmap("Reds"))
@@ -55,10 +57,10 @@ if __name__ == '__main__':
             ax.set_ylabel(r"dendrite $(\unit{\micro\metre})$", fontsize=15)
             fig.colorbar(im)
             
-            ax.set_title(r"$\mathrm{Ca_i^{2+}}$ dynamics in %s $\unit{\micro\metre}$ dend" %  diam, fontsize=14)
-            fig.savefig(new_fname[:-3]+"_"+key+".png", dpi=100,
+            ax.set_title(r"$\mathrm{Ca_i^{2+}}$ dynamics in %s $\unit{\micro\metre}$ dend between $\num{800}$ and $\num{900}\,\unit{\second}$" %  diam, fontsize=14)
+            fig.savefig(new_fname[:-3]+"_inset_"+key+".png", dpi=100,
                         bbox_inches="tight")
-            fig.savefig(new_fname[:-3]+"_"+key+".eps", dpi=100,
+            fig.savefig(new_fname[:-3]+"_inset_"+key+".eps", dpi=100,
                         bbox_inches="tight")
     
     

@@ -1,0 +1,46 @@
+import os
+import utility_functions as utils
+from matplotlib.lines import Line2D
+
+
+
+                  
+colors = {"1.2": 'tab:blue',
+          "2.4": 'tab:purple',
+          "6.0": 'tab:green'}
+directories = [
+     [
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_AP_%s",
+        "model_RyR2CaM_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
+    ],
+    [
+        "Ca_wave_simple_SERCA_SOCE_AP_%s",
+        "model_RyR_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM.h5"
+    ],
+    [
+        "Ca_wave_RyR2CaM_simple_SERCA_SOCE_AP_%s",
+        "model_RyR2CaM_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM_det-all-conc.txt.out"
+    ],
+    [
+        "Ca_wave_simple_SERCA_SOCE_AP_%s",
+        "model_RyR_3s_injection%s_simple_SERCA_SOCE_tubes_diam_%s_um_50_um_%s_nM_det-all-conc.txt.out"
+    ],
+]
+stims = ["0175", "0350", "0700", "1050", "2000"]
+dend_diam = ["1.2"]
+
+
+if __name__ == '__main__':
+    types = ["ctrl", "RyR2 no CaM", "ctrl deterministic","RyR2 no CaM deterministic" ]
+    markers = ["o", "o", 'd', "d"]
+    fillstyle = ["full", "none", "full", "none"]
+
+    fig1 = utils.make_distance_fig_sep_dends(directories,
+                                             dend_diam,
+                                             stims,
+                                             "all", 
+                                             colors,
+                                             types, markers,
+                                             fillstyle, find_middle=True)
+    fig1.savefig("RyR_AP_distance_letter.png", dpi=100, bbox_inches="tight")
+    fig1.savefig("RyR_AP_distance_letter.eps", dpi=100, bbox_inches="tight")
